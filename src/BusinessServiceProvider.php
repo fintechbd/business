@@ -2,9 +2,9 @@
 
 namespace Fintech\Business;
 
-use Illuminate\Support\ServiceProvider;
-use Fintech\Business\Commands\InstallCommand;
 use Fintech\Business\Commands\BusinessCommand;
+use Fintech\Business\Commands\InstallCommand;
+use Illuminate\Support\ServiceProvider;
 
 class BusinessServiceProvider extends ServiceProvider
 {
