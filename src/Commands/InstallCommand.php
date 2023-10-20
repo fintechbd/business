@@ -1,12 +1,12 @@
 <?php
 
-namespace VendorName\Skeleton\Commands;
+namespace Fintech\Business\Commands;
 
 use Illuminate\Console\Command;
 
 class InstallCommand extends Command
 {
-    public $signature = 'skeleton:install';
+    public $signature = 'business:install';
 
     public $description = 'My command';
 

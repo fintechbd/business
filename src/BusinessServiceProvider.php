@@ -1,12 +1,12 @@
 <?php
 
-namespace VendorName\Skeleton;
+namespace Fintech\Business;
 
 use Illuminate\Support\ServiceProvider;
-use VendorName\Skeleton\Commands\InstallCommand;
-use VendorName\Skeleton\Commands\SkeletonCommand;
+use Fintech\Business\Commands\InstallCommand;
+use Fintech\Business\Commands\BusinessCommand;
 
-class SkeletonServiceProvider extends ServiceProvider
+class BusinessServiceProvider extends ServiceProvider
 {
     /**
      * Register any application services.
@@ -16,7 +16,7 @@ class SkeletonServiceProvider extends ServiceProvider
     public function register()
     {
         $this->mergeConfigFrom(
-            __DIR__.'/../config/skeleton.php', 'fintech.skeleton'
+            __DIR__.'/../config/business.php', 'fintech.business'
         );
 
         $this->app->register(RouteServiceProvider::class);
@@ -28,27 +28,27 @@ class SkeletonServiceProvider extends ServiceProvider
     public function boot(): void
     {
         $this->publishes([
-            __DIR__.'/../config/skeleton.php' => config_path('fintech/skeleton.php'),
+            __DIR__.'/../config/business.php' => config_path('fintech/business.php'),
         ]);
 
         $this->loadMigrationsFrom(__DIR__.'/../database/migrations');
 
-        $this->loadTranslationsFrom(__DIR__.'/../lang', 'skeleton');
+        $this->loadTranslationsFrom(__DIR__.'/../lang', 'business');
 
         $this->publishes([
-            __DIR__.'/../lang' => $this->app->langPath('vendor/skeleton'),
+            __DIR__.'/../lang' => $this->app->langPath('vendor/business'),
         ]);
 
-        $this->loadViewsFrom(__DIR__.'/../resources/views', 'skeleton');
+        $this->loadViewsFrom(__DIR__.'/../resources/views', 'business');
 
         $this->publishes([
-            __DIR__.'/../resources/views' => resource_path('views/vendor/skeleton'),
+            __DIR__.'/../resources/views' => resource_path('views/vendor/business'),
         ]);
 
         if ($this->app->runningInConsole()) {
             $this->commands([
                 InstallCommand::class,
-                SkeletonCommand::class,
+                BusinessCommand::class,
             ]);
         }
     }

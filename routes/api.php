@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 if (Config::get('fintech.business.enabled')) {
-    Route::prefix('skeleton')->group(function () {
+    Route::prefix('business')->group(function () {
 
         //DO NOT REMOVE THIS LINE//
     });
