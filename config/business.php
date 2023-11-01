@@ -24,6 +24,86 @@ return [
 
     'root_prefix' => 'test/',
 
+    
+    /*
+    |--------------------------------------------------------------------------
+    | ServiceSetting Model
+    |--------------------------------------------------------------------------
+    |
+    | This value will be used to across system where model is needed
+    */
+    'service_setting_model' => \Fintech\Business\Models\ServiceSetting::class,
+
+    
+    /*
+    |--------------------------------------------------------------------------
+    | ServiceType Model
+    |--------------------------------------------------------------------------
+    |
+    | This value will be used to across system where model is needed
+    */
+    'service_type_model' => \Fintech\Business\Models\ServiceType::class,
+
+    
+    /*
+    |--------------------------------------------------------------------------
+    | Service Model
+    |--------------------------------------------------------------------------
+    |
+    | This value will be used to across system where model is needed
+    */
+    'service_model' => \Fintech\Business\Models\Service::class,
+
+    
+    /*
+    |--------------------------------------------------------------------------
+    | ServiceState Model
+    |--------------------------------------------------------------------------
+    |
+    | This value will be used to across system where model is needed
+    */
+    'service_state_model' => \Fintech\Business\Models\ServiceState::class,
+
+    
+    /*
+    |--------------------------------------------------------------------------
+    | ServicePackage Model
+    |--------------------------------------------------------------------------
+    |
+    | This value will be used to across system where model is needed
+    */
+    'service_package_model' => \Fintech\Business\Models\ServicePackage::class,
+
+    
+    /*
+    |--------------------------------------------------------------------------
+    | ChargeBreakDown Model
+    |--------------------------------------------------------------------------
+    |
+    | This value will be used to across system where model is needed
+    */
+    'charge_break_down_model' => \Fintech\Business\Models\ChargeBreakDown::class,
+
+    
+    /*
+    |--------------------------------------------------------------------------
+    | Vendor Model
+    |--------------------------------------------------------------------------
+    |
+    | This value will be used to across system where model is needed
+    */
+    'vendor_model' => \Fintech\Business\Models\Vendor::class,
+
+    
+    /*
+    |--------------------------------------------------------------------------
+    | PackageTopChart Model
+    |--------------------------------------------------------------------------
+    |
+    | This value will be used to across system where model is needed
+    */
+    'package_top_chart_model' => \Fintech\Business\Models\PackageTopChart::class,
+
     //** Model Config Point Do not Remove **//
 
     /*
@@ -35,6 +115,22 @@ return [
     */
 
     'repositories' => [
+        \Fintech\Business\Interfaces\ServiceSettingRepository::class => \Fintech\Business\Repositories\Eloquent\ServiceSettingRepository::class,
+
+        \Fintech\Business\Interfaces\ServiceTypeRepository::class => \Fintech\Business\Repositories\Eloquent\ServiceTypeRepository::class,
+
+        \Fintech\Business\Interfaces\ServiceRepository::class => \Fintech\Business\Repositories\Eloquent\ServiceRepository::class,
+
+        \Fintech\Business\Interfaces\ServiceStateRepository::class => \Fintech\Business\Repositories\Eloquent\ServiceStateRepository::class,
+
+        \Fintech\Business\Interfaces\ServicePackageRepository::class => \Fintech\Business\Repositories\Eloquent\ServicePackageRepository::class,
+
+        \Fintech\Business\Interfaces\ChargeBreakDownRepository::class => \Fintech\Business\Repositories\Eloquent\ChargeBreakDownRepository::class,
+
+        \Fintech\Business\Interfaces\VendorRepository::class => \Fintech\Business\Repositories\Eloquent\VendorRepository::class,
+
+        \Fintech\Business\Interfaces\PackageTopChartRepository::class => \Fintech\Business\Repositories\Eloquent\PackageTopChartRepository::class,
+
         //** Repository Binding Config Point Do not Remove **//
     ],
 
