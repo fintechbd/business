@@ -1,34 +1,33 @@
 <?php
 
 namespace Fintech\Business\Http\Controllers;
+
 use Exception;
-use Fintech\Core\Exceptions\StoreOperationException;
-use Fintech\Core\Exceptions\UpdateOperationException;
-use Fintech\Core\Exceptions\DeleteOperationException;
-use Fintech\Core\Exceptions\RestoreOperationException;
-use Fintech\Core\Traits\ApiResponseTrait;
 use Fintech\Business\Facades\Business;
-use Fintech\Business\Http\Resources\ServiceResource;
-use Fintech\Business\Http\Resources\ServiceCollection;
 use Fintech\Business\Http\Requests\ImportServiceRequest;
+use Fintech\Business\Http\Requests\IndexServiceRequest;
 use Fintech\Business\Http\Requests\StoreServiceRequest;
 use Fintech\Business\Http\Requests\UpdateServiceRequest;
-use Fintech\Business\Http\Requests\IndexServiceRequest;
+use Fintech\Business\Http\Resources\ServiceCollection;
+use Fintech\Business\Http\Resources\ServiceResource;
+use Fintech\Core\Exceptions\DeleteOperationException;
+use Fintech\Core\Exceptions\RestoreOperationException;
+use Fintech\Core\Exceptions\StoreOperationException;
+use Fintech\Core\Exceptions\UpdateOperationException;
+use Fintech\Core\Traits\ApiResponseTrait;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Routing\Controller;
 
 /**
  * Class ServiceController
- * @package Fintech\Business\Http\Controllers
  *
  * @lrd:start
  * This class handle create, display, update, delete & restore
  * operation related to Service
- * @lrd:end
  *
+ * @lrd:end
  */
-
 class ServiceController extends Controller
 {
     use ApiResponseTrait;
@@ -38,10 +37,8 @@ class ServiceController extends Controller
      * Return a listing of the *Service* resource as collection.
      *
      * *```paginate=false``` returns all resource as list not pagination*
-     * @lrd:end
      *
-     * @param IndexServiceRequest $request
-     * @return ServiceCollection|JsonResponse
+     * @lrd:end
      */
     public function index(IndexServiceRequest $request): ServiceCollection|JsonResponse
     {
@@ -61,10 +58,9 @@ class ServiceController extends Controller
     /**
      * @lrd:start
      * Create a new *Service* resource in storage.
+     *
      * @lrd:end
      *
-     * @param StoreServiceRequest $request
-     * @return JsonResponse
      * @throws StoreOperationException
      */
     public function store(StoreServiceRequest $request): JsonResponse
@@ -74,14 +70,14 @@ class ServiceController extends Controller
 
             $service = Business::service()->create($inputs);
 
-            if (!$service) {
+            if (! $service) {
                 throw (new StoreOperationException)->setModel(config('fintech.business.service_model'));
             }
 
             return $this->created([
                 'message' => __('core::messages.resource.created', ['model' => 'Service']),
-                'id' => $service->id
-             ]);
+                'id' => $service->id,
+            ]);
 
         } catch (Exception $exception) {
 
@@ -92,10 +88,9 @@ class ServiceController extends Controller
     /**
      * @lrd:start
      * Return a specified *Service* resource found by id.
+     *
      * @lrd:end
      *
-     * @param string|int $id
-     * @return ServiceResource|JsonResponse
      * @throws ModelNotFoundException
      */
     public function show(string|int $id): ServiceResource|JsonResponse
@@ -104,7 +99,7 @@ class ServiceController extends Controller
 
             $service = Business::service()->find($id);
 
-            if (!$service) {
+            if (! $service) {
                 throw (new ModelNotFoundException)->setModel(config('fintech.business.service_model'), $id);
             }
 
@@ -123,11 +118,9 @@ class ServiceController extends Controller
     /**
      * @lrd:start
      * Update a specified *Service* resource using id.
+     *
      * @lrd:end
      *
-     * @param UpdateServiceRequest $request
-     * @param string|int $id
-     * @return JsonResponse
      * @throws ModelNotFoundException
      * @throws UpdateOperationException
      */
@@ -137,13 +130,13 @@ class ServiceController extends Controller
 
             $service = Business::service()->find($id);
 
-            if (!$service) {
+            if (! $service) {
                 throw (new ModelNotFoundException)->setModel(config('fintech.business.service_model'), $id);
             }
 
             $inputs = $request->validated();
 
-            if (!Business::service()->update($id, $inputs)) {
+            if (! Business::service()->update($id, $inputs)) {
 
                 throw (new UpdateOperationException)->setModel(config('fintech.business.service_model'), $id);
             }
@@ -163,10 +156,11 @@ class ServiceController extends Controller
     /**
      * @lrd:start
      * Soft delete a specified *Service* resource using id.
+     *
      * @lrd:end
      *
-     * @param string|int $id
      * @return JsonResponse
+     *
      * @throws ModelNotFoundException
      * @throws DeleteOperationException
      */
@@ -176,11 +170,11 @@ class ServiceController extends Controller
 
             $service = Business::service()->find($id);
 
-            if (!$service) {
+            if (! $service) {
                 throw (new ModelNotFoundException)->setModel(config('fintech.business.service_model'), $id);
             }
 
-            if (!Business::service()->destroy($id)) {
+            if (! Business::service()->destroy($id)) {
 
                 throw (new DeleteOperationException())->setModel(config('fintech.business.service_model'), $id);
             }
@@ -201,9 +195,9 @@ class ServiceController extends Controller
      * @lrd:start
      * Restore the specified *Service* resource from trash.
      * ** ```Soft Delete``` needs to enabled to use this feature**
+     *
      * @lrd:end
      *
-     * @param string|int $id
      * @return JsonResponse
      */
     public function restore(string|int $id)
@@ -212,11 +206,11 @@ class ServiceController extends Controller
 
             $service = Business::service()->find($id, true);
 
-            if (!$service) {
+            if (! $service) {
                 throw (new ModelNotFoundException)->setModel(config('fintech.business.service_model'), $id);
             }
 
-            if (!Business::service()->restore($id)) {
+            if (! Business::service()->restore($id)) {
 
                 throw (new RestoreOperationException())->setModel(config('fintech.business.service_model'), $id);
             }
@@ -239,9 +233,6 @@ class ServiceController extends Controller
      * After export job is done system will fire  export completed event
      *
      * @lrd:end
-     *
-     * @param IndexServiceRequest $request
-     * @return JsonResponse
      */
     public function export(IndexServiceRequest $request): JsonResponse
     {
@@ -265,7 +256,6 @@ class ServiceController extends Controller
      *
      * @lrd:end
      *
-     * @param ImportServiceRequest $request
      * @return ServiceCollection|JsonResponse
      */
     public function import(ImportServiceRequest $request): JsonResponse

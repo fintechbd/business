@@ -2,8 +2,8 @@
 
 namespace Fintech\Business\Repositories\Eloquent;
 
-use Fintech\Core\Repositories\EloquentRepository;
 use Fintech\Business\Interfaces\ServiceVendorRepository as InterfacesServiceVendorRepository;
+use Fintech\Core\Repositories\EloquentRepository;
 use Illuminate\Contracts\Pagination\Paginator;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
@@ -11,19 +11,18 @@ use InvalidArgumentException;
 
 /**
  * Class ServiceVendorRepository
- * @package Fintech\Business\Repositories\Eloquent
  */
 class ServiceVendorRepository extends EloquentRepository implements InterfacesServiceVendorRepository
 {
     public function __construct()
     {
-       $model = app(config('fintech.business.service_vendor_model', \Fintech\Business\Models\ServiceVendor::class));
+        $model = app(config('fintech.business.service_vendor_model', \Fintech\Business\Models\ServiceVendor::class));
 
-       if (!$model instanceof Model) {
-           throw new InvalidArgumentException("Eloquent repository require model class to be `Illuminate\Database\Eloquent\Model` instance.");
-       }
+        if (! $model instanceof Model) {
+            throw new InvalidArgumentException("Eloquent repository require model class to be `Illuminate\Database\Eloquent\Model` instance.");
+        }
 
-       $this->model = $model;
+        $this->model = $model;
     }
 
     /**
@@ -46,7 +45,7 @@ class ServiceVendorRepository extends EloquentRepository implements InterfacesSe
         }
 
         //Display Trashed
-        if (isset($filters['trashed']) && !empty($filters['trashed'])) {
+        if (isset($filters['trashed']) && ! empty($filters['trashed'])) {
             $query->onlyTrashed();
         }
 

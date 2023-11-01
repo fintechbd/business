@@ -1,34 +1,33 @@
 <?php
 
 namespace Fintech\Business\Http\Controllers;
+
 use Exception;
-use Fintech\Core\Exceptions\StoreOperationException;
-use Fintech\Core\Exceptions\UpdateOperationException;
-use Fintech\Core\Exceptions\DeleteOperationException;
-use Fintech\Core\Exceptions\RestoreOperationException;
-use Fintech\Core\Traits\ApiResponseTrait;
 use Fintech\Business\Facades\Business;
-use Fintech\Business\Http\Resources\PackageTopChartResource;
-use Fintech\Business\Http\Resources\PackageTopChartCollection;
 use Fintech\Business\Http\Requests\ImportPackageTopChartRequest;
+use Fintech\Business\Http\Requests\IndexPackageTopChartRequest;
 use Fintech\Business\Http\Requests\StorePackageTopChartRequest;
 use Fintech\Business\Http\Requests\UpdatePackageTopChartRequest;
-use Fintech\Business\Http\Requests\IndexPackageTopChartRequest;
+use Fintech\Business\Http\Resources\PackageTopChartCollection;
+use Fintech\Business\Http\Resources\PackageTopChartResource;
+use Fintech\Core\Exceptions\DeleteOperationException;
+use Fintech\Core\Exceptions\RestoreOperationException;
+use Fintech\Core\Exceptions\StoreOperationException;
+use Fintech\Core\Exceptions\UpdateOperationException;
+use Fintech\Core\Traits\ApiResponseTrait;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Routing\Controller;
 
 /**
  * Class PackageTopChartController
- * @package Fintech\Business\Http\Controllers
  *
  * @lrd:start
  * This class handle create, display, update, delete & restore
  * operation related to PackageTopChart
- * @lrd:end
  *
+ * @lrd:end
  */
-
 class PackageTopChartController extends Controller
 {
     use ApiResponseTrait;
@@ -38,10 +37,8 @@ class PackageTopChartController extends Controller
      * Return a listing of the *PackageTopChart* resource as collection.
      *
      * *```paginate=false``` returns all resource as list not pagination*
-     * @lrd:end
      *
-     * @param IndexPackageTopChartRequest $request
-     * @return PackageTopChartCollection|JsonResponse
+     * @lrd:end
      */
     public function index(IndexPackageTopChartRequest $request): PackageTopChartCollection|JsonResponse
     {
@@ -61,10 +58,9 @@ class PackageTopChartController extends Controller
     /**
      * @lrd:start
      * Create a new *PackageTopChart* resource in storage.
+     *
      * @lrd:end
      *
-     * @param StorePackageTopChartRequest $request
-     * @return JsonResponse
      * @throws StoreOperationException
      */
     public function store(StorePackageTopChartRequest $request): JsonResponse
@@ -74,14 +70,14 @@ class PackageTopChartController extends Controller
 
             $packageTopChart = Business::packageTopChart()->create($inputs);
 
-            if (!$packageTopChart) {
+            if (! $packageTopChart) {
                 throw (new StoreOperationException)->setModel(config('fintech.business.package_top_chart_model'));
             }
 
             return $this->created([
                 'message' => __('core::messages.resource.created', ['model' => 'Package Top Chart']),
-                'id' => $packageTopChart->id
-             ]);
+                'id' => $packageTopChart->id,
+            ]);
 
         } catch (Exception $exception) {
 
@@ -92,10 +88,9 @@ class PackageTopChartController extends Controller
     /**
      * @lrd:start
      * Return a specified *PackageTopChart* resource found by id.
+     *
      * @lrd:end
      *
-     * @param string|int $id
-     * @return PackageTopChartResource|JsonResponse
      * @throws ModelNotFoundException
      */
     public function show(string|int $id): PackageTopChartResource|JsonResponse
@@ -104,7 +99,7 @@ class PackageTopChartController extends Controller
 
             $packageTopChart = Business::packageTopChart()->find($id);
 
-            if (!$packageTopChart) {
+            if (! $packageTopChart) {
                 throw (new ModelNotFoundException)->setModel(config('fintech.business.package_top_chart_model'), $id);
             }
 
@@ -123,11 +118,9 @@ class PackageTopChartController extends Controller
     /**
      * @lrd:start
      * Update a specified *PackageTopChart* resource using id.
+     *
      * @lrd:end
      *
-     * @param UpdatePackageTopChartRequest $request
-     * @param string|int $id
-     * @return JsonResponse
      * @throws ModelNotFoundException
      * @throws UpdateOperationException
      */
@@ -137,13 +130,13 @@ class PackageTopChartController extends Controller
 
             $packageTopChart = Business::packageTopChart()->find($id);
 
-            if (!$packageTopChart) {
+            if (! $packageTopChart) {
                 throw (new ModelNotFoundException)->setModel(config('fintech.business.package_top_chart_model'), $id);
             }
 
             $inputs = $request->validated();
 
-            if (!Business::packageTopChart()->update($id, $inputs)) {
+            if (! Business::packageTopChart()->update($id, $inputs)) {
 
                 throw (new UpdateOperationException)->setModel(config('fintech.business.package_top_chart_model'), $id);
             }
@@ -163,10 +156,11 @@ class PackageTopChartController extends Controller
     /**
      * @lrd:start
      * Soft delete a specified *PackageTopChart* resource using id.
+     *
      * @lrd:end
      *
-     * @param string|int $id
      * @return JsonResponse
+     *
      * @throws ModelNotFoundException
      * @throws DeleteOperationException
      */
@@ -176,11 +170,11 @@ class PackageTopChartController extends Controller
 
             $packageTopChart = Business::packageTopChart()->find($id);
 
-            if (!$packageTopChart) {
+            if (! $packageTopChart) {
                 throw (new ModelNotFoundException)->setModel(config('fintech.business.package_top_chart_model'), $id);
             }
 
-            if (!Business::packageTopChart()->destroy($id)) {
+            if (! Business::packageTopChart()->destroy($id)) {
 
                 throw (new DeleteOperationException())->setModel(config('fintech.business.package_top_chart_model'), $id);
             }
@@ -201,9 +195,9 @@ class PackageTopChartController extends Controller
      * @lrd:start
      * Restore the specified *PackageTopChart* resource from trash.
      * ** ```Soft Delete``` needs to enabled to use this feature**
+     *
      * @lrd:end
      *
-     * @param string|int $id
      * @return JsonResponse
      */
     public function restore(string|int $id)
@@ -212,11 +206,11 @@ class PackageTopChartController extends Controller
 
             $packageTopChart = Business::packageTopChart()->find($id, true);
 
-            if (!$packageTopChart) {
+            if (! $packageTopChart) {
                 throw (new ModelNotFoundException)->setModel(config('fintech.business.package_top_chart_model'), $id);
             }
 
-            if (!Business::packageTopChart()->restore($id)) {
+            if (! Business::packageTopChart()->restore($id)) {
 
                 throw (new RestoreOperationException())->setModel(config('fintech.business.package_top_chart_model'), $id);
             }
@@ -239,9 +233,6 @@ class PackageTopChartController extends Controller
      * After export job is done system will fire  export completed event
      *
      * @lrd:end
-     *
-     * @param IndexPackageTopChartRequest $request
-     * @return JsonResponse
      */
     public function export(IndexPackageTopChartRequest $request): JsonResponse
     {
@@ -265,7 +256,6 @@ class PackageTopChartController extends Controller
      *
      * @lrd:end
      *
-     * @param ImportPackageTopChartRequest $request
      * @return PackageTopChartCollection|JsonResponse
      */
     public function import(ImportPackageTopChartRequest $request): JsonResponse

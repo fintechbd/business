@@ -1,34 +1,33 @@
 <?php
 
 namespace Fintech\Business\Http\Controllers;
+
 use Exception;
-use Fintech\Core\Exceptions\StoreOperationException;
-use Fintech\Core\Exceptions\UpdateOperationException;
-use Fintech\Core\Exceptions\DeleteOperationException;
-use Fintech\Core\Exceptions\RestoreOperationException;
-use Fintech\Core\Traits\ApiResponseTrait;
 use Fintech\Business\Facades\Business;
-use Fintech\Business\Http\Resources\ServiceVendorResource;
-use Fintech\Business\Http\Resources\ServiceVendorCollection;
 use Fintech\Business\Http\Requests\ImportServiceVendorRequest;
+use Fintech\Business\Http\Requests\IndexServiceVendorRequest;
 use Fintech\Business\Http\Requests\StoreServiceVendorRequest;
 use Fintech\Business\Http\Requests\UpdateServiceVendorRequest;
-use Fintech\Business\Http\Requests\IndexServiceVendorRequest;
+use Fintech\Business\Http\Resources\ServiceVendorCollection;
+use Fintech\Business\Http\Resources\ServiceVendorResource;
+use Fintech\Core\Exceptions\DeleteOperationException;
+use Fintech\Core\Exceptions\RestoreOperationException;
+use Fintech\Core\Exceptions\StoreOperationException;
+use Fintech\Core\Exceptions\UpdateOperationException;
+use Fintech\Core\Traits\ApiResponseTrait;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Routing\Controller;
 
 /**
  * Class ServiceVendorController
- * @package Fintech\Business\Http\Controllers
  *
  * @lrd:start
  * This class handle create, display, update, delete & restore
  * operation related to ServiceVendor
- * @lrd:end
  *
+ * @lrd:end
  */
-
 class ServiceVendorController extends Controller
 {
     use ApiResponseTrait;
@@ -38,10 +37,8 @@ class ServiceVendorController extends Controller
      * Return a listing of the *ServiceVendor* resource as collection.
      *
      * *```paginate=false``` returns all resource as list not pagination*
-     * @lrd:end
      *
-     * @param IndexServiceVendorRequest $request
-     * @return ServiceVendorCollection|JsonResponse
+     * @lrd:end
      */
     public function index(IndexServiceVendorRequest $request): ServiceVendorCollection|JsonResponse
     {
@@ -61,10 +58,9 @@ class ServiceVendorController extends Controller
     /**
      * @lrd:start
      * Create a new *ServiceVendor* resource in storage.
+     *
      * @lrd:end
      *
-     * @param StoreServiceVendorRequest $request
-     * @return JsonResponse
      * @throws StoreOperationException
      */
     public function store(StoreServiceVendorRequest $request): JsonResponse
@@ -74,14 +70,14 @@ class ServiceVendorController extends Controller
 
             $serviceVendor = Business::serviceVendor()->create($inputs);
 
-            if (!$serviceVendor) {
+            if (! $serviceVendor) {
                 throw (new StoreOperationException)->setModel(config('fintech.business.service_vendor_model'));
             }
 
             return $this->created([
                 'message' => __('core::messages.resource.created', ['model' => 'Service Vendor']),
-                'id' => $serviceVendor->id
-             ]);
+                'id' => $serviceVendor->id,
+            ]);
 
         } catch (Exception $exception) {
 
@@ -92,10 +88,9 @@ class ServiceVendorController extends Controller
     /**
      * @lrd:start
      * Return a specified *ServiceVendor* resource found by id.
+     *
      * @lrd:end
      *
-     * @param string|int $id
-     * @return ServiceVendorResource|JsonResponse
      * @throws ModelNotFoundException
      */
     public function show(string|int $id): ServiceVendorResource|JsonResponse
@@ -104,7 +99,7 @@ class ServiceVendorController extends Controller
 
             $serviceVendor = Business::serviceVendor()->find($id);
 
-            if (!$serviceVendor) {
+            if (! $serviceVendor) {
                 throw (new ModelNotFoundException)->setModel(config('fintech.business.service_vendor_model'), $id);
             }
 
@@ -123,11 +118,9 @@ class ServiceVendorController extends Controller
     /**
      * @lrd:start
      * Update a specified *ServiceVendor* resource using id.
+     *
      * @lrd:end
      *
-     * @param UpdateServiceVendorRequest $request
-     * @param string|int $id
-     * @return JsonResponse
      * @throws ModelNotFoundException
      * @throws UpdateOperationException
      */
@@ -137,13 +130,13 @@ class ServiceVendorController extends Controller
 
             $serviceVendor = Business::serviceVendor()->find($id);
 
-            if (!$serviceVendor) {
+            if (! $serviceVendor) {
                 throw (new ModelNotFoundException)->setModel(config('fintech.business.service_vendor_model'), $id);
             }
 
             $inputs = $request->validated();
 
-            if (!Business::serviceVendor()->update($id, $inputs)) {
+            if (! Business::serviceVendor()->update($id, $inputs)) {
 
                 throw (new UpdateOperationException)->setModel(config('fintech.business.service_vendor_model'), $id);
             }
@@ -163,10 +156,11 @@ class ServiceVendorController extends Controller
     /**
      * @lrd:start
      * Soft delete a specified *ServiceVendor* resource using id.
+     *
      * @lrd:end
      *
-     * @param string|int $id
      * @return JsonResponse
+     *
      * @throws ModelNotFoundException
      * @throws DeleteOperationException
      */
@@ -176,11 +170,11 @@ class ServiceVendorController extends Controller
 
             $serviceVendor = Business::serviceVendor()->find($id);
 
-            if (!$serviceVendor) {
+            if (! $serviceVendor) {
                 throw (new ModelNotFoundException)->setModel(config('fintech.business.service_vendor_model'), $id);
             }
 
-            if (!Business::serviceVendor()->destroy($id)) {
+            if (! Business::serviceVendor()->destroy($id)) {
 
                 throw (new DeleteOperationException())->setModel(config('fintech.business.service_vendor_model'), $id);
             }
@@ -201,9 +195,9 @@ class ServiceVendorController extends Controller
      * @lrd:start
      * Restore the specified *ServiceVendor* resource from trash.
      * ** ```Soft Delete``` needs to enabled to use this feature**
+     *
      * @lrd:end
      *
-     * @param string|int $id
      * @return JsonResponse
      */
     public function restore(string|int $id)
@@ -212,11 +206,11 @@ class ServiceVendorController extends Controller
 
             $serviceVendor = Business::serviceVendor()->find($id, true);
 
-            if (!$serviceVendor) {
+            if (! $serviceVendor) {
                 throw (new ModelNotFoundException)->setModel(config('fintech.business.service_vendor_model'), $id);
             }
 
-            if (!Business::serviceVendor()->restore($id)) {
+            if (! Business::serviceVendor()->restore($id)) {
 
                 throw (new RestoreOperationException())->setModel(config('fintech.business.service_vendor_model'), $id);
             }
@@ -239,9 +233,6 @@ class ServiceVendorController extends Controller
      * After export job is done system will fire  export completed event
      *
      * @lrd:end
-     *
-     * @param IndexServiceVendorRequest $request
-     * @return JsonResponse
      */
     public function export(IndexServiceVendorRequest $request): JsonResponse
     {
@@ -265,7 +256,6 @@ class ServiceVendorController extends Controller
      *
      * @lrd:end
      *
-     * @param ImportServiceVendorRequest $request
      * @return ServiceVendorCollection|JsonResponse
      */
     public function import(ImportServiceVendorRequest $request): JsonResponse

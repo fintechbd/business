@@ -2,28 +2,27 @@
 
 namespace Fintech\Business\Repositories\Mongodb;
 
-use Fintech\Core\Repositories\MongodbRepository;
 use Fintech\Business\Interfaces\ServicePackageRepository as InterfacesServicePackageRepository;
+use Fintech\Core\Repositories\MongodbRepository;
 use Illuminate\Contracts\Pagination\Paginator;
 use Illuminate\Database\Eloquent\Collection;
-use MongoDB\Laravel\Eloquent\Model;
 use InvalidArgumentException;
+use MongoDB\Laravel\Eloquent\Model;
 
 /**
  * Class ServicePackageRepository
- * @package Fintech\Business\Repositories\Mongodb
  */
 class ServicePackageRepository extends MongodbRepository implements InterfacesServicePackageRepository
 {
     public function __construct()
     {
-       $model = app(config('fintech.business.service_package_model', \Fintech\Business\Models\ServicePackage::class));
+        $model = app(config('fintech.business.service_package_model', \Fintech\Business\Models\ServicePackage::class));
 
-       if (!$model instanceof Model) {
-           throw new InvalidArgumentException("Mongodb repository require model class to be `MongoDB\Laravel\Eloquent\Model` instance.");
-       }
+        if (! $model instanceof Model) {
+            throw new InvalidArgumentException("Mongodb repository require model class to be `MongoDB\Laravel\Eloquent\Model` instance.");
+        }
 
-       $this->model = $model;
+        $this->model = $model;
     }
 
     /**
@@ -46,7 +45,7 @@ class ServicePackageRepository extends MongodbRepository implements InterfacesSe
         }
 
         //Display Trashed
-        if (isset($filters['trashed']) && !empty($filters['trashed'])) {
+        if (isset($filters['trashed']) && ! empty($filters['trashed'])) {
             $query->onlyTrashed();
         }
 

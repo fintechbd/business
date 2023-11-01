@@ -2,8 +2,8 @@
 
 namespace Fintech\Business\Repositories\Eloquent;
 
-use Fintech\Core\Repositories\EloquentRepository;
 use Fintech\Business\Interfaces\ChargeBreakDownRepository as InterfacesChargeBreakDownRepository;
+use Fintech\Core\Repositories\EloquentRepository;
 use Illuminate\Contracts\Pagination\Paginator;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
@@ -11,19 +11,18 @@ use InvalidArgumentException;
 
 /**
  * Class ChargeBreakDownRepository
- * @package Fintech\Business\Repositories\Eloquent
  */
 class ChargeBreakDownRepository extends EloquentRepository implements InterfacesChargeBreakDownRepository
 {
     public function __construct()
     {
-       $model = app(config('fintech.business.charge_break_down_model', \Fintech\Business\Models\ChargeBreakDown::class));
+        $model = app(config('fintech.business.charge_break_down_model', \Fintech\Business\Models\ChargeBreakDown::class));
 
-       if (!$model instanceof Model) {
-           throw new InvalidArgumentException("Eloquent repository require model class to be `Illuminate\Database\Eloquent\Model` instance.");
-       }
+        if (! $model instanceof Model) {
+            throw new InvalidArgumentException("Eloquent repository require model class to be `Illuminate\Database\Eloquent\Model` instance.");
+        }
 
-       $this->model = $model;
+        $this->model = $model;
     }
 
     /**
@@ -46,7 +45,7 @@ class ChargeBreakDownRepository extends EloquentRepository implements Interfaces
         }
 
         //Display Trashed
-        if (isset($filters['trashed']) && !empty($filters['trashed'])) {
+        if (isset($filters['trashed']) && ! empty($filters['trashed'])) {
             $query->onlyTrashed();
         }
 

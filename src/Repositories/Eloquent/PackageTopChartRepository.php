@@ -2,8 +2,8 @@
 
 namespace Fintech\Business\Repositories\Eloquent;
 
-use Fintech\Core\Repositories\EloquentRepository;
 use Fintech\Business\Interfaces\PackageTopChartRepository as InterfacesPackageTopChartRepository;
+use Fintech\Core\Repositories\EloquentRepository;
 use Illuminate\Contracts\Pagination\Paginator;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
@@ -11,19 +11,18 @@ use InvalidArgumentException;
 
 /**
  * Class PackageTopChartRepository
- * @package Fintech\Business\Repositories\Eloquent
  */
 class PackageTopChartRepository extends EloquentRepository implements InterfacesPackageTopChartRepository
 {
     public function __construct()
     {
-       $model = app(config('fintech.business.package_top_chart_model', \Fintech\Business\Models\PackageTopChart::class));
+        $model = app(config('fintech.business.package_top_chart_model', \Fintech\Business\Models\PackageTopChart::class));
 
-       if (!$model instanceof Model) {
-           throw new InvalidArgumentException("Eloquent repository require model class to be `Illuminate\Database\Eloquent\Model` instance.");
-       }
+        if (! $model instanceof Model) {
+            throw new InvalidArgumentException("Eloquent repository require model class to be `Illuminate\Database\Eloquent\Model` instance.");
+        }
 
-       $this->model = $model;
+        $this->model = $model;
     }
 
     /**
@@ -46,7 +45,7 @@ class PackageTopChartRepository extends EloquentRepository implements Interfaces
         }
 
         //Display Trashed
-        if (isset($filters['trashed']) && !empty($filters['trashed'])) {
+        if (isset($filters['trashed']) && ! empty($filters['trashed'])) {
             $query->onlyTrashed();
         }
 

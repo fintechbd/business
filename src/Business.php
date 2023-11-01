@@ -41,6 +41,7 @@ class Business
     {
         return app(ServiceState::class);
     }
+
     public function serviceVendor()
     {
         return app(ServiceVendor::class);

@@ -2,26 +2,22 @@
 
 namespace Fintech\Business\Services;
 
-
 use Fintech\Business\Interfaces\ServiceSettingRepository;
 
 /**
  * Class ServiceSettingService
- * @package Fintech\Business\Services
- *
  */
 class ServiceSettingService
 {
     /**
      * ServiceSettingService constructor.
-     * @param ServiceSettingRepository $serviceSettingRepository
      */
-    public function __construct(ServiceSettingRepository $serviceSettingRepository) {
+    public function __construct(ServiceSettingRepository $serviceSettingRepository)
+    {
         $this->serviceSettingRepository = $serviceSettingRepository;
     }
 
     /**
-     * @param array $filters
      * @return mixed
      */
     public function list(array $filters = [])

@@ -2,26 +2,22 @@
 
 namespace Fintech\Business\Services;
 
-
 use Fintech\Business\Interfaces\PackageTopChartRepository;
 
 /**
  * Class PackageTopChartService
- * @package Fintech\Business\Services
- *
  */
 class PackageTopChartService
 {
     /**
      * PackageTopChartService constructor.
-     * @param PackageTopChartRepository $packageTopChartRepository
      */
-    public function __construct(PackageTopChartRepository $packageTopChartRepository) {
+    public function __construct(PackageTopChartRepository $packageTopChartRepository)
+    {
         $this->packageTopChartRepository = $packageTopChartRepository;
     }
 
     /**
-     * @param array $filters
      * @return mixed
      */
     public function list(array $filters = [])

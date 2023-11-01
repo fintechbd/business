@@ -1,34 +1,33 @@
 <?php
 
 namespace Fintech\Business\Http\Controllers;
+
 use Exception;
-use Fintech\Core\Exceptions\StoreOperationException;
-use Fintech\Core\Exceptions\UpdateOperationException;
-use Fintech\Core\Exceptions\DeleteOperationException;
-use Fintech\Core\Exceptions\RestoreOperationException;
-use Fintech\Core\Traits\ApiResponseTrait;
 use Fintech\Business\Facades\Business;
-use Fintech\Business\Http\Resources\ChargeBreakDownResource;
-use Fintech\Business\Http\Resources\ChargeBreakDownCollection;
 use Fintech\Business\Http\Requests\ImportChargeBreakDownRequest;
+use Fintech\Business\Http\Requests\IndexChargeBreakDownRequest;
 use Fintech\Business\Http\Requests\StoreChargeBreakDownRequest;
 use Fintech\Business\Http\Requests\UpdateChargeBreakDownRequest;
-use Fintech\Business\Http\Requests\IndexChargeBreakDownRequest;
+use Fintech\Business\Http\Resources\ChargeBreakDownCollection;
+use Fintech\Business\Http\Resources\ChargeBreakDownResource;
+use Fintech\Core\Exceptions\DeleteOperationException;
+use Fintech\Core\Exceptions\RestoreOperationException;
+use Fintech\Core\Exceptions\StoreOperationException;
+use Fintech\Core\Exceptions\UpdateOperationException;
+use Fintech\Core\Traits\ApiResponseTrait;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Routing\Controller;
 
 /**
  * Class ChargeBreakDownController
- * @package Fintech\Business\Http\Controllers
  *
  * @lrd:start
  * This class handle create, display, update, delete & restore
  * operation related to ChargeBreakDown
- * @lrd:end
  *
+ * @lrd:end
  */
-
 class ChargeBreakDownController extends Controller
 {
     use ApiResponseTrait;
@@ -38,10 +37,8 @@ class ChargeBreakDownController extends Controller
      * Return a listing of the *ChargeBreakDown* resource as collection.
      *
      * *```paginate=false``` returns all resource as list not pagination*
-     * @lrd:end
      *
-     * @param IndexChargeBreakDownRequest $request
-     * @return ChargeBreakDownCollection|JsonResponse
+     * @lrd:end
      */
     public function index(IndexChargeBreakDownRequest $request): ChargeBreakDownCollection|JsonResponse
     {
@@ -61,10 +58,9 @@ class ChargeBreakDownController extends Controller
     /**
      * @lrd:start
      * Create a new *ChargeBreakDown* resource in storage.
+     *
      * @lrd:end
      *
-     * @param StoreChargeBreakDownRequest $request
-     * @return JsonResponse
      * @throws StoreOperationException
      */
     public function store(StoreChargeBreakDownRequest $request): JsonResponse
@@ -74,14 +70,14 @@ class ChargeBreakDownController extends Controller
 
             $chargeBreakDown = Business::chargeBreakDown()->create($inputs);
 
-            if (!$chargeBreakDown) {
+            if (! $chargeBreakDown) {
                 throw (new StoreOperationException)->setModel(config('fintech.business.charge_break_down_model'));
             }
 
             return $this->created([
                 'message' => __('core::messages.resource.created', ['model' => 'Charge Break Down']),
-                'id' => $chargeBreakDown->id
-             ]);
+                'id' => $chargeBreakDown->id,
+            ]);
 
         } catch (Exception $exception) {
 
@@ -92,10 +88,9 @@ class ChargeBreakDownController extends Controller
     /**
      * @lrd:start
      * Return a specified *ChargeBreakDown* resource found by id.
+     *
      * @lrd:end
      *
-     * @param string|int $id
-     * @return ChargeBreakDownResource|JsonResponse
      * @throws ModelNotFoundException
      */
     public function show(string|int $id): ChargeBreakDownResource|JsonResponse
@@ -104,7 +99,7 @@ class ChargeBreakDownController extends Controller
 
             $chargeBreakDown = Business::chargeBreakDown()->find($id);
 
-            if (!$chargeBreakDown) {
+            if (! $chargeBreakDown) {
                 throw (new ModelNotFoundException)->setModel(config('fintech.business.charge_break_down_model'), $id);
             }
 
@@ -123,11 +118,9 @@ class ChargeBreakDownController extends Controller
     /**
      * @lrd:start
      * Update a specified *ChargeBreakDown* resource using id.
+     *
      * @lrd:end
      *
-     * @param UpdateChargeBreakDownRequest $request
-     * @param string|int $id
-     * @return JsonResponse
      * @throws ModelNotFoundException
      * @throws UpdateOperationException
      */
@@ -137,13 +130,13 @@ class ChargeBreakDownController extends Controller
 
             $chargeBreakDown = Business::chargeBreakDown()->find($id);
 
-            if (!$chargeBreakDown) {
+            if (! $chargeBreakDown) {
                 throw (new ModelNotFoundException)->setModel(config('fintech.business.charge_break_down_model'), $id);
             }
 
             $inputs = $request->validated();
 
-            if (!Business::chargeBreakDown()->update($id, $inputs)) {
+            if (! Business::chargeBreakDown()->update($id, $inputs)) {
 
                 throw (new UpdateOperationException)->setModel(config('fintech.business.charge_break_down_model'), $id);
             }
@@ -163,10 +156,11 @@ class ChargeBreakDownController extends Controller
     /**
      * @lrd:start
      * Soft delete a specified *ChargeBreakDown* resource using id.
+     *
      * @lrd:end
      *
-     * @param string|int $id
      * @return JsonResponse
+     *
      * @throws ModelNotFoundException
      * @throws DeleteOperationException
      */
@@ -176,11 +170,11 @@ class ChargeBreakDownController extends Controller
 
             $chargeBreakDown = Business::chargeBreakDown()->find($id);
 
-            if (!$chargeBreakDown) {
+            if (! $chargeBreakDown) {
                 throw (new ModelNotFoundException)->setModel(config('fintech.business.charge_break_down_model'), $id);
             }
 
-            if (!Business::chargeBreakDown()->destroy($id)) {
+            if (! Business::chargeBreakDown()->destroy($id)) {
 
                 throw (new DeleteOperationException())->setModel(config('fintech.business.charge_break_down_model'), $id);
             }
@@ -201,9 +195,9 @@ class ChargeBreakDownController extends Controller
      * @lrd:start
      * Restore the specified *ChargeBreakDown* resource from trash.
      * ** ```Soft Delete``` needs to enabled to use this feature**
+     *
      * @lrd:end
      *
-     * @param string|int $id
      * @return JsonResponse
      */
     public function restore(string|int $id)
@@ -212,11 +206,11 @@ class ChargeBreakDownController extends Controller
 
             $chargeBreakDown = Business::chargeBreakDown()->find($id, true);
 
-            if (!$chargeBreakDown) {
+            if (! $chargeBreakDown) {
                 throw (new ModelNotFoundException)->setModel(config('fintech.business.charge_break_down_model'), $id);
             }
 
-            if (!Business::chargeBreakDown()->restore($id)) {
+            if (! Business::chargeBreakDown()->restore($id)) {
 
                 throw (new RestoreOperationException())->setModel(config('fintech.business.charge_break_down_model'), $id);
             }
@@ -239,9 +233,6 @@ class ChargeBreakDownController extends Controller
      * After export job is done system will fire  export completed event
      *
      * @lrd:end
-     *
-     * @param IndexChargeBreakDownRequest $request
-     * @return JsonResponse
      */
     public function export(IndexChargeBreakDownRequest $request): JsonResponse
     {
@@ -265,7 +256,6 @@ class ChargeBreakDownController extends Controller
      *
      * @lrd:end
      *
-     * @param ImportChargeBreakDownRequest $request
      * @return ChargeBreakDownCollection|JsonResponse
      */
     public function import(ImportChargeBreakDownRequest $request): JsonResponse

@@ -2,7 +2,6 @@
 
 namespace Fintech\Business\Facades;
 
-
 use Illuminate\Support\Facades\Facade;
 
 /**
@@ -13,6 +12,7 @@ use Illuminate\Support\Facades\Facade;
  * @method static \Fintech\Business\Services\ChargeBreakDownService chargeBreakDown()
  * @method static \Fintech\Business\Services\PackageTopChartService PackageTopChart()
  * @method static \Fintech\Business\Services\ServiceService service()
+ *
  * @see \Fintech\Business\Business
  */
 class Business extends Facade

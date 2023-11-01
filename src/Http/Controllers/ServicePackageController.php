@@ -1,34 +1,33 @@
 <?php
 
 namespace Fintech\Business\Http\Controllers;
+
 use Exception;
-use Fintech\Core\Exceptions\StoreOperationException;
-use Fintech\Core\Exceptions\UpdateOperationException;
-use Fintech\Core\Exceptions\DeleteOperationException;
-use Fintech\Core\Exceptions\RestoreOperationException;
-use Fintech\Core\Traits\ApiResponseTrait;
 use Fintech\Business\Facades\Business;
-use Fintech\Business\Http\Resources\ServicePackageResource;
-use Fintech\Business\Http\Resources\ServicePackageCollection;
 use Fintech\Business\Http\Requests\ImportServicePackageRequest;
+use Fintech\Business\Http\Requests\IndexServicePackageRequest;
 use Fintech\Business\Http\Requests\StoreServicePackageRequest;
 use Fintech\Business\Http\Requests\UpdateServicePackageRequest;
-use Fintech\Business\Http\Requests\IndexServicePackageRequest;
+use Fintech\Business\Http\Resources\ServicePackageCollection;
+use Fintech\Business\Http\Resources\ServicePackageResource;
+use Fintech\Core\Exceptions\DeleteOperationException;
+use Fintech\Core\Exceptions\RestoreOperationException;
+use Fintech\Core\Exceptions\StoreOperationException;
+use Fintech\Core\Exceptions\UpdateOperationException;
+use Fintech\Core\Traits\ApiResponseTrait;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Routing\Controller;
 
 /**
  * Class ServicePackageController
- * @package Fintech\Business\Http\Controllers
  *
  * @lrd:start
  * This class handle create, display, update, delete & restore
  * operation related to ServicePackage
- * @lrd:end
  *
+ * @lrd:end
  */
-
 class ServicePackageController extends Controller
 {
     use ApiResponseTrait;
@@ -38,10 +37,8 @@ class ServicePackageController extends Controller
      * Return a listing of the *ServicePackage* resource as collection.
      *
      * *```paginate=false``` returns all resource as list not pagination*
-     * @lrd:end
      *
-     * @param IndexServicePackageRequest $request
-     * @return ServicePackageCollection|JsonResponse
+     * @lrd:end
      */
     public function index(IndexServicePackageRequest $request): ServicePackageCollection|JsonResponse
     {
@@ -61,10 +58,9 @@ class ServicePackageController extends Controller
     /**
      * @lrd:start
      * Create a new *ServicePackage* resource in storage.
+     *
      * @lrd:end
      *
-     * @param StoreServicePackageRequest $request
-     * @return JsonResponse
      * @throws StoreOperationException
      */
     public function store(StoreServicePackageRequest $request): JsonResponse
@@ -74,14 +70,14 @@ class ServicePackageController extends Controller
 
             $servicePackage = Business::servicePackage()->create($inputs);
 
-            if (!$servicePackage) {
+            if (! $servicePackage) {
                 throw (new StoreOperationException)->setModel(config('fintech.business.service_package_model'));
             }
 
             return $this->created([
                 'message' => __('core::messages.resource.created', ['model' => 'Service Package']),
-                'id' => $servicePackage->id
-             ]);
+                'id' => $servicePackage->id,
+            ]);
 
         } catch (Exception $exception) {
 
@@ -92,10 +88,9 @@ class ServicePackageController extends Controller
     /**
      * @lrd:start
      * Return a specified *ServicePackage* resource found by id.
+     *
      * @lrd:end
      *
-     * @param string|int $id
-     * @return ServicePackageResource|JsonResponse
      * @throws ModelNotFoundException
      */
     public function show(string|int $id): ServicePackageResource|JsonResponse
@@ -104,7 +99,7 @@ class ServicePackageController extends Controller
 
             $servicePackage = Business::servicePackage()->find($id);
 
-            if (!$servicePackage) {
+            if (! $servicePackage) {
                 throw (new ModelNotFoundException)->setModel(config('fintech.business.service_package_model'), $id);
             }
 
@@ -123,11 +118,9 @@ class ServicePackageController extends Controller
     /**
      * @lrd:start
      * Update a specified *ServicePackage* resource using id.
+     *
      * @lrd:end
      *
-     * @param UpdateServicePackageRequest $request
-     * @param string|int $id
-     * @return JsonResponse
      * @throws ModelNotFoundException
      * @throws UpdateOperationException
      */
@@ -137,13 +130,13 @@ class ServicePackageController extends Controller
 
             $servicePackage = Business::servicePackage()->find($id);
 
-            if (!$servicePackage) {
+            if (! $servicePackage) {
                 throw (new ModelNotFoundException)->setModel(config('fintech.business.service_package_model'), $id);
             }
 
             $inputs = $request->validated();
 
-            if (!Business::servicePackage()->update($id, $inputs)) {
+            if (! Business::servicePackage()->update($id, $inputs)) {
 
                 throw (new UpdateOperationException)->setModel(config('fintech.business.service_package_model'), $id);
             }
@@ -163,10 +156,11 @@ class ServicePackageController extends Controller
     /**
      * @lrd:start
      * Soft delete a specified *ServicePackage* resource using id.
+     *
      * @lrd:end
      *
-     * @param string|int $id
      * @return JsonResponse
+     *
      * @throws ModelNotFoundException
      * @throws DeleteOperationException
      */
@@ -176,11 +170,11 @@ class ServicePackageController extends Controller
 
             $servicePackage = Business::servicePackage()->find($id);
 
-            if (!$servicePackage) {
+            if (! $servicePackage) {
                 throw (new ModelNotFoundException)->setModel(config('fintech.business.service_package_model'), $id);
             }
 
-            if (!Business::servicePackage()->destroy($id)) {
+            if (! Business::servicePackage()->destroy($id)) {
 
                 throw (new DeleteOperationException())->setModel(config('fintech.business.service_package_model'), $id);
             }
@@ -201,9 +195,9 @@ class ServicePackageController extends Controller
      * @lrd:start
      * Restore the specified *ServicePackage* resource from trash.
      * ** ```Soft Delete``` needs to enabled to use this feature**
+     *
      * @lrd:end
      *
-     * @param string|int $id
      * @return JsonResponse
      */
     public function restore(string|int $id)
@@ -212,11 +206,11 @@ class ServicePackageController extends Controller
 
             $servicePackage = Business::servicePackage()->find($id, true);
 
-            if (!$servicePackage) {
+            if (! $servicePackage) {
                 throw (new ModelNotFoundException)->setModel(config('fintech.business.service_package_model'), $id);
             }
 
-            if (!Business::servicePackage()->restore($id)) {
+            if (! Business::servicePackage()->restore($id)) {
 
                 throw (new RestoreOperationException())->setModel(config('fintech.business.service_package_model'), $id);
             }
@@ -239,9 +233,6 @@ class ServicePackageController extends Controller
      * After export job is done system will fire  export completed event
      *
      * @lrd:end
-     *
-     * @param IndexServicePackageRequest $request
-     * @return JsonResponse
      */
     public function export(IndexServicePackageRequest $request): JsonResponse
     {
@@ -265,7 +256,6 @@ class ServicePackageController extends Controller
      *
      * @lrd:end
      *
-     * @param ImportServicePackageRequest $request
      * @return ServicePackageCollection|JsonResponse
      */
     public function import(ImportServicePackageRequest $request): JsonResponse

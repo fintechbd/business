@@ -1,34 +1,33 @@
 <?php
 
 namespace Fintech\Business\Http\Controllers;
+
 use Exception;
-use Fintech\Core\Exceptions\StoreOperationException;
-use Fintech\Core\Exceptions\UpdateOperationException;
-use Fintech\Core\Exceptions\DeleteOperationException;
-use Fintech\Core\Exceptions\RestoreOperationException;
-use Fintech\Core\Traits\ApiResponseTrait;
 use Fintech\Business\Facades\Business;
-use Fintech\Business\Http\Resources\ServiceSettingResource;
-use Fintech\Business\Http\Resources\ServiceSettingCollection;
 use Fintech\Business\Http\Requests\ImportServiceSettingRequest;
+use Fintech\Business\Http\Requests\IndexServiceSettingRequest;
 use Fintech\Business\Http\Requests\StoreServiceSettingRequest;
 use Fintech\Business\Http\Requests\UpdateServiceSettingRequest;
-use Fintech\Business\Http\Requests\IndexServiceSettingRequest;
+use Fintech\Business\Http\Resources\ServiceSettingCollection;
+use Fintech\Business\Http\Resources\ServiceSettingResource;
+use Fintech\Core\Exceptions\DeleteOperationException;
+use Fintech\Core\Exceptions\RestoreOperationException;
+use Fintech\Core\Exceptions\StoreOperationException;
+use Fintech\Core\Exceptions\UpdateOperationException;
+use Fintech\Core\Traits\ApiResponseTrait;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Routing\Controller;
 
 /**
  * Class ServiceSettingController
- * @package Fintech\Business\Http\Controllers
  *
  * @lrd:start
  * This class handle create, display, update, delete & restore
  * operation related to ServiceSetting
- * @lrd:end
  *
+ * @lrd:end
  */
-
 class ServiceSettingController extends Controller
 {
     use ApiResponseTrait;
@@ -38,10 +37,8 @@ class ServiceSettingController extends Controller
      * Return a listing of the *ServiceSetting* resource as collection.
      *
      * *```paginate=false``` returns all resource as list not pagination*
-     * @lrd:end
      *
-     * @param IndexServiceSettingRequest $request
-     * @return ServiceSettingCollection|JsonResponse
+     * @lrd:end
      */
     public function index(IndexServiceSettingRequest $request): ServiceSettingCollection|JsonResponse
     {
@@ -61,10 +58,9 @@ class ServiceSettingController extends Controller
     /**
      * @lrd:start
      * Create a new *ServiceSetting* resource in storage.
+     *
      * @lrd:end
      *
-     * @param StoreServiceSettingRequest $request
-     * @return JsonResponse
      * @throws StoreOperationException
      */
     public function store(StoreServiceSettingRequest $request): JsonResponse
@@ -74,14 +70,14 @@ class ServiceSettingController extends Controller
 
             $serviceSetting = Business::serviceSetting()->create($inputs);
 
-            if (!$serviceSetting) {
+            if (! $serviceSetting) {
                 throw (new StoreOperationException)->setModel(config('fintech.business.service_setting_model'));
             }
 
             return $this->created([
                 'message' => __('core::messages.resource.created', ['model' => 'Service Setting']),
-                'id' => $serviceSetting->id
-             ]);
+                'id' => $serviceSetting->id,
+            ]);
 
         } catch (Exception $exception) {
 
@@ -92,10 +88,9 @@ class ServiceSettingController extends Controller
     /**
      * @lrd:start
      * Return a specified *ServiceSetting* resource found by id.
+     *
      * @lrd:end
      *
-     * @param string|int $id
-     * @return ServiceSettingResource|JsonResponse
      * @throws ModelNotFoundException
      */
     public function show(string|int $id): ServiceSettingResource|JsonResponse
@@ -104,7 +99,7 @@ class ServiceSettingController extends Controller
 
             $serviceSetting = Business::serviceSetting()->find($id);
 
-            if (!$serviceSetting) {
+            if (! $serviceSetting) {
                 throw (new ModelNotFoundException)->setModel(config('fintech.business.service_setting_model'), $id);
             }
 
@@ -123,11 +118,9 @@ class ServiceSettingController extends Controller
     /**
      * @lrd:start
      * Update a specified *ServiceSetting* resource using id.
+     *
      * @lrd:end
      *
-     * @param UpdateServiceSettingRequest $request
-     * @param string|int $id
-     * @return JsonResponse
      * @throws ModelNotFoundException
      * @throws UpdateOperationException
      */
@@ -137,13 +130,13 @@ class ServiceSettingController extends Controller
 
             $serviceSetting = Business::serviceSetting()->find($id);
 
-            if (!$serviceSetting) {
+            if (! $serviceSetting) {
                 throw (new ModelNotFoundException)->setModel(config('fintech.business.service_setting_model'), $id);
             }
 
             $inputs = $request->validated();
 
-            if (!Business::serviceSetting()->update($id, $inputs)) {
+            if (! Business::serviceSetting()->update($id, $inputs)) {
 
                 throw (new UpdateOperationException)->setModel(config('fintech.business.service_setting_model'), $id);
             }
@@ -163,10 +156,11 @@ class ServiceSettingController extends Controller
     /**
      * @lrd:start
      * Soft delete a specified *ServiceSetting* resource using id.
+     *
      * @lrd:end
      *
-     * @param string|int $id
      * @return JsonResponse
+     *
      * @throws ModelNotFoundException
      * @throws DeleteOperationException
      */
@@ -176,11 +170,11 @@ class ServiceSettingController extends Controller
 
             $serviceSetting = Business::serviceSetting()->find($id);
 
-            if (!$serviceSetting) {
+            if (! $serviceSetting) {
                 throw (new ModelNotFoundException)->setModel(config('fintech.business.service_setting_model'), $id);
             }
 
-            if (!Business::serviceSetting()->destroy($id)) {
+            if (! Business::serviceSetting()->destroy($id)) {
 
                 throw (new DeleteOperationException())->setModel(config('fintech.business.service_setting_model'), $id);
             }
@@ -201,9 +195,9 @@ class ServiceSettingController extends Controller
      * @lrd:start
      * Restore the specified *ServiceSetting* resource from trash.
      * ** ```Soft Delete``` needs to enabled to use this feature**
+     *
      * @lrd:end
      *
-     * @param string|int $id
      * @return JsonResponse
      */
     public function restore(string|int $id)
@@ -212,11 +206,11 @@ class ServiceSettingController extends Controller
 
             $serviceSetting = Business::serviceSetting()->find($id, true);
 
-            if (!$serviceSetting) {
+            if (! $serviceSetting) {
                 throw (new ModelNotFoundException)->setModel(config('fintech.business.service_setting_model'), $id);
             }
 
-            if (!Business::serviceSetting()->restore($id)) {
+            if (! Business::serviceSetting()->restore($id)) {
 
                 throw (new RestoreOperationException())->setModel(config('fintech.business.service_setting_model'), $id);
             }
@@ -239,9 +233,6 @@ class ServiceSettingController extends Controller
      * After export job is done system will fire  export completed event
      *
      * @lrd:end
-     *
-     * @param IndexServiceSettingRequest $request
-     * @return JsonResponse
      */
     public function export(IndexServiceSettingRequest $request): JsonResponse
     {
@@ -265,7 +256,6 @@ class ServiceSettingController extends Controller
      *
      * @lrd:end
      *
-     * @param ImportServiceSettingRequest $request
      * @return ServiceSettingCollection|JsonResponse
      */
     public function import(ImportServiceSettingRequest $request): JsonResponse

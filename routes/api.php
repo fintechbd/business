@@ -41,8 +41,8 @@ if (Config::get('fintech.business.enabled')) {
         Route::post('package-top-charts/{package_top_chart}/restore', [\Fintech\Business\Http\Controllers\PackageTopChartController::class, 'restore'])->name('package-top-charts.restore');
 
         Route::apiResource('service-vendors', \Fintech\Business\Http\Controllers\ServiceVendorController::class);
-    Route::post('service-vendors/{service_vendor}/restore', [\Fintech\Business\Http\Controllers\ServiceVendorController::class, 'restore'])->name('service-vendors.restore');
+        Route::post('service-vendors/{service_vendor}/restore', [\Fintech\Business\Http\Controllers\ServiceVendorController::class, 'restore'])->name('service-vendors.restore');
 
-    //DO NOT REMOVE THIS LINE//
+        //DO NOT REMOVE THIS LINE//
     });
 }

@@ -24,7 +24,6 @@ return [
 
     'root_prefix' => '/',
 
-
     /*
     |--------------------------------------------------------------------------
     | ServiceSetting Model
@@ -33,7 +32,6 @@ return [
     | This value will be used to across system where model is needed
     */
     'service_setting_model' => \Fintech\Business\Models\ServiceSetting::class,
-
 
     /*
     |--------------------------------------------------------------------------
@@ -44,7 +42,6 @@ return [
     */
     'service_type_model' => \Fintech\Business\Models\ServiceType::class,
 
-
     /*
     |--------------------------------------------------------------------------
     | Service Model
@@ -53,7 +50,6 @@ return [
     | This value will be used to across system where model is needed
     */
     'service_model' => \Fintech\Business\Models\Service::class,
-
 
     /*
     |--------------------------------------------------------------------------
@@ -64,7 +60,6 @@ return [
     */
     'service_state_model' => \Fintech\Business\Models\ServiceState::class,
 
-
     /*
     |--------------------------------------------------------------------------
     | ServicePackage Model
@@ -73,7 +68,6 @@ return [
     | This value will be used to across system where model is needed
     */
     'service_package_model' => \Fintech\Business\Models\ServicePackage::class,
-
 
     /*
     |--------------------------------------------------------------------------
@@ -84,7 +78,6 @@ return [
     */
     'charge_break_down_model' => \Fintech\Business\Models\ChargeBreakDown::class,
 
-
     /*
     |--------------------------------------------------------------------------
     | Vendor Model
@@ -93,7 +86,6 @@ return [
     | This value will be used to across system where model is needed
     */
     'vendor_model' => \Fintech\Business\Models\Vendor::class,
-
 
     /*
     |--------------------------------------------------------------------------
@@ -104,7 +96,6 @@ return [
     */
     'package_top_chart_model' => \Fintech\Business\Models\PackageTopChart::class,
 
-    
     /*
     |--------------------------------------------------------------------------
     | ServiceVendor Model

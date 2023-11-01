@@ -2,26 +2,22 @@
 
 namespace Fintech\Business\Services;
 
-
 use Fintech\Business\Interfaces\ServiceVendorRepository;
 
 /**
  * Class ServiceVendorService
- * @package Fintech\Business\Services
- *
  */
 class ServiceVendorService
 {
     /**
      * ServiceVendorService constructor.
-     * @param ServiceVendorRepository $serviceVendorRepository
      */
-    public function __construct(ServiceVendorRepository $serviceVendorRepository) {
+    public function __construct(ServiceVendorRepository $serviceVendorRepository)
+    {
         $this->serviceVendorRepository = $serviceVendorRepository;
     }
 
     /**
-     * @param array $filters
      * @return mixed
      */
     public function list(array $filters = [])

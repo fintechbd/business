@@ -2,26 +2,22 @@
 
 namespace Fintech\Business\Services;
 
-
 use Fintech\Business\Interfaces\ChargeBreakDownRepository;
 
 /**
  * Class ChargeBreakDownService
- * @package Fintech\Business\Services
- *
  */
 class ChargeBreakDownService
 {
     /**
      * ChargeBreakDownService constructor.
-     * @param ChargeBreakDownRepository $chargeBreakDownRepository
      */
-    public function __construct(ChargeBreakDownRepository $chargeBreakDownRepository) {
+    public function __construct(ChargeBreakDownRepository $chargeBreakDownRepository)
+    {
         $this->chargeBreakDownRepository = $chargeBreakDownRepository;
     }
 
     /**
-     * @param array $filters
      * @return mixed
      */
     public function list(array $filters = [])
