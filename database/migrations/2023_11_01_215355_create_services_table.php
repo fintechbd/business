@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->json('name')->nullable();
 
-            $table->json('services_data')->nullable();
+            $table->json('service_data')->nullable();
             $table->foreignId('creator_id')->nullable();
             $table->foreignId('editor_id')->nullable();
             $table->foreignId('destroyer_id')->nullable();

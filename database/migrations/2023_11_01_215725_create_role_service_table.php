@@ -12,17 +12,9 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('role_service', function (Blueprint $table) {
-            $table->id();
-            $table->json('name')->nullable();
-
-            $table->json('role_service_data')->nullable();
-            $table->foreignId('creator_id')->nullable();
-            $table->foreignId('editor_id')->nullable();
-            $table->foreignId('destroyer_id')->nullable();
-            $table->foreignId('restorer_id')->nullable();
+            $table->foreignId('role_id')->nullable();
+            $table->foreignId('service_id')->nullable();
             $table->timestamps();
-            $table->softDeletes();
-            $table->timestamp('restored_at')->nullable();
         });
     }
 
