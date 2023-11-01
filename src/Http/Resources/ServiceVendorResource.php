@@ -4,7 +4,7 @@ namespace Fintech\Business\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class VendorResource extends JsonResource
+class ServiceVendorResource extends JsonResource
 {
     /**
      * Transform the resource into an array.

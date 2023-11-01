@@ -57,11 +57,11 @@ class ServicePackageService
 
     public function export(array $filters)
     {
-        return $this->permissionRepository->list($filters);
+        return $this->servicePackageRepository->list($filters);
     }
 
     public function import(array $filters)
     {
-        return $this->permissionRepository->create($filters);
+        return $this->servicePackageRepository->create($filters);
     }
 }

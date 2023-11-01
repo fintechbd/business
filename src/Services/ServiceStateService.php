@@ -57,11 +57,11 @@ class ServiceStateService
 
     public function export(array $filters)
     {
-        return $this->permissionRepository->list($filters);
+        return $this->serviceStateRepository->list($filters);
     }
 
     public function import(array $filters)
     {
-        return $this->permissionRepository->create($filters);
+        return $this->serviceStateRepository->create($filters);
     }
 }

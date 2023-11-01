@@ -57,11 +57,11 @@ class ChargeBreakDownService
 
     public function export(array $filters)
     {
-        return $this->permissionRepository->list($filters);
+        return $this->chargeBreakDownRepository->list($filters);
     }
 
     public function import(array $filters)
     {
-        return $this->permissionRepository->create($filters);
+        return $this->chargeBreakDownRepository->create($filters);
     }
 }

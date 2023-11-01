@@ -8,10 +8,10 @@ use Illuminate\Database\Eloquent\Model as EloquentModel;
 use MongoDB\Laravel\Eloquent\Model as MongodbModel;
 
 /**
- * Interface VendorRepository
+ * Interface ServiceVendorRepository
  * @package Fintech\Business\Interfaces
  */
-interface VendorRepository
+interface ServiceVendorRepository
 {
     /**
      * return a list or pagination of items from

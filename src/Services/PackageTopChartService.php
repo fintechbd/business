@@ -57,11 +57,11 @@ class PackageTopChartService
 
     public function export(array $filters)
     {
-        return $this->permissionRepository->list($filters);
+        return $this->packageTopChartRepository->list($filters);
     }
 
     public function import(array $filters)
     {
-        return $this->permissionRepository->create($filters);
+        return $this->packageTopChartRepository->create($filters);
     }
 }

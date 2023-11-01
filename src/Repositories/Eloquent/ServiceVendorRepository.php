@@ -1,26 +1,26 @@
 <?php
 
-namespace Fintech\Business\Repositories\Mongodb;
+namespace Fintech\Business\Repositories\Eloquent;
 
-use Fintech\Core\Repositories\MongodbRepository;
-use Fintech\Business\Interfaces\VendorRepository as InterfacesVendorRepository;
+use Fintech\Core\Repositories\EloquentRepository;
+use Fintech\Business\Interfaces\ServiceVendorRepository as InterfacesServiceVendorRepository;
 use Illuminate\Contracts\Pagination\Paginator;
 use Illuminate\Database\Eloquent\Collection;
-use MongoDB\Laravel\Eloquent\Model;
+use Illuminate\Database\Eloquent\Model;
 use InvalidArgumentException;
 
 /**
- * Class VendorRepository
- * @package Fintech\Business\Repositories\Mongodb
+ * Class ServiceVendorRepository
+ * @package Fintech\Business\Repositories\Eloquent
  */
-class VendorRepository extends MongodbRepository implements InterfacesVendorRepository
+class ServiceVendorRepository extends EloquentRepository implements InterfacesServiceVendorRepository
 {
     public function __construct()
     {
-       $model = app(config('fintech.business.vendor_model', \Fintech\Business\Models\Vendor::class));
+       $model = app(config('fintech.business.service_vendor_model', \Fintech\Business\Models\ServiceVendor::class));
 
        if (!$model instanceof Model) {
-           throw new InvalidArgumentException("Mongodb repository require model class to be `MongoDB\Laravel\Eloquent\Model` instance.");
+           throw new InvalidArgumentException("Eloquent repository require model class to be `Illuminate\Database\Eloquent\Model` instance.");
        }
 
        $this->model = $model;

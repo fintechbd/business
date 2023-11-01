@@ -4,7 +4,7 @@ namespace Fintech\Business\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreVendorRequest extends FormRequest
+class ImportServiceVendorRequest extends FormRequest
 {
     
     /**

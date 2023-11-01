@@ -57,11 +57,11 @@ class ServiceTypeService
 
     public function export(array $filters)
     {
-        return $this->permissionRepository->list($filters);
+        return $this->serviceTypeRepository->list($filters);
     }
 
     public function import(array $filters)
     {
-        return $this->permissionRepository->create($filters);
+        return $this->serviceTypeRepository->create($filters);
     }
 }

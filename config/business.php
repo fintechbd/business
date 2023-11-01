@@ -22,9 +22,9 @@ return [
     | Note: while adding prefix add closing ending slash '/'
     */
 
-    'root_prefix' => 'test/',
+    'root_prefix' => '/',
 
-    
+
     /*
     |--------------------------------------------------------------------------
     | ServiceSetting Model
@@ -34,7 +34,7 @@ return [
     */
     'service_setting_model' => \Fintech\Business\Models\ServiceSetting::class,
 
-    
+
     /*
     |--------------------------------------------------------------------------
     | ServiceType Model
@@ -44,7 +44,7 @@ return [
     */
     'service_type_model' => \Fintech\Business\Models\ServiceType::class,
 
-    
+
     /*
     |--------------------------------------------------------------------------
     | Service Model
@@ -54,7 +54,7 @@ return [
     */
     'service_model' => \Fintech\Business\Models\Service::class,
 
-    
+
     /*
     |--------------------------------------------------------------------------
     | ServiceState Model
@@ -64,7 +64,7 @@ return [
     */
     'service_state_model' => \Fintech\Business\Models\ServiceState::class,
 
-    
+
     /*
     |--------------------------------------------------------------------------
     | ServicePackage Model
@@ -74,7 +74,7 @@ return [
     */
     'service_package_model' => \Fintech\Business\Models\ServicePackage::class,
 
-    
+
     /*
     |--------------------------------------------------------------------------
     | ChargeBreakDown Model
@@ -84,7 +84,7 @@ return [
     */
     'charge_break_down_model' => \Fintech\Business\Models\ChargeBreakDown::class,
 
-    
+
     /*
     |--------------------------------------------------------------------------
     | Vendor Model
@@ -94,7 +94,7 @@ return [
     */
     'vendor_model' => \Fintech\Business\Models\Vendor::class,
 
-    
+
     /*
     |--------------------------------------------------------------------------
     | PackageTopChart Model
@@ -103,6 +103,16 @@ return [
     | This value will be used to across system where model is needed
     */
     'package_top_chart_model' => \Fintech\Business\Models\PackageTopChart::class,
+
+    
+    /*
+    |--------------------------------------------------------------------------
+    | ServiceVendor Model
+    |--------------------------------------------------------------------------
+    |
+    | This value will be used to across system where model is needed
+    */
+    'service_vendor_model' => \Fintech\Business\Models\ServiceVendor::class,
 
     //** Model Config Point Do not Remove **//
 
@@ -130,6 +140,8 @@ return [
         \Fintech\Business\Interfaces\VendorRepository::class => \Fintech\Business\Repositories\Eloquent\VendorRepository::class,
 
         \Fintech\Business\Interfaces\PackageTopChartRepository::class => \Fintech\Business\Repositories\Eloquent\PackageTopChartRepository::class,
+
+        \Fintech\Business\Interfaces\ServiceVendorRepository::class => \Fintech\Business\Repositories\Eloquent\ServiceVendorRepository::class,
 
         //** Repository Binding Config Point Do not Remove **//
     ],
