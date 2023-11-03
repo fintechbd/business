@@ -13,7 +13,8 @@ return new class extends Migration
     {
         Schema::create('service_settings', function (Blueprint $table) {
             $table->id();
-            $table->json('name')->nullable();
+            $table->json('service_setting_name')->nullable();
+            $table->json('service_setting_type')->nullable();
 
             $table->json('service_setting_data')->nullable();
             $table->foreignId('creator_id')->nullable();

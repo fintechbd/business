@@ -109,6 +109,32 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Constant
+    |--------------------------------------------------------------------------
+    |
+    | This value will be used across systems where a constant instance is needed
+    */
+
+    'service_setting_type' => [
+        'service_state' => 'Service State',
+        'service' => 'Service',
+    ],
+
+    'service_setting_type_field' => [
+        'text' => 'TEXT',
+        'select' => 'SELECT',
+        'textarea' => 'TEXT AREA',
+        'date' => 'DATE',
+        'radio' => 'RADIO',
+        'email' => 'EMAIL',
+        'number' => 'NUMBER',
+        'tel' => 'TEL',
+        'url' => 'URL',
+    ],
+
+
+    /*
+    |--------------------------------------------------------------------------
     | Repositories
     |--------------------------------------------------------------------------
     |
