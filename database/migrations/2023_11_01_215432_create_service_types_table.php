@@ -15,8 +15,9 @@ return new class extends Migration
             $table->id();
             $table->foreignId('service_type_parent_id')->nullable();
             $table->string('service_type_name')->nullable();
-            $table->string('service_type_is_parent')->nullable();
-            $table->string('service_type_step')->nullable();
+            $table->string('service_type_is_parent')->nullable()->default('no');
+            $table->string('service_type_is_description')->nullable()->default('no');
+            $table->integer('service_type_step')->nullable()->default(0);
             $table->json('service_type_data')->nullable();
             $table->boolean('enabled')->nullable();
             $table->foreignId('creator_id')->nullable();
