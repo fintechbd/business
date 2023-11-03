@@ -13,9 +13,12 @@ return new class extends Migration
     {
         Schema::create('service_types', function (Blueprint $table) {
             $table->id();
-            $table->json('name')->nullable();
-
+            $table->foreignId('service_type_parent_id')->nullable();
+            $table->string('service_type_name')->nullable();
+            $table->string('service_type_is_parent')->nullable();
+            $table->string('service_type_step')->nullable();
             $table->json('service_type_data')->nullable();
+            $table->boolean('enabled')->nullable();
             $table->foreignId('creator_id')->nullable();
             $table->foreignId('editor_id')->nullable();
             $table->foreignId('destroyer_id')->nullable();
