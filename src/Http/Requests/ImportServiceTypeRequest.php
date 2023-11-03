@@ -30,7 +30,7 @@ class ImportServiceTypeRequest extends FormRequest
             'service_type_parent_id' => ['integer', 'nullable'],
             'service_type_name' => ['string', 'required', 'max:255'],
             'service_type_is_parent' => ['string', 'required', $uniqueRule],
-            //'service_type_step' => ['integer', 'required'],
+            'service_type_step' => ['integer', 'nullable'],
             'service_type_data' => ['array', 'required'],
             'service_type_logo_svg.*' => ['string', 'nullable'],
             'service_type_logo_png.*' => ['string', 'nullable'],
