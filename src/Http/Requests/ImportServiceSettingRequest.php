@@ -2,7 +2,7 @@
 
 namespace Fintech\Business\Http\Requests;
 
-use Fintech\Business\Models\ServiceType;
+use Fintech\Business\Models\ServiceSetting;
 use Illuminate\Foundation\Http\FormRequest;
 
 class ImportServiceSettingRequest extends FormRequest
@@ -23,8 +23,8 @@ class ImportServiceSettingRequest extends FormRequest
     public function rules(): array
     {
         /** @phpstan-ignore-next-line */
-        $service_type_id = (int) collect(request()->segments())->last(); //id of the resource
-        $uniqueRule = 'unique:'.config('fintech.business.service_type_model', ServiceType::class).',service_setting_field_name,'.$service_type_id.',id,service_setting_type,'.$this->input('service_setting_type').',deleted_at,NULL';
+        $service_setting_id = (int) collect(request()->segments())->last(); //id of the resource
+        $uniqueRule = 'unique:'.config('fintech.business.service_setting_model', ServiceSetting::class).',service_setting_field_name,'.$service_setting_id.',id,service_setting_type,'.$this->input('service_setting_type').',deleted_at,NULL';
 
         return [
             'service_setting_type' => ['string', 'required', 'max:255'],
