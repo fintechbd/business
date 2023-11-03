@@ -13,9 +13,14 @@ return new class extends Migration
     {
         Schema::create('services', function (Blueprint $table) {
             $table->id();
-            $table->json('name')->nullable();
-
-            $table->json('service_data')->nullable();
+            $table->foreignId('service_type_id')->nullable();
+            $table->foreignId('service_vendor_id')->nullable();
+            $table->string('service_name')->nullable();
+            $table->string('service_notification')->nullable()->default('no');
+            $table->string('service_delay')->nullable()->default('no');
+            $table->string('service_stat_policy')->nullable()->default('no');
+            $table->string('service_serial')->nullable()->default(0);
+            $table->integer('service_data')->nullable();
             $table->foreignId('creator_id')->nullable();
             $table->foreignId('editor_id')->nullable();
             $table->foreignId('destroyer_id')->nullable();
