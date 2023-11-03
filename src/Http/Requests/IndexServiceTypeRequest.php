@@ -31,6 +31,11 @@ class IndexServiceTypeRequest extends FormRequest
             'sort' => ['string', 'nullable', 'min:2', 'max:255'],
             'dir' => ['string', 'min:3', 'max:4'],
             'trashed' => ['boolean', 'nullable'],
+            'service_setting_type' => ['string', 'nullable'],
+            'service_setting_name' => ['string', 'nullable'],
+            'service_setting_field_name' => ['string', 'nullable'],
+            'service_setting_type_field' => ['string', 'nullable'],
+            'service_setting_feature' => ['string', 'nullable'],
         ];
     }
 
