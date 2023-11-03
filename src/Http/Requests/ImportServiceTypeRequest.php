@@ -24,7 +24,7 @@ class ImportServiceTypeRequest extends FormRequest
     {
         /** @phpstan-ignore-next-line */
         $service_type_id = (int) collect(request()->segments())->last(); //id of the resource
-        $uniqueRule = 'unique:'.config('fintech.business.service_type_model', ServiceType::class).',service_setting_field_name,'.$service_type_id.',id,service_setting_type,'.$this->input('service_setting_type').',deleted_at,NULL';
+        $uniqueRule = 'unique:'.config('fintech.business.service_type_model', ServiceType::class).',service_type_name,'.$service_type_id.',id,deleted_at,NULL';
 
         return [
             'service_type_parent_id' => ['integer', 'nullable'],
