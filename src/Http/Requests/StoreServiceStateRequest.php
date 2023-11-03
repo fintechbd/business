@@ -22,7 +22,13 @@ class StoreServiceStateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'role_id' => ['integer', 'required'],
+            'service_id' => ['integer', 'required'],
+            'present_country_id' => ['integer', 'required'],
+            'permanent_country_id' => ['integer', 'required'],
+            'service_vendor_id' => ['integer', 'required'],
+            'service_state_data' => ['array', 'required'],
+            'enabled' => ['boolean', 'nullable', 'min:1'],
         ];
     }
 
