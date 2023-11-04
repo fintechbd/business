@@ -32,6 +32,7 @@ class UpdateServiceVendorRequest extends FormRequest
             'service_vendor_data' => ['array', 'required'],
             'service_vendor_data.service_vendor_logo.*' => ['string', 'nullable'],
             'enabled' => ['boolean', 'nullable', 'min:1'],
+
         ];
     }
 
