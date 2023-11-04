@@ -2,6 +2,7 @@
 
 namespace Fintech\Business\Http\Requests;
 
+use Fintech\Business\Models\ServiceVendor;
 use Illuminate\Foundation\Http\FormRequest;
 
 class StoreServiceVendorRequest extends FormRequest
@@ -21,8 +22,16 @@ class StoreServiceVendorRequest extends FormRequest
      */
     public function rules(): array
     {
+        /** @phpstan-ignore-next-line */
+        $service_vendor_id = (int) collect(request()->segments())->last(); //id of the resource
+        $uniqueRule = 'unique:'.config('fintech.business.service_vendor_model', ServiceVendor::class).',service_vendor_slug,'.$service_vendor_id.',id,deleted_at,NULL';
+
         return [
-            //
+            'service_vendor_name' => ['string', 'required', 'max:255'],
+            'service_vendor_slug' => ['string', 'required', $uniqueRule],
+            'service_vendor_data' => ['array', 'required'],
+            'service_vendor_data.service_vendor_logo.*' => ['string', 'nullable'],
+            'enabled' => ['boolean', 'nullable', 'min:1'],
         ];
     }
 
