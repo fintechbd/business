@@ -4,7 +4,6 @@ namespace Fintech\Business\Http\Requests;
 
 use Fintech\Business\Models\Service;
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Validation\Rule;
 
 class UpdateServiceRequest extends FormRequest
 {
