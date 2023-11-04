@@ -3,6 +3,7 @@
 namespace Fintech\Business\Http\Requests;
 
 use Fintech\Business\Models\ServiceType;
+use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 
 class StoreServiceTypeRequest extends FormRequest
@@ -18,7 +19,7 @@ class StoreServiceTypeRequest extends FormRequest
     /**
      * Get the validation rules that apply to the request.
      *
-     * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array|string>
+     * @return array<string, ValidationRule|array|string>
      */
     public function rules(): array
     {
@@ -33,8 +34,8 @@ class StoreServiceTypeRequest extends FormRequest
             'service_type_is_parent' => ['string', 'required'],
             'service_type_step' => ['integer', 'nullable'],
             'service_type_data' => ['array', 'required'],
-            'service_type_logo_svg.*' => ['string', 'nullable'],
-            'service_type_logo_png.*' => ['string', 'nullable'],
+            'service_type_data.service_type_logo_svg.*' => ['string', 'nullable'],
+            'service_type_data.service_type_logo_png.*' => ['string', 'nullable'],
             'enabled' => ['boolean', 'nullable', 'min:1'],
         ];
 
