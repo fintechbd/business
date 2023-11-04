@@ -52,7 +52,14 @@ class ImportServiceStateRequest extends FormRequest
     public function messages()
     {
         return [
-            //
+            'role_id' => ['integer', 'required'],
+            'service_id' => ['integer', 'required'],
+            'service_slug' => ['string', 'required'],
+            'present_country_id' => ['integer', 'required'],
+            'permanent_country_id' => ['integer', 'required'],
+            'service_vendor_id' => ['integer', 'required'],
+            'service_state_data' => ['array', 'required'],
+            'enabled' => ['boolean', 'nullable', 'min:1'],
         ];
     }
 }
