@@ -14,7 +14,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 if (Config::get('fintech.business.enabled')) {
-    Route::prefix('business')->group(function () {
+    Route::prefix('business')->name('business.')
+        ->middleware(config('fintech.auth.middleware'))
+        ->group(function () {
 
         Route::apiResource('service-settings', \Fintech\Business\Http\Controllers\ServiceSettingController::class);
         Route::post('service-settings/{service_setting}/restore', [\Fintech\Business\Http\Controllers\ServiceSettingController::class, 'restore'])->name('service-settings.restore');
