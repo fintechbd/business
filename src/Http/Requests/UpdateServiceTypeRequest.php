@@ -33,9 +33,9 @@ class UpdateServiceTypeRequest extends FormRequest
             'service_type_slug' => ['string', 'required', 'max:255', $uniqueRule],
             'service_type_is_parent' => ['string', 'required'],
             'service_type_step' => ['integer', 'nullable'],
-            'service_type_data' => ['array', 'required'],
-            'service_type_data.service_type_logo_svg.*' => ['string', 'nullable'],
-            'service_type_data.service_type_logo_png.*' => ['string', 'nullable'],
+            'service_type_data' => ['nullable', 'required'],
+            'logo_svg' => ['string', 'nullable'],
+            'logo_png' => ['string', 'nullable'],
             'enabled' => ['boolean', 'nullable', 'min:1'],
         ];
 
