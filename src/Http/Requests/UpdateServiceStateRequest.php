@@ -29,6 +29,16 @@ class UpdateServiceStateRequest extends FormRequest
             'permanent_country_id' => ['integer', 'required'],
             'service_vendor_id' => ['integer', 'required'],
             'service_state_data' => ['array', 'required'],
+            'service_state_data.lower_limit.*' => ['double', 'required'],
+            'service_state_data.higher_limit.*' => ['double', 'required'],
+            'service_state_data.local_currency_higher_limit.*' => ['double', 'required'],
+            'service_state_data.charge.*' => ['double', 'required'],
+            'service_state_data.discount.*' => ['double', 'required'],
+            'service_state_data.commission.*' => ['double', 'required'],
+            'service_state_data.cost.*' => ['double', 'required'],
+            'service_state_data.charge_refund.*' => ['string', 'required'],
+            'service_state_data.discount_refund.*' => ['string', 'required'],
+            'service_state_data.commission_refund.*' => ['string', 'required'],
             'enabled' => ['boolean', 'nullable', 'min:1'],
         ];
     }
