@@ -16,6 +16,7 @@ return new class extends Migration
             $table->foreignId('service_type_id')->nullable();
             $table->foreignId('service_vendor_id')->nullable();
             $table->string('service_name')->nullable();
+            $table->string('service_slug')->nullable();
             $table->string('service_notification')->nullable()->default('no');
             $table->string('service_delay')->nullable()->default('no');
             $table->string('service_stat_policy')->nullable()->default('no');
