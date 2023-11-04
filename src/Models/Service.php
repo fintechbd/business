@@ -5,10 +5,13 @@ namespace Fintech\Business\Models;
 use Fintech\Core\Traits\AuditableTrait;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Spatie\MediaLibrary\HasMedia;
+use Spatie\MediaLibrary\InteractsWithMedia;
 
-class Service extends Model
+class Service extends Model implements HasMedia
 {
     use AuditableTrait;
+    use InteractsWithMedia;
     use SoftDeletes;
 
     /*
@@ -32,7 +35,18 @@ class Service extends Model
     | FUNCTIONS
     |--------------------------------------------------------------------------
     */
+    public function registerMediaCollections(): void
+    {
+        $this->addMediaCollection('logo_png')
+            ->acceptsMimeTypes(['image/png'])
+            ->singleFile()
+            ->useDisk(config('filesystems.default', 'public'));
 
+        $this->addMediaCollection('logo_svg')
+            ->acceptsMimeTypes(['image/svg+xml'])
+            ->singleFile()
+            ->useDisk(config('filesystems.default', 'public'));
+    }
     /*
     |--------------------------------------------------------------------------
     | RELATIONS
