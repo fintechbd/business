@@ -35,9 +35,7 @@ class ServiceVendor extends Model implements HasMedia
     | FUNCTIONS
     |--------------------------------------------------------------------------
     */
-    /**
-     * @return void
-     */
+
     public function registerMediaCollections(): void
     {
         $this->addMediaCollection('logo_png')
