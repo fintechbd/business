@@ -13,9 +13,12 @@ return new class extends Migration
     {
         Schema::create('service_settings', function (Blueprint $table) {
             $table->id();
-            $table->json('name')->nullable();
-
-            $table->json('service_setting_data')->nullable();
+            $table->string('service_setting_type')->nullable();
+            $table->string('service_setting_name')->nullable();
+            $table->string('service_setting_field_name')->nullable();
+            $table->string('service_setting_type_field')->nullable();
+            $table->string('service_setting_feature')->nullable();
+            $table->boolean('enabled')->nullable();
             $table->foreignId('creator_id')->nullable();
             $table->foreignId('editor_id')->nullable();
             $table->foreignId('destroyer_id')->nullable();
