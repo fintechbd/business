@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('role_id')->nullable();
             $table->foreignId('service_id')->nullable();
+            $table->string('service_slug')->nullable();
             $table->foreignId('present_country_id')->nullable();
             $table->foreignId('permanent_country_id')->nullable();
             $table->foreignId('service_vendor_id')->nullable();
