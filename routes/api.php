@@ -18,33 +18,33 @@ if (Config::get('fintech.business.enabled')) {
         ->middleware(config('fintech.auth.middleware'))
         ->group(function () {
 
-        Route::apiResource('service-settings', \Fintech\Business\Http\Controllers\ServiceSettingController::class);
-        Route::post('service-settings/{service_setting}/restore', [\Fintech\Business\Http\Controllers\ServiceSettingController::class, 'restore'])->name('service-settings.restore');
+            Route::apiResource('service-settings', \Fintech\Business\Http\Controllers\ServiceSettingController::class);
+            Route::post('service-settings/{service_setting}/restore', [\Fintech\Business\Http\Controllers\ServiceSettingController::class, 'restore'])->name('service-settings.restore');
 
-        Route::apiResource('service-types', \Fintech\Business\Http\Controllers\ServiceTypeController::class);
-        Route::post('service-types/{service_type}/restore', [\Fintech\Business\Http\Controllers\ServiceTypeController::class, 'restore'])->name('service-types.restore');
+            Route::apiResource('service-types', \Fintech\Business\Http\Controllers\ServiceTypeController::class);
+            Route::post('service-types/{service_type}/restore', [\Fintech\Business\Http\Controllers\ServiceTypeController::class, 'restore'])->name('service-types.restore');
 
-        Route::apiResource('services', \Fintech\Business\Http\Controllers\ServiceController::class);
-        Route::post('services/{service}/restore', [\Fintech\Business\Http\Controllers\ServiceController::class, 'restore'])->name('services.restore');
+            Route::apiResource('services', \Fintech\Business\Http\Controllers\ServiceController::class);
+            Route::post('services/{service}/restore', [\Fintech\Business\Http\Controllers\ServiceController::class, 'restore'])->name('services.restore');
 
-        Route::apiResource('service-states', \Fintech\Business\Http\Controllers\ServiceStateController::class);
-        Route::post('service-states/{service_state}/restore', [\Fintech\Business\Http\Controllers\ServiceStateController::class, 'restore'])->name('service-states.restore');
+            Route::apiResource('service-states', \Fintech\Business\Http\Controllers\ServiceStateController::class);
+            Route::post('service-states/{service_state}/restore', [\Fintech\Business\Http\Controllers\ServiceStateController::class, 'restore'])->name('service-states.restore');
 
-        Route::apiResource('service-packages', \Fintech\Business\Http\Controllers\ServicePackageController::class);
-        Route::post('service-packages/{service_package}/restore', [\Fintech\Business\Http\Controllers\ServicePackageController::class, 'restore'])->name('service-packages.restore');
+            Route::apiResource('service-packages', \Fintech\Business\Http\Controllers\ServicePackageController::class);
+            Route::post('service-packages/{service_package}/restore', [\Fintech\Business\Http\Controllers\ServicePackageController::class, 'restore'])->name('service-packages.restore');
 
-        Route::apiResource('charge-break-downs', \Fintech\Business\Http\Controllers\ChargeBreakDownController::class);
-        Route::post('charge-break-downs/{charge_break_down}/restore', [\Fintech\Business\Http\Controllers\ChargeBreakDownController::class, 'restore'])->name('charge-break-downs.restore');
+            Route::apiResource('charge-break-downs', \Fintech\Business\Http\Controllers\ChargeBreakDownController::class);
+            Route::post('charge-break-downs/{charge_break_down}/restore', [\Fintech\Business\Http\Controllers\ChargeBreakDownController::class, 'restore'])->name('charge-break-downs.restore');
 
-        Route::apiResource('vendors', \Fintech\Business\Http\Controllers\VendorController::class);
-        Route::post('vendors/{vendor}/restore', [\Fintech\Business\Http\Controllers\VendorController::class, 'restore'])->name('vendors.restore');
+            Route::apiResource('vendors', \Fintech\Business\Http\Controllers\VendorController::class);
+            Route::post('vendors/{vendor}/restore', [\Fintech\Business\Http\Controllers\VendorController::class, 'restore'])->name('vendors.restore');
 
-        Route::apiResource('package-top-charts', \Fintech\Business\Http\Controllers\PackageTopChartController::class);
-        Route::post('package-top-charts/{package_top_chart}/restore', [\Fintech\Business\Http\Controllers\PackageTopChartController::class, 'restore'])->name('package-top-charts.restore');
+            Route::apiResource('package-top-charts', \Fintech\Business\Http\Controllers\PackageTopChartController::class);
+            Route::post('package-top-charts/{package_top_chart}/restore', [\Fintech\Business\Http\Controllers\PackageTopChartController::class, 'restore'])->name('package-top-charts.restore');
 
-        Route::apiResource('service-vendors', \Fintech\Business\Http\Controllers\ServiceVendorController::class);
-        Route::post('service-vendors/{service_vendor}/restore', [\Fintech\Business\Http\Controllers\ServiceVendorController::class, 'restore'])->name('service-vendors.restore');
+            Route::apiResource('service-vendors', \Fintech\Business\Http\Controllers\ServiceVendorController::class);
+            Route::post('service-vendors/{service_vendor}/restore', [\Fintech\Business\Http\Controllers\ServiceVendorController::class, 'restore'])->name('service-vendors.restore');
 
-        //DO NOT REMOVE THIS LINE//
-    });
+            //DO NOT REMOVE THIS LINE//
+        });
 }
