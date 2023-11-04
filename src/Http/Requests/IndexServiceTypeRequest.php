@@ -32,7 +32,6 @@ class IndexServiceTypeRequest extends FormRequest
             'dir' => ['string', 'min:3', 'max:4'],
             'trashed' => ['boolean', 'nullable'],
             'service_type_name' => ['string', 'nullable'],
-
         ];
     }
 

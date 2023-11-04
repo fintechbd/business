@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Facade;
  * @method static \Fintech\Business\Services\ChargeBreakDownService chargeBreakDown()
  * @method static \Fintech\Business\Services\PackageTopChartService PackageTopChart()
  * @method static \Fintech\Business\Services\ServiceService service()
+ * // Crud Service Method Point Do not Remove //
  *
  * @see \Fintech\Business\Business
  */
