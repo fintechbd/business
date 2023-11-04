@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('service_type_parent_id')->nullable();
             $table->string('service_type_name')->nullable();
+            $table->string('service_type_slug')->nullable();
             $table->string('service_type_is_parent')->nullable()->default('no');
             $table->string('service_type_is_description')->nullable()->default('no');
             $table->integer('service_type_step')->nullable()->default(0);
