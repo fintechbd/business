@@ -13,9 +13,14 @@ return new class extends Migration
     {
         Schema::create('charge_break_downs', function (Blueprint $table) {
             $table->id();
-            $table->json('name')->nullable();
-
-            $table->json('charge_break_down_data')->nullable();
+            $table->foreignId('service_stat_id')->nullable();
+            $table->string('service_slug')->nullable();
+            $table->double('charge_break_down_lower')->default(0);
+            $table->double('charge_break_down_higher')->default(0);
+            $table->double('charge_break_down_charge')->default(0);
+            $table->double('charge_break_down_discount')->default(0);
+            $table->double('charge_break_down_commission')->default(0);
+            $table->boolean('enabled')->default(1);
             $table->foreignId('creator_id')->nullable();
             $table->foreignId('editor_id')->nullable();
             $table->foreignId('destroyer_id')->nullable();

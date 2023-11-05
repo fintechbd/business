@@ -22,7 +22,14 @@ class ImportChargeBreakDownRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'service_stat_id' => ['integer', 'required'],
+            'service_slug' => ['string', 'required'],
+            'charge_break_down_lower' => ['double', 'required'],
+            'charge_break_down_higher' => ['double', 'required'],
+            'charge_break_down_charge' => ['double', 'required'],
+            'charge_break_down_discount' => ['double', 'required'],
+            'charge_break_down_commission' => ['double', 'required'],
+            'enabled' => ['boolean', 'nullable', 'min:1'],
         ];
     }
 
