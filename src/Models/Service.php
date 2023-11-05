@@ -73,10 +73,10 @@ class Service extends Model implements HasMedia
         $primaryKey = $this->getKey();
 
         $links = [
-            'show' => action_link(route('service.Services.show', $primaryKey), __('core::messages.action.show'), 'get'),
-            'update' => action_link(route('service.Services.update', $primaryKey), __('core::messages.action.update'), 'put'),
-            'destroy' => action_link(route('service.Services.destroy', $primaryKey), __('core::messages.action.destroy'), 'delete'),
-            'restore' => action_link(route('service.Services.restore', $primaryKey), __('core::messages.action.restore'), 'post'),
+            'show' => action_link(route('business.services.show', $primaryKey), __('core::messages.action.show'), 'get'),
+            'update' => action_link(route('business.services.update', $primaryKey), __('core::messages.action.update'), 'put'),
+            'destroy' => action_link(route('business.services.destroy', $primaryKey), __('core::messages.action.destroy'), 'delete'),
+            'restore' => action_link(route('business.services.restore', $primaryKey), __('core::messages.action.restore'), 'post'),
         ];
 
         if ($this->getAttribute('deleted_at') == null) {

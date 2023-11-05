@@ -5,6 +5,7 @@ namespace Fintech\Business;
 use Fintech\Business\Models\ServicePackage;
 use Fintech\Business\Models\ServiceSetting;
 use Fintech\Business\Models\ServiceState;
+use Fintech\Business\Models\ServiceType;
 use Fintech\Business\Models\ServiceVendor;
 use Fintech\Business\Services\ChargeBreakDownService;
 use Fintech\Business\Services\PackageTopChartService;
@@ -40,6 +41,11 @@ class Business
     public function serviceState()
     {
         return app(ServiceState::class);
+    }
+
+    public function serviceType()
+    {
+        return app(ServiceType::class);
     }
 
     public function serviceVendor()

@@ -75,10 +75,10 @@ class ServiceVendor extends Model implements HasMedia
         $primaryKey = $this->getKey();
 
         $links = [
-            'show' => action_link(route('service-vendor.ServiceVendors.show', $primaryKey), __('core::messages.action.show'), 'get'),
-            'update' => action_link(route('service-vendor.ServiceVendors.update', $primaryKey), __('core::messages.action.update'), 'put'),
-            'destroy' => action_link(route('service-vendor.ServiceVendors.destroy', $primaryKey), __('core::messages.action.destroy'), 'delete'),
-            'restore' => action_link(route('service-vendor.ServiceVendors.restore', $primaryKey), __('core::messages.action.restore'), 'post'),
+            'show' => action_link(route('business.service-vendors.show', $primaryKey), __('core::messages.action.show'), 'get'),
+            'update' => action_link(route('business.service-vendors.update', $primaryKey), __('core::messages.action.update'), 'put'),
+            'destroy' => action_link(route('business.service-vendors.destroy', $primaryKey), __('core::messages.action.destroy'), 'delete'),
+            'restore' => action_link(route('business.service-vendors.restore', $primaryKey), __('core::messages.action.restore'), 'post'),
         ];
 
         if ($this->getAttribute('deleted_at') == null) {

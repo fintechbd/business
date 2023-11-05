@@ -59,10 +59,10 @@ class ServiceState extends Model
         $primaryKey = $this->getKey();
 
         $links = [
-            'show' => action_link(route('service-state.ServiceStates.show', $primaryKey), __('core::messages.action.show'), 'get'),
-            'update' => action_link(route('service-state.ServiceStates.update', $primaryKey), __('core::messages.action.update'), 'put'),
-            'destroy' => action_link(route('service-state.ServiceStates.destroy', $primaryKey), __('core::messages.action.destroy'), 'delete'),
-            'restore' => action_link(route('service-state.ServiceStates.restore', $primaryKey), __('core::messages.action.restore'), 'post'),
+            'show' => action_link(route('business.service-states.show', $primaryKey), __('core::messages.action.show'), 'get'),
+            'update' => action_link(route('business.service-states.update', $primaryKey), __('core::messages.action.update'), 'put'),
+            'destroy' => action_link(route('business.service-states.destroy', $primaryKey), __('core::messages.action.destroy'), 'delete'),
+            'restore' => action_link(route('business.service-states.restore', $primaryKey), __('core::messages.action.restore'), 'post'),
         ];
 
         if ($this->getAttribute('deleted_at') == null) {
