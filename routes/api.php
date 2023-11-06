@@ -36,8 +36,8 @@ if (Config::get('fintech.business.enabled')) {
             Route::apiResource('charge-break-downs', \Fintech\Business\Http\Controllers\ChargeBreakDownController::class);
             Route::post('charge-break-downs/{charge_break_down}/restore', [\Fintech\Business\Http\Controllers\ChargeBreakDownController::class, 'restore'])->name('charge-break-downs.restore');
 
-            Route::apiResource('vendors', \Fintech\Business\Http\Controllers\VendorController::class);
-            Route::post('vendors/{vendor}/restore', [\Fintech\Business\Http\Controllers\VendorController::class, 'restore'])->name('vendors.restore');
+/*            Route::apiResource('vendors', \Fintech\Business\Http\Controllers\VendorController::class);
+            Route::post('vendors/{vendor}/restore', [\Fintech\Business\Http\Controllers\VendorController::class, 'restore'])->name('vendors.restore');*/
 
             Route::apiResource('package-top-charts', \Fintech\Business\Http\Controllers\PackageTopChartController::class);
             Route::post('package-top-charts/{package_top_chart}/restore', [\Fintech\Business\Http\Controllers\PackageTopChartController::class, 'restore'])->name('package-top-charts.restore');
