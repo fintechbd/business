@@ -1,6 +1,6 @@
 <?php
 
-namespace Fintech\Business\Database\Seeders;
+namespace Fintech\Business\Seeders;
 
 use Fintech\Business\Facades\Business;
 use Illuminate\Database\Seeder;
