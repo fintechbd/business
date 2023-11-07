@@ -28,8 +28,8 @@ class ServiceTypeCollection extends ResourceCollection
                 'service_type_is_description' => $serviceType->service_type_is_description ?? null,
                 'service_type_step' => $serviceType->service_type_step ?? null,
                 'service_type_data' => $serviceType->service_type_data ?? null,
-                'service_type_log_svg' => $serviceType->getMedia('logo_svg') ?? null,
-                'service_type_log_png' => $serviceType->getMedia('logo_png') ?? null,
+                'service_type_log_svg' => $serviceType->getFirstMediaUrl('logo_svg') ?? null,
+                'service_type_log_png' => $serviceType->getFirstMediaUrl('logo_png') ?? null,
                 'enabled' => $serviceType->enabled ?? null,
             ];
             return $data;

@@ -38,8 +38,8 @@ class ServiceTypeResource extends JsonResource
           'service_type_is_description' => $this->service_type_is_description ?? null,
           'service_type_step' => $this->service_type_step ?? null,
           'service_type_data' => $this->service_type_data ?? null,
-          'service_type_log_svg' => $this->getMedia('logo_svg') ?? null,
-          'service_type_log_png' => $this->getMedia('logo_png') ?? null,
+          'service_type_log_svg' => $this->getFirstMediaUrl('logo_svg') ?? null,
+          'service_type_log_png' => $this->getFirstMediaUrl('logo_png') ?? null,
           'enabled' => $this->enabled ?? null,
         ];
         return $data;
