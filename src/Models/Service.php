@@ -49,38 +49,28 @@ class Service extends Model implements HasMedia
             ->singleFile()
             ->useDisk(config('filesystems.default', 'public'));
     }
+
     /*
     |--------------------------------------------------------------------------
     | RELATIONS
     |--------------------------------------------------------------------------
     */
-    /**
-     * @return BelongsTo
-     */
+
     public function serviceType(): BelongsTo
     {
         return $this->belongsTo(ServiceType::class, 'service_type_id');
     }
 
-    /**
-     * @return BelongsTo
-     */
     public function serviceVendor(): BelongsTo
     {
         return $this->belongsTo(ServiceVendor::class, 'service_vendor_id');
     }
 
-    /**
-     * @return HasMany
-     */
     public function serviceStat(): HasMany
     {
         return $this->hasMany(ServiceState::class, 'service_id', 'id');
     }
 
-    /**
-     * @return HasMany
-     */
     public function servicePackage(): HasMany
     {
         return $this->hasMany(ServicePackage::class, 'service_id', 'id');

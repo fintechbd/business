@@ -7,10 +7,10 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\ResourceCollection;
 
 /**
- * @property integer $id
- * @property integer $service_type_id
+ * @property int $id
+ * @property int $service_type_id
  * @property string $service_type_name
- * @property integer $service_vendor_id
+ * @property int $service_vendor_id
  * @property string $service_vendor_name
  * @property string $service_name
  * @property string $service_slug
@@ -22,6 +22,7 @@ use Illuminate\Http\Resources\Json\ResourceCollection;
  * @property mixed $links
  * @property mixed $created_at
  * @property mixed $updated_at
+ *
  * @method getKey()
  * @method getFirstMediaUrl(string $string)
  */
@@ -29,9 +30,6 @@ class ServiceCollection extends ResourceCollection
 {
     /**
      * Transform the resource collection into an array.
-     *
-     * @param Request $request
-     * @return array
      */
     public function toArray(Request $request): array
     {
