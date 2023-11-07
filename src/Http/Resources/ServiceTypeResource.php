@@ -6,19 +6,20 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 /**
- * @property integer $service_type_parent_id
+ * @property int $service_type_parent_id
  * @property mixed $serviceTypeParent
  * @property string $service_type_name
  * @property string $service_type_slug
  * @property string $service_type_is_parent
  * @property string $service_type_is_description
- * @property integer $service_type_step
+ * @property int $service_type_step
  * @property array $service_type_data
- * @property boolean $enabled
+ * @property bool $enabled
  * @property mixed $all_parent_list
  * @property mixed $links
  * @property mixed $created_at
  * @property mixed $updated_at
+ *
  * @method getKey()
  * @method getFirstMediaUrl(string $string)
  */
@@ -26,9 +27,6 @@ class ServiceTypeResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
-     *
-     * @param Request $request
-     * @return array
      */
     public function toArray(Request $request): array
     {
@@ -50,6 +48,7 @@ class ServiceTypeResource extends JsonResource
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
         ];
+
         return $data;
     }
 }
