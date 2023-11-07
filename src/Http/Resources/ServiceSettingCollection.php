@@ -10,9 +10,6 @@ class ServiceSettingCollection extends ResourceCollection
 {
     /**
      * Transform the resource collection into an array.
-     *
-     * @param Request $request
-     * @return array
      */
     public function toArray(Request $request): array
     {
@@ -29,6 +26,7 @@ class ServiceSettingCollection extends ResourceCollection
                 'created_at' => $serviceSetting->created_at,
                 'updated_at' => $serviceSetting->updated_at,
             ];
+
             return $data;
         })->toArray();
     }
