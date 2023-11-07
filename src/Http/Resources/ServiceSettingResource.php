@@ -4,6 +4,19 @@ namespace Fintech\Business\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
+/**
+ * @property integer $id
+ * @property string $service_setting_type
+ * @property string $service_setting_name
+ * @property string $service_setting_field_name
+ * @property string $service_setting_type_field
+ * @property string $service_setting_feature
+ * @property boolean $enabled
+ * @property mixed $links
+ * @property mixed $created_at
+ * @property mixed $updated_at
+ * @method getKey()
+ */
 class ServiceSettingResource extends JsonResource
 {
     /**
@@ -14,6 +27,19 @@ class ServiceSettingResource extends JsonResource
      */
     public function toArray($request)
     {
-        return parent::toArray($request);
+        $data = [
+            'id' => $this->getKey() ?? null,
+            'service_setting_type' => $this->service_setting_type ?? null,
+            'service_setting_name' => $this->service_setting_name ?? null,
+            'service_setting_field_name' => $this->service_setting_field_name ?? null,
+            'service_setting_type_field' => $this->service_setting_type_field ?? null,
+            'service_setting_feature' => $this->service_setting_feature ?? null,
+            'enabled' => $this->enabled ?? null,
+            'links' => $this->links,
+            'created_at' => $this->created_at,
+            'updated_at' => $this->updated_at,
+        ];
+
+        return $data;
     }
 }
