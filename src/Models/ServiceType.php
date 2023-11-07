@@ -55,123 +55,92 @@ class ServiceType extends Model implements HasMedia
     | RELATIONS
     |--------------------------------------------------------------------------
     */
-    /**
-     * @return HasOne
-     */
+
     public function serviceTypeParent(): HasOne
     {
         return $this->hasOne(self::class, 'id', 'service_type_parent_id');
     }
 
-    /**
-     * @return HasMany
-     */
     public function serviceTypeChild(): HasMany
     {
         return $this->hasMany(self::class, 'service_type_parent_id', 'id');
     }
 
-
-    /**
-     * @return HasOne
-     */
     public function serviceTypeGrandParent(): HasOne
     {
         return $this->hasOne(self::class, 'id', 'service_type_parent_id')
             ->with('serviceTypeGrandParent');
     }
 
-    /**
-     * @return HasMany
-     */
     public function serviceTypeGrandChild(): HasMany
     {
         return $this->hasMany(self::class, 'service_type_parent_id', 'id')
             ->with('serviceTypeGrandChild');
     }
 
-    /**
-     * @return HasOne
-     */
     public function allParentAccounts(): HasOne
     {
         return $this->serviceTypeParent()->with('allParentAccounts');
     }
 
-    /**
-     * @return HasMany
-     */
     public function allChildAccounts(): HasMany
     {
         return $this->serviceTypeChild()->with('allChildAccounts');
     }
 
-    /**
-     * @return array
-     */
     public function getAllParentListAttribute(): array
     {
-        $data = array();
+        $data = [];
         $parentList = $this->allParentAccounts ? $this->allParentAccounts->toArray() : null;
-        if(!empty($parentList)){
+        if (! empty($parentList)) {
             $data = [$parentList['id'] => $parentList['service_type_name']];
-            if(isset($parentList['all_parent_accounts'])):
+            if (isset($parentList['all_parent_accounts'])) {
                 $data = array_merge($data, $this->all_accounts($parentList['all_parent_accounts']));
-            endif;
+            }
             sort($data);
         }
-        return  $data;
+
+        return $data;
     }
 
-    /**
-     * @return array
-     */
     public function getAllChildListAttribute(): array
     {
-        $data = array();
+        $data = [];
         $childLists = $this->allChildAccounts->toArray();
-        foreach ($childLists as $childList):
+        foreach ($childLists as $childList) {
             $data[] = $childList;
-            if(isset($childList['all_child_accounts'])):
+            if (isset($childList['all_child_accounts'])) {
                 $data = array_merge($data, $this->all_account_children($childList['all_child_accounts']));
-            endif;
-        endforeach;
-        return  $data;
+            }
+        }
+
+        return $data;
     }
 
-    /**
-     * @param $input
-     * @return array
-     */
     public function all_accounts($input): array
     {
-        $data = array();
+        $data = [];
         $data = [$input['id'] => $input['service_type_name']];
-        if(isset($input['all_parent_accounts'])):
-            $data = array_merge($data,$this->all_accounts($input['all_parent_accounts']));
-        endif;
+        if (isset($input['all_parent_accounts'])) {
+            $data = array_merge($data, $this->all_accounts($input['all_parent_accounts']));
+        }
+
         return $data;
     }
 
-    /**
-     * @param $input
-     * @return array
-     */
     public function all_account_children($input): array
     {
-        $data = array();
-        foreach ($input as $inputs):
+        $data = [];
+        foreach ($input as $inputs) {
             $data[] = $inputs;
-            if(isset($inputs['all_child_accounts'])):
-                $data = array_merge($data,$this->all_account_children($inputs['all_child_accounts']));
-            endif;
-        endforeach;
+            if (isset($inputs['all_child_accounts'])) {
+                $data = array_merge($data, $this->all_account_children($inputs['all_child_accounts']));
+            }
+        }
+
         return $data;
     }
 
-    /**
-     * @return HasMany
-     */
     public function service(): HasMany
     {
         return $this->hasMany(Service::class, 'service_type_id');
