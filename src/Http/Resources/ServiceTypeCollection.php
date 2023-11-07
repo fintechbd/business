@@ -6,17 +6,54 @@ use Fintech\Core\Supports\Constant;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\ResourceCollection;
 
+/**
+ * @property integer $service_type_parent_id
+ * @property mixed $serviceTypeParent
+ * @property string $service_type_name
+ * @property string $service_type_slug
+ * @property string $service_type_is_parent
+ * @property string $service_type_is_description
+ * @property integer $service_type_step
+ * @property array $service_type_data
+ * @property boolean $enabled
+ * @property mixed $all_parent_list
+ * @property mixed $links
+ * @property mixed $created_at
+ * @property mixed $updated_at
+ * @method getKey()
+ * @method getFirstMediaUrl(string $string)
+ */
 class ServiceTypeCollection extends ResourceCollection
 {
     /**
      * Transform the resource collection into an array.
      *
-     * @param  Request  $request
+     * @param Request $request
      * @return array
      */
-    public function toArray($request)
+    public function toArray(Request $request): array
     {
-        return parent::toArray($request);
+        return $this->collection->map(function ($serviceType) {
+            $data = [
+                'id' => $serviceType->getKey() ?? null,
+                'service_type_parent_id' => $serviceType->service_type_parent_id ?? null,
+                'service_type_parent_name' => $serviceType->serviceTypeParent->service_type_name ?? null,
+                'service_type_parent_list' => $serviceType->all_parent_list ?? null,
+                'service_type_name' => $serviceType->service_type_name ?? null,
+                'service_type_slug' => $serviceType->service_type_slug ?? null,
+                'service_type_is_parent' => $serviceType->service_type_is_parent ?? null,
+                'service_type_is_description' => $serviceType->service_type_is_description ?? null,
+                'service_type_step' => $serviceType->service_type_step ?? null,
+                'service_type_data' => $serviceType->service_type_data ?? null,
+                'service_type_log_svg' => $serviceType->getFirstMediaUrl('logo_svg') ?? null,
+                'service_type_log_png' => $serviceType->getFirstMediaUrl('logo_png') ?? null,
+                'enabled' => $serviceType->enabled ?? null,
+                'links' => $serviceType->links,
+                'created_at' => $serviceType->created_at,
+                'updated_at' => $serviceType->updated_at,
+            ];
+            return $data;
+        })->toArray();
     }
 
     /**
