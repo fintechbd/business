@@ -10,6 +10,7 @@ use Fintech\Business\Http\Requests\StoreServiceSettingRequest;
 use Fintech\Business\Http\Requests\UpdateServiceSettingRequest;
 use Fintech\Business\Http\Resources\ServiceSettingCollection;
 use Fintech\Business\Http\Resources\ServiceSettingResource;
+use Fintech\Business\Http\Resources\ServiceSettingTypeResource;
 use Fintech\Core\Exceptions\DeleteOperationException;
 use Fintech\Core\Exceptions\RestoreOperationException;
 use Fintech\Core\Exceptions\StoreOperationException;
@@ -266,6 +267,32 @@ class ServiceSettingController extends Controller
             $serviceSettingPaginate = Business::serviceSetting()->list($inputs);
 
             return new ServiceSettingCollection($serviceSettingPaginate);
+
+        } catch (Exception $exception) {
+
+            return $this->failed($exception->getMessage());
+        }
+    }
+
+    public function serviceSettingTypes(): ServiceSettingTypeResource|JsonResponse
+    {
+        try {
+            $serviceSettingTypes = config('fintech.business.service_setting_types');
+
+            return new ServiceSettingTypeResource($serviceSettingTypes);
+
+        } catch (Exception $exception) {
+
+            return $this->failed($exception->getMessage());
+        }
+    }
+
+    public function serviceSettingTypeFields(): ServiceSettingTypeResource|JsonResponse
+    {
+        try {
+            $serviceSettingTypeFields = config('fintech.business.service_setting_type_fields');
+
+            return new ServiceSettingTypeResource($serviceSettingTypeFields);
 
         } catch (Exception $exception) {
 
