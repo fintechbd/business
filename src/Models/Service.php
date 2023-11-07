@@ -4,6 +4,8 @@ namespace Fintech\Business\Models;
 
 use Fintech\Core\Traits\AuditableTrait;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
@@ -47,11 +49,32 @@ class Service extends Model implements HasMedia
             ->singleFile()
             ->useDisk(config('filesystems.default', 'public'));
     }
+
     /*
     |--------------------------------------------------------------------------
     | RELATIONS
     |--------------------------------------------------------------------------
     */
+
+    public function serviceType(): BelongsTo
+    {
+        return $this->belongsTo(ServiceType::class, 'service_type_id');
+    }
+
+    public function serviceVendor(): BelongsTo
+    {
+        return $this->belongsTo(ServiceVendor::class, 'service_vendor_id');
+    }
+
+    public function serviceStat(): HasMany
+    {
+        return $this->hasMany(ServiceState::class, 'service_id', 'id');
+    }
+
+    public function servicePackage(): HasMany
+    {
+        return $this->hasMany(ServicePackage::class, 'service_id', 'id');
+    }
 
     /*
     |--------------------------------------------------------------------------
