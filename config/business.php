@@ -85,7 +85,7 @@ return [
     |
     | This value will be used to across system where model is needed
     */
-    'vendor_model' => \Fintech\Business\Models\Vendor::class,
+    //'vendor_model' => \Fintech\Business\Models\Vendor::class,
 
     /*
     |--------------------------------------------------------------------------
@@ -115,12 +115,12 @@ return [
     | This value will be used across systems where a constant instance is needed
     */
 
-    'service_setting_type' => [
+    'service_setting_types' => [
         'service_state' => 'Service State',
         'service' => 'Service',
     ],
 
-    'service_setting_type_field' => [
+    'service_setting_type_fields' => [
         'text' => 'TEXT',
         'select' => 'SELECT',
         'textarea' => 'TEXT AREA',

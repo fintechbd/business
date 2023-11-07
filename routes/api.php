@@ -18,6 +18,8 @@ if (Config::get('fintech.business.enabled')) {
         ->middleware(config('fintech.auth.middleware'))
         ->group(function () {
 
+            Route::get('service-settings/types', [\Fintech\Business\Http\Controllers\ServiceSettingController::class, 'serviceSettingTypes'])->name('service-settings.types');
+            Route::get('service-settings/type-fields', [\Fintech\Business\Http\Controllers\ServiceSettingController::class, 'serviceSettingTypeFields'])->name('service-settings.type-fields');
             Route::apiResource('service-settings', \Fintech\Business\Http\Controllers\ServiceSettingController::class);
             Route::post('service-settings/{service_setting}/restore', [\Fintech\Business\Http\Controllers\ServiceSettingController::class, 'restore'])->name('service-settings.restore');
 
