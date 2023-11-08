@@ -29,6 +29,7 @@ return new class extends Migration
             $table->softDeletes();
             $table->timestamp('restored_at')->nullable();
         });
+
     }
 
     /**
