@@ -22,6 +22,7 @@ return new class extends Migration
             $table->string('service_stat_policy')->nullable()->default('no');
             $table->string('service_serial')->nullable()->default(0);
             $table->json('service_data')->nullable();
+            $table->boolean('enabled')->nullable();
             $table->foreignId('creator_id')->nullable();
             $table->foreignId('editor_id')->nullable();
             $table->foreignId('destroyer_id')->nullable();
