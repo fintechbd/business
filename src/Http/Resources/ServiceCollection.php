@@ -33,28 +33,28 @@ class ServiceCollection extends ResourceCollection
      */
     public function toArray(Request $request): array
     {
-        return $this->collection->map(function ($serviceType) {
+        return $this->collection->map(function ($service) {
             $data = [
-                'id' => $this->getKey() ?? null,
-                'service_type_id' => $this->service_type_id ?? null,
-                'service_type_name' => isset($this->serviceType) ? $this->serviceType->service_type_name : null,
-                'service_type_parent_name' => $this->serviceType->serviceTypeParent->service_type_name ?? null,
-                'service_type_parent_list' => $this->serviceType->all_parent_list ?? null,
-                'service_vendor_id' => $this->service_vendor_id ?? null,
-                'service_vendor_name' => isset($this->serviceVendor) ? $this->serviceVendor->service_vendor_name : null,
-                'service_name' => $this->service_name ?? null,
-                'service_slug' => $this->service_slug ?? null,
-                'service_notification' => $this->service_notification ?? null,
-                'service_delay' => $this->service_delay ?? null,
-                'service_stat_policy' => $this->service_stat_policy ?? null,
-                'service_serial' => $this->service_serial ?? null,
-                'service_data' => $this->service_data ?? null,
-                'service_log_svg' => $this->getFirstMediaUrl('logo_svg') ?? null,
-                'service_log_png' => $this->getFirstMediaUrl('logo_png') ?? null,
-                'enabled' => $this->enabled ?? null,
-                'links' => $this->links,
-                'created_at' => $this->created_at,
-                'updated_at' => $this->updated_at,
+                'id' => $service->getKey() ?? null,
+                'service_type_id' => $service->service_type_id ?? null,
+                'service_type_name' => isset($service->serviceType) ? $service->serviceType->service_type_name : null,
+                'service_type_parent_name' => $service->serviceType->serviceTypeParent->service_type_name ?? null,
+                'service_type_parent_list' => $service->serviceType->all_parent_list ?? null,
+                'service_vendor_id' => $service->service_vendor_id ?? null,
+                'service_vendor_name' => isset($service->serviceVendor) ? $service->serviceVendor->service_vendor_name : null,
+                'service_name' => $service->service_name ?? null,
+                'service_slug' => $service->service_slug ?? null,
+                'service_notification' => $service->service_notification ?? null,
+                'service_delay' => $service->service_delay ?? null,
+                'service_stat_policy' => $service->service_stat_policy ?? null,
+                'service_serial' => $service->service_serial ?? null,
+                'service_data' => $service->service_data ?? null,
+                'service_log_svg' => $service->getFirstMediaUrl('logo_svg') ?? null,
+                'service_log_png' => $service->getFirstMediaUrl('logo_png') ?? null,
+                'enabled' => $service->enabled ?? null,
+                'links' => $service->links,
+                'created_at' => $service->created_at,
+                'updated_at' => $service->updated_at,
             ];
 
             return $data;
