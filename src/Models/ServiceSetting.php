@@ -59,10 +59,10 @@ class ServiceSetting extends Model
         $primaryKey = $this->getKey();
 
         $links = [
-            'show' => action_link(route('service-setting.ServiceSettings.show', $primaryKey), __('core::messages.action.show'), 'get'),
-            'update' => action_link(route('service-setting.ServiceSettings.update', $primaryKey), __('core::messages.action.update'), 'put'),
-            'destroy' => action_link(route('service-setting.ServiceSettings.destroy', $primaryKey), __('core::messages.action.destroy'), 'delete'),
-            'restore' => action_link(route('service-setting.ServiceSettings.restore', $primaryKey), __('core::messages.action.restore'), 'post'),
+            'show' => action_link(route('business.service-settings.show', $primaryKey), __('core::messages.action.show'), 'get'),
+            'update' => action_link(route('business.service-settings.update', $primaryKey), __('core::messages.action.update'), 'put'),
+            'destroy' => action_link(route('business.service-settings.destroy', $primaryKey), __('core::messages.action.destroy'), 'delete'),
+            'restore' => action_link(route('business.service-settings.restore', $primaryKey), __('core::messages.action.restore'), 'post'),
         ];
 
         if ($this->getAttribute('deleted_at') == null) {

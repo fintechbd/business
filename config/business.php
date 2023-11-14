@@ -85,7 +85,7 @@ return [
     |
     | This value will be used to across system where model is needed
     */
-    'vendor_model' => \Fintech\Business\Models\Vendor::class,
+    //'vendor_model' => \Fintech\Business\Models\Vendor::class,
 
     /*
     |--------------------------------------------------------------------------
@@ -106,6 +106,31 @@ return [
     'service_vendor_model' => \Fintech\Business\Models\ServiceVendor::class,
 
     //** Model Config Point Do not Remove **//
+
+    /*
+    |--------------------------------------------------------------------------
+    | Constant
+    |--------------------------------------------------------------------------
+    |
+    | This value will be used across systems where a constant instance is needed
+    */
+
+    'service_setting_types' => [
+        'service_state' => 'Service State',
+        'service' => 'Service',
+    ],
+
+    'service_setting_type_fields' => [
+        'text' => 'TEXT',
+        'select' => 'SELECT',
+        'textarea' => 'TEXT AREA',
+        'date' => 'DATE',
+        'radio' => 'RADIO',
+        'email' => 'EMAIL',
+        'number' => 'NUMBER',
+        'tel' => 'TEL',
+        'url' => 'URL',
+    ],
 
     /*
     |--------------------------------------------------------------------------

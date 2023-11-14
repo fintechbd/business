@@ -10,13 +10,25 @@ class ServiceSettingCollection extends ResourceCollection
 {
     /**
      * Transform the resource collection into an array.
-     *
-     * @param  Request  $request
-     * @return array
      */
-    public function toArray($request)
+    public function toArray(Request $request): array
     {
-        return parent::toArray($request);
+        return $this->collection->map(function ($serviceSetting) {
+            $data = [
+                'id' => $serviceSetting->getKey() ?? null,
+                'service_setting_type' => $serviceSetting->service_setting_type ?? null,
+                'service_setting_name' => $serviceSetting->service_setting_name ?? null,
+                'service_setting_field_name' => $serviceSetting->service_setting_field_name ?? null,
+                'service_setting_type_field' => $serviceSetting->service_setting_type_field ?? null,
+                'service_setting_feature' => $serviceSetting->service_setting_feature ?? null,
+                'enabled' => $serviceSetting->enabled ?? null,
+                'links' => $serviceSetting->links,
+                'created_at' => $serviceSetting->created_at,
+                'updated_at' => $serviceSetting->updated_at,
+            ];
+
+            return $data;
+        })->toArray();
     }
 
     /**

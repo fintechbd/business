@@ -59,10 +59,10 @@ class ServicePackage extends Model
         $primaryKey = $this->getKey();
 
         $links = [
-            'show' => action_link(route('service-package.ServicePackages.show', $primaryKey), __('core::messages.action.show'), 'get'),
-            'update' => action_link(route('service-package.ServicePackages.update', $primaryKey), __('core::messages.action.update'), 'put'),
-            'destroy' => action_link(route('service-package.ServicePackages.destroy', $primaryKey), __('core::messages.action.destroy'), 'delete'),
-            'restore' => action_link(route('service-package.ServicePackages.restore', $primaryKey), __('core::messages.action.restore'), 'post'),
+            'show' => action_link(route('business.service-packages.show', $primaryKey), __('core::messages.action.show'), 'get'),
+            'update' => action_link(route('business.service-packages.update', $primaryKey), __('core::messages.action.update'), 'put'),
+            'destroy' => action_link(route('business.service-packages.destroy', $primaryKey), __('core::messages.action.destroy'), 'delete'),
+            'restore' => action_link(route('business.service-packages.restore', $primaryKey), __('core::messages.action.restore'), 'post'),
         ];
 
         if ($this->getAttribute('deleted_at') == null) {

@@ -2,13 +2,14 @@
 
 namespace Fintech\Business;
 
-use Fintech\Business\Models\ServicePackage;
-use Fintech\Business\Models\ServiceSetting;
-use Fintech\Business\Models\ServiceState;
-use Fintech\Business\Models\ServiceVendor;
 use Fintech\Business\Services\ChargeBreakDownService;
 use Fintech\Business\Services\PackageTopChartService;
+use Fintech\Business\Services\ServicePackageService;
 use Fintech\Business\Services\ServiceService;
+use Fintech\Business\Services\ServiceSettingService;
+use Fintech\Business\Services\ServiceStateService;
+use Fintech\Business\Services\ServiceTypeService;
+use Fintech\Business\Services\ServiceVendorService;
 
 class Business
 {
@@ -29,21 +30,28 @@ class Business
 
     public function servicePackage()
     {
-        return app(ServicePackage::class);
+        return app(ServicePackageService::class);
     }
 
     public function serviceSetting()
     {
-        return app(ServiceSetting::class);
+        return app(ServiceSettingService::class);
     }
 
     public function serviceState()
     {
-        return app(ServiceState::class);
+        return app(ServiceStateService::class);
+    }
+
+    public function serviceType()
+    {
+        return app(ServiceTypeService::class);
     }
 
     public function serviceVendor()
     {
-        return app(ServiceVendor::class);
+        return app(ServiceVendorService::class);
     }
+
+    //** Crud Service Method Point Do not Remove **//
 }

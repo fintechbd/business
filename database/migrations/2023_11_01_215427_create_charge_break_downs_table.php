@@ -11,11 +11,16 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('service_types', function (Blueprint $table) {
+        Schema::create('charge_break_downs', function (Blueprint $table) {
             $table->id();
-            $table->json('name')->nullable();
-
-            $table->json('service_type_data')->nullable();
+            $table->foreignId('service_stat_id')->nullable();
+            $table->string('service_slug')->nullable();
+            $table->double('charge_break_down_lower')->default(0);
+            $table->double('charge_break_down_higher')->default(0);
+            $table->double('charge_break_down_charge')->default(0);
+            $table->double('charge_break_down_discount')->default(0);
+            $table->double('charge_break_down_commission')->default(0);
+            $table->boolean('enabled')->default(1);
             $table->foreignId('creator_id')->nullable();
             $table->foreignId('editor_id')->nullable();
             $table->foreignId('destroyer_id')->nullable();
@@ -31,6 +36,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('service_types');
+        Schema::dropIfExists('charge_break_downs');
     }
 };
