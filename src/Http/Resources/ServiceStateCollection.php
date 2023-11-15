@@ -21,6 +21,7 @@ use Illuminate\Http\Resources\Json\ResourceCollection;
  * @property mixed $links
  * @property mixed $created_at
  * @property mixed $updated_at
+ *
  * @method getKey()
  */
 class ServiceStateCollection extends ResourceCollection

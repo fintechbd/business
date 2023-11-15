@@ -20,15 +20,13 @@ use Illuminate\Http\Resources\Json\JsonResource;
  * @property mixed $links
  * @property mixed $created_at
  * @property mixed $updated_at
+ *
  * @method getKey()
  */
 class ServiceStateResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
-     *
-     * @param Request $request
-     * @return array
      */
     public function toArray(Request $request): array
     {

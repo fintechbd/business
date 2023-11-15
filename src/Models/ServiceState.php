@@ -67,7 +67,6 @@ class ServiceState extends Model
         return $this->belongsTo(ServiceVendor::class, 'service_vendor_id');
     }
 
-
     /*
     |--------------------------------------------------------------------------
     | SCOPES
