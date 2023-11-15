@@ -67,16 +67,22 @@ class ServiceStateController extends Controller
     {
         try {
             $inputs = $request->validated();
+            $serviceStates = [];
+            if(is_array($inputs['role_id'])){
+                foreach ($inputs['role_id'] as $role){
+                    $inputs['role_id'] = $role;
+                    $serviceState = Business::serviceState()->create($inputs);
+                    $serviceStates[] = $serviceState->id;
+                }
+            }
 
-            $serviceState = Business::serviceState()->create($inputs);
-
-            if (! $serviceState) {
+            if (! $serviceStates) {
                 throw (new StoreOperationException)->setModel(config('fintech.business.service_state_model'));
             }
 
             return $this->created([
                 'message' => __('core::messages.resource.created', ['model' => 'Service State']),
-                'id' => $serviceState->id,
+                'id' => $serviceStates,
             ]);
 
         } catch (Exception $exception) {
