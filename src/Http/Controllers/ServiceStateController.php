@@ -68,11 +68,21 @@ class ServiceStateController extends Controller
         try {
             $inputs = $request->validated();
             $serviceStates = [];
-            if (is_array($inputs['role_id'])) {
-                foreach ($inputs['role_id'] as $role) {
+            if (is_array($request['role_id'])) {
+                foreach ($request['role_id'] as $role) {
                     $inputs['role_id'] = $role;
-                    $serviceState = Business::serviceState()->create($inputs);
-                    $serviceStates[] = $serviceState->id;
+                    if (is_array($request['source_country_id'])) {
+                        foreach ($request['source_country_id'] as $source_country) {
+                            $inputs['source_country_id'] = $source_country;
+                            if (is_array($request['destination_country_id'])) {
+                                foreach ($request['destination_country_id'] as $destination_country) {
+                                    $inputs['destination_country_id'] = $destination_country;
+                                    $serviceState = Business::serviceState()->create($inputs);
+                                    $serviceStates[] = $serviceState->id;
+                                }
+                            }
+                        }
+                    }
                 }
             }
 
