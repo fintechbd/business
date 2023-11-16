@@ -2,6 +2,7 @@
 
 namespace Fintech\Business\Services;
 
+use Fintech\Business\Facades\Business;
 use Fintech\Business\Interfaces\ServiceStateRepository;
 
 /**
@@ -59,5 +60,32 @@ class ServiceStateService
     public function import(array $filters)
     {
         return $this->serviceStateRepository->create($filters);
+    }
+
+    public function customStore(array $data): array
+    {
+        $inputs = $data;
+        $serviceStates = [];
+        if (is_array($data['role_id'])) {
+            foreach ($data['role_id'] as $role) {
+                $inputs['role_id'] = $role;
+                if (is_array($data['source_country_id'])) {
+                    foreach ($data['source_country_id'] as $source_country) {
+                        $inputs['source_country_id'] = $source_country;
+                        if (is_array($data['destination_country_id'])) {
+                            foreach ($data['destination_country_id'] as $destination_country) {
+                                $inputs['destination_country_id'] = $destination_country;
+                                $serviceState = Business::serviceState()->create($inputs);
+                                $serviceStates[] = $serviceState->id;
+                                //$serviceStates[] = $inputs;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        return $serviceStates;
+
     }
 }
