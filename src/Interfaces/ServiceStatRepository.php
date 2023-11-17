@@ -10,7 +10,7 @@ use MongoDB\Laravel\Eloquent\Model as MongodbModel;
 /**
  * Interface ServiceStateRepository
  */
-interface ServiceStateRepository
+interface ServiceStatRepository
 {
     /**
      * return a list or pagination of items from

@@ -4,12 +4,12 @@ namespace Fintech\Business\Http\Controllers;
 
 use Exception;
 use Fintech\Business\Facades\Business;
-use Fintech\Business\Http\Requests\ImportServiceStateRequest;
-use Fintech\Business\Http\Requests\IndexServiceStateRequest;
-use Fintech\Business\Http\Requests\StoreServiceStateRequest;
-use Fintech\Business\Http\Requests\UpdateServiceStateRequest;
-use Fintech\Business\Http\Resources\ServiceStateCollection;
-use Fintech\Business\Http\Resources\ServiceStateResource;
+use Fintech\Business\Http\Requests\ImportServiceStatRequest;
+use Fintech\Business\Http\Requests\IndexServiceStatRequest;
+use Fintech\Business\Http\Requests\StoreServiceStatRequest;
+use Fintech\Business\Http\Requests\UpdateServiceStatRequest;
+use Fintech\Business\Http\Resources\ServiceStatCollection;
+use Fintech\Business\Http\Resources\ServiceStatResource;
 use Fintech\Core\Exceptions\DeleteOperationException;
 use Fintech\Core\Exceptions\RestoreOperationException;
 use Fintech\Core\Exceptions\StoreOperationException;
@@ -20,34 +20,34 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Routing\Controller;
 
 /**
- * Class ServiceStateController
+ * Class ServiceStatController
  *
  * @lrd:start
  * This class handle create, display, update, delete & restore
- * operation related to ServiceState
+ * operation related to ServiceStat
  *
  * @lrd:end
  */
-class ServiceStateController extends Controller
+class ServiceStatController extends Controller
 {
     use ApiResponseTrait;
 
     /**
      * @lrd:start
-     * Return a listing of the *ServiceState* resource as collection.
+     * Return a listing of the *ServiceStat* resource as collection.
      *
      * *```paginate=false``` returns all resource as list not pagination*
      *
      * @lrd:end
      */
-    public function index(IndexServiceStateRequest $request): ServiceStateCollection|JsonResponse
+    public function index(IndexServiceStatRequest $request): ServiceStatCollection|JsonResponse
     {
         try {
             $inputs = $request->validated();
 
-            $serviceStatePaginate = Business::serviceState()->list($inputs);
+            $serviceStatePaginate = Business::serviceStat()->list($inputs);
 
-            return new ServiceStateCollection($serviceStatePaginate);
+            return new ServiceStatCollection($serviceStatePaginate);
 
         } catch (Exception $exception) {
 
@@ -57,20 +57,20 @@ class ServiceStateController extends Controller
 
     /**
      * @lrd:start
-     * Create a new *ServiceState* resource in storage.
+     * Create a new *ServiceStat* resource in storage.
      *
      * @lrd:end
      *
      * @throws StoreOperationException
      */
-    public function store(StoreServiceStateRequest $request): JsonResponse
+    public function store(StoreServiceStatRequest $request): JsonResponse
     {
         try {
             $inputs = $request->validated();
-            $serviceState = Business::serviceState()->customStore($inputs);
+            $serviceState = Business::serviceStat()->customStore($inputs);
 
             if (! $serviceState) {
-                throw (new StoreOperationException)->setModel(config('fintech.business.service_state_model'));
+                throw (new StoreOperationException)->setModel(config('fintech.business.service_stat_model'));
             }
 
             return $this->created([
@@ -86,23 +86,23 @@ class ServiceStateController extends Controller
 
     /**
      * @lrd:start
-     * Return a specified *ServiceState* resource found by id.
+     * Return a specified *ServiceStat* resource found by id.
      *
      * @lrd:end
      *
      * @throws ModelNotFoundException
      */
-    public function show(string|int $id): ServiceStateResource|JsonResponse
+    public function show(string|int $id): ServiceStatResource|JsonResponse
     {
         try {
 
-            $serviceState = Business::serviceState()->find($id);
+            $serviceState = Business::serviceStat()->find($id);
 
             if (! $serviceState) {
-                throw (new ModelNotFoundException)->setModel(config('fintech.business.service_state_model'), $id);
+                throw (new ModelNotFoundException)->setModel(config('fintech.business.service_stat_model'), $id);
             }
 
-            return new ServiceStateResource($serviceState);
+            return new ServiceStatResource($serviceState);
 
         } catch (ModelNotFoundException $exception) {
 
@@ -116,28 +116,28 @@ class ServiceStateController extends Controller
 
     /**
      * @lrd:start
-     * Update a specified *ServiceState* resource using id.
+     * Update a specified *ServiceStat* resource using id.
      *
      * @lrd:end
      *
      * @throws ModelNotFoundException
      * @throws UpdateOperationException
      */
-    public function update(UpdateServiceStateRequest $request, string|int $id): JsonResponse
+    public function update(UpdateServiceStatRequest $request, string|int $id): JsonResponse
     {
         try {
 
-            $serviceState = Business::serviceState()->find($id);
+            $serviceState = Business::serviceStat()->find($id);
 
             if (! $serviceState) {
-                throw (new ModelNotFoundException)->setModel(config('fintech.business.service_state_model'), $id);
+                throw (new ModelNotFoundException)->setModel(config('fintech.business.service_stat_model'), $id);
             }
 
             $inputs = $request->validated();
 
-            if (! Business::serviceState()->update($id, $inputs)) {
+            if (! Business::serviceStat()->update($id, $inputs)) {
 
-                throw (new UpdateOperationException)->setModel(config('fintech.business.service_state_model'), $id);
+                throw (new UpdateOperationException)->setModel(config('fintech.business.service_stat_model'), $id);
             }
 
             return $this->updated(__('core::messages.resource.updated', ['model' => 'Service State']));
@@ -154,7 +154,7 @@ class ServiceStateController extends Controller
 
     /**
      * @lrd:start
-     * Soft delete a specified *ServiceState* resource using id.
+     * Soft delete a specified *ServiceStat* resource using id.
      *
      * @lrd:end
      *
@@ -167,15 +167,15 @@ class ServiceStateController extends Controller
     {
         try {
 
-            $serviceState = Business::serviceState()->find($id);
+            $serviceState = Business::serviceStat()->find($id);
 
             if (! $serviceState) {
-                throw (new ModelNotFoundException)->setModel(config('fintech.business.service_state_model'), $id);
+                throw (new ModelNotFoundException)->setModel(config('fintech.business.service_stat_model'), $id);
             }
 
-            if (! Business::serviceState()->destroy($id)) {
+            if (! Business::serviceStat()->destroy($id)) {
 
-                throw (new DeleteOperationException())->setModel(config('fintech.business.service_state_model'), $id);
+                throw (new DeleteOperationException())->setModel(config('fintech.business.service_stat_model'), $id);
             }
 
             return $this->deleted(__('core::messages.resource.deleted', ['model' => 'Service State']));
@@ -192,7 +192,7 @@ class ServiceStateController extends Controller
 
     /**
      * @lrd:start
-     * Restore the specified *ServiceState* resource from trash.
+     * Restore the specified *ServiceStat* resource from trash.
      * ** ```Soft Delete``` needs to enabled to use this feature**
      *
      * @lrd:end
@@ -203,15 +203,15 @@ class ServiceStateController extends Controller
     {
         try {
 
-            $serviceState = Business::serviceState()->find($id, true);
+            $serviceState = Business::serviceStat()->find($id, true);
 
             if (! $serviceState) {
-                throw (new ModelNotFoundException)->setModel(config('fintech.business.service_state_model'), $id);
+                throw (new ModelNotFoundException)->setModel(config('fintech.business.service_stat_model'), $id);
             }
 
-            if (! Business::serviceState()->restore($id)) {
+            if (! Business::serviceStat()->restore($id)) {
 
-                throw (new RestoreOperationException())->setModel(config('fintech.business.service_state_model'), $id);
+                throw (new RestoreOperationException())->setModel(config('fintech.business.service_stat_model'), $id);
             }
 
             return $this->restored(__('core::messages.resource.restored', ['model' => 'Service State']));
@@ -228,17 +228,17 @@ class ServiceStateController extends Controller
 
     /**
      * @lrd:start
-     * Create a exportable list of the *ServiceState* resource as document.
+     * Create a exportable list of the *ServiceStat* resource as document.
      * After export job is done system will fire  export completed event
      *
      * @lrd:end
      */
-    public function export(IndexServiceStateRequest $request): JsonResponse
+    public function export(IndexServiceStatRequest $request): JsonResponse
     {
         try {
             $inputs = $request->validated();
 
-            $serviceStatePaginate = Business::serviceState()->export($inputs);
+            $serviceStatePaginate = Business::serviceStat()->export($inputs);
 
             return $this->exported(__('core::messages.resource.exported', ['model' => 'Service State']));
 
@@ -250,21 +250,21 @@ class ServiceStateController extends Controller
 
     /**
      * @lrd:start
-     * Create a exportable list of the *ServiceState* resource as document.
+     * Create a exportable list of the *ServiceStat* resource as document.
      * After export job is done system will fire  export completed event
      *
      * @lrd:end
      *
-     * @return ServiceStateCollection|JsonResponse
+     * @return ServiceStatCollection|JsonResponse
      */
-    public function import(ImportServiceStateRequest $request): JsonResponse
+    public function import(ImportServiceStatRequest $request): JsonResponse
     {
         try {
             $inputs = $request->validated();
 
-            $serviceStatePaginate = Business::serviceState()->list($inputs);
+            $serviceStatePaginate = Business::serviceStat()->list($inputs);
 
-            return new ServiceStateCollection($serviceStatePaginate);
+            return new ServiceStatCollection($serviceStatePaginate);
 
         } catch (Exception $exception) {
 

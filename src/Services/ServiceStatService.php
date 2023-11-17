@@ -3,17 +3,17 @@
 namespace Fintech\Business\Services;
 
 use Fintech\Business\Facades\Business;
-use Fintech\Business\Interfaces\ServiceStateRepository;
+use Fintech\Business\Interfaces\ServiceStatRepository;
 
 /**
- * Class ServiceStateService
+ * Class ServiceStatService
  */
-class ServiceStateService
+class ServiceStatService
 {
     /**
-     * ServiceStateService constructor.
+     * ServiceStatService constructor.
      */
-    public function __construct(ServiceStateRepository $serviceStateRepository)
+    public function __construct(ServiceStatRepository $serviceStateRepository)
     {
         $this->serviceStateRepository = $serviceStateRepository;
     }
@@ -75,7 +75,7 @@ class ServiceStateService
                         if (is_array($data['destination_country_id'])) {
                             foreach ($data['destination_country_id'] as $destination_country) {
                                 $inputs['destination_country_id'] = $destination_country;
-                                $serviceState = Business::serviceState()->create($inputs);
+                                $serviceState = Business::serviceStat()->create($inputs);
                                 $serviceStates[] = $serviceState->id;
                                 //$serviceStates[] = $inputs;
                             }

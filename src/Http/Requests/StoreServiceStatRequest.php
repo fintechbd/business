@@ -4,7 +4,7 @@ namespace Fintech\Business\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class UpdateServiceStateRequest extends FormRequest
+class StoreServiceStatRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,24 +22,24 @@ class UpdateServiceStateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'role_id' => ['integer', 'required'],
+            'role_id' => ['array', 'required'],
             'service_id' => ['integer', 'required'],
             'service_slug' => ['string', 'required'],
             'source_country_id' => ['array', 'required'],
             'destination_country_id' => ['array', 'required'],
             'service_vendor_id' => ['integer', 'required'],
             'service_state_data' => ['array', 'required'],
-            'service_state_data.*.lower_limit' => ['double', 'required'],
-            'service_state_data.*.higher_limit' => ['double', 'required'],
-            'service_state_data.*.local_currency_higher_limit' => ['double', 'required'],
-            'service_state_data.*.charge' => ['double', 'required'],
-            'service_state_data.*.discount' => ['double', 'required'],
-            'service_state_data.*.commission' => ['double', 'required'],
-            'service_state_data.*.cost' => ['double', 'required'],
+            'service_state_data.*.lower_limit' => ['string', 'required'],
+            'service_state_data.*.higher_limit' => ['string', 'required'],
+            'service_state_data.*.local_currency_higher_limit' => ['string', 'required'],
+            'service_state_data.*.charge' => ['string', 'required'],
+            'service_state_data.*.discount' => ['string', 'required'],
+            'service_state_data.*.commission' => ['string', 'required'],
+            'service_state_data.*.cost' => ['string', 'required'],
             'service_state_data.*.charge_refund' => ['string', 'required'],
             'service_state_data.*.discount_refund' => ['string', 'required'],
             'service_state_data.*.commission_refund' => ['string', 'required'],
-            'enabled' => ['boolean', 'nullable', 'min:1'],
+            'enabled' => ['boolean', 'nullable'],
         ];
     }
 

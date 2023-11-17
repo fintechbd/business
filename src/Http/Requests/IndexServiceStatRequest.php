@@ -4,7 +4,7 @@ namespace Fintech\Business\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class IndexServiceStateRequest extends FormRequest
+class IndexServiceStatRequest extends FormRequest
 {
     use \Fintech\Core\Traits\HasPaginateQuery;
 

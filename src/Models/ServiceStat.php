@@ -2,14 +2,12 @@
 
 namespace Fintech\Business\Models;
 
-use Fintech\Auth\Models\Role;
 use Fintech\Core\Traits\AuditableTrait;
-use Fintech\MetaData\Models\Country;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class ServiceState extends Model
+class ServiceStat extends Model
 {
     use AuditableTrait;
     use SoftDeletes;
@@ -44,27 +42,27 @@ class ServiceState extends Model
 
     public function service(): BelongsTo
     {
-        return $this->belongsTo(Service::class, 'service_slug');
+        return $this->belongsTo(config('fintech.business.service_model',Service::class), 'service_slug');
     }
 
     public function destinationCountry(): BelongsTo
     {
-        return $this->belongsTo(Country::class, 'destination_country_id');
+        return $this->belongsTo(config('fintech.metadata.country_model', \Fintech\MetaData\Models\Country::class), 'destination_country_id');
     }
 
     public function sourceCountry(): BelongsTo
     {
-        return $this->belongsTo(Country::class, 'source_country_id');
+        return $this->belongsTo(config('fintech.metadata.country_model', \Fintech\MetaData\Models\Country::class), 'source_country_id');
     }
 
     public function role(): BelongsTo
     {
-        return $this->belongsTo(Role::class, 'role_id');
+        return $this->belongsTo(\Fintech\Auth\Models\Role::class, 'role_id');
     }
 
     public function serviceVendor(): BelongsTo
     {
-        return $this->belongsTo(ServiceVendor::class, 'service_vendor_id');
+        return $this->belongsTo(config('fintech.business.service_vendor_model',ServiceVendor::class), 'service_vendor_id');
     }
 
     /*
@@ -87,10 +85,10 @@ class ServiceState extends Model
         $primaryKey = $this->getKey();
 
         $links = [
-            'show' => action_link(route('business.service-states.show', $primaryKey), __('core::messages.action.show'), 'get'),
-            'update' => action_link(route('business.service-states.update', $primaryKey), __('core::messages.action.update'), 'put'),
-            'destroy' => action_link(route('business.service-states.destroy', $primaryKey), __('core::messages.action.destroy'), 'delete'),
-            'restore' => action_link(route('business.service-states.restore', $primaryKey), __('core::messages.action.restore'), 'post'),
+            'show' => action_link(route('business.service-stats.show', $primaryKey), __('core::messages.action.show'), 'get'),
+            'update' => action_link(route('business.service-stats.update', $primaryKey), __('core::messages.action.update'), 'put'),
+            'destroy' => action_link(route('business.service-stats.destroy', $primaryKey), __('core::messages.action.destroy'), 'delete'),
+            'restore' => action_link(route('business.service-stats.restore', $primaryKey), __('core::messages.action.restore'), 'post'),
         ];
 
         if ($this->getAttribute('deleted_at') == null) {

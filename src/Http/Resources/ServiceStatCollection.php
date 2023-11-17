@@ -24,7 +24,7 @@ use Illuminate\Http\Resources\Json\ResourceCollection;
  *
  * @method getKey()
  */
-class ServiceStateCollection extends ResourceCollection
+class ServiceStatCollection extends ResourceCollection
 {
     /**
      * Transform the resource collection into an array.

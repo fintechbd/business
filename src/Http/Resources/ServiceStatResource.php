@@ -23,7 +23,7 @@ use Illuminate\Http\Resources\Json\JsonResource;
  *
  * @method getKey()
  */
-class ServiceStateResource extends JsonResource
+class ServiceStatResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
