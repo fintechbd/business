@@ -2,7 +2,7 @@
 
 namespace Fintech\Business\Repositories\Mongodb;
 
-use Fintech\Business\Interfaces\ServiceStateRepository as InterfacesServiceStateRepository;
+use Fintech\Business\Interfaces\ServiceStatRepository as InterfacesServiceStatRepository;
 use Fintech\Core\Repositories\MongodbRepository;
 use Illuminate\Contracts\Pagination\Paginator;
 use Illuminate\Database\Eloquent\Collection;
@@ -12,7 +12,7 @@ use MongoDB\Laravel\Eloquent\Model;
 /**
  * Class ServiceStateRepository
  */
-class ServiceStatRepository extends MongodbRepository implements InterfacesServiceStateRepository
+class ServiceStatRepository extends MongodbRepository implements InterfacesServiceStatRepository
 {
     public function __construct()
     {

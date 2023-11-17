@@ -2,7 +2,7 @@
 
 namespace Fintech\Business\Repositories\Eloquent;
 
-use Fintech\Business\Interfaces\ServiceStateRepository as InterfacesServiceStateRepository;
+use Fintech\Business\Interfaces\ServiceStatRepository as InterfacesServiceStatRepository;
 use Fintech\Core\Repositories\EloquentRepository;
 use Illuminate\Contracts\Pagination\Paginator;
 use Illuminate\Database\Eloquent\Collection;
@@ -12,7 +12,7 @@ use InvalidArgumentException;
 /**
  * Class ServiceStateRepository
  */
-class ServiceStatRepository extends EloquentRepository implements InterfacesServiceStateRepository
+class ServiceStatRepository extends EloquentRepository implements InterfacesServiceStatRepository
 {
     public function __construct()
     {
