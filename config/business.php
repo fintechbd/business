@@ -116,7 +116,7 @@ return [
     */
 
     'service_setting_types' => [
-        'service_state' => 'Service State',
+        'service_stat' => 'Service Stat',
         'service' => 'Service',
     ],
 

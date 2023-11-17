@@ -15,7 +15,7 @@ use Illuminate\Http\Resources\Json\JsonResource;
  * @property mixed $sourceCountry
  * @property mixed $destination_country_id
  * @property mixed $destinationCountry
- * @property mixed $service_state_data
+ * @property mixed $service_stat_data
  * @property mixed $enabled
  * @property mixed $links
  * @property mixed $created_at
@@ -41,7 +41,7 @@ class ServiceStatResource extends JsonResource
             'source_country' => $this->sourceCountry->name ?? null,
             'destination_country_id' => $this->destination_country_id ?? null,
             'destination_country' => $this->destinationCountry->name ?? null,
-            'service_state_data' => $this->service_state_data ?? null,
+            'service_stat_data' => $this->service_stat_data ?? null,
             'enabled' => $this->enabled ?? null,
             'links' => $this->links,
             'created_at' => $this->created_at,

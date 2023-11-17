@@ -10,7 +10,7 @@ use InvalidArgumentException;
 use MongoDB\Laravel\Eloquent\Model;
 
 /**
- * Class ServiceStateRepository
+ * Class ServiceStatRepository
  */
 class ServiceStatRepository extends MongodbRepository implements InterfacesServiceStatRepository
 {

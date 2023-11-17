@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Model;
 use InvalidArgumentException;
 
 /**
- * Class ServiceStateRepository
+ * Class ServiceStatRepository
  */
 class ServiceStatRepository extends EloquentRepository implements InterfacesServiceStatRepository
 {

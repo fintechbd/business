@@ -16,7 +16,7 @@ use Illuminate\Http\Resources\Json\ResourceCollection;
  * @property mixed $sourceCountry
  * @property mixed $destination_country_id
  * @property mixed $destinationCountry
- * @property mixed $service_state_data
+ * @property mixed $service_stat_data
  * @property mixed $enabled
  * @property mixed $links
  * @property mixed $created_at
@@ -46,7 +46,7 @@ class ServiceStatCollection extends ResourceCollection
                 'source_country' => $serviceStat->sourceCountry->name ?? null,
                 'destination_country_id' => $serviceStat->destination_country_id ?? null,
                 'destination_country' => $serviceStat->destinationCountry->name ?? null,
-                'service_state_data' => $serviceStat->service_state_data ?? null,
+                'service_stat_data' => $serviceStat->service_stat_data ?? null,
                 'enabled' => $serviceStat->enabled ?? null,
                 'links' => $serviceStat->links,
                 'created_at' => $serviceStat->created_at,
