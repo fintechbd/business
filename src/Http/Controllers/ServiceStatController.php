@@ -45,9 +45,9 @@ class ServiceStatController extends Controller
         try {
             $inputs = $request->validated();
 
-            $serviceStatePaginate = Business::serviceStat()->list($inputs);
+            $serviceStatPaginate = Business::serviceStat()->list($inputs);
 
-            return new ServiceStatCollection($serviceStatePaginate);
+            return new ServiceStatCollection($serviceStatPaginate);
 
         } catch (Exception $exception) {
 
@@ -61,21 +61,20 @@ class ServiceStatController extends Controller
      *
      * @lrd:end
      *
-     * @throws StoreOperationException
      */
     public function store(StoreServiceStatRequest $request): JsonResponse
     {
         try {
             $inputs = $request->validated();
-            $serviceState = Business::serviceStat()->customStore($inputs);
+            $serviceStat = Business::serviceStat()->customStore($inputs);
 
-            if (! $serviceState) {
+            if (!$serviceStat) {
                 throw (new StoreOperationException)->setModel(config('fintech.business.service_stat_model'));
             }
 
             return $this->created([
                 'message' => __('core::messages.resource.created', ['model' => 'Service State']),
-                'id' => $serviceState,
+                'id' => $serviceStat,
             ]);
 
         } catch (Exception $exception) {
@@ -96,13 +95,13 @@ class ServiceStatController extends Controller
     {
         try {
 
-            $serviceState = Business::serviceStat()->find($id);
+            $serviceStat = Business::serviceStat()->find($id);
 
-            if (! $serviceState) {
+            if (!$serviceStat) {
                 throw (new ModelNotFoundException)->setModel(config('fintech.business.service_stat_model'), $id);
             }
 
-            return new ServiceStatResource($serviceState);
+            return new ServiceStatResource($serviceStat);
 
         } catch (ModelNotFoundException $exception) {
 
@@ -121,21 +120,20 @@ class ServiceStatController extends Controller
      * @lrd:end
      *
      * @throws ModelNotFoundException
-     * @throws UpdateOperationException
      */
     public function update(UpdateServiceStatRequest $request, string|int $id): JsonResponse
     {
         try {
 
-            $serviceState = Business::serviceStat()->find($id);
+            $serviceStat = Business::serviceStat()->find($id);
 
-            if (! $serviceState) {
+            if (!$serviceStat) {
                 throw (new ModelNotFoundException)->setModel(config('fintech.business.service_stat_model'), $id);
             }
 
             $inputs = $request->validated();
 
-            if (! Business::serviceStat()->update($id, $inputs)) {
+            if (!Business::serviceStat()->update($id, $inputs)) {
 
                 throw (new UpdateOperationException)->setModel(config('fintech.business.service_stat_model'), $id);
             }
@@ -167,13 +165,13 @@ class ServiceStatController extends Controller
     {
         try {
 
-            $serviceState = Business::serviceStat()->find($id);
+            $serviceStat = Business::serviceStat()->find($id);
 
-            if (! $serviceState) {
+            if (!$serviceStat) {
                 throw (new ModelNotFoundException)->setModel(config('fintech.business.service_stat_model'), $id);
             }
 
-            if (! Business::serviceStat()->destroy($id)) {
+            if (!Business::serviceStat()->destroy($id)) {
 
                 throw (new DeleteOperationException())->setModel(config('fintech.business.service_stat_model'), $id);
             }
@@ -197,19 +195,20 @@ class ServiceStatController extends Controller
      *
      * @lrd:end
      *
+     * @param string|int $id
      * @return JsonResponse
      */
-    public function restore(string|int $id)
+    public function restore(string|int $id): JsonResponse
     {
         try {
 
-            $serviceState = Business::serviceStat()->find($id, true);
+            $serviceStat = Business::serviceStat()->find($id, true);
 
-            if (! $serviceState) {
+            if (!$serviceStat) {
                 throw (new ModelNotFoundException)->setModel(config('fintech.business.service_stat_model'), $id);
             }
 
-            if (! Business::serviceStat()->restore($id)) {
+            if (!Business::serviceStat()->restore($id)) {
 
                 throw (new RestoreOperationException())->setModel(config('fintech.business.service_stat_model'), $id);
             }
@@ -238,7 +237,7 @@ class ServiceStatController extends Controller
         try {
             $inputs = $request->validated();
 
-            $serviceStatePaginate = Business::serviceStat()->export($inputs);
+            $serviceStatPaginate = Business::serviceStat()->export($inputs);
 
             return $this->exported(__('core::messages.resource.exported', ['model' => 'Service State']));
 
@@ -262,9 +261,9 @@ class ServiceStatController extends Controller
         try {
             $inputs = $request->validated();
 
-            $serviceStatePaginate = Business::serviceStat()->list($inputs);
+            $serviceStatPaginate = Business::serviceStat()->list($inputs);
 
-            return new ServiceStatCollection($serviceStatePaginate);
+            return new ServiceStatCollection($serviceStatPaginate);
 
         } catch (Exception $exception) {
 
