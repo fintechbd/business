@@ -44,6 +44,10 @@ class ServiceRepository extends EloquentRepository implements InterfacesServiceR
             }
         }
 
+        if (isset($filters['service_slug']) && ! empty($filters['service_slug'])) {
+            $query->where('service_slug', $filters['service_slug']);
+        }
+
         //Display Trashed
         if (isset($filters['trashed']) && ! empty($filters['trashed'])) {
             $query->onlyTrashed();
