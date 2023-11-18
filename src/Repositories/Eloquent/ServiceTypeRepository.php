@@ -30,14 +30,12 @@ class ServiceTypeRepository extends EloquentRepository implements InterfacesServ
     /**
      * return a list or pagination of items from
      * filtered options
-     *
-     * @return Paginator|Collection
      */
     public function list(array $filters = []): Paginator|Collection
     {
         $query = $this->model->newQuery();
 
-        if(isset($filters['service_join_active']) && $filters['service_join_active']==true){
+        if (isset($filters['service_join_active']) && $filters['service_join_active'] == true) {
             $query->leftJoin('services', 'service_types.id', '=', 'services.service_type_id');
             $query->leftJoin('service_vendors', 'service_vendors.id', '=', 'services.service_vendor_id');
             $query->leftjoin('service_states', function ($join) {
@@ -109,7 +107,7 @@ class ServiceTypeRepository extends EloquentRepository implements InterfacesServ
                 $query->where('service_states.enabled', '=', $filters['service_stat_enabled']);
             }
 
-            $select = array('service_states.*', 'service_vendors.*', 'services.*', DB::raw('service_states.id as service_stat_id'));
+            $select = ['service_states.*', 'service_vendors.*', 'services.*', DB::raw('service_states.id as service_stat_id')];
         }
 
         //Searching
@@ -122,11 +120,11 @@ class ServiceTypeRepository extends EloquentRepository implements InterfacesServ
             }
         }
 
-        if (isset($filters['id']) && $filters['id']>0) {
+        if (isset($filters['id']) && $filters['id'] > 0) {
             $query->where('service_types.id', '=', $filters['id']);
         }
 
-        if (isset($filters['service_type_id']) && $filters['service_type_id']>0) {
+        if (isset($filters['service_type_id']) && $filters['service_type_id'] > 0) {
             $query->where('service_types.id', '=', $filters['service_type_id']);
         }
 
@@ -142,7 +140,7 @@ class ServiceTypeRepository extends EloquentRepository implements InterfacesServ
             $query->where('service_types.service_type_parent_id', '=', $filters['service_type_parent_id']);
         }
 
-        if (isset($filters['service_type_parent_id_is_null']) && $filters['service_type_parent_id_is_null']==true) {
+        if (isset($filters['service_type_parent_id_is_null']) && $filters['service_type_parent_id_is_null'] == true) {
             $query->whereNull('service_types.service_type_parent_id');
         }
 
@@ -166,7 +164,7 @@ class ServiceTypeRepository extends EloquentRepository implements InterfacesServ
         //Handle Sorting
         $query->orderBy($filters['sort'] ?? $this->model->getKeyName(), $filters['dir'] ?? 'asc');
 
-        $select [] = 'service_types.*';
+        $select[] = 'service_types.*';
         $query->select($select);
 
         //return $query;
@@ -174,11 +172,9 @@ class ServiceTypeRepository extends EloquentRepository implements InterfacesServ
             $sql = Str::replaceArray('?', $query->getBindings(), $query->toSql());
             print_r($sql);
             exit();
-        }else*/{
-            //Execute Output
-            return $this->executeQuery($query, $filters);
-
-        }
+        }else*/
+        //Execute Output
+        return $this->executeQuery($query, $filters);
 
     }
 }

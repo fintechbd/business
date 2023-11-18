@@ -275,30 +275,26 @@ class ServiceTypeController extends Controller
         }
     }
 
-    /**
-     * @param ServiceTypeListRequest $request
-     * @return ServiceTypeListCollection|JsonResponse
-     */
     public function serviceTypeList(ServiceTypeListRequest $request): ServiceTypeListCollection|JsonResponse
     {
         try {
             $input = $request->all();
 
-            if(isset($request->service_type_parent_id)):
+            if (isset($request->service_type_parent_id)) {
                 $input['service_type_parent_id'] = $request['service_type_parent_id'];
-            else:
+            } else {
                 $input['service_type_parent_id_is_null'] = true;
-            endif;
+            }
             $input['service_type_enabled'] = true;
             $input['sort'] = 'service_types.id';
             $input['dir'] = 'asc';
             $input['paginate'] = false;
             $serviceTypes = Business::serviceType()->list($input);
 
-            $arrayData = array();
+            $arrayData = [];
 
-            foreach ($serviceTypes as $serviceType):
-                if($serviceType->service_type_is_parent == 'no'):
+            foreach ($serviceTypes as $serviceType) {
+                if ($serviceType->service_type_is_parent == 'no') {
                     $input['service_join_active'] = true;
                     $input['service_type_id'] = $serviceType->id;
                     $input['service_enabled'] = true;
@@ -307,37 +303,38 @@ class ServiceTypeController extends Controller
 
                     $fullServiceType = Business::serviceType()->list($input)->first();
 
-                    if(isset($fullServiceType)):
-                        if(isset($fullServiceType['service_state_data'])):
+                    if (isset($fullServiceType)) {
+                        if (isset($fullServiceType['service_state_data'])) {
                             $fullServiceType['service_state_data'] = json_decode($fullServiceType['service_state_data'], true);
-                        endif;
-                        if(isset($fullServiceType['service_data'])):
+                        }
+                        if (isset($fullServiceType['service_data'])) {
                             $fullServiceType['service_data'] = json_decode($fullServiceType['service_data'], true);
-                        endif;
+                        }
                         $arrayData[] = $fullServiceType;
-                    endif;
-                elseif($serviceType['service_type_is_parent'] == 'yes'):
+                    }
+                } elseif ($serviceType['service_type_is_parent'] == 'yes') {
                     $inputYes = $input;
-                    $collectID = array();
+                    $collectID = [];
                     $findAllChildServiceType = Business::serviceType()->find($serviceType->getKey());
 
                     $arrayFindData[$serviceType->id] = $findAllChildServiceType->allChildList;
-                    foreach ($arrayFindData[$serviceType->id] as $key=>$allChildAccounts):
+                    foreach ($arrayFindData[$serviceType->id] as $key => $allChildAccounts) {
                         $collectID[$serviceType->id][] = $allChildAccounts['id'];
-                    endforeach;
+                    }
 
                     $inputYes['service_type_id_array'] = $collectID[$serviceType->id];
                     $inputYes['service_type_parent_id_is_null'] = false;
                     $inputYes['service_type_id'] = false;
                     $findServiceType = Business::serviceType()->list($inputYes)->count();
 
-                    if($findServiceType>0):
+                    if ($findServiceType > 0) {
                         $arrayData[] = ($serviceType);
-                    endif;
-                else:
+                    }
+                } else {
                     $arrayData[] = ($serviceType);
-                endif;
-            endforeach;
+                }
+            }
+
             //$data['serviceType'] = $arrayData;
             //$data['serviceTypeTotal'] = count($arrayData);
             return new ServiceTypeListCollection($arrayData);
