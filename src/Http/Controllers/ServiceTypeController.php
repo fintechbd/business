@@ -6,9 +6,11 @@ use Exception;
 use Fintech\Business\Facades\Business;
 use Fintech\Business\Http\Requests\ImportServiceTypeRequest;
 use Fintech\Business\Http\Requests\IndexServiceTypeRequest;
+use Fintech\Business\Http\Requests\ServiceTypeListRequest;
 use Fintech\Business\Http\Requests\StoreServiceTypeRequest;
 use Fintech\Business\Http\Requests\UpdateServiceTypeRequest;
 use Fintech\Business\Http\Resources\ServiceTypeCollection;
+use Fintech\Business\Http\Resources\ServiceTypeListCollection;
 use Fintech\Business\Http\Resources\ServiceTypeResource;
 use Fintech\Core\Exceptions\DeleteOperationException;
 use Fintech\Core\Exceptions\RestoreOperationException;
@@ -266,6 +268,76 @@ class ServiceTypeController extends Controller
             $serviceTypePaginate = Business::serviceType()->list($inputs);
 
             return new ServiceTypeCollection($serviceTypePaginate);
+
+        } catch (Exception $exception) {
+
+            return $this->failed($exception->getMessage());
+        }
+    }
+
+    public function serviceTypeList(ServiceTypeListRequest $request): ServiceTypeListCollection|JsonResponse
+    {
+        try {
+            $input = $request->all();
+
+            if (isset($request->service_type_parent_id)) {
+                $input['service_type_parent_id'] = $request['service_type_parent_id'];
+            } else {
+                $input['service_type_parent_id_is_null'] = true;
+            }
+            $input['service_type_enabled'] = true;
+            $input['sort'] = 'service_types.id';
+            $input['dir'] = 'asc';
+            $input['paginate'] = false;
+            $serviceTypes = Business::serviceType()->list($input);
+
+            $arrayData = [];
+
+            foreach ($serviceTypes as $serviceType) {
+                if ($serviceType->service_type_is_parent == 'no') {
+                    $input['service_join_active'] = true;
+                    $input['service_type_id'] = $serviceType->id;
+                    $input['service_enabled'] = true;
+                    $input['service_vendor_enabled'] = true;
+                    $input['service_stat_enabled'] = true;
+
+                    $fullServiceType = Business::serviceType()->list($input)->first();
+
+                    if (isset($fullServiceType)) {
+                        if (isset($fullServiceType['service_state_data'])) {
+                            $fullServiceType['service_state_data'] = json_decode($fullServiceType['service_state_data'], true);
+                        }
+                        if (isset($fullServiceType['service_data'])) {
+                            $fullServiceType['service_data'] = json_decode($fullServiceType['service_data'], true);
+                        }
+                        $arrayData[] = $fullServiceType;
+                    }
+                } elseif ($serviceType['service_type_is_parent'] == 'yes') {
+                    $inputYes = $input;
+                    $collectID = [];
+                    $findAllChildServiceType = Business::serviceType()->find($serviceType->getKey());
+
+                    $arrayFindData[$serviceType->id] = $findAllChildServiceType->allChildList;
+                    foreach ($arrayFindData[$serviceType->id] as $key => $allChildAccounts) {
+                        $collectID[$serviceType->id][] = $allChildAccounts['id'];
+                    }
+
+                    $inputYes['service_type_id_array'] = $collectID[$serviceType->id];
+                    $inputYes['service_type_parent_id_is_null'] = false;
+                    $inputYes['service_type_id'] = false;
+                    $findServiceType = Business::serviceType()->list($inputYes)->count();
+
+                    if ($findServiceType > 0) {
+                        $arrayData[] = ($serviceType);
+                    }
+                } else {
+                    $arrayData[] = ($serviceType);
+                }
+            }
+
+            //$data['serviceType'] = $arrayData;
+            //$data['serviceTypeTotal'] = count($arrayData);
+            return new ServiceTypeListCollection($arrayData);
 
         } catch (Exception $exception) {
 

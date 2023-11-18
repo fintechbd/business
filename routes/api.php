@@ -23,6 +23,7 @@ if (Config::get('fintech.business.enabled')) {
             Route::apiResource('service-settings', \Fintech\Business\Http\Controllers\ServiceSettingController::class);
             Route::post('service-settings/{service_setting}/restore', [\Fintech\Business\Http\Controllers\ServiceSettingController::class, 'restore'])->name('service-settings.restore');
 
+            Route::get('service-types/service-type-list', [\Fintech\Business\Http\Controllers\ServiceTypeController::class, 'serviceTypeList'])->name('service-types.service-type-list');
             Route::apiResource('service-types', \Fintech\Business\Http\Controllers\ServiceTypeController::class);
             Route::post('service-types/{service_type}/restore', [\Fintech\Business\Http\Controllers\ServiceTypeController::class, 'restore'])->name('service-types.restore');
 

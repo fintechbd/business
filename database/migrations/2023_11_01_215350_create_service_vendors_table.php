@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('service_vendor_name')->nullable();
             $table->string('service_vendor_slug')->nullable();
             $table->json('service_vendor_data')->nullable();
+            $table->boolean('enabled')->nullable();
             $table->foreignId('creator_id')->nullable();
             $table->foreignId('editor_id')->nullable();
             $table->foreignId('destroyer_id')->nullable();

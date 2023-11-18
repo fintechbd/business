@@ -40,12 +40,13 @@ class ServiceRepository extends EloquentRepository implements InterfacesServiceR
             if (is_numeric($filters['search'])) {
                 $query->where($this->model->getKeyName(), 'like', "%{$filters['search']}%");
             } else {
-                $query->where('name', 'like', "%{$filters['search']}%");
+                $query->where('services.service_name', 'like', "%{$filters['search']}%");
             }
         }
 
-        if (isset($filters['service_slug']) && ! empty($filters['service_slug'])) {
-            $query->where('service_slug', $filters['service_slug']);
+
+        if (isset($filters['service_slug']) && $filters['service_slug']) {
+            $query->where('services.service_slug', '=', $filters['service_slug']);
         }
 
         //Display Trashed
