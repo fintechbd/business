@@ -44,7 +44,6 @@ class ServiceRepository extends EloquentRepository implements InterfacesServiceR
             }
         }
 
-
         if (isset($filters['service_slug']) && $filters['service_slug']) {
             $query->where('services.service_slug', '=', $filters['service_slug']);
         }
