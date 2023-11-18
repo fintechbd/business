@@ -30,8 +30,8 @@ if (Config::get('fintech.business.enabled')) {
             Route::apiResource('services', \Fintech\Business\Http\Controllers\ServiceController::class);
             Route::post('services/{service}/restore', [\Fintech\Business\Http\Controllers\ServiceController::class, 'restore'])->name('services.restore');
 
-            Route::apiResource('service-states', \Fintech\Business\Http\Controllers\ServiceStateController::class);
-            Route::post('service-states/{service_state}/restore', [\Fintech\Business\Http\Controllers\ServiceStateController::class, 'restore'])->name('service-states.restore');
+            Route::apiResource('service-stats', \Fintech\Business\Http\Controllers\ServiceStatController::class);
+            Route::post('service-stats/{service_stat}/restore', [\Fintech\Business\Http\Controllers\ServiceStatController::class, 'restore'])->name('service-stats.restore');
 
             Route::apiResource('service-packages', \Fintech\Business\Http\Controllers\ServicePackageController::class);
             Route::post('service-packages/{service_package}/restore', [\Fintech\Business\Http\Controllers\ServicePackageController::class, 'restore'])->name('service-packages.restore');

@@ -2,7 +2,7 @@
 
 namespace Fintech\Business\Repositories\Eloquent;
 
-use Fintech\Business\Interfaces\ServiceStateRepository as InterfacesServiceStateRepository;
+use Fintech\Business\Interfaces\ServiceStatRepository as InterfacesServiceStatRepository;
 use Fintech\Core\Repositories\EloquentRepository;
 use Illuminate\Contracts\Pagination\Paginator;
 use Illuminate\Database\Eloquent\Collection;
@@ -10,13 +10,13 @@ use Illuminate\Database\Eloquent\Model;
 use InvalidArgumentException;
 
 /**
- * Class ServiceStateRepository
+ * Class ServiceStatRepository
  */
-class ServiceStateRepository extends EloquentRepository implements InterfacesServiceStateRepository
+class ServiceStatRepository extends EloquentRepository implements InterfacesServiceStatRepository
 {
     public function __construct()
     {
-        $model = app(config('fintech.business.service_state_model', \Fintech\Business\Models\ServiceState::class));
+        $model = app(config('fintech.business.service_stat_model', \Fintech\Business\Models\ServiceStat::class));
 
         if (! $model instanceof Model) {
             throw new InvalidArgumentException("Eloquent repository require model class to be `Illuminate\Database\Eloquent\Model` instance.");

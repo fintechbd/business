@@ -2,7 +2,7 @@
 
 namespace Fintech\Business\Repositories\Mongodb;
 
-use Fintech\Business\Interfaces\ServiceStateRepository as InterfacesServiceStateRepository;
+use Fintech\Business\Interfaces\ServiceStatRepository as InterfacesServiceStatRepository;
 use Fintech\Core\Repositories\MongodbRepository;
 use Illuminate\Contracts\Pagination\Paginator;
 use Illuminate\Database\Eloquent\Collection;
@@ -10,13 +10,13 @@ use InvalidArgumentException;
 use MongoDB\Laravel\Eloquent\Model;
 
 /**
- * Class ServiceStateRepository
+ * Class ServiceStatRepository
  */
-class ServiceStateRepository extends MongodbRepository implements InterfacesServiceStateRepository
+class ServiceStatRepository extends MongodbRepository implements InterfacesServiceStatRepository
 {
     public function __construct()
     {
-        $model = app(config('fintech.business.service_state_model', \Fintech\Business\Models\ServiceState::class));
+        $model = app(config('fintech.business.service_stat_model', \Fintech\Business\Models\ServiceStat::class));
 
         if (! $model instanceof Model) {
             throw new InvalidArgumentException("Mongodb repository require model class to be `MongoDB\Laravel\Eloquent\Model` instance.");

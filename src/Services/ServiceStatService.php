@@ -3,19 +3,18 @@
 namespace Fintech\Business\Services;
 
 use Fintech\Business\Facades\Business;
-use Fintech\Business\Interfaces\ServiceStateRepository;
+use Fintech\Business\Interfaces\ServiceStatRepository;
 
 /**
- * Class ServiceStateService
+ * Class ServiceStatService
  */
-class ServiceStateService
+class ServiceStatService
 {
     /**
-     * ServiceStateService constructor.
+     * ServiceStatService constructor.
      */
-    public function __construct(ServiceStateRepository $serviceStateRepository)
+    public function __construct(private readonly ServiceStatRepository $serviceStatRepository)
     {
-        $this->serviceStateRepository = $serviceStateRepository;
     }
 
     /**
@@ -23,49 +22,49 @@ class ServiceStateService
      */
     public function list(array $filters = [])
     {
-        return $this->serviceStateRepository->list($filters);
+        return $this->serviceStatRepository->list($filters);
 
     }
 
     public function create(array $inputs = [])
     {
-        return $this->serviceStateRepository->create($inputs);
+        return $this->serviceStatRepository->create($inputs);
     }
 
     public function find($id, $onlyTrashed = false)
     {
-        return $this->serviceStateRepository->find($id, $onlyTrashed);
+        return $this->serviceStatRepository->find($id, $onlyTrashed);
     }
 
     public function update($id, array $inputs = [])
     {
-        return $this->serviceStateRepository->update($id, $inputs);
+        return $this->serviceStatRepository->update($id, $inputs);
     }
 
     public function destroy($id)
     {
-        return $this->serviceStateRepository->delete($id);
+        return $this->serviceStatRepository->delete($id);
     }
 
     public function restore($id)
     {
-        return $this->serviceStateRepository->restore($id);
+        return $this->serviceStatRepository->restore($id);
     }
 
     public function export(array $filters)
     {
-        return $this->serviceStateRepository->list($filters);
+        return $this->serviceStatRepository->list($filters);
     }
 
     public function import(array $filters)
     {
-        return $this->serviceStateRepository->create($filters);
+        return $this->serviceStatRepository->create($filters);
     }
 
     public function customStore(array $data): array
     {
         $inputs = $data;
-        $serviceStates = [];
+        $serviceStats = [];
         if (is_array($data['role_id'])) {
             foreach ($data['role_id'] as $role) {
                 $inputs['role_id'] = $role;
@@ -75,9 +74,9 @@ class ServiceStateService
                         if (is_array($data['destination_country_id'])) {
                             foreach ($data['destination_country_id'] as $destination_country) {
                                 $inputs['destination_country_id'] = $destination_country;
-                                $serviceState = Business::serviceState()->create($inputs);
-                                $serviceStates[] = $serviceState->id;
-                                //$serviceStates[] = $inputs;
+                                $serviceStat = Business::serviceStat()->create($inputs);
+                                $serviceStats[] = $serviceStat->getKey();
+                                //$serviceStats[] = $inputs;
                             }
                         }
                     }
@@ -85,7 +84,7 @@ class ServiceStateService
             }
         }
 
-        return $serviceStates;
+        return $serviceStats;
 
     }
 }

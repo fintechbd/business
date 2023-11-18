@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('service_states', function (Blueprint $table) {
+        Schema::create('service_stats', function (Blueprint $table) {
             $table->id();
             $table->foreignId('role_id')->nullable();
             $table->foreignId('service_id')->nullable();
@@ -19,7 +19,7 @@ return new class extends Migration
             $table->foreignId('source_country_id')->nullable();
             $table->foreignId('destination_country_id')->nullable();
             $table->foreignId('service_vendor_id')->nullable();
-            $table->json('service_state_data')->nullable();
+            $table->json('service_stat_data')->nullable();
             $table->boolean('enabled')->nullable();
             $table->foreignId('creator_id')->nullable();
             $table->foreignId('editor_id')->nullable();
@@ -36,6 +36,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('service_states');
+        Schema::dropIfExists('service_stats');
     }
 };

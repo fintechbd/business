@@ -16,7 +16,7 @@ use Illuminate\Http\Resources\Json\ResourceCollection;
  * @property mixed $sourceCountry
  * @property mixed $destination_country_id
  * @property mixed $destinationCountry
- * @property mixed $service_state_data
+ * @property mixed $service_stat_data
  * @property mixed $enabled
  * @property mixed $links
  * @property mixed $created_at
@@ -24,7 +24,7 @@ use Illuminate\Http\Resources\Json\ResourceCollection;
  *
  * @method getKey()
  */
-class ServiceStateCollection extends ResourceCollection
+class ServiceStatCollection extends ResourceCollection
 {
     /**
      * Transform the resource collection into an array.
@@ -34,23 +34,23 @@ class ServiceStateCollection extends ResourceCollection
      */
     public function toArray($request)
     {
-        return $this->collection->map(function ($serviceState) {
+        return $this->collection->map(function ($serviceStat) {
             $data = [
-                'id' => $serviceState->getKey() ?? null,
-                'service_vendor_id' => $serviceState->service_vendor_id ?? null,
-                'service_vendor_name' => isset($serviceState->serviceVendor) ? $serviceState->serviceVendor->service_vendor_name : null,
-                'service_id' => $serviceState->service_id ?? null,
-                'service_name' => $serviceState->service->service_name ?? null,
-                'service_slug' => $serviceState->service_slug ?? null,
-                'source_country_id' => $serviceState->source_country_id ?? null,
-                'source_country' => $serviceState->sourceCountry->name ?? null,
-                'destination_country_id' => $serviceState->destination_country_id ?? null,
-                'destination_country' => $serviceState->destinationCountry->name ?? null,
-                'service_state_data' => $serviceState->service_state_data ?? null,
-                'enabled' => $serviceState->enabled ?? null,
-                'links' => $serviceState->links,
-                'created_at' => $serviceState->created_at,
-                'updated_at' => $serviceState->updated_at,
+                'id' => $serviceStat->getKey() ?? null,
+                'service_vendor_id' => $serviceStat->service_vendor_id ?? null,
+                'service_vendor_name' => $serviceStat->serviceVendor?->service_vendor_name ?? null,
+                'service_id' => $serviceStat->service_id ?? null,
+                'service_name' => $serviceStat->service->service_name ?? null,
+                'service_slug' => $serviceStat->service_slug ?? null,
+                'source_country_id' => $serviceStat->source_country_id ?? null,
+                'source_country' => $serviceStat->sourceCountry->name ?? null,
+                'destination_country_id' => $serviceStat->destination_country_id ?? null,
+                'destination_country' => $serviceStat->destinationCountry->name ?? null,
+                'service_stat_data' => $serviceStat->service_stat_data ?? null,
+                'enabled' => $serviceStat->enabled ?? null,
+                'links' => $serviceStat->links,
+                'created_at' => $serviceStat->created_at,
+                'updated_at' => $serviceStat->updated_at,
             ];
 
             return $data;
