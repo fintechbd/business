@@ -308,8 +308,8 @@ class ServiceTypeController extends Controller
                     if (isset($fullServiceTypes)) {
                         foreach ($fullServiceTypes as $fullServiceType) {
                             if (isset($fullServiceType)) {
-                                if (isset($fullServiceType['service_state_data'])) {
-                                    $fullServiceType['service_state_data'] = json_decode($fullServiceType['service_state_data'], true);
+                                if (isset($fullServiceType['service_stat_data'])) {
+                                    $fullServiceType['service_stat_data'] = json_decode($fullServiceType['service_stat_data'], true);
                                 }
                                 if (isset($fullServiceType['service_data'])) {
                                     $fullServiceType['service_data'] = json_decode($fullServiceType['service_data'], true);
