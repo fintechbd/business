@@ -42,10 +42,11 @@ class ServiceTypeRepository extends EloquentRepository implements InterfacesServ
                 $join->on('service_states.service_id', '=', 'services.id')
                     ->on('service_states.service_vendor_id', '=', 'services.service_vendor_id');
             });
-            /*$query->join('role_service', function ($join) {
+            //TODO
+            $query->join('role_service', function ($join) {
                 $join->on('service_states.service_id', '=', 'role_service.service_id');
                 $join->on('service_states.role_id', '=', 'role_service.role_id');
-            });*/
+            });
             /*$query->join('country_service', function ($join) {
                 $join->on('service_states.service_id', '=', 'country_service.service_id');
                 $join->on('service_states.destination_country_id', '=', 'country_service.country_id');
