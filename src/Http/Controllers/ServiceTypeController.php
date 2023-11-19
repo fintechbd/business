@@ -279,6 +279,9 @@ class ServiceTypeController extends Controller
     {
         try {
             $input = $request->all();
+            //TODO Check after login
+            //$input['user_id'] = $request->user_id ?? auth()->user->getKey();
+            //$input['role_id'] = $request->role_id ?? auth()->user->roles[0]->getKey();
 
             if (isset($request->service_type_parent_id)) {
                 $input['service_type_parent_id'] = $request['service_type_parent_id'];
@@ -301,16 +304,19 @@ class ServiceTypeController extends Controller
                     $input['service_vendor_enabled'] = true;
                     $input['service_stat_enabled'] = true;
 
-                    $fullServiceType = Business::serviceType()->list($input)->first();
-
-                    if (isset($fullServiceType)) {
-                        if (isset($fullServiceType['service_state_data'])) {
-                            $fullServiceType['service_state_data'] = json_decode($fullServiceType['service_state_data'], true);
+                    $fullServiceTypes = Business::serviceType()->list($input);
+                    if (isset($fullServiceTypes)) {
+                        foreach ($fullServiceTypes as $fullServiceType) {
+                            if (isset($fullServiceType)) {
+                                if (isset($fullServiceType['service_state_data'])) {
+                                    $fullServiceType['service_state_data'] = json_decode($fullServiceType['service_state_data'], true);
+                                }
+                                if (isset($fullServiceType['service_data'])) {
+                                    $fullServiceType['service_data'] = json_decode($fullServiceType['service_data'], true);
+                                }
+                                $arrayData[] = $fullServiceType;
+                            }
                         }
-                        if (isset($fullServiceType['service_data'])) {
-                            $fullServiceType['service_data'] = json_decode($fullServiceType['service_data'], true);
-                        }
-                        $arrayData[] = $fullServiceType;
                     }
                 } elseif ($serviceType['service_type_is_parent'] == 'yes') {
                     $inputYes = $input;
