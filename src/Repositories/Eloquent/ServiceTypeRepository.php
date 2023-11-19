@@ -79,20 +79,79 @@ class ServiceTypeRepository extends EloquentRepository implements InterfacesServ
                 $query->where('service_states.source_country_id', '=', $filters['source_country_id']);
             }
 
-            //TODO why json filter was problem??
+            //SERVICE STATE DATA
             if (isset($filters['visible_android_app']) && $filters['visible_android_app']) {
                 //$query->where(DB::raw('REPLACE(JSON_EXTRACT(services.service_data, "$.visible_android_app"),\'"\',\'\')'), '=', $filters['visible_android_app']);
-                //$query->where(DB::raw('services.service_data->"$.visible_android_app"'), '=', $filters['visible_android_app']);
+                $query->where(DB::raw('JSON_EXTRACT(services.service_data, "$.visible_android_app")'), '=', $filters['visible_android_app']);
             }
 
-            //TODO why json filter was problem??
             if (isset($filters['visible_ios_app']) && $filters['visible_ios_app']) {
-                $query->where(DB::raw('REPLACE(JSON_EXTRACT(services.service_data, "$.visible_ios_app"),\'"\',\'\')'), '=', $filters['visible_ios_app']);
+                $query->where(DB::raw('JSON_EXTRACT(services.service_data, "$.visible_ios_app")'), '=', $filters['visible_ios_app']);
             }
 
-            //TODO why json filter was problem??
             if (isset($filters['visible_website']) && $filters['visible_website']) {
-                $query->where(DB::raw('REPLACE(JSON_EXTRACT(services.service_data, "$.visible_website"),\'"\',\'\')'), '=', $filters['visible_website']);
+                $query->where(DB::raw('JSON_EXTRACT(services.service_data, "$.visible_website")'), '=', $filters['visible_website']);
+            }
+
+            if (isset($filters['account_name']) && $filters['account_name']) {
+                $query->where(DB::raw('JSON_EXTRACT(services.service_data, "$.account_name")'), '=', $filters['account_name']);
+            }
+
+            if (isset($filters['account_number']) && $filters['account_number']) {
+                $query->where(DB::raw('JSON_EXTRACT(services.service_data, "$.account_number")'), '=', $filters['account_number']);
+            }
+
+            if (isset($filters['transactional_currency']) && $filters['transactional_currency']) {
+                $query->where(DB::raw('JSON_EXTRACT(services.service_data, "$.transactional_currency")'), '=', $filters['transactional_currency']);
+            }
+
+            if (isset($filters['beneficiary_type_id']) && $filters['beneficiary_type_id']) {
+                $query->where(DB::raw('JSON_EXTRACT(services.service_data, "$.beneficiary_type_id")'), '=', $filters['beneficiary_type_id']);
+            }
+
+            if (isset($filters['operator_short_code']) && $filters['operator_short_code']) {
+                $query->where(DB::raw('JSON_EXTRACT(services.service_data, "$.operator_short_code")'), '=', $filters['operator_short_code']);
+            }
+
+            //SERVICE STATE DATA
+            if (isset($filters['lower_limit']) && $filters['lower_limit']) {
+                $query->where(DB::raw('JSON_EXTRACT(service_states.service_state_data, "$.lower_limit")'), '=', $filters['lower_limit']);
+            }
+
+            if (isset($filters['higher_limit']) && $filters['higher_limit']) {
+                $query->where(DB::raw('JSON_EXTRACT(service_states.service_state_data, "$.higher_limit")'), '=', $filters['higher_limit']);
+            }
+
+            if (isset($filters['local_currency_higher_limit']) && $filters['local_currency_higher_limit']) {
+                $query->where(DB::raw('JSON_EXTRACT(service_states.service_state_data, "$.local_currency_higher_limit")'), '=', $filters['local_currency_higher_limit']);
+            }
+
+            if (isset($filters['charge']) && $filters['charge']) {
+                $query->where(DB::raw('JSON_EXTRACT(service_states.service_state_data, "$.charge")'), '=', $filters['charge']);
+            }
+
+            if (isset($filters['discount']) && $filters['discount']) {
+                $query->where(DB::raw('JSON_EXTRACT(service_states.service_state_data, "$.discount")'), '=', $filters['discount']);
+            }
+
+            if (isset($filters['commission']) && $filters['commission']) {
+                $query->where(DB::raw('JSON_EXTRACT(service_states.service_state_data, "$.commission")'), '=', $filters['commission']);
+            }
+
+            if (isset($filters['cost']) && $filters['cost']) {
+                $query->where(DB::raw('JSON_EXTRACT(service_states.service_state_data, "$.cost")'), '=', $filters['cost']);
+            }
+
+            if (isset($filters['charge_refund']) && $filters['charge_refund']) {
+                $query->where(DB::raw('JSON_EXTRACT(service_states.service_state_data, "$.charge_refund")'), '=', $filters['charge_refund']);
+            }
+
+            if (isset($filters['discount_refund']) && $filters['discount_refund']) {
+                $query->where(DB::raw('JSON_EXTRACT(service_states.service_state_data, "$.discount_refund")'), '=', $filters['discount_refund']);
+            }
+
+            if (isset($filters['commission_refund']) && $filters['commission_refund']) {
+                $query->where(DB::raw('JSON_EXTRACT(service_states.service_state_data, "$.commission_refund")'), '=', $filters['commission_refund']);
             }
 
             if (isset($filters['service_enabled']) && $filters['service_enabled']) {

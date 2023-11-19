@@ -279,6 +279,9 @@ class ServiceTypeController extends Controller
     {
         try {
             $input = $request->all();
+            //TODO Check after login
+            //$input['user_id'] = $request->user_id ?? auth()->user->getKey();
+            //$input['role_id'] = $request->role_id ?? auth()->user->roles[0]->getKey();
 
             if (isset($request->service_type_parent_id)) {
                 $input['service_type_parent_id'] = $request['service_type_parent_id'];
