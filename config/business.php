@@ -105,7 +105,6 @@ return [
     */
     'service_vendor_model' => \Fintech\Business\Models\ServiceVendor::class,
 
-
     /*
     |--------------------------------------------------------------------------
     | CurrencyRate Model

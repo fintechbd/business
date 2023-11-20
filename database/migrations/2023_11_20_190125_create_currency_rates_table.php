@@ -17,7 +17,7 @@ return new class extends Migration
             $table->foreignId('source_country_id')->nullable();
             $table->foreignId('destination_country_id')->nullable();
             $table->foreignId('service_id')->nullable();
-            $table->unsignedDecimal('rate', 19,6)->nullable();
+            $table->unsignedDecimal('rate', 19, 6)->nullable();
             $table->boolean('is_default')->default(false);
             $table->json('currency_rate_data')->nullable();
             $table->foreignId('creator_id')->nullable();

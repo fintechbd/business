@@ -1,34 +1,33 @@
 <?php
 
 namespace Fintech\Business\Http\Controllers;
+
 use Exception;
-use Fintech\Core\Exceptions\StoreOperationException;
-use Fintech\Core\Exceptions\UpdateOperationException;
-use Fintech\Core\Exceptions\DeleteOperationException;
-use Fintech\Core\Exceptions\RestoreOperationException;
-use Fintech\Core\Traits\ApiResponseTrait;
 use Fintech\Business\Facades\Business;
-use Fintech\Business\Http\Resources\CurrencyRateResource;
-use Fintech\Business\Http\Resources\CurrencyRateCollection;
 use Fintech\Business\Http\Requests\ImportCurrencyRateRequest;
+use Fintech\Business\Http\Requests\IndexCurrencyRateRequest;
 use Fintech\Business\Http\Requests\StoreCurrencyRateRequest;
 use Fintech\Business\Http\Requests\UpdateCurrencyRateRequest;
-use Fintech\Business\Http\Requests\IndexCurrencyRateRequest;
+use Fintech\Business\Http\Resources\CurrencyRateCollection;
+use Fintech\Business\Http\Resources\CurrencyRateResource;
+use Fintech\Core\Exceptions\DeleteOperationException;
+use Fintech\Core\Exceptions\RestoreOperationException;
+use Fintech\Core\Exceptions\StoreOperationException;
+use Fintech\Core\Exceptions\UpdateOperationException;
+use Fintech\Core\Traits\ApiResponseTrait;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Routing\Controller;
 
 /**
  * Class CurrencyRateController
- * @package Fintech\Business\Http\Controllers
  *
  * @lrd:start
  * This class handle create, display, update, delete & restore
  * operation related to CurrencyRate
- * @lrd:end
  *
+ * @lrd:end
  */
-
 class CurrencyRateController extends Controller
 {
     use ApiResponseTrait;
@@ -38,10 +37,8 @@ class CurrencyRateController extends Controller
      * Return a listing of the *CurrencyRate* resource as collection.
      *
      * *```paginate=false``` returns all resource as list not pagination*
-     * @lrd:end
      *
-     * @param IndexCurrencyRateRequest $request
-     * @return CurrencyRateCollection|JsonResponse
+     * @lrd:end
      */
     public function index(IndexCurrencyRateRequest $request): CurrencyRateCollection|JsonResponse
     {
@@ -61,10 +58,9 @@ class CurrencyRateController extends Controller
     /**
      * @lrd:start
      * Create a new *CurrencyRate* resource in storage.
+     *
      * @lrd:end
      *
-     * @param StoreCurrencyRateRequest $request
-     * @return JsonResponse
      * @throws StoreOperationException
      */
     public function store(StoreCurrencyRateRequest $request): JsonResponse
@@ -74,14 +70,14 @@ class CurrencyRateController extends Controller
 
             $currencyRate = Business::currencyRate()->create($inputs);
 
-            if (!$currencyRate) {
+            if (! $currencyRate) {
                 throw (new StoreOperationException)->setModel(config('fintech.business.currency_rate_model'));
             }
 
             return $this->created([
                 'message' => __('core::messages.resource.created', ['model' => 'Currency Rate']),
-                'id' => $currencyRate->id
-             ]);
+                'id' => $currencyRate->id,
+            ]);
 
         } catch (Exception $exception) {
 
@@ -92,10 +88,9 @@ class CurrencyRateController extends Controller
     /**
      * @lrd:start
      * Return a specified *CurrencyRate* resource found by id.
+     *
      * @lrd:end
      *
-     * @param string|int $id
-     * @return CurrencyRateResource|JsonResponse
      * @throws ModelNotFoundException
      */
     public function show(string|int $id): CurrencyRateResource|JsonResponse
@@ -104,7 +99,7 @@ class CurrencyRateController extends Controller
 
             $currencyRate = Business::currencyRate()->find($id);
 
-            if (!$currencyRate) {
+            if (! $currencyRate) {
                 throw (new ModelNotFoundException)->setModel(config('fintech.business.currency_rate_model'), $id);
             }
 
@@ -123,11 +118,9 @@ class CurrencyRateController extends Controller
     /**
      * @lrd:start
      * Update a specified *CurrencyRate* resource using id.
+     *
      * @lrd:end
      *
-     * @param UpdateCurrencyRateRequest $request
-     * @param string|int $id
-     * @return JsonResponse
      * @throws ModelNotFoundException
      * @throws UpdateOperationException
      */
@@ -137,13 +130,13 @@ class CurrencyRateController extends Controller
 
             $currencyRate = Business::currencyRate()->find($id);
 
-            if (!$currencyRate) {
+            if (! $currencyRate) {
                 throw (new ModelNotFoundException)->setModel(config('fintech.business.currency_rate_model'), $id);
             }
 
             $inputs = $request->validated();
 
-            if (!Business::currencyRate()->update($id, $inputs)) {
+            if (! Business::currencyRate()->update($id, $inputs)) {
 
                 throw (new UpdateOperationException)->setModel(config('fintech.business.currency_rate_model'), $id);
             }
@@ -163,10 +156,11 @@ class CurrencyRateController extends Controller
     /**
      * @lrd:start
      * Soft delete a specified *CurrencyRate* resource using id.
+     *
      * @lrd:end
      *
-     * @param string|int $id
      * @return JsonResponse
+     *
      * @throws ModelNotFoundException
      * @throws DeleteOperationException
      */
@@ -176,11 +170,11 @@ class CurrencyRateController extends Controller
 
             $currencyRate = Business::currencyRate()->find($id);
 
-            if (!$currencyRate) {
+            if (! $currencyRate) {
                 throw (new ModelNotFoundException)->setModel(config('fintech.business.currency_rate_model'), $id);
             }
 
-            if (!Business::currencyRate()->destroy($id)) {
+            if (! Business::currencyRate()->destroy($id)) {
 
                 throw (new DeleteOperationException())->setModel(config('fintech.business.currency_rate_model'), $id);
             }
@@ -201,9 +195,9 @@ class CurrencyRateController extends Controller
      * @lrd:start
      * Restore the specified *CurrencyRate* resource from trash.
      * ** ```Soft Delete``` needs to enabled to use this feature**
+     *
      * @lrd:end
      *
-     * @param string|int $id
      * @return JsonResponse
      */
     public function restore(string|int $id)
@@ -212,11 +206,11 @@ class CurrencyRateController extends Controller
 
             $currencyRate = Business::currencyRate()->find($id, true);
 
-            if (!$currencyRate) {
+            if (! $currencyRate) {
                 throw (new ModelNotFoundException)->setModel(config('fintech.business.currency_rate_model'), $id);
             }
 
-            if (!Business::currencyRate()->restore($id)) {
+            if (! Business::currencyRate()->restore($id)) {
 
                 throw (new RestoreOperationException())->setModel(config('fintech.business.currency_rate_model'), $id);
             }
@@ -239,9 +233,6 @@ class CurrencyRateController extends Controller
      * After export job is done system will fire  export completed event
      *
      * @lrd:end
-     *
-     * @param IndexCurrencyRateRequest $request
-     * @return JsonResponse
      */
     public function export(IndexCurrencyRateRequest $request): JsonResponse
     {
@@ -265,7 +256,6 @@ class CurrencyRateController extends Controller
      *
      * @lrd:end
      *
-     * @param ImportCurrencyRateRequest $request
      * @return CurrencyRateCollection|JsonResponse
      */
     public function import(ImportCurrencyRateRequest $request): JsonResponse

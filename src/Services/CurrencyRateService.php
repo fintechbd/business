@@ -2,26 +2,22 @@
 
 namespace Fintech\Business\Services;
 
-
 use Fintech\Business\Interfaces\CurrencyRateRepository;
 
 /**
  * Class CurrencyRateService
- * @package Fintech\Business\Services
- *
  */
 class CurrencyRateService
 {
     /**
      * CurrencyRateService constructor.
-     * @param CurrencyRateRepository $currencyRateRepository
      */
-    public function __construct(CurrencyRateRepository $currencyRateRepository) {
+    public function __construct(CurrencyRateRepository $currencyRateRepository)
+    {
         $this->currencyRateRepository = $currencyRateRepository;
     }
 
     /**
-     * @param array $filters
      * @return mixed
      */
     public function list(array $filters = [])

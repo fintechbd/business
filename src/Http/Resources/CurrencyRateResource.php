@@ -28,7 +28,7 @@ class CurrencyRateResource extends JsonResource
             'currency_rate_data' => $this->currency_rate_data,
             'links' => $this->links,
             'created_at' => $this->created_at,
-            'updated_at' => $this->updated_at
+            'updated_at' => $this->updated_at,
         ];
 
         if (Core::packageExists('MetaData')) {
