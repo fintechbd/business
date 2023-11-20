@@ -69,9 +69,9 @@ class CurrencyRateService
         // Get exchange rates
         $fromData['currency_currency'] = $from; //SGD
         $fromData['service_id'] = $input['service_id']; //MOBILE 1
-        $fromData['default_country_id'] = isset($input['default_country_id'])?$input['default_country_id']:session('default_country_id'); // SGP 199
+        $fromData['default_country_id'] = isset($input['default_country_id']) ? $input['default_country_id'] : session('default_country_id'); // SGP 199
 
-//        'currency' => sgd, service = 1, source_id = 199, dest = 19
+        //        'currency' => sgd, service = 1, source_id = 199, dest = 19
         $from_rate = $this->currencyRateService->getCurrencyRate($fromData);
 
         //dump("From Rate", $from_rate);
@@ -79,7 +79,7 @@ class CurrencyRateService
         //'currency' => bdt, service = 1, source_id = 199
         $toData['currency_currency'] = $to;
         $toData['service_id'] = $input['service_id'];
-        $toData['default_country_id'] = isset($input['default_country_id'])?$input['default_country_id']:session('default_country_id');
+        $toData['default_country_id'] = isset($input['default_country_id']) ? $input['default_country_id'] : session('default_country_id');
         $to_rate = $this->currencyRateService->getCurrencyRate($toData);
 
         //dump("To Rate", $to_rate);
@@ -100,6 +100,7 @@ class CurrencyRateService
         } catch (\Exception $e) {
             \Log::error('Currency Rate Exception');
             \Log::error($e->getMessage());
+
             // Prevent invalid conversion or division by zero errors
             return null;
         }
