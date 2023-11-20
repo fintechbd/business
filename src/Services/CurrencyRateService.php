@@ -64,4 +64,9 @@ class CurrencyRateService
     {
         return $this->currencyRateRepository->create($filters);
     }
+
+    public function convert(array $inputs)
+    {
+
+    }
 }
