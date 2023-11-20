@@ -45,6 +45,9 @@ if (Config::get('fintech.business.enabled')) {
             Route::apiResource('package-top-charts', \Fintech\Business\Http\Controllers\PackageTopChartController::class);
             Route::post('package-top-charts/{package_top_chart}/restore', [\Fintech\Business\Http\Controllers\PackageTopChartController::class, 'restore'])->name('package-top-charts.restore');
 
+            Route::apiResource('currency-rates', \Fintech\Business\Http\Controllers\CurrencyRateController::class);
+            Route::post('currency-rates/{currency_rate}/restore', [\Fintech\Business\Http\Controllers\CurrencyRateController::class, 'restore'])->name('currency-rates.restore');
+
             //DO NOT REMOVE THIS LINE//
         });
 }

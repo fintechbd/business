@@ -53,5 +53,14 @@ class Business
         return app(ServiceVendorService::class);
     }
 
+    /**
+     * @return \Fintech\Business\Services\CurrencyRateService
+     */
+    public function currencyRate()
+    {
+        return app(\Fintech\Business\Services\CurrencyRateService::class);
+    }
+
     //** Crud Service Method Point Do not Remove **//
+
 }

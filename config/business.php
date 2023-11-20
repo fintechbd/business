@@ -105,6 +105,16 @@ return [
     */
     'service_vendor_model' => \Fintech\Business\Models\ServiceVendor::class,
 
+
+    /*
+    |--------------------------------------------------------------------------
+    | CurrencyRate Model
+    |--------------------------------------------------------------------------
+    |
+    | This value will be used to across system where model is needed
+    */
+    'currency_rate_model' => \Fintech\Business\Models\CurrencyRate::class,
+
     //** Model Config Point Do not Remove **//
 
     /*
@@ -156,6 +166,8 @@ return [
         \Fintech\Business\Interfaces\ServiceVendorRepository::class => \Fintech\Business\Repositories\Eloquent\ServiceVendorRepository::class,
 
         \Fintech\Business\Interfaces\PackageTopChartRepository::class => \Fintech\Business\Repositories\Eloquent\PackageTopChartRepository::class,
+
+        \Fintech\Business\Interfaces\CurrencyRateRepository::class => \Fintech\Business\Repositories\Eloquent\CurrencyRateRepository::class,
 
         //** Repository Binding Config Point Do not Remove **//
     ],
