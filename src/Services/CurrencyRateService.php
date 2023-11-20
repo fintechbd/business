@@ -12,9 +12,8 @@ class CurrencyRateService
     /**
      * CurrencyRateService constructor.
      */
-    public function __construct(CurrencyRateRepository $currencyRateRepository)
+    public function __construct(private readonly CurrencyRateRepository $currencyRateRepository)
     {
-        $this->currencyRateRepository = $currencyRateRepository;
     }
 
     /**

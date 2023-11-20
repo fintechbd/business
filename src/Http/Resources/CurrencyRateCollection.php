@@ -4,6 +4,7 @@ namespace Fintech\Business\Http\Resources;
 
 use Fintech\Core\Facades\Core;
 use Fintech\Core\Supports\Constant;
+use Fintech\MetaData\Facades\MetaData;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\ResourceCollection;
 
@@ -12,7 +13,7 @@ class CurrencyRateCollection extends ResourceCollection
     /**
      * Transform the resource collection into an array.
      *
-     * @param  Request  $request
+     * @param Request $request
      * @return array
      */
     public function toArray($request)
@@ -55,8 +56,7 @@ class CurrencyRateCollection extends ResourceCollection
         $destinationCountries = [];
 
         if (Core::packageExists('MetaData')) {
-            //            $data['source_country_name'] = $currencyRate->sourceCountry?->name ?? null;
-            //            $data['destination_country_name'] = $currencyRate->destinationCountry?->name ?? null;
+            $sourceCountries = MetaData::country()->list(['is_serving' => true, 'paginate' => false])->toArray();
         }
 
         return [
