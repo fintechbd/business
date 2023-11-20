@@ -12,7 +12,7 @@ class CurrencyRateCollection extends ResourceCollection
     /**
      * Transform the resource collection into an array.
      *
-     * @param Request $request
+     * @param  Request  $request
      * @return array
      */
     public function toArray($request)
@@ -32,7 +32,7 @@ class CurrencyRateCollection extends ResourceCollection
                 'currency_rate_data' => $currencyRate->currency_rate_data,
                 'links' => $currencyRate->links,
                 'created_at' => $currencyRate->created_at,
-                'updated_at' => $currencyRate->updated_at
+                'updated_at' => $currencyRate->updated_at,
             ];
 
             if (Core::packageExists('MetaData')) {
@@ -47,7 +47,6 @@ class CurrencyRateCollection extends ResourceCollection
     /**
      * Get additional data that should be returned with the resource array.
      *
-     * @param Request $request
      * @return array<string, mixed>
      */
     public function with(Request $request): array
@@ -56,8 +55,8 @@ class CurrencyRateCollection extends ResourceCollection
         $destinationCountries = [];
 
         if (Core::packageExists('MetaData')) {
-//            $data['source_country_name'] = $currencyRate->sourceCountry?->name ?? null;
-//            $data['destination_country_name'] = $currencyRate->destinationCountry?->name ?? null;
+            //            $data['source_country_name'] = $currencyRate->sourceCountry?->name ?? null;
+            //            $data['destination_country_name'] = $currencyRate->destinationCountry?->name ?? null;
         }
 
         return [

@@ -2,8 +2,8 @@
 
 namespace Fintech\Business\Repositories\Eloquent;
 
-use Fintech\Core\Repositories\EloquentRepository;
 use Fintech\Business\Interfaces\CurrencyRateRepository as InterfacesCurrencyRateRepository;
+use Fintech\Core\Repositories\EloquentRepository;
 use Illuminate\Contracts\Pagination\Paginator;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
@@ -11,19 +11,18 @@ use InvalidArgumentException;
 
 /**
  * Class CurrencyRateRepository
- * @package Fintech\Business\Repositories\Eloquent
  */
 class CurrencyRateRepository extends EloquentRepository implements InterfacesCurrencyRateRepository
 {
     public function __construct()
     {
-       $model = app(config('fintech.business.currency_rate_model', \Fintech\Business\Models\CurrencyRate::class));
+        $model = app(config('fintech.business.currency_rate_model', \Fintech\Business\Models\CurrencyRate::class));
 
-       if (!$model instanceof Model) {
-           throw new InvalidArgumentException("Eloquent repository require model class to be `Illuminate\Database\Eloquent\Model` instance.");
-       }
+        if (! $model instanceof Model) {
+            throw new InvalidArgumentException("Eloquent repository require model class to be `Illuminate\Database\Eloquent\Model` instance.");
+        }
 
-       $this->model = $model;
+        $this->model = $model;
     }
 
     /**
@@ -47,7 +46,7 @@ class CurrencyRateRepository extends EloquentRepository implements InterfacesCur
         }
 
         //Display Trashed
-        if (isset($filters['trashed']) && !empty($filters['trashed'])) {
+        if (isset($filters['trashed']) && ! empty($filters['trashed'])) {
             $query->onlyTrashed();
         }
 
