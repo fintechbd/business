@@ -52,11 +52,21 @@ class CurrencyRateCollection extends ResourceCollection
      */
     public function with(Request $request): array
     {
+        $sourceCountries = [];
+        $destinationCountries = [];
+
+        if (Core::packageExists('MetaData')) {
+//            $data['source_country_name'] = $currencyRate->sourceCountry?->name ?? null;
+//            $data['destination_country_name'] = $currencyRate->destinationCountry?->name ?? null;
+        }
+
         return [
             'options' => [
                 'dir' => Constant::SORT_DIRECTIONS,
                 'per_page' => Constant::PAGINATE_LENGTHS,
-                'sort' => ['id', 'name', 'created_at', 'updated_at'],
+                'source_country_id' => $sourceCountries,
+                'destination_country_id' => $destinationCountries,
+                'sort' => ['id', 'source_country_id', 'destination_country_id', 'service_id', 'rate', 'created_at', 'updated_at'],
             ],
             'query' => $request->all(),
         ];
