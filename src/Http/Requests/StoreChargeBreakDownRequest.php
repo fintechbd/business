@@ -26,9 +26,9 @@ class StoreChargeBreakDownRequest extends FormRequest
             'service_slug' => ['string', 'required'],
             'charge_break_down_lower' => ['double', 'required'],
             'charge_break_down_higher' => ['double', 'required'],
-            'charge_break_down_charge' => ['double', 'required'],
-            'charge_break_down_discount' => ['double', 'required'],
-            'charge_break_down_commission' => ['double', 'required'],
+            'charge_break_down_charge' => ['string', 'required'],
+            'charge_break_down_discount' => ['string', 'required'],
+            'charge_break_down_commission' => ['string', 'required'],
             'enabled' => ['boolean', 'nullable', 'min:1'],
         ];
     }
