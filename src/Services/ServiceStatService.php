@@ -88,10 +88,6 @@ class ServiceStatService
 
     }
 
-    /**
-     * @param $data
-     * @return array
-     */
     public function serviceStateData($data): array
     {
         $data->role_id = $data->user->roles[0]->getKey();
@@ -118,7 +114,7 @@ class ServiceStatService
             $serviceStateJsonData['service_stat_id'] = $serviceStateData['service_stat_id'];
         }
 
-        return array(
+        return [
             'charge' => $serviceStateJsonData['charge'] ?? 0,
             'discount' => $serviceStateJsonData['discount'] ?? 0,
             'commission' => $serviceStateJsonData['commission'] ?? 0,
@@ -127,6 +123,6 @@ class ServiceStatService
             'commission_refund' => $serviceStateJsonData['commission_refund'] ?? 0,
             'charge_break_down_id' => $serviceStateJsonData['charge_break_down_id'] ?? null,
             'service_stat_id' => $serviceStateJsonData['service_stat_id'] ?? null,
-        );
+        ];
     }
 }
