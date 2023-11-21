@@ -87,4 +87,46 @@ class ServiceStatService
         return $serviceStats;
 
     }
+
+    /**
+     * @param $data
+     * @return array
+     */
+    public function serviceStateData($data): array
+    {
+        $data->role_id = $data->user->roles[0]->getKey();
+        $serviceStateData['role_id'] = $data->role_id;
+        $serviceStateData['service_id'] = $data->service_id;
+        $serviceStateData['source_country_id'] = $data->source_country_id;
+        $serviceStateData['destination_country_id'] = $data->destination_country_id;
+        $serviceStateData['amount'] = $data->amount;
+        $serviceStateData['enable'] = true;
+        $serviceState = Business::serviceStat()->list($serviceStateData)->first()->toArray();
+
+        $serviceStateData['service_stat_id'] = $serviceState['id'];
+        $charge_break_down = Business::chargeBreakDown()->list($serviceStateData)->first();
+        $serviceState = $serviceState['service_stat_data'][0];
+        if ($charge_break_down) {
+            $serviceStateJsonData['charge'] = $charge_break_down->charge_break_down_charge;
+            $serviceStateJsonData['discount'] = $charge_break_down->charge_break_down_discount;
+            $serviceStateJsonData['commission'] = $charge_break_down->charge_break_down_commission;
+            $serviceStateJsonData['charge_break_down_id'] = $charge_break_down->getKey();
+        } else {
+            $serviceStateJsonData['charge'] = $serviceState['charge'];
+            $serviceStateJsonData['discount'] = $serviceState['discount'];
+            $serviceStateJsonData['commission'] = $serviceState['commission'];
+            $serviceStateJsonData['service_stat_id'] = $serviceStateData['service_stat_id'];
+        }
+
+        return array(
+            'charge' => $serviceStateJsonData['charge'] ?? 0,
+            'discount' => $serviceStateJsonData['discount'] ?? 0,
+            'commission' => $serviceStateJsonData['commission'] ?? 0,
+            'charge_refund' => $serviceStateJsonData['charge_refund'] ?? 0,
+            'discount_refund' => $serviceStateJsonData['discount_refund'] ?? 0,
+            'commission_refund' => $serviceStateJsonData['commission_refund'] ?? 0,
+            'charge_break_down_id' => $serviceStateJsonData['charge_break_down_id'] ?? null,
+            'service_stat_id' => $serviceStateJsonData['service_stat_id'] ?? null,
+        );
+    }
 }
