@@ -12,9 +12,8 @@ class ServicePackageService
     /**
      * ServicePackageService constructor.
      */
-    public function __construct(ServicePackageRepository $servicePackageRepository)
+    public function __construct(private readonly ServicePackageRepository $servicePackageRepository)
     {
-        $this->servicePackageRepository = $servicePackageRepository;
     }
 
     /**

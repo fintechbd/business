@@ -12,9 +12,8 @@ class ServiceService
     /**
      * ServiceService constructor.
      */
-    public function __construct(ServiceRepository $serviceRepository)
+    public function __construct(private readonly ServiceRepository $serviceRepository)
     {
-        $this->serviceRepository = $serviceRepository;
     }
 
     /**
