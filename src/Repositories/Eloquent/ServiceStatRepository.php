@@ -40,8 +40,27 @@ class ServiceStatRepository extends EloquentRepository implements InterfacesServ
             if (is_numeric($filters['search'])) {
                 $query->where($this->model->getKeyName(), 'like', "%{$filters['search']}%");
             } else {
-                $query->where('name', 'like', "%{$filters['search']}%");
+                $query->where(get_table('business.service_stats').'.service_slug', 'like', "%{$filters['search']}%");
             }
+        }
+
+        if (isset($filters['role_id']) && $filters['role_id']) {
+            $query->where(get_table('business.service_stats').'.role_id', '=', $filters['role_id']);
+        }
+        if (isset($filters['service_id']) && $filters['service_id']) {
+            $query->where(get_table('business.service_stats').'.service_id', '=', $filters['service_id']);
+        }
+        if (isset($filters['source_country_id']) && $filters['source_country_id']) {
+            $query->where(get_table('business.service_stats').'.source_country_id', '=', $filters['source_country_id']);
+        }
+        if (isset($filters['destination_country_id']) && $filters['destination_country_id']) {
+            $query->where(get_table('business.service_stats').'.destination_country_id', '=', $filters['destination_country_id']);
+        }
+        if (isset($filters['service_vendor_id']) && $filters['service_vendor_id']) {
+            $query->where(get_table('business.service_stats').'.service_vendor_id', '=', $filters['service_vendor_id']);
+        }
+        if (isset($filters['service_slug']) && $filters['service_slug']) {
+            $query->where(get_table('business.service_stats').'.service_slug', '=', $filters['service_slug']);
         }
 
         //Display Trashed
