@@ -118,9 +118,9 @@ class ServiceStatService
             'charge' => $serviceStateJsonData['charge'] ?? 0,
             'discount' => $serviceStateJsonData['discount'] ?? 0,
             'commission' => $serviceStateJsonData['commission'] ?? 0,
-            'charge_refund' => $serviceState['charge_refund'] ?? 0,
-            'discount_refund' => $serviceState['discount_refund'] ?? 0,
-            'commission_refund' => $serviceState['commission_refund'] ?? 0,
+            'charge_refund' => $serviceState['charge_refund'] ?? null,
+            'discount_refund' => $serviceState['discount_refund'] ?? null,
+            'commission_refund' => $serviceState['commission_refund'] ?? null,
             'charge_break_down_id' => $serviceStateJsonData['charge_break_down_id'] ?? null,
             'service_stat_id' => $serviceStateJsonData['service_stat_id'] ?? null,
         ];
