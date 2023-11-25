@@ -23,7 +23,7 @@ class RoleServiceRequest extends FormRequest
     {
         return [
             'services' => ['array', 'nullable'],
-            'services.*' => ['nullable', 'integer', 'min:1']
+            'services.*' => ['nullable', 'integer', 'min:1'],
         ];
     }
 

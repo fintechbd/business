@@ -15,7 +15,7 @@ class CountryServiceResource extends JsonResource
     /**
      * Transform the resource into an array.
      *
-     * @param Request $request
+     * @param  Request  $request
      * @return array
      */
     public function toArray($request)
@@ -27,12 +27,12 @@ class CountryServiceResource extends JsonResource
         Business::service()
             ->list(['paginate' => false])
             ->each(function ($service) use (&$data, $countryServices) {
-            $data[] = [
-                'id' => $service->getKey(),
-                'name' => $service->name,
-                'enabled' => in_array($service->getKey(), $countryServices)
-            ];
-        });
+                $data[] = [
+                    'id' => $service->getKey(),
+                    'name' => $service->name,
+                    'enabled' => in_array($service->getKey(), $countryServices),
+                ];
+            });
 
         return $data;
     }

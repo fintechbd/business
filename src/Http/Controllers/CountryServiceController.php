@@ -27,7 +27,7 @@ class CountryServiceController extends Controller
 
             $country = \Fintech\MetaData\Facades\MetaData::country()->find($id);
 
-            if (!$country) {
+            if (! $country) {
                 throw (new ModelNotFoundException())->setModel(config('fintech.metadata.country_model'), $id);
             }
 
@@ -55,13 +55,13 @@ class CountryServiceController extends Controller
 
             $country = \Fintech\MetaData\Facades\MetaData::country()->find($id);
 
-            if (!$country) {
+            if (! $country) {
                 throw (new ModelNotFoundException())->setModel(config('fintech.auth.country_model'), $id);
             }
 
             $inputs = $request->validated();
 
-            if (!\Fintech\MetaData\Facades\MetaData::country()->update($id, $inputs)) {
+            if (! \Fintech\MetaData\Facades\MetaData::country()->update($id, $inputs)) {
 
                 throw (new UpdateOperationException())->setModel(config('fintech.auth.country_model'), $id);
             }

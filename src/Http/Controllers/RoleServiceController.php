@@ -5,7 +5,6 @@ namespace Fintech\Business\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Exception;
 use Fintech\Auth\Facades\Auth;
-use Fintech\Auth\Http\Resources\RolePermissionResource;
 use Fintech\Business\Http\Requests\RoleServiceRequest;
 use Fintech\Business\Http\Resources\RoleServiceResource;
 use Fintech\Core\Exceptions\UpdateOperationException;
@@ -29,7 +28,7 @@ class RoleServiceController extends Controller
 
             $role = Auth::role()->find($id);
 
-            if (!$role) {
+            if (! $role) {
                 throw (new ModelNotFoundException())->setModel(config('fintech.auth.role_model'), $id);
             }
 
@@ -57,13 +56,13 @@ class RoleServiceController extends Controller
 
             $role = Auth::role()->find($id);
 
-            if (!$role) {
+            if (! $role) {
                 throw (new ModelNotFoundException())->setModel(config('fintech.auth.role_model'), $id);
             }
 
             $inputs = $request->validated();
 
-            if (!Auth::role()->update($id, $inputs)) {
+            if (! Auth::role()->update($id, $inputs)) {
 
                 throw (new UpdateOperationException())->setModel(config('fintech.auth.role_model'), $id);
             }
