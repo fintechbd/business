@@ -5,13 +5,15 @@ namespace Fintech\Business\Facades;
 use Illuminate\Support\Facades\Facade;
 
 /**
- * @method static \Fintech\Business\Models\ServicePackage servicePackage()
- * @method static \Fintech\Business\Models\ServiceSetting serviceSetting()
- * @method static \Fintech\Business\Models\ServiceState serviceState()
- * @method static \Fintech\Business\Models\ServiceVendor serviceVendor()
+ * @method static \Fintech\Business\Services\ServicePackageService servicePackage()
+ * @method static \Fintech\Business\Services\ServiceSettingService serviceSetting()
+ * @method static \Fintech\Business\Services\ServiceStatService serviceStat()
+ * @method static \Fintech\Business\Services\ServiceTypeService serviceTYpe()
+ * @method static \Fintech\Business\Services\ServiceVendorService serviceVendor()
  * @method static \Fintech\Business\Services\ChargeBreakDownService chargeBreakDown()
  * @method static \Fintech\Business\Services\PackageTopChartService PackageTopChart()
  * @method static \Fintech\Business\Services\ServiceService service()
+ * // Crud Service Method Point Do not Remove //
  *
  * @see \Fintech\Business\Business
  */

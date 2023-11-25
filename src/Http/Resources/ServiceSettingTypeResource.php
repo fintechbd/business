@@ -4,13 +4,10 @@ namespace Fintech\Business\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class ServiceStateResource extends JsonResource
+class ServiceSettingTypeResource extends JsonResource
 {
     /**
-     * Transform the resource into an array.
-     *
-     * @param  \Illuminate\Http\Request
-     * @return array
+     * Transform the resource collection into an array.
      */
     public function toArray($request)
     {

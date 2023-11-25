@@ -4,7 +4,7 @@ namespace Fintech\Business\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class IndexServiceStateRequest extends FormRequest
+class IndexServiceStatRequest extends FormRequest
 {
     use \Fintech\Core\Traits\HasPaginateQuery;
 
@@ -31,6 +31,11 @@ class IndexServiceStateRequest extends FormRequest
             'sort' => ['string', 'nullable', 'min:2', 'max:255'],
             'dir' => ['string', 'min:3', 'max:4'],
             'trashed' => ['boolean', 'nullable'],
+            'role_id' => ['integer', 'nullable'],
+            'service_id' => ['integer', 'nullable'],
+            'present_country_id' => ['integer', 'nullable'],
+            'permanent_country_id' => ['integer', 'nullable'],
+            'service_vendor_id' => ['integer', 'nullable'],
         ];
     }
 

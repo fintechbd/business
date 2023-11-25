@@ -53,12 +53,12 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | ServiceState Model
+    | ServiceStat Model
     |--------------------------------------------------------------------------
     |
     | This value will be used to across system where model is needed
     */
-    'service_state_model' => \Fintech\Business\Models\ServiceState::class,
+    'service_stat_model' => \Fintech\Business\Models\ServiceStat::class,
 
     /*
     |--------------------------------------------------------------------------
@@ -85,7 +85,7 @@ return [
     |
     | This value will be used to across system where model is needed
     */
-    'vendor_model' => \Fintech\Business\Models\Vendor::class,
+    //'vendor_model' => \Fintech\Business\Models\Vendor::class,
 
     /*
     |--------------------------------------------------------------------------
@@ -109,6 +109,31 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Constant
+    |--------------------------------------------------------------------------
+    |
+    | This value will be used across systems where a constant instance is needed
+    */
+
+    'service_setting_types' => [
+        'service_stat' => 'Service Stat',
+        'service' => 'Service',
+    ],
+
+    'service_setting_type_fields' => [
+        'text' => 'TEXT',
+        'select' => 'SELECT',
+        'textarea' => 'TEXT AREA',
+        'date' => 'DATE',
+        'radio' => 'RADIO',
+        'email' => 'EMAIL',
+        'number' => 'NUMBER',
+        'tel' => 'TEL',
+        'url' => 'URL',
+    ],
+
+    /*
+    |--------------------------------------------------------------------------
     | Repositories
     |--------------------------------------------------------------------------
     |
@@ -122,17 +147,15 @@ return [
 
         \Fintech\Business\Interfaces\ServiceRepository::class => \Fintech\Business\Repositories\Eloquent\ServiceRepository::class,
 
-        \Fintech\Business\Interfaces\ServiceStateRepository::class => \Fintech\Business\Repositories\Eloquent\ServiceStateRepository::class,
+        \Fintech\Business\Interfaces\ServiceStatRepository::class => \Fintech\Business\Repositories\Eloquent\ServiceStatRepository::class,
 
         \Fintech\Business\Interfaces\ServicePackageRepository::class => \Fintech\Business\Repositories\Eloquent\ServicePackageRepository::class,
 
         \Fintech\Business\Interfaces\ChargeBreakDownRepository::class => \Fintech\Business\Repositories\Eloquent\ChargeBreakDownRepository::class,
 
-        \Fintech\Business\Interfaces\VendorRepository::class => \Fintech\Business\Repositories\Eloquent\VendorRepository::class,
+        \Fintech\Business\Interfaces\ServiceVendorRepository::class => \Fintech\Business\Repositories\Eloquent\ServiceVendorRepository::class,
 
         \Fintech\Business\Interfaces\PackageTopChartRepository::class => \Fintech\Business\Repositories\Eloquent\PackageTopChartRepository::class,
-
-        \Fintech\Business\Interfaces\ServiceVendorRepository::class => \Fintech\Business\Repositories\Eloquent\ServiceVendorRepository::class,
 
         //** Repository Binding Config Point Do not Remove **//
     ],

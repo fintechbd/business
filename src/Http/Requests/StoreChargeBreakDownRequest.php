@@ -22,7 +22,14 @@ class StoreChargeBreakDownRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'service_stat_id' => ['integer', 'required'],
+            'service_slug' => ['string', 'required'],
+            'charge_break_down_lower' => ['double', 'required'],
+            'charge_break_down_higher' => ['double', 'required'],
+            'charge_break_down_charge' => ['string', 'required'],
+            'charge_break_down_discount' => ['string', 'required'],
+            'charge_break_down_commission' => ['string', 'required'],
+            'enabled' => ['boolean', 'nullable', 'min:1'],
         ];
     }
 

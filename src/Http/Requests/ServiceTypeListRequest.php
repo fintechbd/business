@@ -4,8 +4,10 @@ namespace Fintech\Business\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class ImportServiceStateRequest extends FormRequest
+class ServiceTypeListRequest extends FormRequest
 {
+    use \Fintech\Core\Traits\HasPaginateQuery;
+
     /**
      * Determine if the user is authorized to make this request.
      */
@@ -22,7 +24,14 @@ class ImportServiceStateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'user_id' => ['integer', 'nullable'],
+            'role_id' => ['integer', 'nullable'],
+            'service_type_parent_id' => ['integer', 'nullable'],
+            'source_country_id' => ['integer', 'nullable'],
+            'destination_country_id' => ['integer', 'nullable'],
+            'visible_android_app' => ['string', 'required_without_all:visible_ios_app,visible_website'],
+            'visible_ios_app' => ['string', 'required_without_all:visible_android_app,visible_website'],
+            'visible_website' => ['string', 'required_without_all:visible_ios_app,visible_android_app'],
         ];
     }
 

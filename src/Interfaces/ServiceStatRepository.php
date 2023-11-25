@@ -8,9 +8,9 @@ use Illuminate\Support\Collection;
 use MongoDB\Laravel\Eloquent\Model as MongodbModel;
 
 /**
- * Interface ServiceStateRepository
+ * Interface ServiceStatRepository
  */
-interface ServiceStateRepository
+interface ServiceStatRepository
 {
     /**
      * return a list or pagination of items from

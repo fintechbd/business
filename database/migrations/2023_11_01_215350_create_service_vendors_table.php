@@ -11,11 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('service_types', function (Blueprint $table) {
+        Schema::create('service_vendors', function (Blueprint $table) {
             $table->id();
-            $table->json('name')->nullable();
-
-            $table->json('service_type_data')->nullable();
+            $table->string('service_vendor_name')->nullable();
+            $table->string('service_vendor_slug')->nullable();
+            $table->json('service_vendor_data')->nullable();
+            $table->boolean('enabled')->nullable();
             $table->foreignId('creator_id')->nullable();
             $table->foreignId('editor_id')->nullable();
             $table->foreignId('destroyer_id')->nullable();
@@ -31,6 +32,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('service_types');
+        Schema::dropIfExists('service_vendors');
     }
 };
