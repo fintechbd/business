@@ -34,14 +34,18 @@ if (Config::get('fintech.business.enabled')) {
         Route::apiResource('charge-break-downs', \Fintech\Business\Http\Controllers\ChargeBreakDownController::class);
         Route::post('charge-break-downs/{charge_break_down}/restore', [\Fintech\Business\Http\Controllers\ChargeBreakDownController::class, 'restore'])->name('charge-break-downs.restore');
 
-        Route::apiResource('vendors', \Fintech\Business\Http\Controllers\VendorController::class);
-        Route::post('vendors/{vendor}/restore', [\Fintech\Business\Http\Controllers\VendorController::class, 'restore'])->name('vendors.restore');
+        Route::apiResource('service-vendors', \Fintech\Business\Http\Controllers\ServiceVendorController::class);
+        Route::post('service-vendors/{service_vendor}/restore', [\Fintech\Business\Http\Controllers\ServiceVendorController::class, 'restore'])->name('service-vendors.restore');
 
         Route::apiResource('package-top-charts', \Fintech\Business\Http\Controllers\PackageTopChartController::class);
         Route::post('package-top-charts/{package_top_chart}/restore', [\Fintech\Business\Http\Controllers\PackageTopChartController::class, 'restore'])->name('package-top-charts.restore');
 
-        Route::apiResource('service-vendors', \Fintech\Business\Http\Controllers\ServiceVendorController::class);
-        Route::post('service-vendors/{service_vendor}/restore', [\Fintech\Business\Http\Controllers\ServiceVendorController::class, 'restore'])->name('service-vendors.restore');
+        if (\Fintech\Core\Facades\Core::packageExists('Auth')) {
+            Route::apiResource('role-services', \Fintech\Business\Http\Controllers\RoleServiceController::class)->only(['show', 'update']);
+        }
+        if (\Fintech\Core\Facades\Core::packageExists('MetaData')) {
+            Route::apiResource('country-services', \Fintech\Business\Http\Controllers\CountryServiceController::class)->only(['show', 'update']);
+        }
 
         //DO NOT REMOVE THIS LINE//
     });
