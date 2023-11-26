@@ -45,6 +45,14 @@ if (Config::get('fintech.business.enabled')) {
             Route::apiResource('package-top-charts', \Fintech\Business\Http\Controllers\PackageTopChartController::class);
             Route::post('package-top-charts/{package_top_chart}/restore', [\Fintech\Business\Http\Controllers\PackageTopChartController::class, 'restore'])->name('package-top-charts.restore');
 
+            if (\Fintech\Core\Facades\Core::packageExists('Auth')) {
+                Route::apiResource('role-services', \Fintech\Business\Http\Controllers\RoleServiceController::class)->only(['show', 'update']);
+            }
+            if (\Fintech\Core\Facades\Core::packageExists('MetaData')) {
+                Route::apiResource('country-services', \Fintech\Business\Http\Controllers\CountryServiceController::class)->only(['show', 'update']);
+                Route::get('serving-countries', \Fintech\Business\Http\Controllers\ServingCountryController::class)->name('services.serving-countries');
+            }
+
             //DO NOT REMOVE THIS LINE//
         });
 }
