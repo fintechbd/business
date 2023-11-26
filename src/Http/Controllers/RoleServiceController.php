@@ -2,7 +2,6 @@
 
 namespace Fintech\Business\Http\Controllers;
 
-use Illuminate\Routing\Controller;
 use Exception;
 use Fintech\Auth\Facades\Auth;
 use Fintech\Business\Http\Requests\RoleServiceRequest;
@@ -11,6 +10,7 @@ use Fintech\Core\Exceptions\UpdateOperationException;
 use Fintech\Core\Traits\ApiResponseTrait;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Routing\Controller;
 
 class RoleServiceController extends Controller
 {

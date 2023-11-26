@@ -6,5 +6,5 @@ return [
     ],
     'country' => [
         'service_assigned' => 'Assigning services to :country country successful.',
-    ]
+    ],
 ];
