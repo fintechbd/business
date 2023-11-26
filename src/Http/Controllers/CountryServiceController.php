@@ -2,7 +2,7 @@
 
 namespace Fintech\Business\Http\Controllers;
 
-use App\Http\Controllers\Controller;
+use Illuminate\Routing\Controller;
 use Exception;
 use Fintech\Business\Http\Requests\RoleServiceRequest;
 use Fintech\Business\Http\Resources\CountryServiceResource;
@@ -66,7 +66,7 @@ class CountryServiceController extends Controller
                 throw (new UpdateOperationException())->setModel(config('fintech.auth.country_model'), $id);
             }
 
-            return $this->updated(__('auth::messages.role.service_assigned', ['role' => strtolower($country->name ?? 'N/A')]));
+            return $this->updated(__('business::messages.country.service_assigned', ['country' => strtolower($country->name ?? 'N/A')]));
 
         } catch (ModelNotFoundException $exception) {
 

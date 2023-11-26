@@ -50,6 +50,7 @@ if (Config::get('fintech.business.enabled')) {
             }
             if (\Fintech\Core\Facades\Core::packageExists('MetaData')) {
                 Route::apiResource('country-services', \Fintech\Business\Http\Controllers\CountryServiceController::class)->only(['show', 'update']);
+                Route::get('serving-countries', \Fintech\Business\Http\Controllers\ServingCountryController::class)->name('services.serving-countries');
             }
 
             //DO NOT REMOVE THIS LINE//
