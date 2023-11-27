@@ -2,6 +2,7 @@
 
 namespace Fintech\Business\Services;
 
+use Exception;
 use Fintech\Business\Facades\Business;
 use Fintech\Business\Interfaces\ServiceStatRepository;
 
@@ -97,8 +98,11 @@ class ServiceStatService
         $serviceStateData['destination_country_id'] = $data->destination_country_id;
         $serviceStateData['amount'] = $data->amount;
         $serviceStateData['enable'] = true;
-        $serviceState = Business::serviceStat()->list($serviceStateData)->first()->toArray();
-
+        $serviceStates = Business::serviceStat()->list($serviceStateData)->first();
+        if (! $serviceStates) {
+            throw new Exception('Service State Data not found');
+        }
+        $serviceState = $serviceStates->toArray();
         $serviceStateData['service_stat_id'] = $serviceState['id'];
         $charge_break_down = Business::chargeBreakDown()->list($serviceStateData)->first();
         $serviceState = $serviceState['service_stat_data'][0];
