@@ -17,6 +17,7 @@ class ServiceTypeListCollection extends ResourceCollection
             $data = $item->toArray();
             $data['logo_svg'] = $item->getFirstMediaUrl('logo_svg');
             $data['logo_png'] = $item->getFirstMediaUrl('logo_png');
+
             return $data;
         })->toArray();
     }
