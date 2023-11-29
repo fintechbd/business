@@ -13,12 +13,7 @@ class ServiceTypeListCollection extends ResourceCollection
      */
     public function toArray(Request $request): array
     {
-        return $this->collection->map(function ($item) {
-            $data = $item->toArray();
-            $data['logo_svg'] = $item->getFirstMediaUrl('logo_svg');
-            $data['logo_png'] = $item->getFirstMediaUrl('logo_png');
-            return $data;
-        })->toArray();
+        return parent::toArray($request);
     }
 
     /**

@@ -57,10 +57,10 @@ class ServiceTypeRepository extends EloquentRepository implements InterfacesServ
                         ->on(get_table('business.service_stat').'.service_vendor_id', '=', get_table('business.service').'.service_vendor_id');
                 });
             //TODO
-            $query->join('role_service', function (JoinClause $join) {
-                $join->on(get_table('business.service_stat').'.service_id', '=', 'role_service.service_id');
-                $join->on(get_table('business.service_stat').'.role_id', '=', 'role_service.role_id');
-            });
+//            $query->join('role_service', function (JoinClause $join) {
+//                $join->on(get_table('business.service_stat').'.service_id', '=', 'role_service.service_id');
+//                $join->on(get_table('business.service_stat').'.role_id', '=', 'role_service.role_id');
+//            });
             /*$query->join('country_service', function ($join) {
                 $join->on(get_table('business.service_stat').'.service_id', '=', 'country_service.service_id');
                 $join->on(get_table('business.service_stat').'.destination_country_id', '=', 'country_service.country_id');
