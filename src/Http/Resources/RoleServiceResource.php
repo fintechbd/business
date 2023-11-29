@@ -29,7 +29,7 @@ class RoleServiceResource extends JsonResource
             ->each(function ($service) use (&$data, $roleServices) {
                 $data[] = [
                     'id' => $service->getKey(),
-                    'name' => $service->name,
+                    'name' => $service->service_name,
                     'enabled' => in_array($service->getKey(), $roleServices),
                 ];
             });
