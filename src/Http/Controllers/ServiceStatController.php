@@ -270,10 +270,6 @@ class ServiceStatController extends Controller
         }
     }
 
-    /**
-     * @param Request $request
-     * @return CountryCollection|JsonResponse
-     */
     public function serviceStatWiseCountry(Request $request): CountryCollection|JsonResponse
     {
         try {
@@ -285,6 +281,7 @@ class ServiceStatController extends Controller
 
             $list = array_unique(array_column($destination_countries, $inputs['sort']));
             $countries = MetaData::country()->list(['in_array_country_id' => array_values($list)]);
+
             return new CountryCollection($countries);
         } catch (Exception $exception) {
 
