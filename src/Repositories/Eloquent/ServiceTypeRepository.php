@@ -95,6 +95,10 @@ class ServiceTypeRepository extends EloquentRepository implements InterfacesServ
                 $query->where(get_table('business.service_stat').'.source_country_id', '=', $filters['source_country_id']);
             }
 
+            if (isset($filters['service_type_slug']) && $filters['service_type_slug']) {
+                $query->where($modelTable.'.service_type_slug', '=', $filters['service_type_slug']);
+            }
+
             //SERVICE STATE DATA
             if (isset($filters['visible_android_app']) && $filters['visible_android_app']) {
                 //$query->where(DB::raw('REPLACE(JSON_EXTRACT(' . get_table('business.service') . '.service_data, "$.visible_android_app"),\'"\',\'\')'), '=', $filters['visible_android_app']);
