@@ -2,6 +2,7 @@
 
 namespace Fintech\Business\Services;
 
+use Exception;
 use Fintech\Business\Facades\Business;
 use Fintech\Business\Interfaces\ServiceStatRepository;
 
@@ -97,8 +98,11 @@ class ServiceStatService
         $serviceStateData['destination_country_id'] = $data->destination_country_id;
         $serviceStateData['amount'] = $data->amount;
         $serviceStateData['enable'] = true;
-        $serviceState = Business::serviceStat()->list($serviceStateData)->first()->toArray();
-
+        $serviceStates = Business::serviceStat()->list($serviceStateData)->first();
+        if (! $serviceStates) {
+            throw new Exception('Service State Data not found');
+        }
+        $serviceState = $serviceStates->toArray();
         $serviceStateData['service_stat_id'] = $serviceState['id'];
         $charge_break_down = Business::chargeBreakDown()->list($serviceStateData)->first();
         $serviceState = $serviceState['service_stat_data'][0];
@@ -118,9 +122,9 @@ class ServiceStatService
             'charge' => $serviceStateJsonData['charge'] ?? 0,
             'discount' => $serviceStateJsonData['discount'] ?? 0,
             'commission' => $serviceStateJsonData['commission'] ?? 0,
-            'charge_refund' => $serviceStateJsonData['charge_refund'] ?? 0,
-            'discount_refund' => $serviceStateJsonData['discount_refund'] ?? 0,
-            'commission_refund' => $serviceStateJsonData['commission_refund'] ?? 0,
+            'charge_refund' => $serviceState['charge_refund'] ?? null,
+            'discount_refund' => $serviceState['discount_refund'] ?? null,
+            'commission_refund' => $serviceState['commission_refund'] ?? null,
             'charge_break_down_id' => $serviceStateJsonData['charge_break_down_id'] ?? null,
             'service_stat_id' => $serviceStateJsonData['service_stat_id'] ?? null,
         ];

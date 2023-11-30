@@ -49,29 +49,30 @@ class ServiceTypeRepository extends EloquentRepository implements InterfacesServ
             $query->leftJoin(
                 get_table('business.service_vendor'),
                 get_table('business.service_vendor').'.id', '=',
-                get_table('business.service_vendor').'.service_vendor_id');
+                get_table('business.service').'.service_vendor_id');
 
             $query->leftjoin(
-                get_table('business.service_stats'), function (JoinClause $join) {
-                    $join->on(get_table('business.service_stats').'.service_id', '=', get_table('business.service').'.id')
-                        ->on(get_table('business.service_stats').'.service_vendor_id', '=', get_table('business.service').'.service_vendor_id');
+                get_table('business.service_stat'), function (JoinClause $join) {
+                    $join->on(get_table('business.service_stat').'.service_id', '=', get_table('business.service').'.id')
+                        ->on(get_table('business.service_stat').'.service_vendor_id', '=', get_table('business.service').'.service_vendor_id');
                 });
-            //TODO
+
             $query->join('role_service', function (JoinClause $join) {
-                $join->on(get_table('business.service_stats').'.service_id', '=', 'role_service.service_id');
-                $join->on(get_table('business.service_stats').'.role_id', '=', 'role_service.role_id');
+                $join->on(get_table('business.service_stat').'.service_id', '=', 'role_service.service_id');
+                $join->on(get_table('business.service_stat').'.role_id', '=', 'role_service.role_id');
             });
-            /*$query->join('country_service', function ($join) {
-                $join->on(get_table('business.service_stats').'.service_id', '=', 'country_service.service_id');
-                $join->on(get_table('business.service_stats').'.destination_country_id', '=', 'country_service.country_id');
-            });*/
+
+            $query->join('country_service', function ($join) {
+                $join->on(get_table('business.service_stat').'.service_id', '=', 'country_service.service_id');
+                $join->on(get_table('business.service_stat').'.destination_country_id', '=', 'country_service.country_id');
+            });
             if (isset($filters['search']) && $filters['search']) {
                 $query->where($modelTable.'.service_type_name', 'like', "%{$filters['search']}%");
                 $query->orWhere(get_table('business.service_vendor').'.service_vendor_name', 'like', "%{$filters['search']}%");
             }
 
             if (isset($filters['destination_country_id']) && $filters['destination_country_id']) {
-                $query->where(get_table('business.service_stats').'.destination_country_id', '=', $filters['destination_country_id']);
+                $query->where(get_table('business.service_stat').'.destination_country_id', '=', $filters['destination_country_id']);
             }
 
             if (isset($filters['service_type_id']) && $filters['service_type_id']) {
@@ -87,11 +88,11 @@ class ServiceTypeRepository extends EloquentRepository implements InterfacesServ
             }
 
             if (isset($filters['role_id']) && $filters['role_id']) {
-                $query->where(get_table('business.service_stats').'.role_id', '=', $filters['role_id']);
+                $query->where(get_table('business.service_stat').'.role_id', '=', $filters['role_id']);
             }
 
             if (isset($filters['source_country_id']) && $filters['source_country_id']) {
-                $query->where(get_table('business.service_stats').'.source_country_id', '=', $filters['source_country_id']);
+                $query->where(get_table('business.service_stat').'.source_country_id', '=', $filters['source_country_id']);
             }
 
             //SERVICE STATE DATA
@@ -178,11 +179,11 @@ class ServiceTypeRepository extends EloquentRepository implements InterfacesServ
             }
 
             if (isset($filters['service_stat_enabled']) && $filters['service_stat_enabled']) {
-                $query->where(get_table('business.service_stats').'enabled', '=', $filters['service_stat_enabled']);
+                $query->where(get_table('business.service_stat').'.enabled', '=', $filters['service_stat_enabled']);
             }
 
             $select = [
-                get_table('business.service_stats').'*',
+                get_table('business.service_stat').'.*',
                 get_table('business.service_vendor').'.*',
                 get_table('business.service').'.*',
                 DB::raw('service_stats.id as service_stat_id')];
@@ -216,6 +217,10 @@ class ServiceTypeRepository extends EloquentRepository implements InterfacesServ
 
         if (isset($filters['service_type_is_parent']) && $filters['service_type_is_parent']) {
             $query->where($modelTable.'.service_type_is_parent', '=', $filters['service_type_is_parent']);
+        }
+
+        if (isset($filters['service_type_slug']) && $filters['service_type_slug']) {
+            $query->where($modelTable.'.service_type_slug', '=', $filters['service_type_slug']);
         }
 
         if (isset($filters['service_type_is_description']) && $filters['service_type_is_description']) {
