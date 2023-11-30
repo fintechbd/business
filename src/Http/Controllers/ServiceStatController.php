@@ -15,8 +15,11 @@ use Fintech\Core\Exceptions\RestoreOperationException;
 use Fintech\Core\Exceptions\StoreOperationException;
 use Fintech\Core\Exceptions\UpdateOperationException;
 use Fintech\Core\Traits\ApiResponseTrait;
+use Fintech\MetaData\Facades\MetaData;
+use Fintech\MetaData\Http\Resources\CountryCollection;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 
 /**
@@ -261,6 +264,28 @@ class ServiceStatController extends Controller
 
             return new ServiceStatCollection($serviceStatPaginate);
 
+        } catch (Exception $exception) {
+
+            return $this->failed($exception->getMessage());
+        }
+    }
+
+    /**
+     * @param Request $request
+     * @return CountryCollection|JsonResponse
+     */
+    public function serviceStatWiseCountry(Request $request): CountryCollection|JsonResponse
+    {
+        try {
+            $inputs = $request->all();
+            $inputs['sort'] = 'destination_country_id';
+            $inputs['paginate'] = false;
+
+            $destination_countries = Business::serviceStat()->list($inputs)->toArray();
+
+            $list = array_unique(array_column($destination_countries, $inputs['sort']));
+            $countries = MetaData::country()->list(['in_array_country_id' => array_values($list)]);
+            return new CountryCollection($countries);
         } catch (Exception $exception) {
 
             return $this->failed($exception->getMessage());
