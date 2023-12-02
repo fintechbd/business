@@ -8,9 +8,6 @@ use Illuminate\Support\Facades\Http;
 
 class FreeCurrencyApi
 {
-    /**
-     * @var mixed
-     */
     private mixed $config;
 
     public function __construct()
@@ -19,9 +16,8 @@ class FreeCurrencyApi
     }
 
     /**
-     * @param string $endpoint
-     * @param array|null $query
      * @return array|mixed
+     *
      * @throws FreeCurrencyApiException
      */
     private function call(string $endpoint, ?array $query = []): mixed

@@ -125,8 +125,8 @@ return [
     'currency_rate_vendor' => [
         'free_currency_api' => [
             'base_url' => 'https://api.freecurrencyapi.com/v1/',
-            'api_key' => env('FREE_CURRENCY_API_KEY', null)
-        ]
+            'api_key' => env('FREE_CURRENCY_API_KEY', null),
+        ],
     ],
 
     //** Model Config Point Do not Remove **//

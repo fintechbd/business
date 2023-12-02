@@ -10,8 +10,8 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class CurrencyRate extends Model
 {
     use AuditableTrait;
-    use SoftDeletes;
     use MetaDataRelations;
+    use SoftDeletes;
 
     /*
     |--------------------------------------------------------------------------
