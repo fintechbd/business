@@ -2,6 +2,7 @@
 
 namespace Fintech\Business\Models;
 
+use Fintech\Business\Traits\MetaDataRelations;
 use Fintech\Core\Traits\AuditableTrait;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -10,6 +11,7 @@ class CurrencyRate extends Model
 {
     use AuditableTrait;
     use SoftDeletes;
+    use MetaDataRelations;
 
     /*
     |--------------------------------------------------------------------------

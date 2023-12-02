@@ -18,7 +18,7 @@ class CurrencyRateRepository extends EloquentRepository implements InterfacesCur
     {
         $model = app(config('fintech.business.currency_rate_model', \Fintech\Business\Models\CurrencyRate::class));
 
-        if (! $model instanceof Model) {
+        if (!$model instanceof Model) {
             throw new InvalidArgumentException("Eloquent repository require model class to be `Illuminate\Database\Eloquent\Model` instance.");
         }
 
@@ -36,7 +36,7 @@ class CurrencyRateRepository extends EloquentRepository implements InterfacesCur
         $query = $this->model->newQuery();
 
         //Searching
-        if (isset($filters['search']) && ! empty($filters['search'])) {
+        if (!empty($filters['search'])) {
             if (is_numeric($filters['search'])) {
                 $query->where($this->model->getKeyName(), 'like', "%{$filters['search']}%");
             } else {
@@ -45,8 +45,28 @@ class CurrencyRateRepository extends EloquentRepository implements InterfacesCur
             }
         }
 
+        if (!empty($filters['source_country_id'])) {
+            $query->where('source_country_id', '=', $filters['source_country_id']);
+        }
+
+        if (!empty($filters['destination_country_id'])) {
+            $query->where('destination_country_id', '=', $filters['destination_country_id']);
+        }
+
+        if (!empty($filters['order_detail_parent_id'])) {
+            $query->where('order_detail_parent_id', '=', $filters['order_detail_parent_id']);
+        }
+
+        if (!empty($filters['sender_receiver_id'])) {
+            $query->where('sender_receiver_id', '=', $filters['sender_receiver_id']);
+        }
+
+        if (!empty($filters['service_id'])) {
+            $query->where('service_id', '=', $filters['service_id']);
+        }
+
         //Display Trashed
-        if (isset($filters['trashed']) && ! empty($filters['trashed'])) {
+        if (isset($filters['trashed']) && $filters['trashed'] === true) {
             $query->onlyTrashed();
         }
 

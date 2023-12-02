@@ -114,6 +114,21 @@ return [
     */
     'currency_rate_model' => \Fintech\Business\Models\CurrencyRate::class,
 
+    /*
+    |--------------------------------------------------------------------------
+    | Currency Rate Vendor Configuration
+    |--------------------------------------------------------------------------
+    |
+    | This value will be used across systems where a repository instance is needed
+    */
+
+    'currency_rate_vendor' => [
+        'free_currency_api' => [
+            'base_url' => 'https://api.freecurrencyapi.com/v1/',
+            'api_key' => env('FREE_CURRENCY_API_KEY', null)
+        ]
+    ],
+
     //** Model Config Point Do not Remove **//
 
     /*
