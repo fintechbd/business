@@ -5,6 +5,8 @@ namespace Fintech\Business\Services;
 use Exception;
 use Fintech\Business\Facades\Business;
 use Fintech\Business\Interfaces\ServiceStatRepository;
+use Fintech\Business\Models\ServiceStat;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 /**
  * Class ServiceStatService
@@ -99,7 +101,7 @@ class ServiceStatService
         $serviceStateData['amount'] = $data->amount;
         $serviceStateData['enable'] = true;
         $serviceStates = Business::serviceStat()->list($serviceStateData)->first();
-        if (! $serviceStates) {
+        if (!$serviceStates) {
             throw new Exception('Service State Data not found');
         }
         $serviceState = $serviceStates->toArray();
@@ -128,5 +130,46 @@ class ServiceStatService
             'charge_break_down_id' => $serviceStateJsonData['charge_break_down_id'] ?? null,
             'service_stat_id' => $serviceStateJsonData['service_stat_id'] ?? null,
         ];
+    }
+
+    public function cost(array $inputs): array
+    {
+        $currencyRateParams = [
+            'service_id' => $inputs['service_id'],
+            'source_country_id' => $inputs['source_country_id'],
+            'destination_country_id' => $inputs['destination_country_id'],
+            'amount' => $inputs['amount'],
+            'reverse' => $inputs['reverse']
+        ];
+
+        $exchangeRate = Business::currencyRate()->convert($currencyRateParams);
+
+        $serviceStat = $this->list([
+            'role_id' => $inputs['role_id'],
+            'service_id' => $inputs['service_id'],
+            'source_country_id' => $inputs['source_country_id'],
+            'destination_country_id' => $inputs['destination_country_id'],
+        ])->first();
+
+        if (!$serviceStat) {
+            throw (new ModelNotFoundException())->setModel(config('fintech.business.service_stat_model', ServiceStat::class), $inputs);
+        }
+
+        $serviceStatData = $serviceStat->service_stat_data[0];
+
+
+        $serviceCost = [
+            ...$exchangeRate,
+            'charge' => $serviceStatData['charge'] ?? null,
+            'charge_amount' => calculate_flat_percent($inputs['amount'], $serviceStatData['charge']),
+            'discount' => $serviceStatData['discount'] ?? null,
+            'discount_amount' => calculate_flat_percent($inputs['amount'], $serviceStatData['discount']),
+            'commission' => $serviceStatData['commission'] ?? null,
+            'commission_amount' => calculate_flat_percent($inputs['amount'], $serviceStatData['commission']),
+        ];
+
+        $serviceCost['total_amount'] = ($inputs['amount'] + $serviceCost['charge_amount']) - $serviceCost['discount_amount'];
+
+        return $serviceCost;
     }
 }

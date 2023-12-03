@@ -72,7 +72,7 @@ class ServiceController extends Controller
 
             $service = Business::service()->create($inputs);
 
-            if (! $service) {
+            if (!$service) {
                 throw (new StoreOperationException)->setModel(config('fintech.business.service_model'));
             }
 
@@ -101,7 +101,7 @@ class ServiceController extends Controller
 
             $service = Business::service()->find($id);
 
-            if (! $service) {
+            if (!$service) {
                 throw (new ModelNotFoundException)->setModel(config('fintech.business.service_model'), $id);
             }
 
@@ -132,13 +132,13 @@ class ServiceController extends Controller
 
             $service = Business::service()->find($id);
 
-            if (! $service) {
+            if (!$service) {
                 throw (new ModelNotFoundException)->setModel(config('fintech.business.service_model'), $id);
             }
 
             $inputs = $request->validated();
 
-            if (! Business::service()->update($id, $inputs)) {
+            if (!Business::service()->update($id, $inputs)) {
 
                 throw (new UpdateOperationException)->setModel(config('fintech.business.service_model'), $id);
             }
@@ -172,11 +172,11 @@ class ServiceController extends Controller
 
             $service = Business::service()->find($id);
 
-            if (! $service) {
+            if (!$service) {
                 throw (new ModelNotFoundException)->setModel(config('fintech.business.service_model'), $id);
             }
 
-            if (! Business::service()->destroy($id)) {
+            if (!Business::service()->destroy($id)) {
 
                 throw (new DeleteOperationException())->setModel(config('fintech.business.service_model'), $id);
             }
@@ -208,11 +208,11 @@ class ServiceController extends Controller
 
             $service = Business::service()->find($id, true);
 
-            if (! $service) {
+            if (!$service) {
                 throw (new ModelNotFoundException)->setModel(config('fintech.business.service_model'), $id);
             }
 
-            if (! Business::service()->restore($id)) {
+            if (!Business::service()->restore($id)) {
 
                 throw (new RestoreOperationException())->setModel(config('fintech.business.service_model'), $id);
             }
@@ -281,9 +281,18 @@ class ServiceController extends Controller
 
         try {
 
-            $servicePaginate = Business::currencyRate()->list($inputs);
+            $inputs['user_id'] = $request->input('user_id', auth()->user()->getKey());
 
-            return new ServiceCostResource($servicePaginate);
+            if ($user = \Fintech\Auth\Facades\Auth::user()->find($inputs['user_id'])) {
+                $inputs['role_id'] = $user->roles->first()?->getKey() ?? null;
+            }
+
+            $inputs['user_id'] = $request->input('user_id', auth()->user()->getKey());
+
+
+            $exchangeRate = Business::serviceStat()->cost($inputs);
+
+            return new ServiceCostResource($exchangeRate);
 
         } catch (Exception $exception) {
 
