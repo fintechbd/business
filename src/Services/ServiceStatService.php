@@ -101,7 +101,7 @@ class ServiceStatService
         $serviceStateData['amount'] = $data->amount;
         $serviceStateData['enable'] = true;
         $serviceStates = Business::serviceStat()->list($serviceStateData)->first();
-        if (!$serviceStates) {
+        if (! $serviceStates) {
             throw new Exception('Service State Data not found');
         }
         $serviceState = $serviceStates->toArray();
@@ -139,7 +139,7 @@ class ServiceStatService
             'source_country_id' => $inputs['source_country_id'],
             'destination_country_id' => $inputs['destination_country_id'],
             'amount' => $inputs['amount'],
-            'reverse' => $inputs['reverse']
+            'reverse' => $inputs['reverse'],
         ];
 
         $exchangeRate = Business::currencyRate()->convert($currencyRateParams);
@@ -151,12 +151,11 @@ class ServiceStatService
             'destination_country_id' => $inputs['destination_country_id'],
         ])->first();
 
-        if (!$serviceStat) {
+        if (! $serviceStat) {
             throw (new ModelNotFoundException())->setModel(config('fintech.business.service_stat_model', ServiceStat::class), $inputs);
         }
 
         $serviceStatData = $serviceStat->service_stat_data[0];
-
 
         $serviceCost = [
             ...$exchangeRate,
