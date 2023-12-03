@@ -34,20 +34,27 @@ class ServiceRepository extends EloquentRepository implements InterfacesServiceR
     public function list(array $filters = [])
     {
         $query = $this->model->newQuery();
-
+        $modelTable = $this->model->getTable();
         //Searching
         if (isset($filters['search']) && ! empty($filters['search'])) {
             if (is_numeric($filters['search'])) {
                 $query->where($this->model->getKeyName(), 'like', "%{$filters['search']}%");
             } else {
-                $query->where('services.service_name', 'like', "%{$filters['search']}%");
+                $query->where($modelTable.'.service_name', 'like', "%{$filters['search']}%");
             }
         }
 
-        if (isset($filters['service_slug']) && $filters['service_slug']) {
-            $query->where('services.service_slug', '=', $filters['service_slug']);
+        if (isset($filters['service_id']) && $filters['service_id']) {
+            $query->where($modelTable.'.id', '=', $filters['service_id']);
         }
 
+        if (isset($filters['service_slug']) && $filters['service_slug']) {
+            $query->where($modelTable.'.service_slug', '=', $filters['service_slug']);
+        }
+
+        if (isset($filters['service_delay']) && $filters['service_delay']) {
+            $query->where($modelTable.'.service_delay', '=', $filters['service_delay']);
+        }
         //Display Trashed
         if (isset($filters['trashed']) && ! empty($filters['trashed'])) {
             $query->onlyTrashed();
