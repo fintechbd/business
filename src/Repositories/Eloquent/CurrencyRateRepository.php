@@ -53,12 +53,8 @@ class CurrencyRateRepository extends EloquentRepository implements InterfacesCur
             $query->where('destination_country_id', '=', $filters['destination_country_id']);
         }
 
-        if (! empty($filters['order_detail_parent_id'])) {
-            $query->where('order_detail_parent_id', '=', $filters['order_detail_parent_id']);
-        }
-
-        if (! empty($filters['sender_receiver_id'])) {
-            $query->where('sender_receiver_id', '=', $filters['sender_receiver_id']);
+        if (! empty($filters['destination_country_id'])) {
+            $query->where('destination_country_id', '=', $filters['destination_country_id']);
         }
 
         if (! empty($filters['service_id'])) {

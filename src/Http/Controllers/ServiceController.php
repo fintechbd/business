@@ -6,9 +6,11 @@ use Exception;
 use Fintech\Business\Facades\Business;
 use Fintech\Business\Http\Requests\ImportServiceRequest;
 use Fintech\Business\Http\Requests\IndexServiceRequest;
+use Fintech\Business\Http\Requests\ServiceCurrencyRateRequest;
 use Fintech\Business\Http\Requests\StoreServiceRequest;
 use Fintech\Business\Http\Requests\UpdateServiceRequest;
 use Fintech\Business\Http\Resources\ServiceCollection;
+use Fintech\Business\Http\Resources\ServiceCostResource;
 use Fintech\Business\Http\Resources\ServiceResource;
 use Fintech\Core\Exceptions\DeleteOperationException;
 use Fintech\Core\Exceptions\RestoreOperationException;
@@ -17,6 +19,7 @@ use Fintech\Core\Exceptions\UpdateOperationException;
 use Fintech\Core\Traits\ApiResponseTrait;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 
 /**
@@ -70,7 +73,7 @@ class ServiceController extends Controller
 
             $service = Business::service()->create($inputs);
 
-            if (! $service) {
+            if (!$service) {
                 throw (new StoreOperationException)->setModel(config('fintech.business.service_model'));
             }
 
@@ -99,7 +102,7 @@ class ServiceController extends Controller
 
             $service = Business::service()->find($id);
 
-            if (! $service) {
+            if (!$service) {
                 throw (new ModelNotFoundException)->setModel(config('fintech.business.service_model'), $id);
             }
 
@@ -130,13 +133,13 @@ class ServiceController extends Controller
 
             $service = Business::service()->find($id);
 
-            if (! $service) {
+            if (!$service) {
                 throw (new ModelNotFoundException)->setModel(config('fintech.business.service_model'), $id);
             }
 
             $inputs = $request->validated();
 
-            if (! Business::service()->update($id, $inputs)) {
+            if (!Business::service()->update($id, $inputs)) {
 
                 throw (new UpdateOperationException)->setModel(config('fintech.business.service_model'), $id);
             }
@@ -170,11 +173,11 @@ class ServiceController extends Controller
 
             $service = Business::service()->find($id);
 
-            if (! $service) {
+            if (!$service) {
                 throw (new ModelNotFoundException)->setModel(config('fintech.business.service_model'), $id);
             }
 
-            if (! Business::service()->destroy($id)) {
+            if (!Business::service()->destroy($id)) {
 
                 throw (new DeleteOperationException())->setModel(config('fintech.business.service_model'), $id);
             }
@@ -206,11 +209,11 @@ class ServiceController extends Controller
 
             $service = Business::service()->find($id, true);
 
-            if (! $service) {
+            if (!$service) {
                 throw (new ModelNotFoundException)->setModel(config('fintech.business.service_model'), $id);
             }
 
-            if (! Business::service()->restore($id)) {
+            if (!Business::service()->restore($id)) {
 
                 throw (new RestoreOperationException())->setModel(config('fintech.business.service_model'), $id);
             }
@@ -266,6 +269,26 @@ class ServiceController extends Controller
             $servicePaginate = Business::service()->list($inputs);
 
             return new ServiceCollection($servicePaginate);
+
+        } catch (Exception $exception) {
+
+            return $this->failed($exception->getMessage());
+        }
+    }
+
+    /**
+     * @param ServiceCurrencyRateRequest $request
+     * @return JsonResponse|ServiceCostResource
+     */
+    public function cost(ServiceCurrencyRateRequest $request): JsonResponse|ServiceCostResource
+    {
+        $inputs = $request->all();
+
+        try {
+
+            $servicePaginate = Business::currencyRate()->list($inputs);
+
+            return new ServiceCostResource($servicePaginate);
 
         } catch (Exception $exception) {
 

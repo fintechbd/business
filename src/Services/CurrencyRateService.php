@@ -2,7 +2,9 @@
 
 namespace Fintech\Business\Services;
 
+use Fintech\Business\Facades\Business;
 use Fintech\Business\Interfaces\CurrencyRateRepository;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 /**
  * Class CurrencyRateService
@@ -60,52 +62,59 @@ class CurrencyRateService
         return $this->currencyRateRepository->create($filters);
     }
 
-    public function convert(array $input)
+    public function convert(array $data): float|array
     {
-        // Get currencies involved
-        $from = $input['from'] ?: session('default_currency');  //SGD
-        $to = $input['to'] ?: session('default_currency'); //BDT
+        $inputCountryId = $data['source_country_id'] ?? null;
 
-        // Get exchange rates
-        $fromData['currency_currency'] = $from; //SGD
-        $fromData['service_id'] = $input['service_id']; //MOBILE 1
-        $fromData['default_country_id'] = isset($input['default_country_id']) ? $input['default_country_id'] : session('default_country_id'); // SGP 199
+        $outputCountryId = $data['destination_country_id'] ?? null;
 
-        //        'currency' => sgd, service = 1, source_id = 199, dest = 19
-        $from_rate = $this->currencyRateService->getCurrencyRate($fromData);
+        $serviceId = $data['service_id'] ?? null;
 
-        //dump("From Rate", $from_rate);
+        $onlyRate = $data['get_only_rate'] ?? false;
 
-        //'currency' => bdt, service = 1, source_id = 199
-        $toData['currency_currency'] = $to;
-        $toData['service_id'] = $input['service_id'];
-        $toData['default_country_id'] = isset($input['default_country_id']) ? $input['default_country_id'] : session('default_country_id');
-        $to_rate = $this->currencyRateService->getCurrencyRate($toData);
-
-        //dump("To Rate", $to_rate);
-        // Skip invalid to currency rates
-        if ($to_rate === null) {
-            //return null;
-            $to_rate = 1;
+        if (!$inputCountryId || !$outputCountryId || !$serviceId) {
+            throw new \InvalidArgumentException('Source, destination country or service id value missing or empty');
         }
 
-        try {
-            // Convert amount
-            if ($from === $to) {
-                $value = $input['amount'];
-            } else {
-                $value = ($input['amount'] * $to_rate) / $from_rate;
-            }
-            //\Log::info("Input: " .$input['amount'] . ", To Rate: " . $to_rate . ", From Rate: "  . $from_rate . " Output: " . $value);
-        } catch (\Exception $e) {
-            \Log::error('Currency Rate Exception');
-            \Log::error($e->getMessage());
+        $inputCountry = \Fintech\MetaData\Facades\MetaData::country()->find($inputCountryId);
 
-            // Prevent invalid conversion or division by zero errors
-            return null;
+        $outputCountry = \Fintech\MetaData\Facades\MetaData::country()->find($outputCountryId);
+
+        $service = Business::service()->find($serviceId);
+
+        if (!$inputCountry || !$outputCountry || !$service) {
+            throw new \InvalidArgumentException("source, destination country or service doesn't exists");
         }
 
-        // Return value
-        return $value;
+        $amount = $data['amount'] ?? 1;
+
+        $isReverse = $data['reverse'] ?? false;
+
+        $currencyRate = $this->currencyRateRepository->list([
+            'source_country_id' => $inputCountryId,
+            'destination_country_id' => $outputCountryId,
+            'service_id' => $serviceId
+        ])->first();
+
+        if (!$currencyRate) {
+            throw (new ModelNotFoundException())->setModel(config('fintech.business.currency_rate_model', \Fintech\Business\Models\CurrencyRate::class), $data);
+        }
+
+        if ($isReverse) {
+            $convertedAmount = (float)$amount / (float)$currencyRate->rate;
+        } else {
+            $convertedAmount = (float)$amount * (float)$currencyRate->rate;
+        }
+
+        $exchangeData['input'] = ($isReverse) ? $outputCountry->currency : $inputCountry->currency;
+        $exchangeData['output'] = ($isReverse) ? $inputCountry->currency : $outputCountry->currency;
+        $exchangeData['rate'] = round($currencyRate->rate, 6);
+        $exchangeData['amount'] = $amount;
+        $exchangeData['amount_formatted'] = currency()->parse($amount, $inputCountry->currency)->format();
+        $exchangeData['converted'] = $convertedAmount;
+        $exchangeData['converted_formatted'] = currency()->parse($convertedAmount, $outputCountry->currency)->format();
+
+        return ($onlyRate) ? $exchangeData['rate'] : $exchangeData;
     }
+
 }
