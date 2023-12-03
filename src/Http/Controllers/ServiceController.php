@@ -6,9 +6,11 @@ use Exception;
 use Fintech\Business\Facades\Business;
 use Fintech\Business\Http\Requests\ImportServiceRequest;
 use Fintech\Business\Http\Requests\IndexServiceRequest;
+use Fintech\Business\Http\Requests\ServiceCurrencyRateRequest;
 use Fintech\Business\Http\Requests\StoreServiceRequest;
 use Fintech\Business\Http\Requests\UpdateServiceRequest;
 use Fintech\Business\Http\Resources\ServiceCollection;
+use Fintech\Business\Http\Resources\ServiceCostResource;
 use Fintech\Business\Http\Resources\ServiceResource;
 use Fintech\Core\Exceptions\DeleteOperationException;
 use Fintech\Core\Exceptions\RestoreOperationException;
@@ -266,6 +268,22 @@ class ServiceController extends Controller
             $servicePaginate = Business::service()->list($inputs);
 
             return new ServiceCollection($servicePaginate);
+
+        } catch (Exception $exception) {
+
+            return $this->failed($exception->getMessage());
+        }
+    }
+
+    public function cost(ServiceCurrencyRateRequest $request): JsonResponse|ServiceCostResource
+    {
+        $inputs = $request->all();
+
+        try {
+
+            $servicePaginate = Business::currencyRate()->list($inputs);
+
+            return new ServiceCostResource($servicePaginate);
 
         } catch (Exception $exception) {
 

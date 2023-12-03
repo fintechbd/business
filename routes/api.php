@@ -29,6 +29,7 @@ if (Config::get('fintech.business.enabled')) {
 
             Route::apiResource('services', \Fintech\Business\Http\Controllers\ServiceController::class);
             Route::post('services/{service}/restore', [\Fintech\Business\Http\Controllers\ServiceController::class, 'restore'])->name('services.restore');
+            Route::post('services/calculate-cost', [\Fintech\Business\Http\Controllers\ServiceController::class, 'cost'])->name('services.cost');
 
             Route::get('service-stats/destination-country-list', [\Fintech\Business\Http\Controllers\ServiceStatController::class, 'serviceStatWiseCountry'])->name('service-stats.destination-country-list');
             Route::apiResource('service-stats', \Fintech\Business\Http\Controllers\ServiceStatController::class);
@@ -45,6 +46,9 @@ if (Config::get('fintech.business.enabled')) {
 
             Route::apiResource('package-top-charts', \Fintech\Business\Http\Controllers\PackageTopChartController::class);
             Route::post('package-top-charts/{package_top_chart}/restore', [\Fintech\Business\Http\Controllers\PackageTopChartController::class, 'restore'])->name('package-top-charts.restore');
+
+            Route::apiResource('currency-rates', \Fintech\Business\Http\Controllers\CurrencyRateController::class);
+            Route::post('currency-rates/{currency_rate}/restore', [\Fintech\Business\Http\Controllers\CurrencyRateController::class, 'restore'])->name('currency-rates.restore');
 
             if (\Fintech\Core\Facades\Core::packageExists('Auth')) {
                 Route::apiResource('role-services', \Fintech\Business\Http\Controllers\RoleServiceController::class)->only(['show', 'update']);
