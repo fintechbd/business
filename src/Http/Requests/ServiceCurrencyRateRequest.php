@@ -26,7 +26,7 @@ class ServiceCurrencyRateRequest extends FormRequest
             'source_country_id' => ['required', 'integer', 'min:1'],
             'destination_country_id' => ['required', 'integer', 'min:1'],
             'amount' => ['required', 'numeric', 'min:1'],
-            'reverse' => ['required', 'boolean']
+            'reverse' => ['required', 'boolean'],
         ];
     }
 }
