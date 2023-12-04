@@ -20,7 +20,7 @@ class CountryServiceResource extends JsonResource
      */
     public function toArray($request)
     {
-        $countryServices = $this->services->pluck('id')->toArray();
+        $countryServices = $this->services?->pluck('id')->toArray() ?? [];
 
         $data = [];
 
