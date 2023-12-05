@@ -13,8 +13,8 @@ use Illuminate\Support\Str;
  */
 class CountryServiceResource extends JsonResource
 {
-
     private $serviceTypes;
+
     /**
      * Transform the resource into an array.
      *
@@ -45,7 +45,7 @@ class CountryServiceResource extends JsonResource
         return $data;
     }
 
-    private function getServiceType($service_type_id = null, array  &$serviceTypesNames = []): array
+    private function getServiceType($service_type_id = null, array &$serviceTypesNames = []): array
     {
         $serviceType = $this->serviceTypes->firstWhere('id', $service_type_id);
 
@@ -57,6 +57,4 @@ class CountryServiceResource extends JsonResource
 
         return $this->getServiceType($serviceType->service_type_parent_id, $serviceTypesNames);
     }
-
-
 }
