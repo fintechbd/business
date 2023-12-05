@@ -20,7 +20,7 @@ class CountryServiceResource extends JsonResource
      */
     public function toArray($request)
     {
-        $countryServices = $this->services?->pluck('id')->toArray() ?? [];
+        $countryServices = Business::service()->list([])->pluck('id')->toArray() ?? [];
 
         $data = [];
 
@@ -29,7 +29,7 @@ class CountryServiceResource extends JsonResource
             ->each(function ($service) use (&$data, $countryServices) {
                 $data[] = [
                     'id' => $service->getKey(),
-                    'name' => $service->name,
+                    'name' => $service->service_name,
                     'enabled' => in_array($service->getKey(), $countryServices),
                 ];
             });
