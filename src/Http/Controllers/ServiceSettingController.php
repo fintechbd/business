@@ -274,10 +274,7 @@ class ServiceSettingController extends Controller
         }
     }
 
-    /**
-     * @return ServiceSettingTypeResource|JsonResponse
-     */
-    public function serviceSettingTypes(): ServiceSettingTypeResource | JsonResponse
+    public function serviceSettingTypes(): ServiceSettingTypeResource|JsonResponse
     {
         try {
             $serviceSettingTypes = config('fintech.business.service_setting_types');
@@ -290,10 +287,7 @@ class ServiceSettingController extends Controller
         }
     }
 
-    /**
-     * @return ServiceSettingTypeResource|JsonResponse
-     */
-    public function serviceSettingTypeFields(): ServiceSettingTypeResource | JsonResponse
+    public function serviceSettingTypeFields(): ServiceSettingTypeResource|JsonResponse
     {
         try {
             $serviceSettingTypeFields = config('fintech.business.service_setting_type_fields');
@@ -305,5 +299,4 @@ class ServiceSettingController extends Controller
             return $this->failed($exception->getMessage());
         }
     }
-
 }
