@@ -339,6 +339,7 @@ class ServiceTypeController extends Controller
                     }
 
                     $inputYes['service_type_id_array'] = $collectID[$serviceType->id];
+                    $inputYes['service_type_parent_id'] = $serviceType->id;
                     $inputYes['service_type_parent_id_is_null'] = false;
                     $inputYes['service_type_id'] = false;
                     $findServiceType = Business::serviceType()->list($inputYes)->count();
