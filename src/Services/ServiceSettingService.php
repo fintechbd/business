@@ -12,9 +12,9 @@ class ServiceSettingService
     /**
      * ServiceSettingService constructor.
      */
-    public function __construct(ServiceSettingRepository $serviceSettingRepository)
+    public function __construct(private readonly ServiceSettingRepository $serviceSettingRepository)
     {
-        $this->serviceSettingRepository = $serviceSettingRepository;
+
     }
 
     /**

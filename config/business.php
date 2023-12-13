@@ -105,6 +105,30 @@ return [
     */
     'service_vendor_model' => \Fintech\Business\Models\ServiceVendor::class,
 
+    /*
+    |--------------------------------------------------------------------------
+    | CurrencyRate Model
+    |--------------------------------------------------------------------------
+    |
+    | This value will be used to across system where model is needed
+    */
+    'currency_rate_model' => \Fintech\Business\Models\CurrencyRate::class,
+
+    /*
+    |--------------------------------------------------------------------------
+    | Currency Rate Vendor Configuration
+    |--------------------------------------------------------------------------
+    |
+    | This value will be used across systems where a repository instance is needed
+    */
+
+    'currency_rate_vendor' => [
+        'free_currency_api' => [
+            'base_url' => 'https://api.freecurrencyapi.com/v1/',
+            'api_key' => env('FREE_CURRENCY_API_KEY', null),
+        ],
+    ],
+
     //** Model Config Point Do not Remove **//
 
     /*
@@ -156,6 +180,8 @@ return [
         \Fintech\Business\Interfaces\ServiceVendorRepository::class => \Fintech\Business\Repositories\Eloquent\ServiceVendorRepository::class,
 
         \Fintech\Business\Interfaces\PackageTopChartRepository::class => \Fintech\Business\Repositories\Eloquent\PackageTopChartRepository::class,
+
+        \Fintech\Business\Interfaces\CurrencyRateRepository::class => \Fintech\Business\Repositories\Eloquent\CurrencyRateRepository::class,
 
         //** Repository Binding Config Point Do not Remove **//
     ],

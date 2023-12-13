@@ -12,9 +12,9 @@ class ServiceTypeService
     /**
      * ServiceTypeService constructor.
      */
-    public function __construct(ServiceTypeRepository $serviceTypeRepository)
+    public function __construct(private readonly ServiceTypeRepository $serviceTypeRepository)
     {
-        $this->serviceTypeRepository = $serviceTypeRepository;
+
     }
 
     /**

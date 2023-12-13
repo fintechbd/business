@@ -211,6 +211,14 @@ class ServiceTypeRepository extends EloquentRepository implements InterfacesServ
             $query->where($modelTable.'.id', '=', $filters['service_type_id']);
         }
 
+        if (isset($filters['service_type_name']) && $filters['service_type_name']) {
+            $query->where($modelTable.'.service_type_name', '=', $filters['service_type_name']);
+        }
+
+        if (isset($filters['service_type_slug']) && $filters['service_type_slug']) {
+            $query->where($modelTable.'.service_type_slug', '=', $filters['service_type_slug']);
+        }
+
         if (isset($filters['service_type_parent_id']) && $filters['service_type_parent_id']) {
             $query->where($modelTable.'.service_type_parent_id', '=', $filters['service_type_parent_id']);
         }
