@@ -277,7 +277,7 @@ class ServiceTypeController extends Controller
 
     public function serviceTypeList(ServiceTypeListRequest $request): ServiceTypeListCollection|JsonResponse
     {
-        try {
+        //try {
             $input = $request->all();
             //TODO Check after login
             //$input['user_id'] = $request->user_id ?? auth()->user->getKey();
@@ -338,7 +338,7 @@ class ServiceTypeController extends Controller
                         $collectID[$serviceType->id][] = $allChildAccounts['id'];
                     }
 
-                    $inputYes['service_type_id_array'] = $collectID[$serviceType->id];
+                    $inputYes['service_type_id_array'] = $collectID[$serviceType->id]??[];
                     //TODO may be need to work future
                     $inputYes['service_type_parent_id'] = $serviceType->id;
                     $inputYes['service_type_parent_id_is_null'] = false;
@@ -365,9 +365,9 @@ class ServiceTypeController extends Controller
             //$data['serviceTypeTotal'] = count($arrayData);
             return new ServiceTypeListCollection($serviceTypeCollection);
 
-        } catch (Exception $exception) {
+        /*} catch (Exception $exception) {
 
             return $this->failed($exception->getMessage());
-        }
+        }*/
     }
 }
