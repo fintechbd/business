@@ -114,6 +114,8 @@ return [
     */
     'currency_rate_model' => \Fintech\Business\Models\CurrencyRate::class,
 
+    //** Model Config Point Do not Remove **//
+
     /*
     |--------------------------------------------------------------------------
     | Currency Rate Vendor Configuration
@@ -128,8 +130,6 @@ return [
             'api_key' => env('FREE_CURRENCY_API_KEY', null),
         ],
     ],
-
-    //** Model Config Point Do not Remove **//
 
     /*
     |--------------------------------------------------------------------------
