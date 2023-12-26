@@ -80,7 +80,11 @@ class ServiceStatService
         return $this->serviceStatRepository->restore($id);
     }
 
-    public function export(array $filters)
+    /**
+     * @param array $filters
+     * @return Paginator|Collection
+     */
+    public function export(array $filters): Paginator|Collection
     {
         return $this->serviceStatRepository->list($filters);
     }
