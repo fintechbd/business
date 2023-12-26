@@ -260,9 +260,10 @@ class ServiceController extends Controller
      *
      * @lrd:end
      *
+     * @param ImportServiceRequest $request
      * @return ServiceCollection|JsonResponse
      */
-    public function import(ImportServiceRequest $request): JsonResponse
+    public function import(ImportServiceRequest $request): ServiceCollection|JsonResponse
     {
         try {
             $inputs = $request->validated();
