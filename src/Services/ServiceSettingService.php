@@ -68,7 +68,11 @@ class ServiceSettingService
         return $this->serviceSettingRepository->delete($id);
     }
 
-    public function restore($id)
+    /**
+     * @param $id
+     * @return mixed
+     */
+    public function restore($id): mixed
     {
         return $this->serviceSettingRepository->restore($id);
     }
