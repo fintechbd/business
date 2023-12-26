@@ -67,7 +67,7 @@ class UpdateServiceRequest extends FormRequest
      *
      * @return array
      */
-    public function messages()
+    public function messages(): array
     {
         return [
             //
