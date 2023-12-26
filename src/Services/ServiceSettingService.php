@@ -3,6 +3,8 @@
 namespace Fintech\Business\Services;
 
 use Fintech\Business\Interfaces\ServiceSettingRepository;
+use Illuminate\Contracts\Pagination\Paginator;
+use Illuminate\Support\Collection;
 
 /**
  * Class ServiceSettingService
@@ -18,7 +20,7 @@ class ServiceSettingService
     }
 
     /**
-     * @return mixed
+     * @return Paginator|Collection
      */
     public function list(array $filters = [])
     {
