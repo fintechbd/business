@@ -130,6 +130,7 @@ class ServiceStatService
     }
 
     /**
+     * @return array{charge: mixed, discount: mixed, commission: mixed, charge_refund: mixed|null, discount_refund: mixed|null, commission_refund: mixed|null, charge_break_down_id: mixed, service_stat_id: mixed|null}
      * @throws Exception
      */
     public function serviceStateData($data): array
