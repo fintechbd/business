@@ -79,7 +79,7 @@ class ServiceController extends Controller
 
             return $this->created([
                 'message' => __('core::messages.resource.created', ['model' => 'Service']),
-                'id' => $service->id,
+                'id' => $service->getKey(),
             ]);
 
         } catch (Exception $exception) {
