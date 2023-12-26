@@ -86,7 +86,11 @@ class ServiceSettingService
         return $this->serviceSettingRepository->list($filters);
     }
 
-    public function import(array $filters)
+    /**
+     * @param array $filters
+     * @return Model|\MongoDB\Laravel\Eloquent\Model|null
+     */
+    public function import(array $filters): Model|\MongoDB\Laravel\Eloquent\Model|null
     {
         return $this->serviceSettingRepository->create($filters);
     }
