@@ -77,7 +77,11 @@ class ServiceSettingService
         return $this->serviceSettingRepository->restore($id);
     }
 
-    public function export(array $filters)
+    /**
+     * @param array $filters
+     * @return Paginator|Collection
+     */
+    public function export(array $filters): Paginator|Collection
     {
         return $this->serviceSettingRepository->list($filters);
     }
