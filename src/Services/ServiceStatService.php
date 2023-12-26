@@ -23,9 +23,10 @@ class ServiceStatService
     }
 
     /**
+     * @param array $filters
      * @return Paginator|Collection
      */
-    public function list(array $filters = [])
+    public function list(array $filters = []): Paginator|Collection
     {
         return $this->serviceStatRepository->list($filters);
 
