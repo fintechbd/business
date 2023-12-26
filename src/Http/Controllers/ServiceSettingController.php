@@ -256,9 +256,10 @@ class ServiceSettingController extends Controller
      *
      * @lrd:end
      *
+     * @param ImportServiceSettingRequest $request
      * @return ServiceSettingCollection|JsonResponse
      */
-    public function import(ImportServiceSettingRequest $request): JsonResponse
+    public function import(ImportServiceSettingRequest $request): ServiceSettingCollection|JsonResponse
     {
         try {
             $inputs = $request->validated();
