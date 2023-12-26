@@ -123,7 +123,6 @@ class ServiceType extends Model implements HasMedia
 
     public function all_accounts($input): array
     {
-        $data = [];
         $data = [$input['id'] => $input['service_type_name']];
         if (isset($input['all_parent_accounts'])) {
             $data = array_merge($data, $this->all_accounts($input['all_parent_accounts']));
