@@ -59,7 +59,11 @@ class ServiceSettingService
         return $this->serviceSettingRepository->update($id, $inputs);
     }
 
-    public function destroy($id)
+    /**
+     * @param $id
+     * @return mixed
+     */
+    public function destroy($id): mixed
     {
         return $this->serviceSettingRepository->delete($id);
     }
