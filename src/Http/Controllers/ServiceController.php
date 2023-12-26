@@ -3,7 +3,6 @@
 namespace Fintech\Business\Http\Controllers;
 
 use Exception;
-use Fintech\Auth\Facades\Auth;
 use Fintech\Business\Facades\Business;
 use Fintech\Business\Http\Requests\ImportServiceRequest;
 use Fintech\Business\Http\Requests\IndexServiceRequest;
@@ -287,11 +286,9 @@ class ServiceController extends Controller
 
             $inputs['user_id'] = $request->input('user_id', auth()->user()->getKey());
 
-            if ($user = Auth::user()->find($inputs['user_id'])) {
+            if ($user = \Fintech\Auth\Facades\Auth::user()->find($inputs['user_id'])) {
                 $inputs['role_id'] = $user->roles->first()?->getKey() ?? null;
             }
-
-            $inputs['user_id'] = $request->input('user_id', auth()->user()->getKey());
 
             $exchangeRate = Business::serviceStat()->cost($inputs);
 
