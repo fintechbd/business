@@ -91,6 +91,9 @@ class ServiceStatService
 
     }
 
+    /**
+     * @throws Exception
+     */
     public function serviceStateData($data): array
     {
         $data->role_id = $data->user->roles[0]->getKey();
