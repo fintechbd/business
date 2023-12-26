@@ -123,8 +123,9 @@ class ServiceSettingController extends Controller
      *
      * @lrd:end
      *
-     * @throws ModelNotFoundException
-     * @throws UpdateOperationException
+     * @param UpdateServiceSettingRequest $request
+     * @param string|int $id
+     * @return JsonResponse
      */
     public function update(UpdateServiceSettingRequest $request, string|int $id): JsonResponse
     {
