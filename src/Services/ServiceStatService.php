@@ -42,7 +42,12 @@ class ServiceStatService
         return $this->serviceStatRepository->create($inputs);
     }
 
-    public function find($id, $onlyTrashed = false)
+    /**
+     * @param $id
+     * @param bool $onlyTrashed
+     * @return Model|\MongoDB\Laravel\Eloquent\Model|null
+     */
+    public function find($id, bool $onlyTrashed = false): Model|\MongoDB\Laravel\Eloquent\Model|null
     {
         return $this->serviceStatRepository->find($id, $onlyTrashed);
     }
