@@ -62,7 +62,8 @@ class ServiceSettingController extends Controller
      *
      * @lrd:end
      *
-     * @throws StoreOperationException
+     * @param StoreServiceSettingRequest $request
+     * @return JsonResponse
      */
     public function store(StoreServiceSettingRequest $request): JsonResponse
     {
@@ -77,7 +78,7 @@ class ServiceSettingController extends Controller
 
             return $this->created([
                 'message' => __('core::messages.resource.created', ['model' => 'Service Setting']),
-                'id' => $serviceSetting->id,
+                'id' => $serviceSetting->getKey(),
             ]);
 
         } catch (Exception $exception) {
@@ -122,8 +123,9 @@ class ServiceSettingController extends Controller
      *
      * @lrd:end
      *
-     * @throws ModelNotFoundException
-     * @throws UpdateOperationException
+     * @param UpdateServiceSettingRequest $request
+     * @param string|int $id
+     * @return JsonResponse
      */
     public function update(UpdateServiceSettingRequest $request, string|int $id): JsonResponse
     {
@@ -160,12 +162,11 @@ class ServiceSettingController extends Controller
      *
      * @lrd:end
      *
+     * @param string|int $id
      * @return JsonResponse
      *
-     * @throws ModelNotFoundException
-     * @throws DeleteOperationException
      */
-    public function destroy(string|int $id)
+    public function destroy(string|int $id): JsonResponse
     {
         try {
 
@@ -199,9 +200,10 @@ class ServiceSettingController extends Controller
      *
      * @lrd:end
      *
+     * @param string|int $id
      * @return JsonResponse
      */
-    public function restore(string|int $id)
+    public function restore(string|int $id): JsonResponse
     {
         try {
 
@@ -230,7 +232,7 @@ class ServiceSettingController extends Controller
 
     /**
      * @lrd:start
-     * Create a exportable list of the *ServiceSetting* resource as document.
+     * Create an exportable list of the *ServiceSetting* resource as document.
      * After export job is done system will fire  export completed event
      *
      * @lrd:end
@@ -240,7 +242,8 @@ class ServiceSettingController extends Controller
         try {
             $inputs = $request->validated();
 
-            $serviceSettingPaginate = Business::serviceSetting()->export($inputs);
+            //$serviceSettingPaginate = Business::serviceSetting()->export($inputs);
+            Business::serviceSetting()->export($inputs);
 
             return $this->exported(__('core::messages.resource.exported', ['model' => 'Service Setting']));
 
@@ -252,14 +255,15 @@ class ServiceSettingController extends Controller
 
     /**
      * @lrd:start
-     * Create a exportable list of the *ServiceSetting* resource as document.
+     * Create an exportable list of the *ServiceSetting* resource as document.
      * After export job is done system will fire  export completed event
      *
      * @lrd:end
      *
+     * @param ImportServiceSettingRequest $request
      * @return ServiceSettingCollection|JsonResponse
      */
-    public function import(ImportServiceSettingRequest $request): JsonResponse
+    public function import(ImportServiceSettingRequest $request): ServiceSettingCollection|JsonResponse
     {
         try {
             $inputs = $request->validated();

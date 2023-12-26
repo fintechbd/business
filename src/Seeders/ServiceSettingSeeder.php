@@ -22,7 +22,10 @@ class ServiceSettingSeeder extends Seeder
         }
     }
 
-    private function data()
+    /**
+     * @return array[]
+     */
+    private function data(): array
     {
         return [
             ['id' => '1', 'service_setting_type' => 'service_stat', 'service_setting_name' => 'Lower Limit', 'service_setting_field_name' => 'lower_limit', 'service_setting_type_field' => 'text', 'service_setting_feature' => 'Lower Limit', 'enabled' => true],
