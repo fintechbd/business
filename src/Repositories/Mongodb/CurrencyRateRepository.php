@@ -1,26 +1,25 @@
 <?php
 
-namespace Fintech\Business\Repositories\Eloquent;
+namespace Fintech\Business\Repositories\Mongodb;
 
-use Fintech\Business\Interfaces\ServiceSettingRepository as InterfacesServiceSettingRepository;
-use Fintech\Business\Models\ServiceSetting;
-use Fintech\Core\Repositories\EloquentRepository;
+use Fintech\Business\Interfaces\CurrencyRateRepository as InterfacesCurrencyRateRepository;
+use Fintech\Core\Repositories\MongodbRepository;
 use Illuminate\Contracts\Pagination\Paginator;
 use Illuminate\Database\Eloquent\Collection;
-use Illuminate\Database\Eloquent\Model;
 use InvalidArgumentException;
+use MongoDB\Laravel\Eloquent\Model;
 
 /**
- * Class ServiceSettingRepository
+ * Class CurrencyRateRepository
  */
-class ServiceSettingRepository extends EloquentRepository implements InterfacesServiceSettingRepository
+class CurrencyRateRepository extends MongodbRepository implements InterfacesCurrencyRateRepository
 {
     public function __construct()
     {
-        $model = app(config('fintech.business.service_setting_model', ServiceSetting::class));
+        $model = app(config('fintech.business.currency_rate_model', \Fintech\Business\Models\CurrencyRate::class));
 
         if (! $model instanceof Model) {
-            throw new InvalidArgumentException("Eloquent repository require model class to be `Illuminate\Database\Eloquent\Model` instance.");
+            throw new InvalidArgumentException("Mongodb repository require model class to be `MongoDB\Laravel\Eloquent\Model` instance.");
         }
 
         $this->model = $model;
@@ -29,8 +28,10 @@ class ServiceSettingRepository extends EloquentRepository implements InterfacesS
     /**
      * return a list or pagination of items from
      * filtered options
+     *
+     * @return Paginator|Collection
      */
-    public function list(array $filters = []): Paginator|Collection
+    public function list(array $filters = [])
     {
         $query = $this->model->newQuery();
 
@@ -40,6 +41,7 @@ class ServiceSettingRepository extends EloquentRepository implements InterfacesS
                 $query->where($this->model->getKeyName(), 'like', "%{$filters['search']}%");
             } else {
                 $query->where('name', 'like', "%{$filters['search']}%");
+                $query->orWhere('currency_rate_data', 'like', "%{$filters['search']}%");
             }
         }
 

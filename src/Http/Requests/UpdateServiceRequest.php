@@ -3,6 +3,7 @@
 namespace Fintech\Business\Http\Requests;
 
 use Fintech\Business\Models\Service;
+use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 
 class UpdateServiceRequest extends FormRequest
@@ -18,7 +19,7 @@ class UpdateServiceRequest extends FormRequest
     /**
      * Get the validation rules that apply to the request.
      *
-     * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array|string>
+     * @return array<string, ValidationRule|array|string>
      */
     public function rules(): array
     {
@@ -38,24 +39,22 @@ class UpdateServiceRequest extends FormRequest
             'logo_svg' => ['string', 'nullable'],
             'logo_png' => ['string', 'nullable'],
             'service_data' => ['array', 'required'],
-            'service_data.*.visible_website' => ['string', 'nullable'],
-            'service_data.*.visible_android_app' => ['string', 'nullable'],
-            'service_data.*.visible_ios_app' => ['string', 'nullable'],
-            'service_data.*.account_name' => ['string', 'nullable'],
-            'service_data.*.account_number' => ['string', 'nullable'],
-            'service_data.*.transactional_currency' => ['string', 'nullable'],
-            'service_data.*.beneficiary_type_id' => ['integer', 'nullable'],
-            'service_data.*.operator_short_code' => ['string', 'nullable'],
+            'service_data.visible_website' => ['string', 'nullable'],
+            'service_data.visible_android_app' => ['string', 'nullable'],
+            'service_data.visible_ios_app' => ['string', 'nullable'],
+            'service_data.account_name' => ['string', 'nullable'],
+            'service_data.account_number' => ['string', 'nullable'],
+            'service_data.transactional_currency' => ['string', 'nullable'],
+            'service_data.beneficiary_type_id' => ['integer', 'nullable'],
+            'service_data.operator_short_code' => ['string', 'nullable'],
             'enabled' => ['boolean', 'nullable', 'min:1'],
         ];
     }
 
     /**
      * Get the validation attributes that apply to the request.
-     *
-     * @return array
      */
-    public function attributes()
+    public function attributes(): array
     {
         return [
             //
@@ -64,10 +63,8 @@ class UpdateServiceRequest extends FormRequest
 
     /**
      * Get the validation messages that apply to the request.
-     *
-     * @return array
      */
-    public function messages()
+    public function messages(): array
     {
         return [
             //

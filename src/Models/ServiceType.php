@@ -10,6 +10,10 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 
+/**
+ * @property mixed $allParentAccounts
+ * @property mixed $allChildAccounts
+ */
 class ServiceType extends Model implements HasMedia
 {
     use AuditableTrait;
@@ -119,7 +123,6 @@ class ServiceType extends Model implements HasMedia
 
     public function all_accounts($input): array
     {
-        $data = [];
         $data = [$input['id'] => $input['service_type_name']];
         if (isset($input['all_parent_accounts'])) {
             $data = array_merge($data, $this->all_accounts($input['all_parent_accounts']));
@@ -158,15 +161,12 @@ class ServiceType extends Model implements HasMedia
     |--------------------------------------------------------------------------
     */
 
-    /**
-     * @return array
-     */
-    public function getLinksAttribute()
+    public function getLinksAttribute(): array
     {
         $primaryKey = $this->getKey();
 
         $links = [
-            'show' => action_link(route('business.service-types.show', $primaryKey), __('core::messages.action.show'), 'get'),
+            'show' => action_link(route('business.service-types.show', $primaryKey), __('core::messages.action.show')),
             'update' => action_link(route('business.service-types.update', $primaryKey), __('core::messages.action.update'), 'put'),
             'destroy' => action_link(route('business.service-types.destroy', $primaryKey), __('core::messages.action.destroy'), 'delete'),
             'restore' => action_link(route('business.service-types.restore', $primaryKey), __('core::messages.action.restore'), 'post'),

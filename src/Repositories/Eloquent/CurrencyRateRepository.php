@@ -2,8 +2,7 @@
 
 namespace Fintech\Business\Repositories\Eloquent;
 
-use Fintech\Business\Interfaces\ServiceSettingRepository as InterfacesServiceSettingRepository;
-use Fintech\Business\Models\ServiceSetting;
+use Fintech\Business\Interfaces\CurrencyRateRepository as InterfacesCurrencyRateRepository;
 use Fintech\Core\Repositories\EloquentRepository;
 use Illuminate\Contracts\Pagination\Paginator;
 use Illuminate\Database\Eloquent\Collection;
@@ -11,13 +10,13 @@ use Illuminate\Database\Eloquent\Model;
 use InvalidArgumentException;
 
 /**
- * Class ServiceSettingRepository
+ * Class CurrencyRateRepository
  */
-class ServiceSettingRepository extends EloquentRepository implements InterfacesServiceSettingRepository
+class CurrencyRateRepository extends EloquentRepository implements InterfacesCurrencyRateRepository
 {
     public function __construct()
     {
-        $model = app(config('fintech.business.service_setting_model', ServiceSetting::class));
+        $model = app(config('fintech.business.currency_rate_model', \Fintech\Business\Models\CurrencyRate::class));
 
         if (! $model instanceof Model) {
             throw new InvalidArgumentException("Eloquent repository require model class to be `Illuminate\Database\Eloquent\Model` instance.");
@@ -29,22 +28,41 @@ class ServiceSettingRepository extends EloquentRepository implements InterfacesS
     /**
      * return a list or pagination of items from
      * filtered options
+     *
+     * @return Paginator|Collection
      */
-    public function list(array $filters = []): Paginator|Collection
+    public function list(array $filters = [])
     {
         $query = $this->model->newQuery();
 
         //Searching
-        if (isset($filters['search']) && ! empty($filters['search'])) {
+        if (! empty($filters['search'])) {
             if (is_numeric($filters['search'])) {
                 $query->where($this->model->getKeyName(), 'like', "%{$filters['search']}%");
             } else {
                 $query->where('name', 'like', "%{$filters['search']}%");
+                $query->orWhere('currency_rate_data', 'like', "%{$filters['search']}%");
             }
         }
 
+        if (! empty($filters['source_country_id'])) {
+            $query->where('source_country_id', '=', $filters['source_country_id']);
+        }
+
+        if (! empty($filters['destination_country_id'])) {
+            $query->where('destination_country_id', '=', $filters['destination_country_id']);
+        }
+
+        if (! empty($filters['destination_country_id'])) {
+            $query->where('destination_country_id', '=', $filters['destination_country_id']);
+        }
+
+        if (! empty($filters['service_id'])) {
+            $query->where('service_id', '=', $filters['service_id']);
+        }
+
         //Display Trashed
-        if (isset($filters['trashed']) && ! empty($filters['trashed'])) {
+        if (isset($filters['trashed']) && $filters['trashed'] === true) {
             $query->onlyTrashed();
         }
 

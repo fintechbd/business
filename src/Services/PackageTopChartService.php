@@ -12,9 +12,8 @@ class PackageTopChartService
     /**
      * PackageTopChartService constructor.
      */
-    public function __construct(PackageTopChartRepository $packageTopChartRepository)
+    public function __construct(private readonly PackageTopChartRepository $packageTopChartRepository)
     {
-        $this->packageTopChartRepository = $packageTopChartRepository;
     }
 
     /**

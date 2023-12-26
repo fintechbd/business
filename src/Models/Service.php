@@ -88,15 +88,12 @@ class Service extends Model implements HasMedia
     |--------------------------------------------------------------------------
     */
 
-    /**
-     * @return array
-     */
-    public function getLinksAttribute()
+    public function getLinksAttribute(): array
     {
         $primaryKey = $this->getKey();
 
         $links = [
-            'show' => action_link(route('business.services.show', $primaryKey), __('core::messages.action.show'), 'get'),
+            'show' => action_link(route('business.services.show', $primaryKey), __('core::messages.action.show')),
             'update' => action_link(route('business.services.update', $primaryKey), __('core::messages.action.update'), 'put'),
             'destroy' => action_link(route('business.services.destroy', $primaryKey), __('core::messages.action.destroy'), 'delete'),
             'restore' => action_link(route('business.services.restore', $primaryKey), __('core::messages.action.restore'), 'post'),

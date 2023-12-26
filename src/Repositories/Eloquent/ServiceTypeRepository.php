@@ -3,6 +3,7 @@
 namespace Fintech\Business\Repositories\Eloquent;
 
 use Fintech\Business\Interfaces\ServiceTypeRepository as InterfacesServiceTypeRepository;
+use Fintech\Business\Models\ServiceType;
 use Fintech\Core\Repositories\EloquentRepository;
 use Illuminate\Contracts\Container\BindingResolutionException;
 use Illuminate\Contracts\Pagination\Paginator;
@@ -19,7 +20,7 @@ class ServiceTypeRepository extends EloquentRepository implements InterfacesServ
 {
     public function __construct()
     {
-        $model = app(config('fintech.business.service_type_model', \Fintech\Business\Models\ServiceType::class));
+        $model = app(config('fintech.business.service_type_model', ServiceType::class));
 
         if (! $model instanceof Model) {
             throw new InvalidArgumentException("Eloquent repository require model class to be `Illuminate\Database\Eloquent\Model` instance.");
@@ -93,6 +94,10 @@ class ServiceTypeRepository extends EloquentRepository implements InterfacesServ
 
             if (isset($filters['source_country_id']) && $filters['source_country_id']) {
                 $query->where(get_table('business.service_stat').'.source_country_id', '=', $filters['source_country_id']);
+            }
+
+            if (isset($filters['service_type_slug']) && $filters['service_type_slug']) {
+                $query->where($modelTable.'.service_type_slug', '=', $filters['service_type_slug']);
             }
 
             //SERVICE STATE DATA
@@ -205,6 +210,14 @@ class ServiceTypeRepository extends EloquentRepository implements InterfacesServ
 
         if (isset($filters['service_type_id']) && $filters['service_type_id'] > 0) {
             $query->where($modelTable.'.id', '=', $filters['service_type_id']);
+        }
+
+        if (isset($filters['service_type_name']) && $filters['service_type_name']) {
+            $query->where($modelTable.'.service_type_name', '=', $filters['service_type_name']);
+        }
+
+        if (isset($filters['service_type_slug']) && $filters['service_type_slug']) {
+            $query->where($modelTable.'.service_type_slug', '=', $filters['service_type_slug']);
         }
 
         if (isset($filters['service_type_parent_id']) && $filters['service_type_parent_id']) {
