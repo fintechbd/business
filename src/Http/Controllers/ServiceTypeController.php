@@ -258,9 +258,10 @@ class ServiceTypeController extends Controller
      *
      * @lrd:end
      *
+     * @param ImportServiceTypeRequest $request
      * @return ServiceTypeCollection|JsonResponse
      */
-    public function import(ImportServiceTypeRequest $request): JsonResponse
+    public function import(ImportServiceTypeRequest $request): ServiceTypeCollection|JsonResponse
     {
         try {
             $inputs = $request->validated();
@@ -333,7 +334,7 @@ class ServiceTypeController extends Controller
                 $collectID = [];
                 $findAllChildServiceType = Business::serviceType()->find($serviceType->getKey());
 
-                $arrayFindData[$serviceType->id] = $findAllChildServiceType->allChildList;
+                $arrayFindData[$serviceType->id] = $findAllChildServiceType->allChildList ?? [];
                 foreach ($arrayFindData[$serviceType->id] as $allChildAccounts) {
                     $collectID[$serviceType->id][] = $allChildAccounts['id'];
                 }
