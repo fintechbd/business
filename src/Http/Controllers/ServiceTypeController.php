@@ -62,9 +62,6 @@ class ServiceTypeController extends Controller
      * Create a new *ServiceType* resource in storage.
      *
      * @lrd:end
-     *
-     * @param StoreServiceTypeRequest $request
-     * @return JsonResponse
      */
     public function store(StoreServiceTypeRequest $request): JsonResponse
     {
@@ -73,7 +70,7 @@ class ServiceTypeController extends Controller
 
             $serviceType = Business::serviceType()->create($inputs);
 
-            if (!$serviceType) {
+            if (! $serviceType) {
                 throw (new StoreOperationException)->setModel(config('fintech.business.service_type_model'));
             }
 
@@ -102,7 +99,7 @@ class ServiceTypeController extends Controller
 
             $serviceType = Business::serviceType()->find($id);
 
-            if (!$serviceType) {
+            if (! $serviceType) {
                 throw (new ModelNotFoundException)->setModel(config('fintech.business.service_type_model'), $id);
             }
 
@@ -123,10 +120,6 @@ class ServiceTypeController extends Controller
      * Update a specified *ServiceType* resource using id.
      *
      * @lrd:end
-     *
-     * @param UpdateServiceTypeRequest $request
-     * @param string|int $id
-     * @return JsonResponse
      */
     public function update(UpdateServiceTypeRequest $request, string|int $id): JsonResponse
     {
@@ -134,13 +127,13 @@ class ServiceTypeController extends Controller
 
             $serviceType = Business::serviceType()->find($id);
 
-            if (!$serviceType) {
+            if (! $serviceType) {
                 throw (new ModelNotFoundException)->setModel(config('fintech.business.service_type_model'), $id);
             }
 
             $inputs = $request->validated();
 
-            if (!Business::serviceType()->update($id, $inputs)) {
+            if (! Business::serviceType()->update($id, $inputs)) {
 
                 throw (new UpdateOperationException)->setModel(config('fintech.business.service_type_model'), $id);
             }
@@ -162,10 +155,6 @@ class ServiceTypeController extends Controller
      * Soft delete a specified *ServiceType* resource using id.
      *
      * @lrd:end
-     *
-     * @param string|int $id
-     * @return JsonResponse
-     *
      */
     public function destroy(string|int $id): JsonResponse
     {
@@ -173,11 +162,11 @@ class ServiceTypeController extends Controller
 
             $serviceType = Business::serviceType()->find($id);
 
-            if (!$serviceType) {
+            if (! $serviceType) {
                 throw (new ModelNotFoundException)->setModel(config('fintech.business.service_type_model'), $id);
             }
 
-            if (!Business::serviceType()->destroy($id)) {
+            if (! Business::serviceType()->destroy($id)) {
 
                 throw (new DeleteOperationException())->setModel(config('fintech.business.service_type_model'), $id);
             }
@@ -200,9 +189,6 @@ class ServiceTypeController extends Controller
      * ** ```Soft Delete``` needs to enabled to use this feature**
      *
      * @lrd:end
-     *
-     * @param string|int $id
-     * @return JsonResponse
      */
     public function restore(string|int $id): JsonResponse
     {
@@ -210,11 +196,11 @@ class ServiceTypeController extends Controller
 
             $serviceType = Business::serviceType()->find($id, true);
 
-            if (!$serviceType) {
+            if (! $serviceType) {
                 throw (new ModelNotFoundException)->setModel(config('fintech.business.service_type_model'), $id);
             }
 
-            if (!Business::serviceType()->restore($id)) {
+            if (! Business::serviceType()->restore($id)) {
 
                 throw (new RestoreOperationException())->setModel(config('fintech.business.service_type_model'), $id);
             }
@@ -237,8 +223,6 @@ class ServiceTypeController extends Controller
      * After export job is done system will fire  export completed event
      *
      * @lrd:end
-     * @param IndexServiceTypeRequest $request
-     * @return JsonResponse
      */
     public function export(IndexServiceTypeRequest $request): JsonResponse
     {
@@ -262,9 +246,6 @@ class ServiceTypeController extends Controller
      * After export job is done system will fire  export completed event
      *
      * @lrd:end
-     *
-     * @param ImportServiceTypeRequest $request
-     * @return ServiceTypeCollection|JsonResponse
      */
     public function import(ImportServiceTypeRequest $request): ServiceTypeCollection|JsonResponse
     {
