@@ -169,7 +169,7 @@ class ServiceType extends Model implements HasMedia
         $primaryKey = $this->getKey();
 
         $links = [
-            'show' => action_link(route('business.service-types.show', $primaryKey), __('core::messages.action.show'), 'get'),
+            'show' => action_link(route('business.service-types.show', $primaryKey), __('core::messages.action.show')),
             'update' => action_link(route('business.service-types.update', $primaryKey), __('core::messages.action.update'), 'put'),
             'destroy' => action_link(route('business.service-types.destroy', $primaryKey), __('core::messages.action.destroy'), 'delete'),
             'restore' => action_link(route('business.service-types.restore', $primaryKey), __('core::messages.action.restore'), 'post'),
