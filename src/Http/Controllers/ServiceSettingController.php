@@ -62,7 +62,8 @@ class ServiceSettingController extends Controller
      *
      * @lrd:end
      *
-     * @throws StoreOperationException
+     * @param StoreServiceSettingRequest $request
+     * @return JsonResponse
      */
     public function store(StoreServiceSettingRequest $request): JsonResponse
     {
