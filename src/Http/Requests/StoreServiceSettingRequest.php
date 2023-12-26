@@ -42,7 +42,7 @@ class StoreServiceSettingRequest extends FormRequest
      *
      * @return array
      */
-    public function attributes()
+    public function attributes(): array
     {
         return [
             //
