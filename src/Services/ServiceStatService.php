@@ -6,7 +6,9 @@ use Exception;
 use Fintech\Business\Facades\Business;
 use Fintech\Business\Interfaces\ServiceStatRepository;
 use Fintech\Business\Models\ServiceStat;
+use Illuminate\Contracts\Pagination\Paginator;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Support\Collection;
 
 /**
  * Class ServiceStatService
@@ -21,7 +23,7 @@ class ServiceStatService
     }
 
     /**
-     * @return mixed
+     * @return Paginator|Collection
      */
     public function list(array $filters = [])
     {
