@@ -86,7 +86,11 @@ class ServiceTypeService
         return $this->serviceTypeRepository->list($filters);
     }
 
-    public function import(array $filters)
+    /**
+     * @param array $filters
+     * @return Model|\MongoDB\Laravel\Eloquent\Model|null
+     */
+    public function import(array $filters): Model|\MongoDB\Laravel\Eloquent\Model|null
     {
         return $this->serviceTypeRepository->create($filters);
     }
