@@ -63,7 +63,8 @@ class ServiceTypeController extends Controller
      *
      * @lrd:end
      *
-     * @throws StoreOperationException
+     * @param StoreServiceTypeRequest $request
+     * @return JsonResponse
      */
     public function store(StoreServiceTypeRequest $request): JsonResponse
     {
