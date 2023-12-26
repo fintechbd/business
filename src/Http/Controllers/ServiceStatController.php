@@ -121,7 +121,9 @@ class ServiceStatController extends Controller
      *
      * @lrd:end
      *
-     * @throws ModelNotFoundException
+     * @param UpdateServiceStatRequest $request
+     * @param string|int $id
+     * @return JsonResponse
      */
     public function update(UpdateServiceStatRequest $request, string|int $id): JsonResponse
     {
