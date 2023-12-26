@@ -334,7 +334,7 @@ class ServiceTypeController extends Controller
                 $findAllChildServiceType = Business::serviceType()->find($serviceType->getKey());
 
                 $arrayFindData[$serviceType->id] = $findAllChildServiceType->allChildList;
-                foreach ($arrayFindData[$serviceType->id] as $key => $allChildAccounts) {
+                foreach ($arrayFindData[$serviceType->id] as $allChildAccounts) {
                     $collectID[$serviceType->id][] = $allChildAccounts['id'];
                 }
 
