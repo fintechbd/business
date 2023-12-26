@@ -30,9 +30,10 @@ class ServiceStatRepository extends EloquentRepository implements InterfacesServ
      * return a list or pagination of items from
      * filtered options
      *
+     * @param array $filters
      * @return Paginator|Collection
      */
-    public function list(array $filters = [])
+    public function list(array $filters = []): Paginator|Collection
     {
         $query = $this->model->newQuery();
         $modelTable = $this->model->getTable();
