@@ -3,6 +3,7 @@
 namespace Fintech\Business\Repositories\Eloquent;
 
 use Fintech\Business\Interfaces\ServiceSettingRepository as InterfacesServiceSettingRepository;
+use Fintech\Business\Models\ServiceSetting;
 use Fintech\Core\Repositories\EloquentRepository;
 use Illuminate\Contracts\Pagination\Paginator;
 use Illuminate\Database\Eloquent\Collection;
@@ -16,7 +17,7 @@ class ServiceSettingRepository extends EloquentRepository implements InterfacesS
 {
     public function __construct()
     {
-        $model = app(config('fintech.business.service_setting_model', \Fintech\Business\Models\ServiceSetting::class));
+        $model = app(config('fintech.business.service_setting_model', ServiceSetting::class));
 
         if (! $model instanceof Model) {
             throw new InvalidArgumentException("Eloquent repository require model class to be `Illuminate\Database\Eloquent\Model` instance.");
@@ -28,10 +29,8 @@ class ServiceSettingRepository extends EloquentRepository implements InterfacesS
     /**
      * return a list or pagination of items from
      * filtered options
-     *
-     * @return Paginator|Collection
      */
-    public function list(array $filters = [])
+    public function list(array $filters = []): Paginator|Collection
     {
         $query = $this->model->newQuery();
 

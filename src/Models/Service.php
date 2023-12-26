@@ -68,7 +68,7 @@ class Service extends Model implements HasMedia
 
     public function serviceStat(): HasMany
     {
-        return $this->hasMany(ServiceState::class, 'service_id', 'id');
+        return $this->hasMany(ServiceStat::class, 'service_id', 'id');
     }
 
     public function servicePackage(): HasMany

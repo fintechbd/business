@@ -6,9 +6,11 @@ use Exception;
 use Fintech\Business\Facades\Business;
 use Fintech\Business\Http\Requests\ImportServiceTypeRequest;
 use Fintech\Business\Http\Requests\IndexServiceTypeRequest;
+use Fintech\Business\Http\Requests\ServiceTypeListRequest;
 use Fintech\Business\Http\Requests\StoreServiceTypeRequest;
 use Fintech\Business\Http\Requests\UpdateServiceTypeRequest;
 use Fintech\Business\Http\Resources\ServiceTypeCollection;
+use Fintech\Business\Http\Resources\ServiceTypeListCollection;
 use Fintech\Business\Http\Resources\ServiceTypeResource;
 use Fintech\Core\Exceptions\DeleteOperationException;
 use Fintech\Core\Exceptions\RestoreOperationException;
@@ -60,8 +62,6 @@ class ServiceTypeController extends Controller
      * Create a new *ServiceType* resource in storage.
      *
      * @lrd:end
-     *
-     * @throws StoreOperationException
      */
     public function store(StoreServiceTypeRequest $request): JsonResponse
     {
@@ -76,7 +76,7 @@ class ServiceTypeController extends Controller
 
             return $this->created([
                 'message' => __('core::messages.resource.created', ['model' => 'Service Type']),
-                'id' => $serviceType->id,
+                'id' => $serviceType->getKey(),
             ]);
 
         } catch (Exception $exception) {
@@ -120,9 +120,6 @@ class ServiceTypeController extends Controller
      * Update a specified *ServiceType* resource using id.
      *
      * @lrd:end
-     *
-     * @throws ModelNotFoundException
-     * @throws UpdateOperationException
      */
     public function update(UpdateServiceTypeRequest $request, string|int $id): JsonResponse
     {
@@ -158,13 +155,8 @@ class ServiceTypeController extends Controller
      * Soft delete a specified *ServiceType* resource using id.
      *
      * @lrd:end
-     *
-     * @return JsonResponse
-     *
-     * @throws ModelNotFoundException
-     * @throws DeleteOperationException
      */
-    public function destroy(string|int $id)
+    public function destroy(string|int $id): JsonResponse
     {
         try {
 
@@ -197,10 +189,8 @@ class ServiceTypeController extends Controller
      * ** ```Soft Delete``` needs to enabled to use this feature**
      *
      * @lrd:end
-     *
-     * @return JsonResponse
      */
-    public function restore(string|int $id)
+    public function restore(string|int $id): JsonResponse
     {
         try {
 
@@ -229,7 +219,7 @@ class ServiceTypeController extends Controller
 
     /**
      * @lrd:start
-     * Create a exportable list of the *ServiceType* resource as document.
+     * Create an exportable list of the *ServiceType* resource as document.
      * After export job is done system will fire  export completed event
      *
      * @lrd:end
@@ -239,7 +229,8 @@ class ServiceTypeController extends Controller
         try {
             $inputs = $request->validated();
 
-            $serviceTypePaginate = Business::serviceType()->export($inputs);
+            //$serviceTypePaginate = Business::serviceType()->export($inputs);
+            Business::serviceType()->export($inputs);
 
             return $this->exported(__('core::messages.resource.exported', ['model' => 'Service Type']));
 
@@ -251,14 +242,12 @@ class ServiceTypeController extends Controller
 
     /**
      * @lrd:start
-     * Create a exportable list of the *ServiceType* resource as document.
+     * Create an exportable list of the *ServiceType* resource as document.
      * After export job is done system will fire  export completed event
      *
      * @lrd:end
-     *
-     * @return ServiceTypeCollection|JsonResponse
      */
-    public function import(ImportServiceTypeRequest $request): JsonResponse
+    public function import(ImportServiceTypeRequest $request): ServiceTypeCollection|JsonResponse
     {
         try {
             $inputs = $request->validated();
@@ -266,6 +255,102 @@ class ServiceTypeController extends Controller
             $serviceTypePaginate = Business::serviceType()->list($inputs);
 
             return new ServiceTypeCollection($serviceTypePaginate);
+
+        } catch (Exception $exception) {
+
+            return $this->failed($exception->getMessage());
+        }
+    }
+
+    public function serviceTypeList(ServiceTypeListRequest $request): ServiceTypeListCollection|JsonResponse
+    {
+        try {
+            $input = $request->all();
+            //TODO Check after login
+            //$input['user_id'] = $request->user_id ?? auth()->user->getKey();
+            //$input['role_id'] = $request->role_id ?? auth()->user->roles[0]->getKey();
+
+            if (isset($request->service_type_parent_id)) {
+                $input['service_type_parent_id'] = $request['service_type_parent_id'];
+            } else {
+                $input['service_type_parent_id_is_null'] = true;
+            }
+            $input['service_type_enabled'] = true;
+            $input['sort'] = 'service_types.id';
+            $input['dir'] = 'asc';
+            $input['paginate'] = false;
+            $serviceTypes = Business::serviceType()->list($input);
+
+            $serviceTypeCollection = collect();
+
+            foreach ($serviceTypes as $serviceType) {
+
+                if ($serviceType->service_type_is_parent == 'no') {
+                    $input['service_join_active'] = true;
+                    $input['service_type_id'] = $serviceType->id;
+                    $input['service_enabled'] = true;
+                    $input['service_vendor_enabled'] = true;
+                    $input['service_stat_enabled'] = true;
+
+                    $fullServiceTypes = Business::serviceType()->list($input);
+                    if ($fullServiceTypes->isNotEmpty()) {
+                        foreach ($fullServiceTypes as $fullServiceType) {
+                            if (isset($fullServiceType['service_stat_data'])) {
+                                $fullServiceType['service_stat_data'] = json_decode($fullServiceType['service_stat_data'], true);
+                                //                                $fullServiceType['logo_svg'] = json_decode($fullServiceType['service_stat_data'], true);
+                            }
+                            if (isset($fullServiceType['service_data'])) {
+                                $fullServiceType['service_data'] = json_decode($fullServiceType['service_data'], true);
+                            }
+                            $fullServiceType->logo_svg = null;
+                            $fullServiceType->logo_png = null;
+
+                            $fullServiceType->logo_svg = Business::service()->find($fullServiceType->service_id)?->getFirstMediaUrl('logo_svg');
+                            $fullServiceType->logo_png = Business::service()->find($fullServiceType->service_id)?->getFirstMediaUrl('logo_png');
+
+                            if (isset($fullServiceType->media)) {
+                                unset($fullServiceType->media);
+                            }
+
+                            $serviceTypeCollection->push($fullServiceType);
+                        }
+                    }
+                } elseif ($serviceType['service_type_is_parent'] == 'yes') {
+                    $inputYes = $input;
+                    $collectID = [];
+                    $findAllChildServiceType = Business::serviceType()->find($serviceType->getKey());
+
+                    $arrayFindData[$serviceType->id] = $findAllChildServiceType->allChildList ?? [];
+                    foreach ($arrayFindData[$serviceType->id] as $allChildAccounts) {
+                        $collectID[$serviceType->id][] = $allChildAccounts['id'];
+                    }
+
+                    $inputYes['service_type_id_array'] = $collectID[$serviceType->id] ?? [];
+                    //TODO may be need to work future
+                    $inputYes['service_type_parent_id'] = $serviceType->id;
+                    $inputYes['service_type_parent_id_is_null'] = false;
+                    $inputYes['service_type_id'] = false;
+                    $findServiceType = Business::serviceType()->list($inputYes)->count();
+
+                    if ($findServiceType > 0) {
+                        $serviceType->logo_svg = $serviceType->getFirstMediaUrl('logo_svg');
+                        $serviceType->logo_png = $serviceType->getFirstMediaUrl('logo_png');
+                        if (isset($serviceType->media)) {
+                            unset($serviceType->media);
+                        }
+                        $serviceTypeCollection->push($serviceType);
+                    }
+                } else {
+                    if (isset($serviceType->media)) {
+                        unset($serviceType->media);
+                    }
+                    $serviceTypeCollection->push($serviceType);
+                }
+            }
+
+            //$data['serviceType'] = $arrayData;
+            //$data['serviceTypeTotal'] = count($arrayData);
+            return new ServiceTypeListCollection($serviceTypeCollection);
 
         } catch (Exception $exception) {
 

@@ -11,16 +11,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('service_types', function (Blueprint $table) {
+        Schema::create('currency_rates', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('service_type_parent_id')->nullable();
-            $table->string('service_type_name')->nullable();
-            $table->string('service_type_slug')->nullable();
-            $table->string('service_type_is_parent')->nullable()->default('no');
-            $table->string('service_type_is_description')->nullable()->default('no');
-            $table->integer('service_type_step')->nullable()->default(0);
-            $table->json('service_type_data')->nullable();
-            $table->boolean('enabled')->nullable();
+            $table->string('name')->nullable();
+            $table->foreignId('source_country_id')->nullable();
+            $table->foreignId('destination_country_id')->nullable();
+            $table->foreignId('service_id')->nullable();
+            $table->unsignedDecimal('rate', 19, 6)->nullable();
+            $table->boolean('is_default')->default(false);
+            $table->json('currency_rate_data')->nullable();
             $table->foreignId('creator_id')->nullable();
             $table->foreignId('editor_id')->nullable();
             $table->foreignId('destroyer_id')->nullable();
@@ -36,6 +35,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('service_types');
+        Schema::dropIfExists('currency_rates');
     }
 };

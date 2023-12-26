@@ -7,7 +7,7 @@ use Fintech\Business\Services\PackageTopChartService;
 use Fintech\Business\Services\ServicePackageService;
 use Fintech\Business\Services\ServiceService;
 use Fintech\Business\Services\ServiceSettingService;
-use Fintech\Business\Services\ServiceStateService;
+use Fintech\Business\Services\ServiceStatService;
 use Fintech\Business\Services\ServiceTypeService;
 use Fintech\Business\Services\ServiceVendorService;
 
@@ -38,9 +38,9 @@ class Business
         return app(ServiceSettingService::class);
     }
 
-    public function serviceState()
+    public function serviceStat()
     {
-        return app(ServiceStateService::class);
+        return app(ServiceStatService::class);
     }
 
     public function serviceType()
@@ -53,5 +53,14 @@ class Business
         return app(ServiceVendorService::class);
     }
 
+    /**
+     * @return \Fintech\Business\Services\CurrencyRateService
+     */
+    public function currencyRate()
+    {
+        return app(\Fintech\Business\Services\CurrencyRateService::class);
+    }
+
     //** Crud Service Method Point Do not Remove **//
+
 }

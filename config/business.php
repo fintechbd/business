@@ -53,12 +53,12 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | ServiceState Model
+    | ServiceStat Model
     |--------------------------------------------------------------------------
     |
     | This value will be used to across system where model is needed
     */
-    'service_state_model' => \Fintech\Business\Models\ServiceState::class,
+    'service_stat_model' => \Fintech\Business\Models\ServiceStat::class,
 
     /*
     |--------------------------------------------------------------------------
@@ -105,7 +105,31 @@ return [
     */
     'service_vendor_model' => \Fintech\Business\Models\ServiceVendor::class,
 
+    /*
+    |--------------------------------------------------------------------------
+    | CurrencyRate Model
+    |--------------------------------------------------------------------------
+    |
+    | This value will be used to across system where model is needed
+    */
+    'currency_rate_model' => \Fintech\Business\Models\CurrencyRate::class,
+
     //** Model Config Point Do not Remove **//
+
+    /*
+    |--------------------------------------------------------------------------
+    | Currency Rate Vendor Configuration
+    |--------------------------------------------------------------------------
+    |
+    | This value will be used across systems where a repository instance is needed
+    */
+
+    'currency_rate_vendor' => [
+        'free_currency_api' => [
+            'base_url' => 'https://api.freecurrencyapi.com/v1/',
+            'api_key' => env('FREE_CURRENCY_API_KEY', null),
+        ],
+    ],
 
     /*
     |--------------------------------------------------------------------------
@@ -116,7 +140,7 @@ return [
     */
 
     'service_setting_types' => [
-        'service_state' => 'Service State',
+        'service_stat' => 'Service Stat',
         'service' => 'Service',
     ],
 
@@ -147,17 +171,17 @@ return [
 
         \Fintech\Business\Interfaces\ServiceRepository::class => \Fintech\Business\Repositories\Eloquent\ServiceRepository::class,
 
-        \Fintech\Business\Interfaces\ServiceStateRepository::class => \Fintech\Business\Repositories\Eloquent\ServiceStateRepository::class,
+        \Fintech\Business\Interfaces\ServiceStatRepository::class => \Fintech\Business\Repositories\Eloquent\ServiceStatRepository::class,
 
         \Fintech\Business\Interfaces\ServicePackageRepository::class => \Fintech\Business\Repositories\Eloquent\ServicePackageRepository::class,
 
         \Fintech\Business\Interfaces\ChargeBreakDownRepository::class => \Fintech\Business\Repositories\Eloquent\ChargeBreakDownRepository::class,
 
-        \Fintech\Business\Interfaces\VendorRepository::class => \Fintech\Business\Repositories\Eloquent\VendorRepository::class,
+        \Fintech\Business\Interfaces\ServiceVendorRepository::class => \Fintech\Business\Repositories\Eloquent\ServiceVendorRepository::class,
 
         \Fintech\Business\Interfaces\PackageTopChartRepository::class => \Fintech\Business\Repositories\Eloquent\PackageTopChartRepository::class,
 
-        \Fintech\Business\Interfaces\ServiceVendorRepository::class => \Fintech\Business\Repositories\Eloquent\ServiceVendorRepository::class,
+        \Fintech\Business\Interfaces\CurrencyRateRepository::class => \Fintech\Business\Repositories\Eloquent\CurrencyRateRepository::class,
 
         //** Repository Binding Config Point Do not Remove **//
     ],

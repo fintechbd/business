@@ -17,9 +17,9 @@ return new class extends Migration
             $table->string('service_slug')->nullable();
             $table->double('charge_break_down_lower')->default(0);
             $table->double('charge_break_down_higher')->default(0);
-            $table->double('charge_break_down_charge')->default(0);
-            $table->double('charge_break_down_discount')->default(0);
-            $table->double('charge_break_down_commission')->default(0);
+            $table->string('charge_break_down_charge')->default(0);
+            $table->string('charge_break_down_discount')->default(0);
+            $table->string('charge_break_down_commission')->default(0);
             $table->boolean('enabled')->default(1);
             $table->foreignId('creator_id')->nullable();
             $table->foreignId('editor_id')->nullable();

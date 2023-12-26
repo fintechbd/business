@@ -12,9 +12,8 @@ class ServiceVendorService
     /**
      * ServiceVendorService constructor.
      */
-    public function __construct(ServiceVendorRepository $serviceVendorRepository)
+    public function __construct(private readonly ServiceVendorRepository $serviceVendorRepository)
     {
-        $this->serviceVendorRepository = $serviceVendorRepository;
     }
 
     /**

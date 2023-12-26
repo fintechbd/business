@@ -31,7 +31,7 @@ class StoreServiceVendorRequest extends FormRequest
             'service_vendor_slug' => ['string', 'required', $uniqueRule],
             'logo_png' => ['string', 'nullable'],
             'logo_svg' => ['string', 'nullable'],
-            'service_vendor_data' => ['nullable', 'required'],
+            'service_vendor_data' => ['nullable', 'array'],
             'enabled' => ['boolean', 'nullable', 'min:1'],
         ];
     }

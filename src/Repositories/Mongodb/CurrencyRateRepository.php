@@ -2,7 +2,7 @@
 
 namespace Fintech\Business\Repositories\Mongodb;
 
-use Fintech\Business\Interfaces\ServiceStateRepository as InterfacesServiceStateRepository;
+use Fintech\Business\Interfaces\CurrencyRateRepository as InterfacesCurrencyRateRepository;
 use Fintech\Core\Repositories\MongodbRepository;
 use Illuminate\Contracts\Pagination\Paginator;
 use Illuminate\Database\Eloquent\Collection;
@@ -10,13 +10,13 @@ use InvalidArgumentException;
 use MongoDB\Laravel\Eloquent\Model;
 
 /**
- * Class ServiceStateRepository
+ * Class CurrencyRateRepository
  */
-class ServiceStateRepository extends MongodbRepository implements InterfacesServiceStateRepository
+class CurrencyRateRepository extends MongodbRepository implements InterfacesCurrencyRateRepository
 {
     public function __construct()
     {
-        $model = app(config('fintech.business.service_state_model', \Fintech\Business\Models\ServiceState::class));
+        $model = app(config('fintech.business.currency_rate_model', \Fintech\Business\Models\CurrencyRate::class));
 
         if (! $model instanceof Model) {
             throw new InvalidArgumentException("Mongodb repository require model class to be `MongoDB\Laravel\Eloquent\Model` instance.");
@@ -41,6 +41,7 @@ class ServiceStateRepository extends MongodbRepository implements InterfacesServ
                 $query->where($this->model->getKeyName(), 'like', "%{$filters['search']}%");
             } else {
                 $query->where('name', 'like', "%{$filters['search']}%");
+                $query->orWhere('currency_rate_data', 'like', "%{$filters['search']}%");
             }
         }
 

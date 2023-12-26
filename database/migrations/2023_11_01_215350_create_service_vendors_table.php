@@ -11,15 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('service_states', function (Blueprint $table) {
+        Schema::create('service_vendors', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('role_id')->nullable();
-            $table->foreignId('service_id')->nullable();
-            $table->string('service_slug')->nullable();
-            $table->foreignId('present_country_id')->nullable();
-            $table->foreignId('permanent_country_id')->nullable();
-            $table->foreignId('service_vendor_id')->nullable();
-            $table->json('service_state_data')->nullable();
+            $table->string('service_vendor_name')->nullable();
+            $table->string('service_vendor_slug')->nullable();
+            $table->json('service_vendor_data')->nullable();
             $table->boolean('enabled')->nullable();
             $table->foreignId('creator_id')->nullable();
             $table->foreignId('editor_id')->nullable();
@@ -36,6 +32,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('service_states');
+        Schema::dropIfExists('service_vendors');
     }
 };
