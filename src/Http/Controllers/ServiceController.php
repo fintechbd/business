@@ -238,6 +238,8 @@ class ServiceController extends Controller
      * After export job is done system will fire  export completed event
      *
      * @lrd:end
+     * @param IndexServiceRequest $request
+     * @return JsonResponse
      */
     public function export(IndexServiceRequest $request): JsonResponse
     {
