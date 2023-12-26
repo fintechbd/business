@@ -58,7 +58,11 @@ class ServiceService
         return $this->serviceRepository->update($id, $inputs);
     }
 
-    public function destroy($id)
+    /**
+     * @param $id
+     * @return mixed
+     */
+    public function destroy($id): mixed
     {
         return $this->serviceRepository->delete($id);
     }
