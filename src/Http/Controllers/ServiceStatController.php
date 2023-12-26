@@ -63,6 +63,8 @@ class ServiceStatController extends Controller
      * Create a new *ServiceStat* resource in storage.
      *
      * @lrd:end
+     * @param StoreServiceStatRequest $request
+     * @return JsonResponse
      */
     public function store(StoreServiceStatRequest $request): JsonResponse
     {
