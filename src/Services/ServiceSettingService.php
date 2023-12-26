@@ -49,7 +49,12 @@ class ServiceSettingService
         return $this->serviceSettingRepository->find($id, $onlyTrashed);
     }
 
-    public function update($id, array $inputs = [])
+    /**
+     * @param $id
+     * @param array $inputs
+     * @return Model|\MongoDB\Laravel\Eloquent\Model|null
+     */
+    public function update($id, array $inputs = []): Model|\MongoDB\Laravel\Eloquent\Model|null
     {
         return $this->serviceSettingRepository->update($id, $inputs);
     }
