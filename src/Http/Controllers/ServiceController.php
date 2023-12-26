@@ -42,6 +42,8 @@ class ServiceController extends Controller
      * *```paginate=false``` returns all resource as list not pagination*
      *
      * @lrd:end
+     * @param IndexServiceRequest $request
+     * @return ServiceCollection|JsonResponse
      */
     public function index(IndexServiceRequest $request): ServiceCollection|JsonResponse
     {
