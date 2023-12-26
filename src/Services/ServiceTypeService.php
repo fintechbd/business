@@ -3,6 +3,8 @@
 namespace Fintech\Business\Services;
 
 use Fintech\Business\Interfaces\ServiceTypeRepository;
+use Illuminate\Contracts\Pagination\Paginator;
+use Illuminate\Support\Collection;
 
 /**
  * Class ServiceTypeService
@@ -18,9 +20,10 @@ class ServiceTypeService
     }
 
     /**
-     * @return mixed
+     * @param array $filters
+     * @return Collection|Paginator
      */
-    public function list(array $filters = [])
+    public function list(array $filters = []): Collection|Paginator
     {
         return $this->serviceTypeRepository->list($filters);
 
