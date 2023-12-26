@@ -195,6 +195,8 @@ class ServiceStatController extends Controller
      * ** ```Soft Delete``` needs to enabled to use this feature**
      *
      * @lrd:end
+     * @param string|int $id
+     * @return JsonResponse
      */
     public function restore(string|int $id): JsonResponse
     {
