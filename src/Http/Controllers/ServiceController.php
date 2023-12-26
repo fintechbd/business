@@ -242,7 +242,8 @@ class ServiceController extends Controller
         try {
             $inputs = $request->validated();
 
-            $servicePaginate = Business::service()->export($inputs);
+            //$servicePaginate = Business::service()->export($inputs);
+            Business::service()->export($inputs);
 
             return $this->exported(__('core::messages.resource.exported', ['model' => 'Service']));
 
