@@ -284,7 +284,12 @@ class ServiceController extends Controller
 
         try {
 
-            $inputs['user_id'] = $request->input('user_id', auth()->user()->getKey());
+            if(isset($inputs['user_id']) && $inputs['user_id'] > 0){
+                $inputs['user_id'] = $request->input('user_id');
+            }else{
+                $inputs['user_id'] = auth()->user()->getKey();
+            }
+
 
             if ($user = \Fintech\Auth\Facades\Auth::user()->find($inputs['user_id'])) {
                 $inputs['role_id'] = $user->roles->first()?->getKey() ?? null;
