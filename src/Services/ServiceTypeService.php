@@ -4,6 +4,7 @@ namespace Fintech\Business\Services;
 
 use Fintech\Business\Interfaces\ServiceTypeRepository;
 use Illuminate\Contracts\Pagination\Paginator;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
 
 /**
@@ -29,7 +30,11 @@ class ServiceTypeService
 
     }
 
-    public function create(array $inputs = [])
+    /**
+     * @param array $inputs
+     * @return Model|\MongoDB\Laravel\Eloquent\Model|null
+     */
+    public function create(array $inputs = []): Model|\MongoDB\Laravel\Eloquent\Model|null
     {
         return $this->serviceTypeRepository->create($inputs);
     }
