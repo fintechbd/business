@@ -59,17 +59,29 @@ class ServiceTypeService
         return $this->serviceTypeRepository->update($id, $inputs);
     }
 
-    public function destroy($id)
+    /**
+     * @param $id
+     * @return mixed
+     */
+    public function destroy($id): mixed
     {
         return $this->serviceTypeRepository->delete($id);
     }
 
-    public function restore($id)
+    /**
+     * @param $id
+     * @return mixed
+     */
+    public function restore($id): mixed
     {
         return $this->serviceTypeRepository->restore($id);
     }
 
-    public function export(array $filters)
+    /**
+     * @param array $filters
+     * @return Paginator|Collection
+     */
+    public function export(array $filters): Paginator|Collection
     {
         return $this->serviceTypeRepository->list($filters);
     }
