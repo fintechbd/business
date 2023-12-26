@@ -95,7 +95,8 @@ class ServiceController extends Controller
      *
      * @lrd:end
      *
-     * @throws ModelNotFoundException
+     * @param string|int $id
+     * @return ServiceResource|JsonResponse
      */
     public function show(string|int $id): ServiceResource|JsonResponse
     {
