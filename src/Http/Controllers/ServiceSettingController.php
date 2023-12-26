@@ -242,7 +242,8 @@ class ServiceSettingController extends Controller
         try {
             $inputs = $request->validated();
 
-            $serviceSettingPaginate = Business::serviceSetting()->export($inputs);
+            //$serviceSettingPaginate = Business::serviceSetting()->export($inputs);
+            Business::serviceSetting()->export($inputs);
 
             return $this->exported(__('core::messages.resource.exported', ['model' => 'Service Setting']));
 
