@@ -78,7 +78,7 @@ class ServiceSettingController extends Controller
 
             return $this->created([
                 'message' => __('core::messages.resource.created', ['model' => 'Service Setting']),
-                'id' => $serviceSetting->id,
+                'id' => $serviceSetting->getKey(),
             ]);
 
         } catch (Exception $exception) {
