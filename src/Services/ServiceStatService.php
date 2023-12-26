@@ -174,6 +174,10 @@ class ServiceStatService
         ];
     }
 
+    /**
+     * @param array $inputs
+     * @return array{0: array|float, charge: mixed|null, charge_amount: float|int, discount: mixed|null, discount_amount: float|int, commission: mixed|null, commission_amount: float|int, total_amount: mixed}
+     */
     public function cost(array $inputs): array
     {
         $currencyRateParams = [
