@@ -52,7 +52,12 @@ class ServiceStatService
         return $this->serviceStatRepository->find($id, $onlyTrashed);
     }
 
-    public function update($id, array $inputs = [])
+    /**
+     * @param $id
+     * @param array $inputs
+     * @return Model|\MongoDB\Laravel\Eloquent\Model|null
+     */
+    public function update($id, array $inputs = []): Model|\MongoDB\Laravel\Eloquent\Model|null
     {
         return $this->serviceStatRepository->update($id, $inputs);
     }
