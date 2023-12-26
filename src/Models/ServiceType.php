@@ -12,6 +12,7 @@ use Spatie\MediaLibrary\InteractsWithMedia;
 
 /**
  * @property mixed $allParentAccounts
+ * @property mixed $allChildAccounts
  */
 class ServiceType extends Model implements HasMedia
 {
