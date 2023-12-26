@@ -161,12 +161,11 @@ class ServiceTypeController extends Controller
      *
      * @lrd:end
      *
+     * @param string|int $id
      * @return JsonResponse
      *
-     * @throws ModelNotFoundException
-     * @throws DeleteOperationException
      */
-    public function destroy(string|int $id)
+    public function destroy(string|int $id): JsonResponse
     {
         try {
 
