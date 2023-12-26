@@ -62,7 +62,11 @@ class ServiceStatService
         return $this->serviceStatRepository->update($id, $inputs);
     }
 
-    public function destroy($id)
+    /**
+     * @param $id
+     * @return mixed
+     */
+    public function destroy($id): mixed
     {
         return $this->serviceStatRepository->delete($id);
     }
