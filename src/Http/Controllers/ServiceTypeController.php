@@ -200,9 +200,10 @@ class ServiceTypeController extends Controller
      *
      * @lrd:end
      *
+     * @param string|int $id
      * @return JsonResponse
      */
-    public function restore(string|int $id)
+    public function restore(string|int $id): JsonResponse
     {
         try {
 
@@ -235,6 +236,8 @@ class ServiceTypeController extends Controller
      * After export job is done system will fire  export completed event
      *
      * @lrd:end
+     * @param IndexServiceTypeRequest $request
+     * @return JsonResponse
      */
     public function export(IndexServiceTypeRequest $request): JsonResponse
     {
