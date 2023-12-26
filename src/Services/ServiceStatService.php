@@ -98,6 +98,10 @@ class ServiceStatService
         return $this->serviceStatRepository->create($filters);
     }
 
+    /**
+     * @param array $data
+     * @return array
+     */
     public function customStore(array $data): array
     {
         $inputs = $data;
