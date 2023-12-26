@@ -161,9 +161,6 @@ class ServiceType extends Model implements HasMedia
     |--------------------------------------------------------------------------
     */
 
-    /**
-     * @return array
-     */
     public function getLinksAttribute(): array
     {
         $primaryKey = $this->getKey();
