@@ -78,7 +78,7 @@ class ServiceTypeController extends Controller
 
             return $this->created([
                 'message' => __('core::messages.resource.created', ['model' => 'Service Type']),
-                'id' => $serviceType->id,
+                'id' => $serviceType->getKey(),
             ]);
 
         } catch (Exception $exception) {
