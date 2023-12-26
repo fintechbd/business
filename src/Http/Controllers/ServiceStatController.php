@@ -235,7 +235,8 @@ class ServiceStatController extends Controller
         try {
             $inputs = $request->validated();
 
-            $serviceStatPaginate = Business::serviceStat()->export($inputs);
+            //$serviceStatPaginate = Business::serviceStat()->export($inputs);
+            Business::serviceStat()->export($inputs);
 
             return $this->exported(__('core::messages.resource.exported', ['model' => 'Service State']));
 
