@@ -282,6 +282,10 @@ class ServiceController extends Controller
         }
     }
 
+    /**
+     * @param ServiceCurrencyRateRequest $request
+     * @return JsonResponse|ServiceCostResource
+     */
     public function cost(ServiceCurrencyRateRequest $request): JsonResponse|ServiceCostResource
     {
         $inputs = $request->all();
