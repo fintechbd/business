@@ -71,7 +71,11 @@ class ServiceStatService
         return $this->serviceStatRepository->delete($id);
     }
 
-    public function restore($id)
+    /**
+     * @param $id
+     * @return mixed
+     */
+    public function restore($id): mixed
     {
         return $this->serviceStatRepository->restore($id);
     }
