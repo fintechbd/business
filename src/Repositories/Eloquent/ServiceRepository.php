@@ -3,6 +3,7 @@
 namespace Fintech\Business\Repositories\Eloquent;
 
 use Fintech\Business\Interfaces\ServiceRepository as InterfacesServiceRepository;
+use Fintech\Business\Models\Service;
 use Fintech\Core\Repositories\EloquentRepository;
 use Illuminate\Contracts\Pagination\Paginator;
 use Illuminate\Database\Eloquent\Collection;
@@ -16,7 +17,7 @@ class ServiceRepository extends EloquentRepository implements InterfacesServiceR
 {
     public function __construct()
     {
-        $model = app(config('fintech.business.service_model', \Fintech\Business\Models\Service::class));
+        $model = app(config('fintech.business.service_model', Service::class));
 
         if (! $model instanceof Model) {
             throw new InvalidArgumentException("Eloquent repository require model class to be `Illuminate\Database\Eloquent\Model` instance.");
