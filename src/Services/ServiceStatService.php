@@ -6,7 +6,10 @@ use Exception;
 use Fintech\Business\Facades\Business;
 use Fintech\Business\Interfaces\ServiceStatRepository;
 use Fintech\Business\Models\ServiceStat;
+use Illuminate\Contracts\Pagination\Paginator;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Support\Collection;
 
 /**
  * Class ServiceStatService
@@ -20,46 +23,43 @@ class ServiceStatService
     {
     }
 
-    /**
-     * @return mixed
-     */
-    public function list(array $filters = [])
+    public function list(array $filters = []): Paginator|Collection
     {
         return $this->serviceStatRepository->list($filters);
 
     }
 
-    public function create(array $inputs = [])
+    public function create(array $inputs = []): Model|\MongoDB\Laravel\Eloquent\Model|null
     {
         return $this->serviceStatRepository->create($inputs);
     }
 
-    public function find($id, $onlyTrashed = false)
+    public function find($id, bool $onlyTrashed = false): Model|\MongoDB\Laravel\Eloquent\Model|null
     {
         return $this->serviceStatRepository->find($id, $onlyTrashed);
     }
 
-    public function update($id, array $inputs = [])
+    public function update($id, array $inputs = []): Model|\MongoDB\Laravel\Eloquent\Model|null
     {
         return $this->serviceStatRepository->update($id, $inputs);
     }
 
-    public function destroy($id)
+    public function destroy($id): mixed
     {
         return $this->serviceStatRepository->delete($id);
     }
 
-    public function restore($id)
+    public function restore($id): mixed
     {
         return $this->serviceStatRepository->restore($id);
     }
 
-    public function export(array $filters)
+    public function export(array $filters): Paginator|Collection
     {
         return $this->serviceStatRepository->list($filters);
     }
 
-    public function import(array $filters)
+    public function import(array $filters): Model|\MongoDB\Laravel\Eloquent\Model|null
     {
         return $this->serviceStatRepository->create($filters);
     }
@@ -91,6 +91,11 @@ class ServiceStatService
 
     }
 
+    /**
+     * @return array{charge: mixed, discount: mixed, commission: mixed, charge_refund: mixed|null, discount_refund: mixed|null, commission_refund: mixed|null, charge_break_down_id: mixed, service_stat_id: mixed|null}
+     *
+     * @throws Exception
+     */
     public function serviceStateData($data): array
     {
         $data->role_id = $data->user->roles[0]->getKey();
@@ -132,6 +137,9 @@ class ServiceStatService
         ];
     }
 
+    /**
+     * @return array{0: array|float, charge: mixed|null, charge_amount: float|int, discount: mixed|null, discount_amount: float|int, commission: mixed|null, commission_amount: float|int, total_amount: mixed}
+     */
     public function cost(array $inputs): array
     {
         $currencyRateParams = [
