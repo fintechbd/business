@@ -123,8 +123,9 @@ class ServiceTypeController extends Controller
      *
      * @lrd:end
      *
-     * @throws ModelNotFoundException
-     * @throws UpdateOperationException
+     * @param UpdateServiceTypeRequest $request
+     * @param string|int $id
+     * @return JsonResponse
      */
     public function update(UpdateServiceTypeRequest $request, string|int $id): JsonResponse
     {
