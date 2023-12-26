@@ -89,7 +89,11 @@ class ServiceStatService
         return $this->serviceStatRepository->list($filters);
     }
 
-    public function import(array $filters)
+    /**
+     * @param array $filters
+     * @return Model|\MongoDB\Laravel\Eloquent\Model|null
+     */
+    public function import(array $filters): Model|\MongoDB\Laravel\Eloquent\Model|null
     {
         return $this->serviceStatRepository->create($filters);
     }
