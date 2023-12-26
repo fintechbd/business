@@ -271,6 +271,10 @@ class ServiceStatController extends Controller
         }
     }
 
+    /**
+     * @param Request $request
+     * @return CountryCollection|JsonResponse
+     */
     public function serviceStatWiseCountry(Request $request): CountryCollection|JsonResponse
     {
         try {
