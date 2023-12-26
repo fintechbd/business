@@ -42,8 +42,6 @@ class ServiceController extends Controller
      * *```paginate=false``` returns all resource as list not pagination*
      *
      * @lrd:end
-     * @param IndexServiceRequest $request
-     * @return ServiceCollection|JsonResponse
      */
     public function index(IndexServiceRequest $request): ServiceCollection|JsonResponse
     {
@@ -65,9 +63,6 @@ class ServiceController extends Controller
      * Create a new *Service* resource in storage.
      *
      * @lrd:end
-     *
-     * @param StoreServiceRequest $request
-     * @return JsonResponse
      */
     public function store(StoreServiceRequest $request): JsonResponse
     {
@@ -96,9 +91,6 @@ class ServiceController extends Controller
      * Return a specified *Service* resource found by id.
      *
      * @lrd:end
-     *
-     * @param string|int $id
-     * @return ServiceResource|JsonResponse
      */
     public function show(string|int $id): ServiceResource|JsonResponse
     {
@@ -127,10 +119,6 @@ class ServiceController extends Controller
      * Update a specified *Service* resource using id.
      *
      * @lrd:end
-     *
-     * @param UpdateServiceRequest $request
-     * @param string|int $id
-     * @return JsonResponse
      */
     public function update(UpdateServiceRequest $request, string|int $id): JsonResponse
     {
@@ -166,10 +154,6 @@ class ServiceController extends Controller
      * Soft delete a specified *Service* resource using id.
      *
      * @lrd:end
-     *
-     * @param string|int $id
-     * @return JsonResponse
-     *
      */
     public function destroy(string|int $id): JsonResponse
     {
@@ -204,9 +188,6 @@ class ServiceController extends Controller
      * ** ```Soft Delete``` needs to enabled to use this feature**
      *
      * @lrd:end
-     *
-     * @param string|int $id
-     * @return JsonResponse
      */
     public function restore(string|int $id): JsonResponse
     {
@@ -241,8 +222,6 @@ class ServiceController extends Controller
      * After export job is done system will fire  export completed event
      *
      * @lrd:end
-     * @param IndexServiceRequest $request
-     * @return JsonResponse
      */
     public function export(IndexServiceRequest $request): JsonResponse
     {
@@ -266,9 +245,6 @@ class ServiceController extends Controller
      * After export job is done system will fire  export completed event
      *
      * @lrd:end
-     *
-     * @param ImportServiceRequest $request
-     * @return ServiceCollection|JsonResponse
      */
     public function import(ImportServiceRequest $request): ServiceCollection|JsonResponse
     {
@@ -285,22 +261,17 @@ class ServiceController extends Controller
         }
     }
 
-    /**
-     * @param ServiceCurrencyRateRequest $request
-     * @return JsonResponse|ServiceCostResource
-     */
     public function cost(ServiceCurrencyRateRequest $request): JsonResponse|ServiceCostResource
     {
         $inputs = $request->all();
 
         try {
 
-            if(isset($inputs['user_id']) && $inputs['user_id'] > 0){
+            if (isset($inputs['user_id']) && $inputs['user_id'] > 0) {
                 $inputs['user_id'] = $request->input('user_id');
-            }else{
+            } else {
                 $inputs['user_id'] = auth()->user()->getKey();
             }
-
 
             if ($user = Auth::user()->find($inputs['user_id'])) {
                 $inputs['role_id'] = $user->roles->first()?->getKey() ?? null;

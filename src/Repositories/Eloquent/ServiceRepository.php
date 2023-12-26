@@ -29,9 +29,6 @@ class ServiceRepository extends EloquentRepository implements InterfacesServiceR
     /**
      * return a list or pagination of items from
      * filtered options
-     *
-     * @param array $filters
-     * @return Paginator|Collection
      */
     public function list(array $filters = []): Paginator|Collection
     {
