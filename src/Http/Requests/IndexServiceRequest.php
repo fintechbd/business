@@ -42,7 +42,7 @@ class IndexServiceRequest extends FormRequest
      *
      * @return array
      */
-    public function attributes()
+    public function attributes(): array
     {
         return [
             //
