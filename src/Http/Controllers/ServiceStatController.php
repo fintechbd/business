@@ -252,9 +252,10 @@ class ServiceStatController extends Controller
      *
      * @lrd:end
      *
+     * @param ImportServiceStatRequest $request
      * @return ServiceStatCollection|JsonResponse
      */
-    public function import(ImportServiceStatRequest $request): JsonResponse
+    public function import(ImportServiceStatRequest $request): JsonResponse|ServiceStatCollection
     {
         try {
             $inputs = $request->validated();
