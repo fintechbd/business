@@ -61,9 +61,6 @@ class ServiceSettingController extends Controller
      * Create a new *ServiceSetting* resource in storage.
      *
      * @lrd:end
-     *
-     * @param StoreServiceSettingRequest $request
-     * @return JsonResponse
      */
     public function store(StoreServiceSettingRequest $request): JsonResponse
     {
@@ -122,10 +119,6 @@ class ServiceSettingController extends Controller
      * Update a specified *ServiceSetting* resource using id.
      *
      * @lrd:end
-     *
-     * @param UpdateServiceSettingRequest $request
-     * @param string|int $id
-     * @return JsonResponse
      */
     public function update(UpdateServiceSettingRequest $request, string|int $id): JsonResponse
     {
@@ -161,10 +154,6 @@ class ServiceSettingController extends Controller
      * Soft delete a specified *ServiceSetting* resource using id.
      *
      * @lrd:end
-     *
-     * @param string|int $id
-     * @return JsonResponse
-     *
      */
     public function destroy(string|int $id): JsonResponse
     {
@@ -199,9 +188,6 @@ class ServiceSettingController extends Controller
      * ** ```Soft Delete``` needs to enabled to use this feature**
      *
      * @lrd:end
-     *
-     * @param string|int $id
-     * @return JsonResponse
      */
     public function restore(string|int $id): JsonResponse
     {
@@ -259,9 +245,6 @@ class ServiceSettingController extends Controller
      * After export job is done system will fire  export completed event
      *
      * @lrd:end
-     *
-     * @param ImportServiceSettingRequest $request
-     * @return ServiceSettingCollection|JsonResponse
      */
     public function import(ImportServiceSettingRequest $request): ServiceSettingCollection|JsonResponse
     {
