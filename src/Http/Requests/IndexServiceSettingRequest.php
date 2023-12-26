@@ -2,12 +2,13 @@
 
 namespace Fintech\Business\Http\Requests;
 
+use Fintech\Core\Traits\HasPaginateQuery;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 
 class IndexServiceSettingRequest extends FormRequest
 {
-    use \Fintech\Core\Traits\HasPaginateQuery;
+    use HasPaginateQuery;
 
     /**
      * Determine if the user is authorized to make this request.
