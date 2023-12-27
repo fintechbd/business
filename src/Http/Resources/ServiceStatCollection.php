@@ -2,6 +2,7 @@
 
 namespace Fintech\Business\Http\Resources;
 
+use Fintech\Core\Facades\Core;
 use Fintech\Core\Supports\Constant;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\ResourceCollection;
@@ -39,6 +40,8 @@ class ServiceStatCollection extends ResourceCollection
                 'id' => $serviceStat->getKey() ?? null,
                 'service_vendor_id' => $serviceStat->service_vendor_id ?? null,
                 'service_vendor_name' => $serviceStat->serviceVendor?->service_vendor_name ?? null,
+                'role_id' => $serviceStat->role_id ?? null,
+                'role_name' =>  null,
                 'service_id' => $serviceStat->service_id ?? null,
                 'service_name' => $serviceStat->service->service_name ?? null,
                 'service_slug' => $serviceStat->service_slug ?? null,
@@ -52,6 +55,10 @@ class ServiceStatCollection extends ResourceCollection
                 'created_at' => $serviceStat->created_at,
                 'updated_at' => $serviceStat->updated_at,
             ];
+
+            if (Core::packageExists('Auth')) {
+                $data['role_name'] = $serviceStat->role->name ?? null;
+            }
 
             return $data;
         })->toArray();
