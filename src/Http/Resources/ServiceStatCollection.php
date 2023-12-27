@@ -41,7 +41,7 @@ class ServiceStatCollection extends ResourceCollection
                 'service_vendor_id' => $serviceStat->service_vendor_id ?? null,
                 'service_vendor_name' => $serviceStat->serviceVendor?->service_vendor_name ?? null,
                 'role_id' => $serviceStat->role_id ?? null,
-                'role_name' =>  null,
+                'role_name' => null,
                 'service_id' => $serviceStat->service_id ?? null,
                 'service_name' => $serviceStat->service->service_name ?? null,
                 'service_slug' => $serviceStat->service_slug ?? null,

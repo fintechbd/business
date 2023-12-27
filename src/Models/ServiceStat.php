@@ -57,7 +57,7 @@ class ServiceStat extends Model
 
     public function role(): BelongsTo
     {
-        return $this->belongsTo(config('fintech.auth.role_model',\Fintech\Auth\Models\Role::class));
+        return $this->belongsTo(config('fintech.auth.role_model', \Fintech\Auth\Models\Role::class));
     }
 
     public function serviceVendor(): BelongsTo
