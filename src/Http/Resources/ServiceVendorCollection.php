@@ -19,7 +19,7 @@ class ServiceVendorCollection extends ResourceCollection
         return $this->collection->map(function ($vendor) {
             return [
                 'id' => $vendor->getKey() ?? null,
-                'service_vendor_name' => isset($vendor->serviceVendor) ? $vendor->serviceVendor->service_vendor_name : null,
+                'service_vendor_name' => $vendor->service_vendor_name ?? null,
                 'service_vendor_slug' => $vendor->service_vendor_slug ?? null,
                 'service_vendor_data' => $vendor->service_vendor_data ?? null,
                 'service_vendor_logo_svg' => $vendor->getFirstMediaUrl('logo_svg') ?? null,
