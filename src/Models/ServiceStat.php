@@ -42,7 +42,7 @@ class ServiceStat extends Model
 
     public function service(): BelongsTo
     {
-        return $this->belongsTo(config('fintech.business.service_model', Service::class), 'service_slug');
+        return $this->belongsTo(config('fintech.business.service_model', Service::class));
     }
 
     public function destinationCountry(): BelongsTo
