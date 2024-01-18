@@ -23,85 +23,47 @@ class ServiceStatService
     {
     }
 
-    /**
-     * @param array $filters
-     * @return Paginator|Collection
-     */
     public function list(array $filters = []): Paginator|Collection
     {
         return $this->serviceStatRepository->list($filters);
 
     }
 
-    /**
-     * @param array $inputs
-     * @return Model|\MongoDB\Laravel\Eloquent\Model|null
-     */
     public function create(array $inputs = []): Model|\MongoDB\Laravel\Eloquent\Model|null
     {
         return $this->serviceStatRepository->create($inputs);
     }
 
-    /**
-     * @param $id
-     * @param bool $onlyTrashed
-     * @return Model|\MongoDB\Laravel\Eloquent\Model|null
-     */
     public function find($id, bool $onlyTrashed = false): Model|\MongoDB\Laravel\Eloquent\Model|null
     {
         return $this->serviceStatRepository->find($id, $onlyTrashed);
     }
 
-    /**
-     * @param $id
-     * @param array $inputs
-     * @return Model|\MongoDB\Laravel\Eloquent\Model|null
-     */
     public function update($id, array $inputs = []): Model|\MongoDB\Laravel\Eloquent\Model|null
     {
         return $this->serviceStatRepository->update($id, $inputs);
     }
 
-    /**
-     * @param $id
-     * @return mixed
-     */
     public function destroy($id): mixed
     {
         return $this->serviceStatRepository->delete($id);
     }
 
-    /**
-     * @param $id
-     * @return mixed
-     */
     public function restore($id): mixed
     {
         return $this->serviceStatRepository->restore($id);
     }
 
-    /**
-     * @param array $filters
-     * @return Paginator|Collection
-     */
     public function export(array $filters): Paginator|Collection
     {
         return $this->serviceStatRepository->list($filters);
     }
 
-    /**
-     * @param array $filters
-     * @return Model|\MongoDB\Laravel\Eloquent\Model|null
-     */
     public function import(array $filters): Model|\MongoDB\Laravel\Eloquent\Model|null
     {
         return $this->serviceStatRepository->create($filters);
     }
 
-    /**
-     * @param array $data
-     * @return array
-     */
     public function customStore(array $data): array
     {
         $inputs = $data;
@@ -131,6 +93,7 @@ class ServiceStatService
 
     /**
      * @return array{charge: mixed, discount: mixed, commission: mixed, charge_refund: mixed|null, discount_refund: mixed|null, commission_refund: mixed|null, charge_break_down_id: mixed, service_stat_id: mixed|null}
+     *
      * @throws Exception
      */
     public function serviceStateData($data): array
@@ -175,7 +138,6 @@ class ServiceStatService
     }
 
     /**
-     * @param array $inputs
      * @return array{0: array|float, charge: mixed|null, charge_amount: float|int, discount: mixed|null, discount_amount: float|int, commission: mixed|null, commission_amount: float|int, total_amount: mixed}
      */
     public function cost(array $inputs): array

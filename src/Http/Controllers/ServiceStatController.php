@@ -42,8 +42,6 @@ class ServiceStatController extends Controller
      * *```paginate=false``` returns all resource as list not pagination*
      *
      * @lrd:end
-     * @param IndexServiceStatRequest $request
-     * @return ServiceStatCollection|JsonResponse
      */
     public function index(IndexServiceStatRequest $request): ServiceStatCollection|JsonResponse
     {
@@ -65,8 +63,6 @@ class ServiceStatController extends Controller
      * Create a new *ServiceStat* resource in storage.
      *
      * @lrd:end
-     * @param StoreServiceStatRequest $request
-     * @return JsonResponse
      */
     public function store(StoreServiceStatRequest $request): JsonResponse
     {
@@ -79,7 +75,7 @@ class ServiceStatController extends Controller
             }
 
             return $this->created([
-                'message' => __('core::messages.resource.created', ['model' => 'Service State']),
+                'message' => __('core::messages.resource.created', ['model' => 'Service Stat']),
                 'id' => $serviceStat,
             ]);
 
@@ -94,9 +90,6 @@ class ServiceStatController extends Controller
      * Return a specified *ServiceStat* resource found by id.
      *
      * @lrd:end
-     *
-     * @param string|int $id
-     * @return ServiceStatResource|JsonResponse
      */
     public function show(string|int $id): ServiceStatResource|JsonResponse
     {
@@ -125,10 +118,6 @@ class ServiceStatController extends Controller
      * Update a specified *ServiceStat* resource using id.
      *
      * @lrd:end
-     *
-     * @param UpdateServiceStatRequest $request
-     * @param string|int $id
-     * @return JsonResponse
      */
     public function update(UpdateServiceStatRequest $request, string|int $id): JsonResponse
     {
@@ -147,7 +136,7 @@ class ServiceStatController extends Controller
                 throw (new UpdateOperationException)->setModel(config('fintech.business.service_stat_model'), $id);
             }
 
-            return $this->updated(__('core::messages.resource.updated', ['model' => 'Service State']));
+            return $this->updated(__('core::messages.resource.updated', ['model' => 'Service Stat']));
 
         } catch (ModelNotFoundException $exception) {
 
@@ -164,10 +153,6 @@ class ServiceStatController extends Controller
      * Soft delete a specified *ServiceStat* resource using id.
      *
      * @lrd:end
-     *
-     * @param string|int $id
-     * @return JsonResponse
-     *
      */
     public function destroy(string|int $id): JsonResponse
     {
@@ -184,7 +169,7 @@ class ServiceStatController extends Controller
                 throw (new DeleteOperationException())->setModel(config('fintech.business.service_stat_model'), $id);
             }
 
-            return $this->deleted(__('core::messages.resource.deleted', ['model' => 'Service State']));
+            return $this->deleted(__('core::messages.resource.deleted', ['model' => 'Service Stat']));
 
         } catch (ModelNotFoundException $exception) {
 
@@ -202,8 +187,6 @@ class ServiceStatController extends Controller
      * ** ```Soft Delete``` needs to enabled to use this feature**
      *
      * @lrd:end
-     * @param string|int $id
-     * @return JsonResponse
      */
     public function restore(string|int $id): JsonResponse
     {
@@ -220,7 +203,7 @@ class ServiceStatController extends Controller
                 throw (new RestoreOperationException())->setModel(config('fintech.business.service_stat_model'), $id);
             }
 
-            return $this->restored(__('core::messages.resource.restored', ['model' => 'Service State']));
+            return $this->restored(__('core::messages.resource.restored', ['model' => 'Service Stat']));
 
         } catch (ModelNotFoundException $exception) {
 
@@ -238,8 +221,6 @@ class ServiceStatController extends Controller
      * After export job is done system will fire  export completed event
      *
      * @lrd:end
-     * @param IndexServiceStatRequest $request
-     * @return JsonResponse
      */
     public function export(IndexServiceStatRequest $request): JsonResponse
     {
@@ -249,7 +230,7 @@ class ServiceStatController extends Controller
             //$serviceStatPaginate = Business::serviceStat()->export($inputs);
             Business::serviceStat()->export($inputs);
 
-            return $this->exported(__('core::messages.resource.exported', ['model' => 'Service State']));
+            return $this->exported(__('core::messages.resource.exported', ['model' => 'Service Stat']));
 
         } catch (Exception $exception) {
 
@@ -263,9 +244,6 @@ class ServiceStatController extends Controller
      * After export job is done system will fire  export completed event
      *
      * @lrd:end
-     *
-     * @param ImportServiceStatRequest $request
-     * @return ServiceStatCollection|JsonResponse
      */
     public function import(ImportServiceStatRequest $request): JsonResponse|ServiceStatCollection
     {
@@ -282,10 +260,6 @@ class ServiceStatController extends Controller
         }
     }
 
-    /**
-     * @param Request $request
-     * @return CountryCollection|JsonResponse
-     */
     public function serviceStatWiseCountry(Request $request): CountryCollection|JsonResponse
     {
         try {
