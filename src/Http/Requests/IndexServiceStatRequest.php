@@ -35,8 +35,8 @@ class IndexServiceStatRequest extends FormRequest
             'trashed' => ['boolean', 'nullable'],
             'role_id' => ['integer', 'nullable'],
             'service_id' => ['integer', 'nullable'],
-            'present_country_id' => ['integer', 'nullable'],
-            'permanent_country_id' => ['integer', 'nullable'],
+            'source_country_id' => ['integer', 'nullable'],
+            'destination_country_id' => ['integer', 'nullable'],
             'service_vendor_id' => ['integer', 'nullable'],
         ];
     }
