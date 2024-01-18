@@ -29,7 +29,7 @@ class ServiceField extends Model
 
     protected $casts = ['options' => 'array', 'service_field_data' => 'array', 'restored_at' => 'datetime', 'enabled' => 'bool'];
 
-    protected $hidden = ['creator_id', 'editor_id', 'destroyer_id', 'restorer_id'];
+    protected $hidden = ['creator_id', 'editor_id', 'destroyer_id', 'restorer_id', 'service'];
 
     /*
     |--------------------------------------------------------------------------
