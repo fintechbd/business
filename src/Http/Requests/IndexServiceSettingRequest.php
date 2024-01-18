@@ -38,8 +38,6 @@ class IndexServiceSettingRequest extends FormRequest
 
     /**
      * Get the validation attributes that apply to the request.
-     *
-     * @return array
      */
     public function attributes(): array
     {
@@ -50,8 +48,6 @@ class IndexServiceSettingRequest extends FormRequest
 
     /**
      * Get the validation messages that apply to the request.
-     *
-     * @return array
      */
     public function messages(): array
     {

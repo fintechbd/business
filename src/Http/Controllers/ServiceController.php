@@ -3,6 +3,7 @@
 namespace Fintech\Business\Http\Controllers;
 
 use Exception;
+use Fintech\Auth\Facades\Auth;
 use Fintech\Business\Facades\Business;
 use Fintech\Business\Http\Requests\ImportServiceRequest;
 use Fintech\Business\Http\Requests\IndexServiceRequest;
@@ -62,8 +63,6 @@ class ServiceController extends Controller
      * Create a new *Service* resource in storage.
      *
      * @lrd:end
-     *
-     * @throws StoreOperationException
      */
     public function store(StoreServiceRequest $request): JsonResponse
     {
@@ -78,7 +77,7 @@ class ServiceController extends Controller
 
             return $this->created([
                 'message' => __('core::messages.resource.created', ['model' => 'Service']),
-                'id' => $service->id,
+                'id' => $service->getKey(),
             ]);
 
         } catch (Exception $exception) {
@@ -92,8 +91,6 @@ class ServiceController extends Controller
      * Return a specified *Service* resource found by id.
      *
      * @lrd:end
-     *
-     * @throws ModelNotFoundException
      */
     public function show(string|int $id): ServiceResource|JsonResponse
     {
@@ -122,9 +119,6 @@ class ServiceController extends Controller
      * Update a specified *Service* resource using id.
      *
      * @lrd:end
-     *
-     * @throws ModelNotFoundException
-     * @throws UpdateOperationException
      */
     public function update(UpdateServiceRequest $request, string|int $id): JsonResponse
     {
@@ -160,13 +154,8 @@ class ServiceController extends Controller
      * Soft delete a specified *Service* resource using id.
      *
      * @lrd:end
-     *
-     * @return JsonResponse
-     *
-     * @throws ModelNotFoundException
-     * @throws DeleteOperationException
      */
-    public function destroy(string|int $id)
+    public function destroy(string|int $id): JsonResponse
     {
         try {
 
@@ -199,10 +188,8 @@ class ServiceController extends Controller
      * ** ```Soft Delete``` needs to enabled to use this feature**
      *
      * @lrd:end
-     *
-     * @return JsonResponse
      */
-    public function restore(string|int $id)
+    public function restore(string|int $id): JsonResponse
     {
         try {
 
@@ -231,7 +218,7 @@ class ServiceController extends Controller
 
     /**
      * @lrd:start
-     * Create a exportable list of the *Service* resource as document.
+     * Create an exportable list of the *Service* resource as document.
      * After export job is done system will fire  export completed event
      *
      * @lrd:end
@@ -241,7 +228,8 @@ class ServiceController extends Controller
         try {
             $inputs = $request->validated();
 
-            $servicePaginate = Business::service()->export($inputs);
+            //$servicePaginate = Business::service()->export($inputs);
+            Business::service()->export($inputs);
 
             return $this->exported(__('core::messages.resource.exported', ['model' => 'Service']));
 
@@ -253,14 +241,12 @@ class ServiceController extends Controller
 
     /**
      * @lrd:start
-     * Create a exportable list of the *Service* resource as document.
+     * Create an exportable list of the *Service* resource as document.
      * After export job is done system will fire  export completed event
      *
      * @lrd:end
-     *
-     * @return ServiceCollection|JsonResponse
      */
-    public function import(ImportServiceRequest $request): JsonResponse
+    public function import(ImportServiceRequest $request): ServiceCollection|JsonResponse
     {
         try {
             $inputs = $request->validated();
@@ -281,13 +267,15 @@ class ServiceController extends Controller
 
         try {
 
-            $inputs['user_id'] = $request->input('user_id', auth()->user()->getKey());
-
-            if ($user = \Fintech\Auth\Facades\Auth::user()->find($inputs['user_id'])) {
-                $inputs['role_id'] = $user->roles->first()?->getKey() ?? null;
+            if (isset($inputs['user_id']) && $inputs['user_id'] > 0) {
+                $inputs['user_id'] = $request->input('user_id');
+            } else {
+                $inputs['user_id'] = auth()->user()->getKey();
             }
 
-            $inputs['user_id'] = $request->input('user_id', auth()->user()->getKey());
+            if ($user = Auth::user()->find($inputs['user_id'])) {
+                $inputs['role_id'] = $user->roles->first()?->getKey() ?? null;
+            }
 
             $exchangeRate = Business::serviceStat()->cost($inputs);
 

@@ -2,6 +2,7 @@
 
 namespace Fintech\Business\Http\Resources;
 
+use Fintech\Core\Facades\Core;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -34,6 +35,8 @@ class ServiceStatResource extends JsonResource
             'id' => $this->getKey() ?? null,
             'service_vendor_id' => $this->service_vendor_id ?? null,
             'service_vendor_name' => isset($this->serviceVendor) ? $this->serviceVendor->service_vendor_name : null,
+            'role_id' => $this->role_id ?? null,
+            'role_name' => null,
             'service_id' => $this->service_id ?? null,
             'service_name' => $this->service->service_name ?? null,
             'service_slug' => $this->service_slug ?? null,
@@ -47,6 +50,10 @@ class ServiceStatResource extends JsonResource
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
         ];
+
+        if (Core::packageExists('Auth')) {
+            $data['role_name'] = $this->role->name ?? null;
+        }
 
         return $data;
     }

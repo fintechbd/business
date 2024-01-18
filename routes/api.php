@@ -60,4 +60,8 @@ if (Config::get('fintech.business.enabled')) {
 
             //DO NOT REMOVE THIS LINE//
         });
+
+    Route::prefix('dropdown')->name('business.')->group(function () {
+        Route::get('currency-convert-rate', \Fintech\Business\Http\Controllers\CurrencyRateCalculateController::class)->name('currency-convert-rate');
+    });
 }
