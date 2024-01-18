@@ -2,12 +2,12 @@
 
 namespace Fintech\Business\Http\Controllers;
 
-use App\Http\Controllers\Controller;
 use Exception;
 use Fintech\Business\Facades\Business;
 use Fintech\Business\Http\Requests\ServiceCurrencyRateRequest;
 use Fintech\Business\Http\Resources\ServiceCostResource;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Routing\Controller;
 
 class CurrencyRateCalculateController extends Controller
 {
