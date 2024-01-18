@@ -7,7 +7,6 @@ use Illuminate\Foundation\Http\FormRequest;
 
 class UpdateServiceFieldRequest extends FormRequest
 {
-
     /**
      * Determine if the user is authorized to make this request.
      */
@@ -38,13 +37,13 @@ class UpdateServiceFieldRequest extends FormRequest
             'service_field_data' => ['array', 'nullable'],
             'service_field_data.wrapper' => ['array', 'nullable'],
             'service_field_data.class' => ['string', 'nullable'],
-            'service_field_data.style' => ['string', 'nullable']
+            'service_field_data.style' => ['string', 'nullable'],
         ];
 
         Business::serviceSetting()->list([
             'paginate' => false,
-            'service_setting_type' => 'service_field'
-        ])->each(function ($serviceSetting) use (&$rules){
+            'service_setting_type' => 'service_field',
+        ])->each(function ($serviceSetting) use (&$rules) {
             $validation = $serviceSetting->service_setting_rule ?? 'string|nullable';
             $rules["service_field_data.{$serviceSetting->service_setting_field_name}"] = explode('|', $validation);
         });

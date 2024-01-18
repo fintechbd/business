@@ -2,26 +2,22 @@
 
 namespace Fintech\Business\Services;
 
-
 use Fintech\Business\Interfaces\ServiceFieldRepository;
 
 /**
  * Class ServiceFieldService
- * @package Fintech\Business\Services
- *
  */
 class ServiceFieldService
 {
     /**
      * ServiceFieldService constructor.
-     * @param ServiceFieldRepository $serviceFieldRepository
      */
-    public function __construct(ServiceFieldRepository $serviceFieldRepository) {
+    public function __construct(ServiceFieldRepository $serviceFieldRepository)
+    {
         $this->serviceFieldRepository = $serviceFieldRepository;
     }
 
     /**
-     * @param array $filters
      * @return mixed
      */
     public function list(array $filters = [])

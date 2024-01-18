@@ -2,8 +2,8 @@
 
 namespace Fintech\Business\Seeders;
 
-use Illuminate\Database\Seeder;
 use Fintech\Business\Facades\Business;
+use Illuminate\Database\Seeder;
 
 class ServiceFieldSeeder extends Seeder
 {
@@ -24,6 +24,6 @@ class ServiceFieldSeeder extends Seeder
 
     private function data()
     {
-        return array();
+        return [];
     }
 }
