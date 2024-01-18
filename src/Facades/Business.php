@@ -14,7 +14,8 @@ use Illuminate\Support\Facades\Facade;
  * @method static \Fintech\Business\Services\PackageTopChartService PackageTopChart()
  * @method static \Fintech\Business\Services\ServiceService service()
  * @method static \Fintech\Business\Services\CurrencyRateService currencyRate()
- * // Crud Service Method Point Do not Remove //
+ * @method static \Fintech\Business\Services\ServiceFieldService serviceField()
+ *                                                                              // Crud Service Method Point Do not Remove //
  *
  * @see \Fintech\Business\Business
  */

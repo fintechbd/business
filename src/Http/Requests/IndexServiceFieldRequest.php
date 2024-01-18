@@ -2,13 +2,11 @@
 
 namespace Fintech\Business\Http\Requests;
 
-use Fintech\Core\Traits\HasPaginateQuery;
-use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 
-class IndexServiceRequest extends FormRequest
+class IndexServiceFieldRequest extends FormRequest
 {
-    use HasPaginateQuery;
+    use \Fintech\Core\Traits\HasPaginateQuery;
 
     /**
      * Determine if the user is authorized to make this request.
@@ -21,7 +19,7 @@ class IndexServiceRequest extends FormRequest
     /**
      * Get the validation rules that apply to the request.
      *
-     * @return array<string, ValidationRule|array|string>
+     * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array|string>
      */
     public function rules(): array
     {
@@ -33,16 +31,15 @@ class IndexServiceRequest extends FormRequest
             'sort' => ['string', 'nullable', 'min:2', 'max:255'],
             'dir' => ['string', 'min:3', 'max:4'],
             'trashed' => ['boolean', 'nullable'],
-            'service_type_id' => ['integer', 'nullable'],
-            'service_vendor_id' => ['integer', 'nullable'],
-            'service_name' => ['string', 'nullable'],
         ];
     }
 
     /**
      * Get the validation attributes that apply to the request.
+     *
+     * @return array
      */
-    public function attributes(): array
+    public function attributes()
     {
         return [
             //
@@ -51,8 +48,10 @@ class IndexServiceRequest extends FormRequest
 
     /**
      * Get the validation messages that apply to the request.
+     *
+     * @return array
      */
-    public function messages(): array
+    public function messages()
     {
         return [
             //

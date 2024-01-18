@@ -16,7 +16,20 @@ class ServiceVendorCollection extends ResourceCollection
      */
     public function toArray($request)
     {
-        return parent::toArray($request);
+        return $this->collection->map(function ($vendor) {
+            return [
+                'id' => $vendor->getKey() ?? null,
+                'service_vendor_name' => $vendor->service_vendor_name ?? null,
+                'service_vendor_slug' => $vendor->service_vendor_slug ?? null,
+                'service_vendor_data' => $vendor->service_vendor_data ?? null,
+                'service_vendor_logo_svg' => $vendor->getFirstMediaUrl('logo_svg') ?? null,
+                'service_vendor_logo_png' => $vendor->getFirstMediaUrl('logo_png') ?? null,
+                'enabled' => $vendor->enabled ?? null,
+                'links' => $vendor->links,
+                'created_at' => $vendor->created_at,
+                'updated_at' => $vendor->updated_at,
+            ];
+        })->toArray();
     }
 
     /**

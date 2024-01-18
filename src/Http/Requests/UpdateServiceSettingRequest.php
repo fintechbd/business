@@ -3,6 +3,7 @@
 namespace Fintech\Business\Http\Requests;
 
 use Fintech\Business\Models\ServiceSetting;
+use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 
 class UpdateServiceSettingRequest extends FormRequest
@@ -18,7 +19,7 @@ class UpdateServiceSettingRequest extends FormRequest
     /**
      * Get the validation rules that apply to the request.
      *
-     * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array|string>
+     * @return array<string, ValidationRule|array|string>
      */
     public function rules(): array
     {
@@ -32,16 +33,15 @@ class UpdateServiceSettingRequest extends FormRequest
             'service_setting_field_name' => ['string', 'required', $uniqueRule],
             'service_setting_type_field' => ['string', 'required'],
             'service_setting_feature' => ['string', 'required', 'max:255'],
+            'service_setting_rule' => ['string', 'nullable'],
             'enabled' => ['boolean', 'nullable', 'min:1'],
         ];
     }
 
     /**
      * Get the validation attributes that apply to the request.
-     *
-     * @return array
      */
-    public function attributes()
+    public function attributes(): array
     {
         return [
             //
@@ -51,10 +51,8 @@ class UpdateServiceSettingRequest extends FormRequest
 
     /**
      * Get the validation messages that apply to the request.
-     *
-     * @return array
      */
-    public function messages()
+    public function messages(): array
     {
         return [
             //

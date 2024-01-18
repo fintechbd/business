@@ -75,7 +75,7 @@ class ServiceStatController extends Controller
             }
 
             return $this->created([
-                'message' => __('core::messages.resource.created', ['model' => 'Service State']),
+                'message' => __('core::messages.resource.created', ['model' => 'Service Stat']),
                 'id' => $serviceStat,
             ]);
 
@@ -90,8 +90,6 @@ class ServiceStatController extends Controller
      * Return a specified *ServiceStat* resource found by id.
      *
      * @lrd:end
-     *
-     * @throws ModelNotFoundException
      */
     public function show(string|int $id): ServiceStatResource|JsonResponse
     {
@@ -120,8 +118,6 @@ class ServiceStatController extends Controller
      * Update a specified *ServiceStat* resource using id.
      *
      * @lrd:end
-     *
-     * @throws ModelNotFoundException
      */
     public function update(UpdateServiceStatRequest $request, string|int $id): JsonResponse
     {
@@ -140,7 +136,7 @@ class ServiceStatController extends Controller
                 throw (new UpdateOperationException)->setModel(config('fintech.business.service_stat_model'), $id);
             }
 
-            return $this->updated(__('core::messages.resource.updated', ['model' => 'Service State']));
+            return $this->updated(__('core::messages.resource.updated', ['model' => 'Service Stat']));
 
         } catch (ModelNotFoundException $exception) {
 
@@ -157,13 +153,8 @@ class ServiceStatController extends Controller
      * Soft delete a specified *ServiceStat* resource using id.
      *
      * @lrd:end
-     *
-     * @return JsonResponse
-     *
-     * @throws ModelNotFoundException
-     * @throws DeleteOperationException
      */
-    public function destroy(string|int $id)
+    public function destroy(string|int $id): JsonResponse
     {
         try {
 
@@ -178,7 +169,7 @@ class ServiceStatController extends Controller
                 throw (new DeleteOperationException())->setModel(config('fintech.business.service_stat_model'), $id);
             }
 
-            return $this->deleted(__('core::messages.resource.deleted', ['model' => 'Service State']));
+            return $this->deleted(__('core::messages.resource.deleted', ['model' => 'Service Stat']));
 
         } catch (ModelNotFoundException $exception) {
 
@@ -212,7 +203,7 @@ class ServiceStatController extends Controller
                 throw (new RestoreOperationException())->setModel(config('fintech.business.service_stat_model'), $id);
             }
 
-            return $this->restored(__('core::messages.resource.restored', ['model' => 'Service State']));
+            return $this->restored(__('core::messages.resource.restored', ['model' => 'Service Stat']));
 
         } catch (ModelNotFoundException $exception) {
 
@@ -226,7 +217,7 @@ class ServiceStatController extends Controller
 
     /**
      * @lrd:start
-     * Create a exportable list of the *ServiceStat* resource as document.
+     * Create an exportable list of the *ServiceStat* resource as document.
      * After export job is done system will fire  export completed event
      *
      * @lrd:end
@@ -236,9 +227,10 @@ class ServiceStatController extends Controller
         try {
             $inputs = $request->validated();
 
-            $serviceStatPaginate = Business::serviceStat()->export($inputs);
+            //$serviceStatPaginate = Business::serviceStat()->export($inputs);
+            Business::serviceStat()->export($inputs);
 
-            return $this->exported(__('core::messages.resource.exported', ['model' => 'Service State']));
+            return $this->exported(__('core::messages.resource.exported', ['model' => 'Service Stat']));
 
         } catch (Exception $exception) {
 
@@ -248,14 +240,12 @@ class ServiceStatController extends Controller
 
     /**
      * @lrd:start
-     * Create a exportable list of the *ServiceStat* resource as document.
+     * Create an exportable list of the *ServiceStat* resource as document.
      * After export job is done system will fire  export completed event
      *
      * @lrd:end
-     *
-     * @return ServiceStatCollection|JsonResponse
      */
-    public function import(ImportServiceStatRequest $request): JsonResponse
+    public function import(ImportServiceStatRequest $request): JsonResponse|ServiceStatCollection
     {
         try {
             $inputs = $request->validated();

@@ -2,7 +2,9 @@
 
 namespace Fintech\Business\Http\Requests;
 
+use Fintech\Business\Facades\Business;
 use Fintech\Business\Models\Service;
+use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 
 class UpdateServiceRequest extends FormRequest
@@ -18,7 +20,7 @@ class UpdateServiceRequest extends FormRequest
     /**
      * Get the validation rules that apply to the request.
      *
-     * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array|string>
+     * @return array<string, ValidationRule|array|string>
      */
     public function rules(): array
     {
@@ -26,7 +28,7 @@ class UpdateServiceRequest extends FormRequest
         $service_id = (int) collect(request()->segments())->last(); //id of the resource
         $uniqueRule = 'unique:'.config('fintech.business.service_model', Service::class).',service_slug,'.$service_id.',id,service_type_id,'.$this->input('service_type_id').',service_vendor_id,'.$this->input('service_vendor_id').',deleted_at,NULL';
 
-        return [
+        $rules = [
             'service_type_id' => ['integer', 'required'],
             'service_vendor_id' => ['integer', 'required'],
             'service_name' => ['string', 'required', 'max:255'],
@@ -37,25 +39,25 @@ class UpdateServiceRequest extends FormRequest
             'service_serial' => ['integer', 'required'],
             'logo_svg' => ['string', 'nullable'],
             'logo_png' => ['string', 'nullable'],
-            'service_data' => ['array', 'required'],
-            'service_data.visible_website' => ['string', 'nullable'],
-            'service_data.visible_android_app' => ['string', 'nullable'],
-            'service_data.visible_ios_app' => ['string', 'nullable'],
-            'service_data.account_name' => ['string', 'nullable'],
-            'service_data.account_number' => ['string', 'nullable'],
-            'service_data.transactional_currency' => ['string', 'nullable'],
-            'service_data.beneficiary_type_id' => ['integer', 'nullable'],
-            'service_data.operator_short_code' => ['string', 'nullable'],
+            'service_data' => ['array', 'nullable'],
             'enabled' => ['boolean', 'nullable', 'min:1'],
         ];
+
+        Business::serviceSetting()->list([
+            'paginate' => false,
+            'service_setting_type' => 'service',
+        ])->each(function ($serviceSetting) use (&$rules) {
+            $validation = $serviceSetting->service_setting_rule ?? 'string|nullable';
+            $rules["service_data.{$serviceSetting->service_setting_field_name}"] = explode('|', $validation);
+        });
+
+        return $rules;
     }
 
     /**
      * Get the validation attributes that apply to the request.
-     *
-     * @return array
      */
-    public function attributes()
+    public function attributes(): array
     {
         return [
             //
@@ -64,10 +66,8 @@ class UpdateServiceRequest extends FormRequest
 
     /**
      * Get the validation messages that apply to the request.
-     *
-     * @return array
      */
-    public function messages()
+    public function messages(): array
     {
         return [
             //

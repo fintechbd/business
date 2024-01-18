@@ -22,7 +22,10 @@ class ServiceSeeder extends Seeder
         }
     }
 
-    private function data()
+    /**
+     * @return array[]
+     */
+    private function data(): array
     {
         return [
             ['id' => 1, 'service_type_id' => 3, 'service_vendor_id' => 1, 'service_name' => 'May Bank', 'service_slug' => 'may_bank', 'logo_svg' => null, 'logo_png' => null, 'service_notification' => 'yes', 'service_delay' => 'yes', 'service_stat_policy' => 'yes', 'service_serial' => 1, 'service_data' => ['visible_website' => 'yes', 'visible_android_app' => 'yes', 'visible_ios_app' => 'yes', 'account_name' => null, 'account_number' => null, 'transactional_currency' => 'BDT', 'beneficiary_type_id' => null, 'operator_short_code' => null], 'enabled' => true],

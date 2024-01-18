@@ -2,8 +2,7 @@
 
 namespace Fintech\Business\Repositories\Eloquent;
 
-use Fintech\Business\Interfaces\ServiceRepository as InterfacesServiceRepository;
-use Fintech\Business\Models\Service;
+use Fintech\Business\Interfaces\ServiceFieldRepository as InterfacesServiceFieldRepository;
 use Fintech\Core\Repositories\EloquentRepository;
 use Illuminate\Contracts\Pagination\Paginator;
 use Illuminate\Database\Eloquent\Collection;
@@ -11,13 +10,13 @@ use Illuminate\Database\Eloquent\Model;
 use InvalidArgumentException;
 
 /**
- * Class ServiceRepository
+ * Class ServiceFieldRepository
  */
-class ServiceRepository extends EloquentRepository implements InterfacesServiceRepository
+class ServiceFieldRepository extends EloquentRepository implements InterfacesServiceFieldRepository
 {
     public function __construct()
     {
-        $model = app(config('fintech.business.service_model', Service::class));
+        $model = app(config('fintech.business.service_field_model', \Fintech\Business\Models\ServiceField::class));
 
         if (! $model instanceof Model) {
             throw new InvalidArgumentException("Eloquent repository require model class to be `Illuminate\Database\Eloquent\Model` instance.");
@@ -29,33 +28,25 @@ class ServiceRepository extends EloquentRepository implements InterfacesServiceR
     /**
      * return a list or pagination of items from
      * filtered options
+     *
+     * @return Paginator|Collection
      */
-    public function list(array $filters = []): Paginator|Collection
+    public function list(array $filters = [])
     {
         $query = $this->model->newQuery();
-        $modelTable = $this->model->getTable();
+
         //Searching
-        if (isset($filters['search']) && ! empty($filters['search'])) {
+        if (! empty($filters['search'])) {
             if (is_numeric($filters['search'])) {
                 $query->where($this->model->getKeyName(), 'like', "%{$filters['search']}%");
             } else {
-                $query->where($modelTable.'.service_name', 'like', "%{$filters['search']}%");
+                $query->where('name', 'like', "%{$filters['search']}%");
+                $query->orWhere('service_field_data', 'like', "%{$filters['search']}%");
             }
         }
 
-        if (isset($filters['service_id']) && $filters['service_id']) {
-            $query->where($modelTable.'.id', '=', $filters['service_id']);
-        }
-
-        if (isset($filters['service_slug']) && $filters['service_slug']) {
-            $query->where($modelTable.'.service_slug', '=', $filters['service_slug']);
-        }
-
-        if (isset($filters['service_delay']) && $filters['service_delay']) {
-            $query->where($modelTable.'.service_delay', '=', $filters['service_delay']);
-        }
         //Display Trashed
-        if (isset($filters['trashed']) && ! empty($filters['trashed'])) {
+        if (isset($filters['trashed']) && $filters['trashed'] === true) {
             $query->onlyTrashed();
         }
 

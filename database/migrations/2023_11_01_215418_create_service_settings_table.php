@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('service_setting_field_name')->nullable();
             $table->string('service_setting_type_field')->nullable();
             $table->string('service_setting_feature')->nullable();
+            $table->text('service_setting_rule')->nullable();
             $table->boolean('enabled')->nullable();
             $table->foreignId('creator_id')->nullable();
             $table->foreignId('editor_id')->nullable();

@@ -58,6 +58,13 @@ if (Config::get('fintech.business.enabled')) {
                 Route::get('serving-countries', \Fintech\Business\Http\Controllers\ServingCountryController::class)->name('services.serving-countries');
             }
 
+            Route::apiResource('service-fields', \Fintech\Business\Http\Controllers\ServiceFieldController::class);
+            Route::post('service-fields/{service_field}/restore', [\Fintech\Business\Http\Controllers\ServiceFieldController::class, 'restore'])->name('service-fields.restore');
+
             //DO NOT REMOVE THIS LINE//
         });
+
+    Route::prefix('dropdown')->name('business.')->group(function () {
+        Route::get('currency-convert-rate', \Fintech\Business\Http\Controllers\CurrencyRateCalculateController::class)->name('currency-convert-rate');
+    });
 }
