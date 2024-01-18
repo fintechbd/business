@@ -11,11 +11,8 @@ use Illuminate\Http\JsonResponse;
 
 class CurrencyRateCalculateController extends Controller
 {
-
     /**
      * @lrd:start
-     * @param ServiceCurrencyRateRequest $request
-     * @return JsonResponse|ServiceCostResource
      */
     public function __invoke(ServiceCurrencyRateRequest $request): JsonResponse|ServiceCostResource
     {
