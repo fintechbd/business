@@ -21,6 +21,7 @@ class ServiceSettingCollection extends ResourceCollection
                 'service_setting_field_name' => $serviceSetting->service_setting_field_name ?? null,
                 'service_setting_type_field' => $serviceSetting->service_setting_type_field ?? null,
                 'service_setting_feature' => $serviceSetting->service_setting_feature ?? null,
+                'service_setting_rule' => $serviceSetting->service_setting_rule ?? null,
                 'enabled' => $serviceSetting->enabled ?? null,
                 'links' => $serviceSetting->links,
                 'created_at' => $serviceSetting->created_at,
