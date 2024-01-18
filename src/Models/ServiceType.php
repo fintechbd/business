@@ -101,7 +101,7 @@ class ServiceType extends Model implements HasMedia
             if (isset($parentList['all_parent_accounts'])) {
                 $data = array_merge($data, $this->all_accounts($parentList['all_parent_accounts']));
             }
-            sort($data);
+            //sort($data);
         }
 
         return $data;
