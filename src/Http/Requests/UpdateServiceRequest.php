@@ -28,7 +28,7 @@ class UpdateServiceRequest extends FormRequest
         $service_id = (int) collect(request()->segments())->last(); //id of the resource
         $uniqueRule = 'unique:'.config('fintech.business.service_model', Service::class).',service_slug,'.$service_id.',id,service_type_id,'.$this->input('service_type_id').',service_vendor_id,'.$this->input('service_vendor_id').',deleted_at,NULL';
 
-        $rules =  [
+        $rules = [
             'service_type_id' => ['integer', 'required'],
             'service_vendor_id' => ['integer', 'required'],
             'service_name' => ['string', 'required', 'max:255'],
@@ -45,8 +45,8 @@ class UpdateServiceRequest extends FormRequest
 
         Business::serviceSetting()->list([
             'paginate' => false,
-            'service_setting_type' => 'service'
-        ])->each(function ($serviceSetting) use (&$rules){
+            'service_setting_type' => 'service',
+        ])->each(function ($serviceSetting) use (&$rules) {
             $validation = $serviceSetting->service_setting_rule ?? 'string|nullable';
             $rules["service_data.{$serviceSetting->service_setting_field_name}"] = explode('|', $validation);
         });
