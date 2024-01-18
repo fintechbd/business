@@ -47,6 +47,7 @@ class ServiceSettingSeeder extends Seeder
             ['id' => '17', 'service_setting_type' => 'service', 'service_setting_name' => 'Beneficiary Type ID', 'service_setting_field_name' => 'beneficiary_type_id', 'service_setting_type_field' => 'select', 'service_setting_feature' => 'Beneficiary Type ID', 'enabled' => true],
             ['id' => '18', 'service_setting_type' => 'service', 'service_setting_name' => 'Operator Short Code', 'service_setting_field_name' => 'operator_short_code', 'service_setting_type_field' => 'text', 'service_setting_feature' => 'Operator Short Code', 'enabled' => true],
             ['id' => '19', 'service_setting_type' => 'service', 'service_setting_name' => 'Service Feature List', 'service_setting_field_name' => 'service_feature_list', 'service_setting_type_field' => 'textarea', 'service_setting_feature' => 'Service Feature List', 'enabled' => true],
+            ['id' => '20', 'service_setting_type' => 'service', 'service_setting_name' => 'Amount Range', 'service_setting_field_name' => 'amount_range', 'service_setting_type_field' => 'text', 'service_setting_feature' => 'Amount Range', 'enabled' => true],
         ];
     }
 }

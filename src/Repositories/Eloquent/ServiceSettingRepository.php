@@ -43,6 +43,31 @@ class ServiceSettingRepository extends EloquentRepository implements InterfacesS
             }
         }
 
+        if (!empty($filters['service_setting_type'])) {
+            $query->where('service_setting_type', '=', $filters['service_setting_type']);
+        }
+
+        if (!empty($filters['service_setting_name'])) {
+            $query->where('service_setting_name', '=', $filters['service_setting_name']);
+        }
+
+        if (!empty($filters['service_setting_field_name'])) {
+            $query->where('service_setting_field_name', '=', $filters['service_setting_field_name']);
+        }
+
+        if (!empty($filters['service_setting_type_field'])) {
+            $query->where('service_setting_type_field', '=', $filters['service_setting_type_field']);
+        }
+
+        if (!empty($filters['service_setting_feature'])) {
+            $query->where('service_setting_feature', '=', $filters['service_setting_feature']);
+        }
+
+        if (isset($filters['enabled']) && is_bool($filters['enabled'])) {
+            $query->where('enabled', '=', $filters['enabled']);
+        }
+
+
         //Display Trashed
         if (isset($filters['trashed']) && ! empty($filters['trashed'])) {
             $query->onlyTrashed();
