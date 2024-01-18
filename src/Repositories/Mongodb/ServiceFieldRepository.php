@@ -2,28 +2,27 @@
 
 namespace Fintech\Business\Repositories\Mongodb;
 
-use Fintech\Core\Repositories\MongodbRepository;
 use Fintech\Business\Interfaces\ServiceFieldRepository as InterfacesServiceFieldRepository;
+use Fintech\Core\Repositories\MongodbRepository;
 use Illuminate\Contracts\Pagination\Paginator;
 use Illuminate\Database\Eloquent\Collection;
-use MongoDB\Laravel\Eloquent\Model;
 use InvalidArgumentException;
+use MongoDB\Laravel\Eloquent\Model;
 
 /**
  * Class ServiceFieldRepository
- * @package Fintech\Business\Repositories\Mongodb
  */
 class ServiceFieldRepository extends MongodbRepository implements InterfacesServiceFieldRepository
 {
     public function __construct()
     {
-       $model = app(config('fintech.business.service_field_model', \Fintech\Business\Models\ServiceField::class));
+        $model = app(config('fintech.business.service_field_model', \Fintech\Business\Models\ServiceField::class));
 
-       if (!$model instanceof Model) {
-           throw new InvalidArgumentException("Mongodb repository require model class to be `MongoDB\Laravel\Eloquent\Model` instance.");
-       }
+        if (! $model instanceof Model) {
+            throw new InvalidArgumentException("Mongodb repository require model class to be `MongoDB\Laravel\Eloquent\Model` instance.");
+        }
 
-       $this->model = $model;
+        $this->model = $model;
     }
 
     /**

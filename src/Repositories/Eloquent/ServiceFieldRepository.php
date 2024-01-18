@@ -2,8 +2,8 @@
 
 namespace Fintech\Business\Repositories\Eloquent;
 
-use Fintech\Core\Repositories\EloquentRepository;
 use Fintech\Business\Interfaces\ServiceFieldRepository as InterfacesServiceFieldRepository;
+use Fintech\Core\Repositories\EloquentRepository;
 use Illuminate\Contracts\Pagination\Paginator;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
@@ -11,19 +11,18 @@ use InvalidArgumentException;
 
 /**
  * Class ServiceFieldRepository
- * @package Fintech\Business\Repositories\Eloquent
  */
 class ServiceFieldRepository extends EloquentRepository implements InterfacesServiceFieldRepository
 {
     public function __construct()
     {
-       $model = app(config('fintech.business.service_field_model', \Fintech\Business\Models\ServiceField::class));
+        $model = app(config('fintech.business.service_field_model', \Fintech\Business\Models\ServiceField::class));
 
-       if (!$model instanceof Model) {
-           throw new InvalidArgumentException("Eloquent repository require model class to be `Illuminate\Database\Eloquent\Model` instance.");
-       }
+        if (! $model instanceof Model) {
+            throw new InvalidArgumentException("Eloquent repository require model class to be `Illuminate\Database\Eloquent\Model` instance.");
+        }
 
-       $this->model = $model;
+        $this->model = $model;
     }
 
     /**

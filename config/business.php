@@ -114,7 +114,6 @@ return [
     */
     'currency_rate_model' => \Fintech\Business\Models\CurrencyRate::class,
 
-    
     /*
     |--------------------------------------------------------------------------
     | ServiceField Model
