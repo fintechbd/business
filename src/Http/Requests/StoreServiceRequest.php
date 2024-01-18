@@ -47,6 +47,7 @@ class StoreServiceRequest extends FormRequest
             'service_data.transactional_currency' => ['string', 'nullable'],
             'service_data.beneficiary_type_id' => ['integer', 'nullable'],
             'service_data.operator_short_code' => ['string', 'nullable'],
+            'service_data.amount_range' => ['string', 'nullable'],
             'enabled' => ['boolean', 'nullable', 'min:1'],
         ];
     }
