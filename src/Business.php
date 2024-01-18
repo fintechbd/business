@@ -61,6 +61,15 @@ class Business
         return app(\Fintech\Business\Services\CurrencyRateService::class);
     }
 
+    /**
+     * @return \Fintech\Business\Services\ServiceFieldService
+     */
+    public function serviceField()
+    {
+        return app(\Fintech\Business\Services\ServiceFieldService::class);
+    }
+
     //** Crud Service Method Point Do not Remove **//
+
 
 }
