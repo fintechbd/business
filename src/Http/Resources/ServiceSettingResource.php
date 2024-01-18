@@ -12,6 +12,7 @@ use Illuminate\Http\Resources\Json\JsonResource;
  * @property string $service_setting_field_name
  * @property string $service_setting_type_field
  * @property string $service_setting_feature
+ * @property string $service_setting_rule
  * @property bool $enabled
  * @property mixed $links
  * @property mixed $created_at
@@ -33,6 +34,7 @@ class ServiceSettingResource extends JsonResource
             'service_setting_field_name' => $this->service_setting_field_name ?? null,
             'service_setting_type_field' => $this->service_setting_type_field ?? null,
             'service_setting_feature' => $this->service_setting_feature ?? null,
+            'service_setting_rule' => $this->service_setting_rule ?? null,
             'enabled' => $this->enabled ?? null,
             'links' => $this->links,
             'created_at' => $this->created_at,
