@@ -45,6 +45,10 @@ class ServiceFieldRepository extends EloquentRepository implements InterfacesSer
             }
         }
 
+        if (! empty($filters['service_id'])) {
+                $query->where('service_id', $filters['service_id']);
+        }
+
         //Display Trashed
         if (isset($filters['trashed']) && $filters['trashed'] === true) {
             $query->onlyTrashed();
