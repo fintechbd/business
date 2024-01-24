@@ -40,13 +40,13 @@ class StoreServiceFieldRequest extends FormRequest
             'service_field_data.style' => ['string', 'nullable'],
         ];
 
-        Business::serviceSetting()->list([
+        /*Business::serviceSetting()->list([
             'paginate' => false,
             'service_setting_type' => 'service_field',
         ])->each(function ($serviceSetting) use (&$rules) {
             $validation = $serviceSetting->service_setting_rule ?? 'string|nullable';
             $rules["service_field_data.{$serviceSetting->service_setting_field_name}"] = explode('|', $validation);
-        });
+        });*/
 
         return $rules;
     }
