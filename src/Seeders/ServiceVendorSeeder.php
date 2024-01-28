@@ -41,7 +41,7 @@ class ServiceVendorSeeder extends Seeder
                 'logo_svg' => 'mt-technology-ltd-logo.svg',
                 'logo_png' => 'mt-technology-ltd-logo.png',
                 'enabled' => true,
-                ],
-            ];
+            ],
+        ];
     }
 }
