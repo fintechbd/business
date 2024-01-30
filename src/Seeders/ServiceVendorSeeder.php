@@ -4,6 +4,7 @@ namespace Fintech\Business\Seeders;
 
 use Fintech\Business\Facades\Business;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Str;
 
 class ServiceVendorSeeder extends Seeder
 {
@@ -32,11 +33,13 @@ class ServiceVendorSeeder extends Seeder
 
     private function data()
     {
+        $name = config('fintech.business.default_vendor_name');
+        $slug = Str::slug($name, '_');
         return [
             [
                 'id' => '1',
-                'service_vendor_name' => 'MT TECHNOLOGIES LTD',
-                'service_vendor_slug' => 'mt_technologies_ltd',
+                'service_vendor_name' => ucwords($name),
+                'service_vendor_slug' => $slug,
                 'service_vendor_data' => [],
                 'logo_svg' => 'mt-technology-ltd-logo.svg',
                 'logo_png' => 'mt-technology-ltd-logo.png',

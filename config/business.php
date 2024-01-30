@@ -13,6 +13,14 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | System Default Vendor
+    |--------------------------------------------------------------------------
+    | this setting enable the api will be available or not
+    */
+    'default_vendor_name' => env('PACKAGE_BUSINESS_DEFAULT_VENDOR', 'Fintech Bangladesh'),
+    'default_vendor' => 1,
+    /*
+    |--------------------------------------------------------------------------
     | Business Group Root Prefix
     |--------------------------------------------------------------------------
     |
