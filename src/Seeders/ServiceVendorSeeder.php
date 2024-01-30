@@ -35,6 +35,7 @@ class ServiceVendorSeeder extends Seeder
     {
         $name = config('fintech.business.default_vendor_name');
         $slug = Str::slug($name, '_');
+
         return [
             [
                 'id' => '1',
