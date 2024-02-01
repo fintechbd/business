@@ -24,8 +24,8 @@ class ImportChargeBreakDownRequest extends FormRequest
         return [
             'service_stat_id' => ['integer', 'required'],
             'service_slug' => ['string', 'required'],
-            'charge_break_down_lower' => ['double', 'required'],
-            'charge_break_down_higher' => ['double', 'required'],
+            'charge_break_down_lower' => ['numeric', 'required'],
+            'charge_break_down_higher' => ['numeric', 'required'],
             'charge_break_down_charge' => ['string', 'required'],
             'charge_break_down_discount' => ['string', 'required'],
             'charge_break_down_commission' => ['string', 'required'],
