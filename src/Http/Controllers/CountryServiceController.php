@@ -3,8 +3,6 @@
 namespace Fintech\Business\Http\Controllers;
 
 use Exception;
-use Fintech\Business\Http\Requests\CountryServiceRequest;
-use Fintech\Business\Http\Requests\RoleServiceRequest;
 use Fintech\Business\Http\Resources\CountryServiceResource;
 use Fintech\Core\Exceptions\UpdateOperationException;
 use Fintech\Core\Traits\ApiResponseTrait;
