@@ -9,6 +9,7 @@ class RoleServiceSeeder extends Seeder
 {
     /**
      * Run the database seeds.
+     *
      * @throws UpdateOperationException
      */
     public function run(): void

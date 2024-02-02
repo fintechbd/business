@@ -2,7 +2,6 @@
 
 namespace Fintech\Business\Models;
 
-use Fintech\Core\Facades\Core;
 use Fintech\Core\Traits\AuditableTrait;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
