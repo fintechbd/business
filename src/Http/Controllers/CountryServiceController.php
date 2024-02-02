@@ -3,10 +3,12 @@
 namespace Fintech\Business\Http\Controllers;
 
 use Exception;
+use Fintech\Business\Http\Requests\CountryServiceRequest;
 use Fintech\Business\Http\Requests\RoleServiceRequest;
 use Fintech\Business\Http\Resources\CountryServiceResource;
 use Fintech\Core\Exceptions\UpdateOperationException;
 use Fintech\Core\Traits\ApiResponseTrait;
+use Fintech\MetaData\Http\Requests\CountryCurrencyRequest;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Routing\Controller;
@@ -49,7 +51,7 @@ class CountryServiceController extends Controller
      *
      * @lrd:end
      */
-    public function update(RoleServiceRequest $request, string|int $id): JsonResponse
+    public function update(CountryCurrencyRequest $request, string|int $id): JsonResponse
     {
         try {
 
