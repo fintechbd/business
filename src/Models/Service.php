@@ -2,9 +2,11 @@
 
 namespace Fintech\Business\Models;
 
+use Fintech\Core\Facades\Core;
 use Fintech\Core\Traits\AuditableTrait;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Spatie\MediaLibrary\HasMedia;
@@ -74,6 +76,23 @@ class Service extends Model implements HasMedia
     public function servicePackage(): HasMany
     {
         return $this->hasMany(ServicePackage::class, 'service_id', 'id');
+    }
+
+    public function roles(): BelongsToMany
+    {
+        return $this->belongsToMany(
+            config('fintech.auth.role_model', \Fintech\Auth\Models\Role::class),
+            'role_service'
+        )->withTimestamps();
+
+    }
+
+    public function countries(): BelongsToMany
+    {
+        return $this->belongsToMany(config('fintech.metadata.country_model', \Fintech\MetaData\Models\Country::class),
+            'country_service'
+        )->withTimestamps();
+
     }
 
     /*
