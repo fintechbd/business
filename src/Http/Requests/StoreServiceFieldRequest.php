@@ -2,7 +2,6 @@
 
 namespace Fintech\Business\Http\Requests;
 
-use Fintech\Business\Facades\Business;
 use Illuminate\Foundation\Http\FormRequest;
 
 class StoreServiceFieldRequest extends FormRequest
