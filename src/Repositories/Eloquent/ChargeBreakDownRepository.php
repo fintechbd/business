@@ -49,6 +49,10 @@ class ChargeBreakDownRepository extends EloquentRepository implements Interfaces
             $query->whereBetween(DB::raw($filters['amount']), [DB::raw(get_table('business.charge_break_down').'.charge_break_down_lower'), DB::raw(get_table('business.charge_break_down').'.charge_break_down_higher')]);
         }
 
+        if (isset($filters['service_stat_id']) && ! empty($filters['service_stat_id'])) {
+            $query->where('service_stat_id', $filters['service_stat_id']);
+        }
+
         if (isset($filters['enabled']) && ! empty($filters['enabled'])) {
             $query->where('enabled', $filters['enabled']);
         }
