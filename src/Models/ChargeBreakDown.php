@@ -41,7 +41,7 @@ class ChargeBreakDown extends Model
     */
     public function serviceStat(): BelongsTo
     {
-        return $this->belongsTo(config('fintech.business.service_stat_model',ServiceStat::class));
+        return $this->belongsTo(config('fintech.business.service_stat_model', ServiceStat::class));
     }
     /*
     |--------------------------------------------------------------------------

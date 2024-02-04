@@ -2,7 +2,6 @@
 
 namespace Fintech\Business\Http\Resources;
 
-use Fintech\Core\Facades\Core;
 use Fintech\Core\Supports\Constant;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\ResourceCollection;
