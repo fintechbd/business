@@ -4,6 +4,7 @@ namespace Fintech\Business\Models;
 
 use Fintech\Core\Traits\AuditableTrait;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class ChargeBreakDown extends Model
@@ -38,7 +39,10 @@ class ChargeBreakDown extends Model
     | RELATIONS
     |--------------------------------------------------------------------------
     */
-
+    public function serviceStat(): BelongsTo
+    {
+        return $this->belongsTo(config('fintech.business.service_stat_model',ServiceStat::class));
+    }
     /*
     |--------------------------------------------------------------------------
     | SCOPES
