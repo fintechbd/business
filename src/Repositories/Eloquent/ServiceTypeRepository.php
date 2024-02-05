@@ -22,7 +22,7 @@ class ServiceTypeRepository extends EloquentRepository implements InterfacesServ
     {
         $model = app(config('fintech.business.service_type_model', ServiceType::class));
 
-        if (!$model instanceof Model) {
+        if (! $model instanceof Model) {
             throw new InvalidArgumentException("Eloquent repository require model class to be `Illuminate\Database\Eloquent\Model` instance.");
         }
 
@@ -40,7 +40,7 @@ class ServiceTypeRepository extends EloquentRepository implements InterfacesServ
         $query = $this->model->newQuery();
 
         if (isset($filters['service_join_active']) && $filters['service_join_active'] == true) {
-            $query->leftJoin('services', "service_types.id", '=', 'services.service_type_id');
+            $query->leftJoin('services', 'service_types.id', '=', 'services.service_type_id');
 
             $query->leftJoin('service_vendors', 'service_vendors.id', '=', 'services.service_vendor_id');
 
@@ -59,7 +59,7 @@ class ServiceTypeRepository extends EloquentRepository implements InterfacesServ
                 $join->on('service_stats.destination_country_id', '=', 'country_service.country_id');
             });
             if (isset($filters['search']) && $filters['search']) {
-                $query->where("service_types.service_type_name", 'like', "%{$filters['search']}%");
+                $query->where('service_types.service_type_name', 'like', "%{$filters['search']}%");
                 $query->orWhere('service_vendors.service_vendor_name', 'like', "%{$filters['search']}%");
             }
 
@@ -88,7 +88,7 @@ class ServiceTypeRepository extends EloquentRepository implements InterfacesServ
             }
 
             if (isset($filters['service_type_slug']) && $filters['service_type_slug']) {
-                $query->where("service_types.service_type_slug", '=', $filters['service_type_slug']);
+                $query->where('service_types.service_type_slug', '=', $filters['service_type_slug']);
             }
 
             //SERVICE STATE DATA
@@ -170,7 +170,7 @@ class ServiceTypeRepository extends EloquentRepository implements InterfacesServ
             }
 
             if (isset($filters['service_vendor_enabled']) && $filters['service_vendor_enabled']) {
-                $query->where('service_vendors' . '.enabled', '=', $filters['service_vendor_enabled']);
+                $query->where('service_vendors'.'.enabled', '=', $filters['service_vendor_enabled']);
             }
 
             if (isset($filters['service_stat_enabled']) && $filters['service_stat_enabled']) {
@@ -179,63 +179,63 @@ class ServiceTypeRepository extends EloquentRepository implements InterfacesServ
 
             $select = [
                 'service_stats.*',
-                'service_vendors' . '.*',
+                'service_vendors'.'.*',
                 'services.*',
                 DB::raw('service_stats.id as service_stat_id')];
         }
 
         //Searching
-        if (isset($filters['search']) && !empty($filters['search'])) {
+        if (isset($filters['search']) && ! empty($filters['search'])) {
             if (is_numeric($filters['search'])) {
                 $query->where($this->model->getKeyName(), 'like', "%{$filters['search']}%");
             } else {
-                $query->where("service_types.service_type_name", 'like', "%{$filters['search']}%");
-                $query->orWhere("service_types.service_type_slug", 'like', "%{$filters['search']}%");
+                $query->where('service_types.service_type_name', 'like', "%{$filters['search']}%");
+                $query->orWhere('service_types.service_type_slug', 'like', "%{$filters['search']}%");
             }
         }
 
         if (isset($filters['id']) && $filters['id'] > 0) {
-            $query->where("service_types.id", '=', $filters['id']);
+            $query->where('service_types.id', '=', $filters['id']);
         }
 
         if (isset($filters['service_type_id']) && $filters['service_type_id'] > 0) {
-            $query->where("service_types.id", '=', $filters['service_type_id']);
+            $query->where('service_types.id', '=', $filters['service_type_id']);
         }
 
         if (isset($filters['service_type_name']) && $filters['service_type_name']) {
-            $query->where("service_types.service_type_name", '=', $filters['service_type_name']);
+            $query->where('service_types.service_type_name', '=', $filters['service_type_name']);
         }
 
         if (isset($filters['service_type_slug']) && $filters['service_type_slug']) {
-            $query->where("service_types.service_type_slug", '=', $filters['service_type_slug']);
+            $query->where('service_types.service_type_slug', '=', $filters['service_type_slug']);
         }
 
         if (isset($filters['service_type_parent_id']) && $filters['service_type_parent_id']) {
-            $query->where("service_types.service_type_parent_id", '=', $filters['service_type_parent_id']);
+            $query->where('service_types.service_type_parent_id', '=', $filters['service_type_parent_id']);
         }
 
         if (isset($filters['service_type_parent_id_is_null']) && $filters['service_type_parent_id_is_null'] == true) {
-            $query->whereNull("service_types.service_type_parent_id");
+            $query->whereNull('service_types.service_type_parent_id');
         }
 
         if (isset($filters['service_type_is_parent']) && $filters['service_type_is_parent']) {
-            $query->where("service_types.service_type_is_parent", '=', $filters['service_type_is_parent']);
+            $query->where('service_types.service_type_is_parent', '=', $filters['service_type_is_parent']);
         }
 
         if (isset($filters['service_type_slug']) && $filters['service_type_slug']) {
-            $query->where("service_types.service_type_slug", '=', $filters['service_type_slug']);
+            $query->where('service_types.service_type_slug', '=', $filters['service_type_slug']);
         }
 
         if (isset($filters['service_type_is_description']) && $filters['service_type_is_description']) {
-            $query->where("service_types.service_type_is_description", '=', $filters['service_type_is_description']);
+            $query->where('service_types.service_type_is_description', '=', $filters['service_type_is_description']);
         }
 
         if (isset($filters['service_type_enabled']) && $filters['service_type_enabled']) {
-            $query->where("service_types.enabled", '=', $filters['service_type_enabled']);
+            $query->where('service_types.enabled', '=', $filters['service_type_enabled']);
         }
 
         //Display Trashed
-        if (isset($filters['trashed']) && !empty($filters['trashed'])) {
+        if (isset($filters['trashed']) && ! empty($filters['trashed'])) {
             $query->onlyTrashed();
         }
 

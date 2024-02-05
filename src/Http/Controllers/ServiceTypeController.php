@@ -316,9 +316,7 @@ class ServiceTypeController extends Controller
                             $serviceTypeCollection->push($fullServiceType);
                         }
                     }
-                }
-
-                elseif ($serviceType['service_type_is_parent'] == 'yes') {
+                } elseif ($serviceType['service_type_is_parent'] == 'yes') {
                     $inputYes = $input;
                     $collectID = [];
                     $findAllChildServiceType = Business::serviceType()->find($serviceType->getKey());
@@ -333,7 +331,7 @@ class ServiceTypeController extends Controller
                     $inputYes['service_type_parent_id_is_null'] = false;
                     $inputYes['service_type_id'] = false;
                     $findServiceType = Business::serviceType()->list($inputYes)->count();
-                    logger("Service Type: " . $serviceType->getKey(), $inputYes);
+                    logger('Service Type: '.$serviceType->getKey(), $inputYes);
                     if ($findServiceType > 0) {
                         $serviceType->logo_svg = $serviceType->getFirstMediaUrl('logo_svg');
                         $serviceType->logo_png = $serviceType->getFirstMediaUrl('logo_png');
@@ -342,16 +340,13 @@ class ServiceTypeController extends Controller
                         }
                         $serviceTypeCollection->push($serviceType);
                     }
-                }
-
-                else {
+                } else {
                     if (isset($serviceType->media)) {
                         unset($serviceType->media);
                     }
                     $serviceTypeCollection->push($serviceType);
                 }
             }
-
 
             //$data['serviceType'] = $arrayData;
             //$data['serviceTypeTotal'] = count($arrayData);
