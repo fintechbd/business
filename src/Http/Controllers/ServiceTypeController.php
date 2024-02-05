@@ -286,13 +286,14 @@ class ServiceTypeController extends Controller
             foreach ($serviceTypes as $serviceType) {
 
                 if ($serviceType->service_type_is_parent == 'no') {
-                    $input['service_join_active'] = true;
-                    $input['service_type_id'] = $serviceType->id;
-                    $input['service_enabled'] = true;
-                    $input['service_vendor_enabled'] = true;
-                    $input['service_stat_enabled'] = true;
+                    $inputNo = $input;
+                    $inputNo['service_join_active'] = true;
+                    $inputNo['service_type_id'] = $serviceType->id;
+                    $inputNo['service_enabled'] = true;
+                    $inputNo['service_vendor_enabled'] = true;
+                    $inputNo['service_stat_enabled'] = true;
 
-                    $fullServiceTypes = Business::serviceType()->list($input);
+                    $fullServiceTypes = Business::serviceType()->list($inputNo);
                     if ($fullServiceTypes->isNotEmpty()) {
                         foreach ($fullServiceTypes as $fullServiceType) {
                             if (isset($fullServiceType['service_stat_data'])) {
@@ -315,23 +316,24 @@ class ServiceTypeController extends Controller
                             $serviceTypeCollection->push($fullServiceType);
                         }
                     }
-                } elseif ($serviceType['service_type_is_parent'] == 'yes') {
+                }
+
+                elseif ($serviceType['service_type_is_parent'] == 'yes') {
                     $inputYes = $input;
                     $collectID = [];
                     $findAllChildServiceType = Business::serviceType()->find($serviceType->getKey());
-
-                    $arrayFindData[$serviceType->id] = $findAllChildServiceType->allChildList ?? [];
-                    foreach ($arrayFindData[$serviceType->id] as $allChildAccounts) {
-                        $collectID[$serviceType->id][] = $allChildAccounts['id'];
+                    $arrayFindData[$serviceType->getKey()] = $findAllChildServiceType->allChildList ?? [];
+                    foreach ($arrayFindData[$serviceType->getKey()] as $allChildAccounts) {
+                        $collectID[$serviceType->getKey()][] = $allChildAccounts['id'];
                     }
 
-                    $inputYes['service_type_id_array'] = $collectID[$serviceType->id] ?? [];
+                    $inputYes['service_type_id_array'] = $collectID[$serviceType->getKey()] ?? [];
                     //TODO may be need to work future
-                    $inputYes['service_type_parent_id'] = $serviceType->id;
+                    $inputYes['service_type_parent_id'] = $serviceType->getKey();
                     $inputYes['service_type_parent_id_is_null'] = false;
                     $inputYes['service_type_id'] = false;
                     $findServiceType = Business::serviceType()->list($inputYes)->count();
-
+                    logger("Service Type: " . $serviceType->getKey(), $inputYes);
                     if ($findServiceType > 0) {
                         $serviceType->logo_svg = $serviceType->getFirstMediaUrl('logo_svg');
                         $serviceType->logo_png = $serviceType->getFirstMediaUrl('logo_png');
@@ -340,13 +342,16 @@ class ServiceTypeController extends Controller
                         }
                         $serviceTypeCollection->push($serviceType);
                     }
-                } else {
+                }
+
+                else {
                     if (isset($serviceType->media)) {
                         unset($serviceType->media);
                     }
                     $serviceTypeCollection->push($serviceType);
                 }
             }
+
 
             //$data['serviceType'] = $arrayData;
             //$data['serviceTypeTotal'] = count($arrayData);
