@@ -18,7 +18,7 @@ class ServiceFieldRepository extends EloquentRepository implements InterfacesSer
     {
         $model = app(config('fintech.business.service_field_model', \Fintech\Business\Models\ServiceField::class));
 
-        if (!$model instanceof Model) {
+        if (! $model instanceof Model) {
             throw new InvalidArgumentException("Eloquent repository require model class to be `Illuminate\Database\Eloquent\Model` instance.");
         }
 
@@ -36,7 +36,7 @@ class ServiceFieldRepository extends EloquentRepository implements InterfacesSer
         $query = $this->model->newQuery();
 
         //Searching
-        if (!empty($filters['search'])) {
+        if (! empty($filters['search'])) {
             if (is_numeric($filters['search'])) {
                 $query->where($this->model->getKeyName(), 'like', "%{$filters['search']}%");
             } else {
@@ -51,7 +51,7 @@ class ServiceFieldRepository extends EloquentRepository implements InterfacesSer
             }
         }
 
-        if (!empty($filters['service_id'])) {
+        if (! empty($filters['service_id'])) {
             $query->where('service_id', $filters['service_id']);
         }
 
