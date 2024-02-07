@@ -18,7 +18,7 @@ class ServiceFieldRepository extends EloquentRepository implements InterfacesSer
     {
         $model = app(config('fintech.business.service_field_model', \Fintech\Business\Models\ServiceField::class));
 
-        if (! $model instanceof Model) {
+        if (!$model instanceof Model) {
             throw new InvalidArgumentException("Eloquent repository require model class to be `Illuminate\Database\Eloquent\Model` instance.");
         }
 
@@ -36,16 +36,22 @@ class ServiceFieldRepository extends EloquentRepository implements InterfacesSer
         $query = $this->model->newQuery();
 
         //Searching
-        if (! empty($filters['search'])) {
+        if (!empty($filters['search'])) {
             if (is_numeric($filters['search'])) {
                 $query->where($this->model->getKeyName(), 'like', "%{$filters['search']}%");
             } else {
-                $query->where('name', 'like', "%{$filters['search']}%");
-                $query->orWhere('service_field_data', 'like', "%{$filters['search']}%");
+                $query->where('name', 'like', "%{$filters['search']}%")
+                    ->orWhere('label', 'like', "%{$filters['search']}%")
+                    ->orWhere('type', 'like', "%{$filters['search']}%")
+                    ->orWhere('options', 'like', "%{$filters['search']}%")
+                    ->orWhere('value', 'like', "%{$filters['search']}%")
+                    ->orWhere('hint', 'like', "%{$filters['search']}%")
+                    ->orWhere('validation', 'like', "%{$filters['search']}%")
+                    ->orWhere('service_field_data', 'like', "%{$filters['search']}%");
             }
         }
 
-        if (! empty($filters['service_id'])) {
+        if (!empty($filters['service_id'])) {
             $query->where('service_id', $filters['service_id']);
         }
 
