@@ -5,11 +5,9 @@ namespace Fintech\Business\Http\Controllers;
 use Exception;
 use Fintech\Business\Facades\Business;
 use Fintech\Business\Http\Requests\ServiceVendorServiceRequest;
-use Fintech\Business\Http\Resources\CountryServiceResource;
 use Fintech\Business\Http\Resources\ServiceVendorServiceResource;
 use Fintech\Core\Exceptions\UpdateOperationException;
 use Fintech\Core\Traits\ApiResponseTrait;
-use Fintech\MetaData\Http\Requests\CountryCurrencyRequest;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Routing\Controller;
@@ -30,7 +28,7 @@ class ServiceVendorServiceController extends Controller
 
             $serviceVendor = Business::serviceVendor()->find($id);
 
-            if (!$serviceVendor) {
+            if (! $serviceVendor) {
                 throw (new ModelNotFoundException())->setModel(config('fintech.business.service_vendor_model'), $id);
             }
 
@@ -58,13 +56,13 @@ class ServiceVendorServiceController extends Controller
 
             $serviceVendor = Business::serviceVendor()->find($id);
 
-            if (!$serviceVendor) {
+            if (! $serviceVendor) {
                 throw (new ModelNotFoundException())->setModel(config('fintech.business.service_vendor_model'), $id);
             }
 
             $inputs = $request->validated();
 
-            if (!Business::serviceVendor()->update($id, $inputs)) {
+            if (! Business::serviceVendor()->update($id, $inputs)) {
 
                 throw (new UpdateOperationException())->setModel(config('fintech.business.service_vendor_model'), $id);
             }
