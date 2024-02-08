@@ -67,14 +67,14 @@ class ServiceTypeRepository extends EloquentRepository implements InterfacesServ
                 $query->where('service_stats.destination_country_id', '=', $filters['destination_country_id']);
             }
             //@TODO show local and targeted destination country services
-//            if (isset($filters['destination_country_id']) && $filters['destination_country_id']) {
-//                $query->where(function ($query) use ($filters) {
-//                    $query->where('service_stats.destination_country_id', '=', $filters['destination_country_id']);
-//                    if (isset($filters['source_country_id']) && $filters['source_country_id']) {
-//                        $query->orWhere('service_stats.destination_country_id', '=', $filters['source_country_id']);
-//                    }
-//                });
-//            }
+            //            if (isset($filters['destination_country_id']) && $filters['destination_country_id']) {
+            //                $query->where(function ($query) use ($filters) {
+            //                    $query->where('service_stats.destination_country_id', '=', $filters['destination_country_id']);
+            //                    if (isset($filters['source_country_id']) && $filters['source_country_id']) {
+            //                        $query->orWhere('service_stats.destination_country_id', '=', $filters['source_country_id']);
+            //                    }
+            //                });
+            //            }
 
             if (isset($filters['service_type_id']) && $filters['service_type_id']) {
                 $query->where('services.service_type_id', '=', $filters['service_type_id']);
