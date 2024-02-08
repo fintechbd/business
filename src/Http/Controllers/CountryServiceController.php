@@ -3,10 +3,11 @@
 namespace Fintech\Business\Http\Controllers;
 
 use Exception;
+use Fintech\Business\Http\Requests\CountryServiceRequest;
 use Fintech\Business\Http\Resources\CountryServiceResource;
 use Fintech\Core\Exceptions\UpdateOperationException;
 use Fintech\Core\Traits\ApiResponseTrait;
-use Fintech\MetaData\Http\Requests\CountryCurrencyRequest;
+use Fintech\MetaData\Facades\MetaData;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Routing\Controller;
@@ -25,7 +26,7 @@ class CountryServiceController extends Controller
     {
         try {
 
-            $country = \Fintech\MetaData\Facades\MetaData::country()->find($id);
+            $country = MetaData::country()->find($id);
 
             if (! $country) {
                 throw (new ModelNotFoundException())->setModel(config('fintech.metadata.country_model'), $id);
@@ -49,21 +50,21 @@ class CountryServiceController extends Controller
      *
      * @lrd:end
      */
-    public function update(CountryCurrencyRequest $request, string|int $id): JsonResponse
+    public function update(CountryServiceRequest $request, string|int $id): JsonResponse
     {
         try {
 
-            $country = \Fintech\MetaData\Facades\MetaData::country()->find($id);
+            $country = MetaData::country()->find($id);
 
             if (! $country) {
-                throw (new ModelNotFoundException())->setModel(config('fintech.auth.country_model'), $id);
+                throw (new ModelNotFoundException())->setModel(config('fintech.metadata.country_model'), $id);
             }
 
             $inputs = $request->validated();
 
-            if (! \Fintech\MetaData\Facades\MetaData::country()->update($id, $inputs)) {
+            if (! MetaData::country()->update($id, $inputs)) {
 
-                throw (new UpdateOperationException())->setModel(config('fintech.auth.country_model'), $id);
+                throw (new UpdateOperationException())->setModel(config('fintech.metadata.country_model'), $id);
             }
 
             return $this->updated(__('business::messages.country.service_assigned', ['country' => strtolower($country->name ?? 'N/A')]));

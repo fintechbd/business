@@ -67,6 +67,11 @@ class Service extends Model implements HasMedia
         return $this->belongsTo(ServiceVendor::class, 'service_vendor_id');
     }
 
+    public function serviceVendors(): BelongsToMany
+    {
+        return $this->belongsToMany(config('fintech.business.service_vendor_model', ServiceVendor::class), 'service_service_vendor')->withTimestamps();
+    }
+
     public function serviceStat(): HasMany
     {
         return $this->hasMany(ServiceStat::class, 'service_id', 'id');

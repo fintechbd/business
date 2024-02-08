@@ -4,6 +4,7 @@ namespace Fintech\Business\Models;
 
 use Fintech\Core\Traits\AuditableTrait;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
@@ -54,6 +55,10 @@ class ServiceVendor extends Model implements HasMedia
     | RELATIONS
     |--------------------------------------------------------------------------
     */
+    public function services(): BelongsToMany
+    {
+        return $this->belongsToMany(config('fintech.business.service_model', Service::class), 'service_service_vendor')->withTimestamps();
+    }
 
     /*
     |--------------------------------------------------------------------------
