@@ -281,6 +281,10 @@ class ServiceController extends Controller
 
             return new ServiceCostResource($exchangeRate);
 
+        } catch (ModelNotFoundException $exception) {
+
+            return $this->notfound($exception->getMessage());
+
         } catch (Exception $exception) {
 
             return $this->failed($exception->getMessage());
