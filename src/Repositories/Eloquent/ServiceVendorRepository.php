@@ -19,7 +19,7 @@ class ServiceVendorRepository extends EloquentRepository implements InterfacesSe
     {
         $model = app(config('fintech.business.service_vendor_model', \Fintech\Business\Models\ServiceVendor::class));
 
-        if (!$model instanceof Model) {
+        if (! $model instanceof Model) {
             throw new InvalidArgumentException("Eloquent repository require model class to be `Illuminate\Database\Eloquent\Model` instance.");
         }
 
@@ -37,7 +37,7 @@ class ServiceVendorRepository extends EloquentRepository implements InterfacesSe
         $query = $this->model->newQuery();
 
         //Searching
-        if (!empty($filters['search'])) {
+        if (! empty($filters['search'])) {
             if (is_numeric($filters['search'])) {
                 $query->where($this->model->getKeyName(), 'like', "%{$filters['search']}%");
             } else {
@@ -46,11 +46,11 @@ class ServiceVendorRepository extends EloquentRepository implements InterfacesSe
         }
 
         //Display Trashed
-        if (!empty($filters['trashed'])) {
+        if (! empty($filters['trashed'])) {
             $query->onlyTrashed();
         }
 
-        if (!empty($filters['service_id_array'])) {
+        if (! empty($filters['service_id_array'])) {
             $query->select('service_vendors.*')
                 ->join('service_service_vendor', function (JoinClause $joinClause) use (&$filters) {
                     return $joinClause->on('service_vendors.id', '=', 'service_service_vendor.service_vendor_id')
