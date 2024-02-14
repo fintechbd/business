@@ -50,6 +50,10 @@ class ServiceVendorRepository extends EloquentRepository implements InterfacesSe
             $query->onlyTrashed();
         }
 
+        if (! empty($filters['service_vendor_slug'])) {
+            $query->where('service_vendor_slug', 'like', "%{$filters['service_vendor_slug']}%");
+        }
+
         if (! empty($filters['service_id_array'])) {
             $query->select('service_vendors.*')
                 ->join('service_service_vendor', function (JoinClause $joinClause) use (&$filters) {
@@ -57,6 +61,7 @@ class ServiceVendorRepository extends EloquentRepository implements InterfacesSe
                         ->whereIn('service_service_vendor.service_id', $filters['service_id_array']);
                 });
         }
+
         //Handle Sorting
         $query->orderBy($filters['sort'] ?? $this->model->getKeyName(), $filters['dir'] ?? 'asc');
 
