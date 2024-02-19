@@ -58,9 +58,7 @@ if (Config::get('fintech.business.enabled')) {
                 Route::get('serving-countries', \Fintech\Business\Http\Controllers\ServingCountryController::class)->name('services.serving-countries');
             }
 
-            //TODO why use only show and update
-            //Route::apiResource('service-vendor-services', \Fintech\Business\Http\Controllers\ServiceVendorServiceController::class)->only(['show', 'update']);
-            Route::apiResource('service-vendor-services', \Fintech\Business\Http\Controllers\ServiceVendorServiceController::class);
+            Route::apiResource('service-vendor-services', \Fintech\Business\Http\Controllers\ServiceVendorServiceController::class)->only(['show', 'update']);
             Route::apiResource('service-fields', \Fintech\Business\Http\Controllers\ServiceFieldController::class);
             Route::post('service-fields/{service_field}/restore', [\Fintech\Business\Http\Controllers\ServiceFieldController::class, 'restore'])->name('service-fields.restore');
 
