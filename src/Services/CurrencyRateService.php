@@ -97,7 +97,8 @@ class CurrencyRateService
         ])->first();
 
         if (! $currencyRate) {
-            throw (new ModelNotFoundException())->setModel(config('fintech.business.currency_rate_model', \Fintech\Business\Models\CurrencyRate::class), []);
+            //throw (new ModelNotFoundException())->setModel(config('fintech.business.currency_rate_model', \Fintech\Business\Models\CurrencyRate::class), []);
+            throw new \InvalidArgumentException("currency rate doesn't exists");
         }
 
         if ($isReverse) {

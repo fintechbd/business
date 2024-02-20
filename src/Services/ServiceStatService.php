@@ -160,7 +160,8 @@ class ServiceStatService
         ])->first();
 
         if (! $serviceStat) {
-            throw (new ModelNotFoundException())->setModel(config('fintech.business.service_stat_model', ServiceStat::class), $inputs);
+            //throw (new ModelNotFoundException())->setModel(config('fintech.business.service_stat_model', ServiceStat::class), $inputs);
+            throw new \InvalidArgumentException("Service State doesn't exists");
         }
 
         $serviceStatData = $serviceStat->service_stat_data[0];
