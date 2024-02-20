@@ -4,6 +4,18 @@ namespace Fintech\Business\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
+/**
+ * @property string $service_vendor_name
+ * @property string $service_vendor_slug
+ * @property array $service_vendor_data
+ * @property bool $enabled
+ * @property mixed $links
+ * @property mixed $created_at
+ * @property mixed $updated_at
+ *
+ * @method getKey()
+ * @method getFirstMediaUrl(string $string)
+ */
 class ServiceVendorResource extends JsonResource
 {
     /**
@@ -16,7 +28,7 @@ class ServiceVendorResource extends JsonResource
     {
         return [
             'id' => $this->getKey() ?? null,
-            'service_vendor_name' => isset($this->serviceVendor) ? $this->serviceVendor->service_vendor_name : null,
+            'service_vendor_name' => $this->service_vendor_name ?? null,
             'service_vendor_slug' => $this->service_vendor_slug ?? null,
             'service_vendor_data' => $this->service_vendor_data ?? null,
             'service_vendor_logo_svg' => $this->getFirstMediaUrl('logo_svg') ?? null,

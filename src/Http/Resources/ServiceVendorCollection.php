@@ -6,6 +6,18 @@ use Fintech\Core\Supports\Constant;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\ResourceCollection;
 
+/**
+ * @property string $service_vendor_name
+ * @property string $service_vendor_slug
+ * @property array $service_vendor_data
+ * @property bool $enabled
+ * @property mixed $links
+ * @property mixed $created_at
+ * @property mixed $updated_at
+ *
+ * @method getKey()
+ * @method getFirstMediaUrl(string $string)
+ */
 class ServiceVendorCollection extends ResourceCollection
 {
     /**
