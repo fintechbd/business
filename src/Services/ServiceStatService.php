@@ -151,7 +151,10 @@ class ServiceStatService
         ];
 
         $exchangeRate = Business::currencyRate()->convert($currencyRateParams);
-
+        if (! $exchangeRate) {
+            //throw (new ModelNotFoundException())->setModel(config('fintech.business.service_stat_model', ServiceStat::class), $inputs);
+            throw new \InvalidArgumentException("Currency Convert Rate doesn't exists");
+        }
         $serviceStat = $this->list([
             'role_id' => $inputs['role_id'],
             'service_id' => $inputs['service_id'],
