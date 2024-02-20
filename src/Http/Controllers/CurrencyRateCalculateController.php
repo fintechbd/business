@@ -29,8 +29,8 @@ class CurrencyRateCalculateController extends Controller
 
         } catch (Exception $exception) {
 
-            return $this->failed("Currency Convert Rate doesn't exists");
-            //throw new \InvalidArgumentException("Currency Convert Rate doesn't exists");
+            //return $this->failed("Currency Convert Rate doesn't exists");
+            throw new \InvalidArgumentException("Currency Convert Rate doesn't exists");
         }
     }
 }
