@@ -11,9 +11,35 @@ use Illuminate\Http\Resources\Json\ResourceCollection;
 class CurrencyRateCollection extends ResourceCollection
 {
     /**
+     * Get additional data that should be returned with the resource array.
+     *
+     * @return array<string, mixed>
+     */
+    public function with(Request $request): array
+    {
+        $sourceCountries = [];
+        $destinationCountries = [];
+
+        if (Core::packageExists('MetaData')) {
+            $sourceCountries = MetaData::country()->list(['is_serving' => true, 'paginate' => false])->toArray();
+        }
+
+        return [
+            'options' => [
+                'dir' => Constant::SORT_DIRECTIONS,
+                'per_page' => Constant::PAGINATE_LENGTHS,
+                'source_country_id' => $sourceCountries,
+                'destination_country_id' => $destinationCountries,
+                'sort' => ['id', 'source_country_id', 'destination_country_id', 'service_id', 'rate', 'created_at', 'updated_at'],
+            ],
+            'query' => $request->all(),
+        ];
+    }
+
+    /**
      * Transform the resource collection into an array.
      *
-     * @param  Request  $request
+     * @param Request $request
      * @return array
      */
     public function toArray($request)
@@ -43,31 +69,5 @@ class CurrencyRateCollection extends ResourceCollection
 
             return $data;
         })->toArray();
-    }
-
-    /**
-     * Get additional data that should be returned with the resource array.
-     *
-     * @return array<string, mixed>
-     */
-    public function with(Request $request): array
-    {
-        $sourceCountries = [];
-        $destinationCountries = [];
-
-        if (Core::packageExists('MetaData')) {
-            $sourceCountries = MetaData::country()->list(['is_serving' => true, 'paginate' => false])->toArray();
-        }
-
-        return [
-            'options' => [
-                'dir' => Constant::SORT_DIRECTIONS,
-                'per_page' => Constant::PAGINATE_LENGTHS,
-                'source_country_id' => $sourceCountries,
-                'destination_country_id' => $destinationCountries,
-                'sort' => ['id', 'source_country_id', 'destination_country_id', 'service_id', 'rate', 'created_at', 'updated_at'],
-            ],
-            'query' => $request->all(),
-        ];
     }
 }

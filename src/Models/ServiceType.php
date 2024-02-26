@@ -2,8 +2,8 @@
 
 namespace Fintech\Business\Models;
 
+use Fintech\Core\Abstracts\BaseModel;
 use Fintech\Core\Traits\AuditableTrait;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -14,7 +14,7 @@ use Spatie\MediaLibrary\InteractsWithMedia;
  * @property mixed $allParentAccounts
  * @property mixed $allChildAccounts
  */
-class ServiceType extends Model implements HasMedia
+class ServiceType extends BaseModel implements HasMedia
 {
     use AuditableTrait;
     use InteractsWithMedia;
@@ -60,16 +60,6 @@ class ServiceType extends Model implements HasMedia
     |--------------------------------------------------------------------------
     */
 
-    public function serviceTypeParent(): HasOne
-    {
-        return $this->hasOne(self::class, 'id', 'service_type_parent_id');
-    }
-
-    public function serviceTypeChild(): HasMany
-    {
-        return $this->hasMany(self::class, 'service_type_parent_id', 'id');
-    }
-
     public function serviceTypeGrandParent(): HasOne
     {
         return $this->hasOne(self::class, 'id', 'service_type_parent_id')
@@ -87,21 +77,41 @@ class ServiceType extends Model implements HasMedia
         return $this->serviceTypeParent()->with('allParentAccounts');
     }
 
+    public function serviceTypeParent(): HasOne
+    {
+        return $this->hasOne(self::class, 'id', 'service_type_parent_id');
+    }
+
     public function allChildAccounts(): HasMany
     {
         return $this->serviceTypeChild()->with('allChildAccounts');
+    }
+
+    public function serviceTypeChild(): HasMany
+    {
+        return $this->hasMany(self::class, 'service_type_parent_id', 'id');
     }
 
     public function getAllParentListAttribute(): array
     {
         $data = [];
         $parentList = $this->allParentAccounts ? $this->allParentAccounts->toArray() : null;
-        if (! empty($parentList)) {
+        if (!empty($parentList)) {
             $data = [$parentList['id'] => $parentList['service_type_name']];
             if (isset($parentList['all_parent_accounts'])) {
                 $data = array_merge($data, $this->all_accounts($parentList['all_parent_accounts']));
             }
             //sort($data);
+        }
+
+        return $data;
+    }
+
+    public function all_accounts($input): array
+    {
+        $data = [$input['id'] => $input['service_type_name']];
+        if (isset($input['all_parent_accounts'])) {
+            $data = array_merge($data, $this->all_accounts($input['all_parent_accounts']));
         }
 
         return $data;
@@ -116,16 +126,6 @@ class ServiceType extends Model implements HasMedia
             if (isset($childList['all_child_accounts'])) {
                 $data = array_merge($data, $this->all_account_children($childList['all_child_accounts']));
             }
-        }
-
-        return $data;
-    }
-
-    public function all_accounts($input): array
-    {
-        $data = [$input['id'] => $input['service_type_name']];
-        if (isset($input['all_parent_accounts'])) {
-            $data = array_merge($data, $this->all_accounts($input['all_parent_accounts']));
         }
 
         return $data;

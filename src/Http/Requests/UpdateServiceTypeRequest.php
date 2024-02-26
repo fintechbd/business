@@ -24,8 +24,8 @@ class UpdateServiceTypeRequest extends FormRequest
     public function rules(): array
     {
         /** @phpstan-ignore-next-line */
-        $service_type_id = (int) collect(request()->segments())->last(); //id of the resource
-        $uniqueRule = 'unique:'.config('fintech.business.service_type_model', ServiceType::class).',service_type_slug,'.$service_type_id.',id,deleted_at,NULL';
+        $service_type_id = (int)collect(request()->segments())->last(); //id of the resource
+        $uniqueRule = 'unique:' . config('fintech.business.service_type_model', ServiceType::class) . ',service_type_slug,' . $service_type_id . ',id,deleted_at,NULL';
 
         return [
             'service_type_parent_id' => ['integer', 'nullable'],

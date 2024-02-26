@@ -16,6 +16,14 @@ class FreeCurrencyApi
     }
 
     /**
+     * @throws FreeCurrencyApiException
+     */
+    public function status()
+    {
+        return $this->call('status');
+    }
+
+    /**
      * @return array|mixed
      *
      * @throws FreeCurrencyApiException
@@ -41,14 +49,6 @@ class FreeCurrencyApi
         }
 
         return null;
-    }
-
-    /**
-     * @throws FreeCurrencyApiException
-     */
-    public function status()
-    {
-        return $this->call('status');
     }
 
     /**

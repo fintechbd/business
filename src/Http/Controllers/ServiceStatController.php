@@ -70,7 +70,7 @@ class ServiceStatController extends Controller
             $inputs = $request->validated();
             $serviceStat = Business::serviceStat()->customStore($inputs);
 
-            if (! $serviceStat) {
+            if (!$serviceStat) {
                 throw (new StoreOperationException)->setModel(config('fintech.business.service_stat_model'));
             }
 
@@ -97,7 +97,7 @@ class ServiceStatController extends Controller
 
             $serviceStat = Business::serviceStat()->find($id);
 
-            if (! $serviceStat) {
+            if (!$serviceStat) {
                 throw (new ModelNotFoundException)->setModel(config('fintech.business.service_stat_model'), $id);
             }
 
@@ -125,13 +125,13 @@ class ServiceStatController extends Controller
 
             $serviceStat = Business::serviceStat()->find($id);
 
-            if (! $serviceStat) {
+            if (!$serviceStat) {
                 throw (new ModelNotFoundException)->setModel(config('fintech.business.service_stat_model'), $id);
             }
 
             $inputs = $request->validated();
 
-            if (! Business::serviceStat()->update($id, $inputs)) {
+            if (!Business::serviceStat()->update($id, $inputs)) {
 
                 throw (new UpdateOperationException)->setModel(config('fintech.business.service_stat_model'), $id);
             }
@@ -160,11 +160,11 @@ class ServiceStatController extends Controller
 
             $serviceStat = Business::serviceStat()->find($id);
 
-            if (! $serviceStat) {
+            if (!$serviceStat) {
                 throw (new ModelNotFoundException)->setModel(config('fintech.business.service_stat_model'), $id);
             }
 
-            if (! Business::serviceStat()->destroy($id)) {
+            if (!Business::serviceStat()->destroy($id)) {
 
                 throw (new DeleteOperationException())->setModel(config('fintech.business.service_stat_model'), $id);
             }
@@ -194,11 +194,11 @@ class ServiceStatController extends Controller
 
             $serviceStat = Business::serviceStat()->find($id, true);
 
-            if (! $serviceStat) {
+            if (!$serviceStat) {
                 throw (new ModelNotFoundException)->setModel(config('fintech.business.service_stat_model'), $id);
             }
 
-            if (! Business::serviceStat()->restore($id)) {
+            if (!Business::serviceStat()->restore($id)) {
 
                 throw (new RestoreOperationException())->setModel(config('fintech.business.service_stat_model'), $id);
             }

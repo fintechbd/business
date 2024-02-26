@@ -3,6 +3,7 @@
 namespace Fintech\Business\Repositories\Mongodb;
 
 use Fintech\Business\Interfaces\ServiceSettingRepository as InterfacesServiceSettingRepository;
+use Fintech\Business\Models\ServiceSetting;
 use Fintech\Core\Repositories\MongodbRepository;
 use Illuminate\Contracts\Pagination\Paginator;
 use Illuminate\Database\Eloquent\Collection;
@@ -16,9 +17,9 @@ class ServiceSettingRepository extends MongodbRepository implements InterfacesSe
 {
     public function __construct()
     {
-        $model = app(config('fintech.business.service_setting_model', \Fintech\Business\Models\ServiceSetting::class));
+        $model = app(config('fintech.business.service_setting_model', ServiceSetting::class));
 
-        if (! $model instanceof Model) {
+        if (!$model instanceof Model) {
             throw new InvalidArgumentException("Mongodb repository require model class to be `MongoDB\Laravel\Eloquent\Model` instance.");
         }
 
@@ -36,7 +37,7 @@ class ServiceSettingRepository extends MongodbRepository implements InterfacesSe
         $query = $this->model->newQuery();
 
         //Searching
-        if (isset($filters['search']) && ! empty($filters['search'])) {
+        if (isset($filters['search']) && !empty($filters['search'])) {
             if (is_numeric($filters['search'])) {
                 $query->where($this->model->getKeyName(), 'like', "%{$filters['search']}%");
             } else {
@@ -45,7 +46,7 @@ class ServiceSettingRepository extends MongodbRepository implements InterfacesSe
         }
 
         //Display Trashed
-        if (isset($filters['trashed']) && ! empty($filters['trashed'])) {
+        if (isset($filters['trashed']) && !empty($filters['trashed'])) {
             $query->onlyTrashed();
         }
 

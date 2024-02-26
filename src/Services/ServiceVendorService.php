@@ -16,20 +16,6 @@ class ServiceVendorService
     {
     }
 
-    /**
-     * @return mixed
-     */
-    public function list(array $filters = [])
-    {
-        return $this->serviceVendorRepository->list($filters);
-
-    }
-
-    public function create(array $inputs = [])
-    {
-        return $this->serviceVendorRepository->create($inputs);
-    }
-
     public function find($id, $onlyTrashed = false)
     {
         return $this->serviceVendorRepository->find($id, $onlyTrashed);
@@ -55,8 +41,22 @@ class ServiceVendorService
         return $this->serviceVendorRepository->list($filters);
     }
 
+    /**
+     * @return mixed
+     */
+    public function list(array $filters = [])
+    {
+        return $this->serviceVendorRepository->list($filters);
+
+    }
+
     public function import(array $filters)
     {
         return $this->serviceVendorRepository->create($filters);
+    }
+
+    public function create(array $inputs = [])
+    {
+        return $this->serviceVendorRepository->create($inputs);
     }
 }

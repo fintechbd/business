@@ -69,7 +69,7 @@ class ServiceSettingController extends Controller
 
             $serviceSetting = Business::serviceSetting()->create($inputs);
 
-            if (! $serviceSetting) {
+            if (!$serviceSetting) {
                 throw (new StoreOperationException)->setModel(config('fintech.business.service_setting_model'));
             }
 
@@ -98,7 +98,7 @@ class ServiceSettingController extends Controller
 
             $serviceSetting = Business::serviceSetting()->find($id);
 
-            if (! $serviceSetting) {
+            if (!$serviceSetting) {
                 throw (new ModelNotFoundException)->setModel(config('fintech.business.service_setting_model'), $id);
             }
 
@@ -126,13 +126,13 @@ class ServiceSettingController extends Controller
 
             $serviceSetting = Business::serviceSetting()->find($id);
 
-            if (! $serviceSetting) {
+            if (!$serviceSetting) {
                 throw (new ModelNotFoundException)->setModel(config('fintech.business.service_setting_model'), $id);
             }
 
             $inputs = $request->validated();
 
-            if (! Business::serviceSetting()->update($id, $inputs)) {
+            if (!Business::serviceSetting()->update($id, $inputs)) {
 
                 throw (new UpdateOperationException)->setModel(config('fintech.business.service_setting_model'), $id);
             }
@@ -161,11 +161,11 @@ class ServiceSettingController extends Controller
 
             $serviceSetting = Business::serviceSetting()->find($id);
 
-            if (! $serviceSetting) {
+            if (!$serviceSetting) {
                 throw (new ModelNotFoundException)->setModel(config('fintech.business.service_setting_model'), $id);
             }
 
-            if (! Business::serviceSetting()->destroy($id)) {
+            if (!Business::serviceSetting()->destroy($id)) {
 
                 throw (new DeleteOperationException())->setModel(config('fintech.business.service_setting_model'), $id);
             }
@@ -195,11 +195,11 @@ class ServiceSettingController extends Controller
 
             $serviceSetting = Business::serviceSetting()->find($id, true);
 
-            if (! $serviceSetting) {
+            if (!$serviceSetting) {
                 throw (new ModelNotFoundException)->setModel(config('fintech.business.service_setting_model'), $id);
             }
 
-            if (! Business::serviceSetting()->restore($id)) {
+            if (!Business::serviceSetting()->restore($id)) {
 
                 throw (new RestoreOperationException())->setModel(config('fintech.business.service_setting_model'), $id);
             }

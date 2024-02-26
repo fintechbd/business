@@ -5,11 +5,10 @@ namespace Fintech\Business\Services;
 use Exception;
 use Fintech\Business\Facades\Business;
 use Fintech\Business\Interfaces\ServiceStatRepository;
-use Fintech\Business\Models\ServiceStat;
 use Illuminate\Contracts\Pagination\Paginator;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Collection;
+use InvalidArgumentException;
+use MongoDB\Laravel\Eloquent\Model;
 
 /**
  * Class ServiceStatService
@@ -23,23 +22,12 @@ class ServiceStatService
     {
     }
 
-    public function list(array $filters = []): Paginator|Collection
-    {
-        return $this->serviceStatRepository->list($filters);
-
-    }
-
-    public function create(array $inputs = []): Model|\MongoDB\Laravel\Eloquent\Model|null
-    {
-        return $this->serviceStatRepository->create($inputs);
-    }
-
-    public function find($id, bool $onlyTrashed = false): Model|\MongoDB\Laravel\Eloquent\Model|null
+    public function find($id, bool $onlyTrashed = false): Model|Model|null
     {
         return $this->serviceStatRepository->find($id, $onlyTrashed);
     }
 
-    public function update($id, array $inputs = []): Model|\MongoDB\Laravel\Eloquent\Model|null
+    public function update($id, array $inputs = []): Model|Model|null
     {
         return $this->serviceStatRepository->update($id, $inputs);
     }
@@ -59,9 +47,20 @@ class ServiceStatService
         return $this->serviceStatRepository->list($filters);
     }
 
-    public function import(array $filters): Model|\MongoDB\Laravel\Eloquent\Model|null
+    public function list(array $filters = []): Paginator|Collection
+    {
+        return $this->serviceStatRepository->list($filters);
+
+    }
+
+    public function import(array $filters): Model|Model|null
     {
         return $this->serviceStatRepository->create($filters);
+    }
+
+    public function create(array $inputs = []): Model|Model|null
+    {
+        return $this->serviceStatRepository->create($inputs);
     }
 
     public function customStore(array $data): array
@@ -106,7 +105,7 @@ class ServiceStatService
         $serviceStateData['amount'] = $data->amount;
         $serviceStateData['enable'] = true;
         $serviceStates = Business::serviceStat()->list($serviceStateData)->first();
-        if (! $serviceStates) {
+        if (!$serviceStates) {
             throw new Exception('Service State Data not found');
         }
         $serviceState = $serviceStates->toArray();
@@ -151,9 +150,9 @@ class ServiceStatService
         ];
 
         $exchangeRate = Business::currencyRate()->convert($currencyRateParams);
-        if (! $exchangeRate) {
+        if (!$exchangeRate) {
             //throw (new ModelNotFoundException())->setModel(config('fintech.business.service_stat_model', ServiceStat::class), $inputs);
-            throw new \InvalidArgumentException("Currency Convert Rate doesn't exists");
+            throw new InvalidArgumentException("Currency Convert Rate doesn't exists");
         }
         $serviceStat = $this->list([
             'role_id' => $inputs['role_id'],
@@ -162,9 +161,9 @@ class ServiceStatService
             'destination_country_id' => $inputs['destination_country_id'],
         ])->first();
 
-        if (! $serviceStat) {
+        if (!$serviceStat) {
             //throw (new ModelNotFoundException())->setModel(config('fintech.business.service_stat_model', ServiceStat::class), $inputs);
-            throw new \InvalidArgumentException("Service State doesn't exists");
+            throw new InvalidArgumentException("Service State doesn't exists");
         }
 
         $serviceStatData = $serviceStat->service_stat_data[0];

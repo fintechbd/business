@@ -2,15 +2,16 @@
 
 namespace Fintech\Business\Models;
 
+use Fintech\Core\Abstracts\BaseModel;
 use Fintech\Core\Traits\AuditableTrait;
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
  * @property bool $reserved
  * @property Service|null $service
  */
-class ServiceField extends Model
+class ServiceField extends BaseModel
 {
     use AuditableTrait;
     use SoftDeletes;
@@ -42,9 +43,9 @@ class ServiceField extends Model
     | RELATIONS
     |--------------------------------------------------------------------------
     */
-    public function service(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    public function service(): BelongsTo
     {
-        return $this->belongsTo(config('fintech.business.service_model', \Fintech\Business\Models\Service::class));
+        return $this->belongsTo(config('fintech.business.service_model', Service::class));
     }
 
     /*

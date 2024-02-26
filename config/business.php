@@ -1,6 +1,27 @@
 <?php
 
 // config for Fintech/Business
+use Fintech\Business\Models\ChargeBreakDown;
+use Fintech\Business\Models\CurrencyRate;
+use Fintech\Business\Models\PackageTopChart;
+use Fintech\Business\Models\Service;
+use Fintech\Business\Models\ServiceField;
+use Fintech\Business\Models\ServicePackage;
+use Fintech\Business\Models\ServiceSetting;
+use Fintech\Business\Models\ServiceStat;
+use Fintech\Business\Models\ServiceType;
+use Fintech\Business\Models\ServiceVendor;
+use Fintech\Business\Repositories\Eloquent\ChargeBreakDownRepository;
+use Fintech\Business\Repositories\Eloquent\CurrencyRateRepository;
+use Fintech\Business\Repositories\Eloquent\PackageTopChartRepository;
+use Fintech\Business\Repositories\Eloquent\ServiceFieldRepository;
+use Fintech\Business\Repositories\Eloquent\ServicePackageRepository;
+use Fintech\Business\Repositories\Eloquent\ServiceRepository;
+use Fintech\Business\Repositories\Eloquent\ServiceSettingRepository;
+use Fintech\Business\Repositories\Eloquent\ServiceStatRepository;
+use Fintech\Business\Repositories\Eloquent\ServiceTypeRepository;
+use Fintech\Business\Repositories\Eloquent\ServiceVendorRepository;
+
 return [
 
     /*
@@ -39,7 +60,7 @@ return [
     |
     | This value will be used to across system where model is needed
     */
-    'service_setting_model' => \Fintech\Business\Models\ServiceSetting::class,
+    'service_setting_model' => ServiceSetting::class,
 
     /*
     |--------------------------------------------------------------------------
@@ -48,7 +69,7 @@ return [
     |
     | This value will be used to across system where model is needed
     */
-    'service_type_model' => \Fintech\Business\Models\ServiceType::class,
+    'service_type_model' => ServiceType::class,
 
     /*
     |--------------------------------------------------------------------------
@@ -57,7 +78,7 @@ return [
     |
     | This value will be used to across system where model is needed
     */
-    'service_model' => \Fintech\Business\Models\Service::class,
+    'service_model' => Service::class,
 
     /*
     |--------------------------------------------------------------------------
@@ -66,7 +87,7 @@ return [
     |
     | This value will be used to across system where model is needed
     */
-    'service_stat_model' => \Fintech\Business\Models\ServiceStat::class,
+    'service_stat_model' => ServiceStat::class,
 
     /*
     |--------------------------------------------------------------------------
@@ -75,7 +96,7 @@ return [
     |
     | This value will be used to across system where model is needed
     */
-    'service_package_model' => \Fintech\Business\Models\ServicePackage::class,
+    'service_package_model' => ServicePackage::class,
 
     /*
     |--------------------------------------------------------------------------
@@ -84,7 +105,7 @@ return [
     |
     | This value will be used to across system where model is needed
     */
-    'charge_break_down_model' => \Fintech\Business\Models\ChargeBreakDown::class,
+    'charge_break_down_model' => ChargeBreakDown::class,
 
     /*
     |--------------------------------------------------------------------------
@@ -102,7 +123,7 @@ return [
     |
     | This value will be used to across system where model is needed
     */
-    'package_top_chart_model' => \Fintech\Business\Models\PackageTopChart::class,
+    'package_top_chart_model' => PackageTopChart::class,
 
     /*
     |--------------------------------------------------------------------------
@@ -111,7 +132,7 @@ return [
     |
     | This value will be used to across system where model is needed
     */
-    'service_vendor_model' => \Fintech\Business\Models\ServiceVendor::class,
+    'service_vendor_model' => ServiceVendor::class,
 
     /*
     |--------------------------------------------------------------------------
@@ -120,7 +141,7 @@ return [
     |
     | This value will be used to across system where model is needed
     */
-    'currency_rate_model' => \Fintech\Business\Models\CurrencyRate::class,
+    'currency_rate_model' => CurrencyRate::class,
 
     /*
     |--------------------------------------------------------------------------
@@ -129,7 +150,7 @@ return [
     |
     | This value will be used to across system where model is needed
     */
-    'service_field_model' => \Fintech\Business\Models\ServiceField::class,
+    'service_field_model' => ServiceField::class,
 
     //** Model Config Point Do not Remove **//
 
@@ -182,25 +203,25 @@ return [
     */
 
     'repositories' => [
-        \Fintech\Business\Interfaces\ServiceSettingRepository::class => \Fintech\Business\Repositories\Eloquent\ServiceSettingRepository::class,
+        \Fintech\Business\Interfaces\ServiceSettingRepository::class => ServiceSettingRepository::class,
 
-        \Fintech\Business\Interfaces\ServiceTypeRepository::class => \Fintech\Business\Repositories\Eloquent\ServiceTypeRepository::class,
+        \Fintech\Business\Interfaces\ServiceTypeRepository::class => ServiceTypeRepository::class,
 
-        \Fintech\Business\Interfaces\ServiceRepository::class => \Fintech\Business\Repositories\Eloquent\ServiceRepository::class,
+        \Fintech\Business\Interfaces\ServiceRepository::class => ServiceRepository::class,
 
-        \Fintech\Business\Interfaces\ServiceStatRepository::class => \Fintech\Business\Repositories\Eloquent\ServiceStatRepository::class,
+        \Fintech\Business\Interfaces\ServiceStatRepository::class => ServiceStatRepository::class,
 
-        \Fintech\Business\Interfaces\ServicePackageRepository::class => \Fintech\Business\Repositories\Eloquent\ServicePackageRepository::class,
+        \Fintech\Business\Interfaces\ServicePackageRepository::class => ServicePackageRepository::class,
 
-        \Fintech\Business\Interfaces\ChargeBreakDownRepository::class => \Fintech\Business\Repositories\Eloquent\ChargeBreakDownRepository::class,
+        \Fintech\Business\Interfaces\ChargeBreakDownRepository::class => ChargeBreakDownRepository::class,
 
-        \Fintech\Business\Interfaces\ServiceVendorRepository::class => \Fintech\Business\Repositories\Eloquent\ServiceVendorRepository::class,
+        \Fintech\Business\Interfaces\ServiceVendorRepository::class => ServiceVendorRepository::class,
 
-        \Fintech\Business\Interfaces\PackageTopChartRepository::class => \Fintech\Business\Repositories\Eloquent\PackageTopChartRepository::class,
+        \Fintech\Business\Interfaces\PackageTopChartRepository::class => PackageTopChartRepository::class,
 
-        \Fintech\Business\Interfaces\CurrencyRateRepository::class => \Fintech\Business\Repositories\Eloquent\CurrencyRateRepository::class,
+        \Fintech\Business\Interfaces\CurrencyRateRepository::class => CurrencyRateRepository::class,
 
-        \Fintech\Business\Interfaces\ServiceFieldRepository::class => \Fintech\Business\Repositories\Eloquent\ServiceFieldRepository::class,
+        \Fintech\Business\Interfaces\ServiceFieldRepository::class => ServiceFieldRepository::class,
 
         //** Repository Binding Config Point Do not Remove **//
     ],

@@ -2,12 +2,14 @@
 
 namespace Fintech\Business\Models;
 
+use Fintech\Auth\Models\Role;
+use Fintech\Core\Abstracts\BaseModel;
 use Fintech\Core\Traits\AuditableTrait;
-use Illuminate\Database\Eloquent\Model;
+use Fintech\MetaData\Models\Country;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class ServiceStat extends Model
+class ServiceStat extends BaseModel
 {
     use AuditableTrait;
     use SoftDeletes;
@@ -47,17 +49,17 @@ class ServiceStat extends Model
 
     public function destinationCountry(): BelongsTo
     {
-        return $this->belongsTo(config('fintech.metadata.country_model', \Fintech\MetaData\Models\Country::class), 'destination_country_id');
+        return $this->belongsTo(config('fintech.metadata.country_model', Country::class), 'destination_country_id');
     }
 
     public function sourceCountry(): BelongsTo
     {
-        return $this->belongsTo(config('fintech.metadata.country_model', \Fintech\MetaData\Models\Country::class), 'source_country_id');
+        return $this->belongsTo(config('fintech.metadata.country_model', Country::class), 'source_country_id');
     }
 
     public function role(): BelongsTo
     {
-        return $this->belongsTo(config('fintech.auth.role_model', \Fintech\Auth\Models\Role::class));
+        return $this->belongsTo(config('fintech.auth.role_model', Role::class));
     }
 
     public function serviceVendor(): BelongsTo

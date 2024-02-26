@@ -4,8 +4,8 @@ namespace Fintech\Business\Services;
 
 use Fintech\Business\Interfaces\ServiceSettingRepository;
 use Illuminate\Contracts\Pagination\Paginator;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
+use MongoDB\Laravel\Eloquent\Model;
 
 /**
  * Class ServiceSettingService
@@ -20,23 +20,12 @@ class ServiceSettingService
 
     }
 
-    public function list(array $filters = []): Paginator|Collection
-    {
-        return $this->serviceSettingRepository->list($filters);
-
-    }
-
-    public function create(array $inputs = []): Model|\MongoDB\Laravel\Eloquent\Model|null
-    {
-        return $this->serviceSettingRepository->create($inputs);
-    }
-
-    public function find($id, bool $onlyTrashed = false): Model|\MongoDB\Laravel\Eloquent\Model|null
+    public function find($id, bool $onlyTrashed = false): Model|Model|null
     {
         return $this->serviceSettingRepository->find($id, $onlyTrashed);
     }
 
-    public function update($id, array $inputs = []): Model|\MongoDB\Laravel\Eloquent\Model|null
+    public function update($id, array $inputs = []): Model|Model|null
     {
         return $this->serviceSettingRepository->update($id, $inputs);
     }
@@ -56,8 +45,19 @@ class ServiceSettingService
         return $this->serviceSettingRepository->list($filters);
     }
 
-    public function import(array $filters): Model|\MongoDB\Laravel\Eloquent\Model|null
+    public function list(array $filters = []): Paginator|Collection
+    {
+        return $this->serviceSettingRepository->list($filters);
+
+    }
+
+    public function import(array $filters): Model|Model|null
     {
         return $this->serviceSettingRepository->create($filters);
+    }
+
+    public function create(array $inputs = []): Model|Model|null
+    {
+        return $this->serviceSettingRepository->create($inputs);
     }
 }

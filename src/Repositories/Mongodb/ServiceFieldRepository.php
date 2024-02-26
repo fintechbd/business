@@ -3,6 +3,7 @@
 namespace Fintech\Business\Repositories\Mongodb;
 
 use Fintech\Business\Interfaces\ServiceFieldRepository as InterfacesServiceFieldRepository;
+use Fintech\Business\Models\ServiceField;
 use Fintech\Core\Repositories\MongodbRepository;
 use Illuminate\Contracts\Pagination\Paginator;
 use Illuminate\Database\Eloquent\Collection;
@@ -16,9 +17,9 @@ class ServiceFieldRepository extends MongodbRepository implements InterfacesServ
 {
     public function __construct()
     {
-        $model = app(config('fintech.business.service_field_model', \Fintech\Business\Models\ServiceField::class));
+        $model = app(config('fintech.business.service_field_model', ServiceField::class));
 
-        if (! $model instanceof Model) {
+        if (!$model instanceof Model) {
             throw new InvalidArgumentException("Mongodb repository require model class to be `MongoDB\Laravel\Eloquent\Model` instance.");
         }
 
@@ -36,7 +37,7 @@ class ServiceFieldRepository extends MongodbRepository implements InterfacesServ
         $query = $this->model->newQuery();
 
         //Searching
-        if (! empty($filters['search'])) {
+        if (!empty($filters['search'])) {
             if (is_numeric($filters['search'])) {
                 $query->where($this->model->getKeyName(), 'like', "%{$filters['search']}%");
             } else {

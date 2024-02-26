@@ -2,8 +2,10 @@
 
 namespace Fintech\Business\Models;
 
+use Fintech\Auth\Models\Role;
+use Fintech\Core\Abstracts\BaseModel;
 use Fintech\Core\Traits\AuditableTrait;
-use Illuminate\Database\Eloquent\Model;
+use Fintech\MetaData\Models\Country;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -11,7 +13,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 
-class Service extends Model implements HasMedia
+class Service extends BaseModel implements HasMedia
 {
     use AuditableTrait;
     use InteractsWithMedia;
@@ -85,7 +87,7 @@ class Service extends Model implements HasMedia
     public function roles(): BelongsToMany
     {
         return $this->belongsToMany(
-            config('fintech.auth.role_model', \Fintech\Auth\Models\Role::class),
+            config('fintech.auth.role_model', Role::class),
             'role_service'
         )->withTimestamps();
 
@@ -93,7 +95,7 @@ class Service extends Model implements HasMedia
 
     public function countries(): BelongsToMany
     {
-        return $this->belongsToMany(config('fintech.metadata.country_model', \Fintech\MetaData\Models\Country::class),
+        return $this->belongsToMany(config('fintech.metadata.country_model', Country::class),
             'country_service'
         )->withTimestamps();
 

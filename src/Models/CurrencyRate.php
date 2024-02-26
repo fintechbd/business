@@ -3,11 +3,12 @@
 namespace Fintech\Business\Models;
 
 use Fintech\Business\Traits\MetaDataRelations;
+use Fintech\Core\Abstracts\BaseModel;
 use Fintech\Core\Traits\AuditableTrait;
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class CurrencyRate extends Model
+class CurrencyRate extends BaseModel
 {
     use AuditableTrait;
     use MetaDataRelations;
@@ -41,9 +42,9 @@ class CurrencyRate extends Model
     |--------------------------------------------------------------------------
     */
 
-    public function service(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    public function service(): BelongsTo
     {
-        return $this->belongsTo(config('fintech.business.service_model', \Fintech\Business\Models\Service::class));
+        return $this->belongsTo(config('fintech.business.service_model', Service::class));
     }
 
     /*

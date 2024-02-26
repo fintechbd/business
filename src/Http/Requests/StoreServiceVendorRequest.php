@@ -3,6 +3,7 @@
 namespace Fintech\Business\Http\Requests;
 
 use Fintech\Business\Models\ServiceVendor;
+use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 
 class StoreServiceVendorRequest extends FormRequest
@@ -18,13 +19,13 @@ class StoreServiceVendorRequest extends FormRequest
     /**
      * Get the validation rules that apply to the request.
      *
-     * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array|string>
+     * @return array<string, ValidationRule|array|string>
      */
     public function rules(): array
     {
         /** @phpstan-ignore-next-line */
-        $service_vendor_id = (int) collect(request()->segments())->last(); //id of the resource
-        $uniqueRule = 'unique:'.config('fintech.business.service_vendor_model', ServiceVendor::class).',service_vendor_slug,'.$service_vendor_id.',id,deleted_at,NULL';
+        $service_vendor_id = (int)collect(request()->segments())->last(); //id of the resource
+        $uniqueRule = 'unique:' . config('fintech.business.service_vendor_model', ServiceVendor::class) . ',service_vendor_slug,' . $service_vendor_id . ',id,deleted_at,NULL';
 
         return [
             'service_vendor_name' => ['string', 'required', 'max:255'],

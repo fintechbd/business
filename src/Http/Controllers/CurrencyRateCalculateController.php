@@ -8,6 +8,7 @@ use Fintech\Business\Http\Requests\ServiceCurrencyRateRequest;
 use Fintech\Business\Http\Resources\ServiceCostResource;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Routing\Controller;
+use InvalidArgumentException;
 
 class CurrencyRateCalculateController extends Controller
 {
@@ -30,7 +31,7 @@ class CurrencyRateCalculateController extends Controller
         } catch (Exception $exception) {
 
             //return $this->failed($exception->getMessage());
-            throw new \InvalidArgumentException("Currency Convert Rate doesn't exists");
+            throw new InvalidArgumentException("Currency Convert Rate doesn't exists");
         }
     }
 }

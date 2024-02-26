@@ -3,10 +3,10 @@
 namespace Fintech\Business\Repositories\Eloquent;
 
 use Fintech\Business\Interfaces\ServicePackageRepository as InterfacesServicePackageRepository;
+use Fintech\Business\Models\ServicePackage;
 use Fintech\Core\Repositories\EloquentRepository;
 use Illuminate\Contracts\Pagination\Paginator;
 use Illuminate\Database\Eloquent\Collection;
-use Illuminate\Database\Eloquent\Model;
 use InvalidArgumentException;
 
 /**
@@ -16,9 +16,9 @@ class ServicePackageRepository extends EloquentRepository implements InterfacesS
 {
     public function __construct()
     {
-        $model = app(config('fintech.business.service_package_model', \Fintech\Business\Models\ServicePackage::class));
+        $model = app(config('fintech.business.service_package_model', ServicePackage::class));
 
-        if (! $model instanceof Model) {
+        if (!$model instanceof Model) {
             throw new InvalidArgumentException("Eloquent repository require model class to be `Illuminate\Database\Eloquent\Model` instance.");
         }
 
@@ -36,7 +36,7 @@ class ServicePackageRepository extends EloquentRepository implements InterfacesS
         $query = $this->model->newQuery();
 
         //Searching
-        if (isset($filters['search']) && ! empty($filters['search'])) {
+        if (isset($filters['search']) && !empty($filters['search'])) {
             if (is_numeric($filters['search'])) {
                 $query->where($this->model->getKeyName(), 'like', "%{$filters['search']}%");
             } else {
@@ -45,7 +45,7 @@ class ServicePackageRepository extends EloquentRepository implements InterfacesS
         }
 
         //Display Trashed
-        if (isset($filters['trashed']) && ! empty($filters['trashed'])) {
+        if (isset($filters['trashed']) && !empty($filters['trashed'])) {
             $query->onlyTrashed();
         }
 

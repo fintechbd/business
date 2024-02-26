@@ -2,19 +2,29 @@
 
 namespace Fintech\Business\Facades;
 
+use Fintech\Business\Services\ChargeBreakDownService;
+use Fintech\Business\Services\CurrencyRateService;
+use Fintech\Business\Services\PackageTopChartService;
+use Fintech\Business\Services\ServiceFieldService;
+use Fintech\Business\Services\ServicePackageService;
+use Fintech\Business\Services\ServiceService;
+use Fintech\Business\Services\ServiceSettingService;
+use Fintech\Business\Services\ServiceStatService;
+use Fintech\Business\Services\ServiceTypeService;
+use Fintech\Business\Services\ServiceVendorService;
 use Illuminate\Support\Facades\Facade;
 
 /**
- * @method static \Fintech\Business\Services\ServicePackageService servicePackage()
- * @method static \Fintech\Business\Services\ServiceSettingService serviceSetting()
- * @method static \Fintech\Business\Services\ServiceStatService serviceStat()
- * @method static \Fintech\Business\Services\ServiceTypeService serviceType()
- * @method static \Fintech\Business\Services\ServiceVendorService serviceVendor()
- * @method static \Fintech\Business\Services\ChargeBreakDownService chargeBreakDown()
- * @method static \Fintech\Business\Services\PackageTopChartService PackageTopChart()
- * @method static \Fintech\Business\Services\ServiceService service()
- * @method static \Fintech\Business\Services\CurrencyRateService currencyRate()
- * @method static \Fintech\Business\Services\ServiceFieldService serviceField()
+ * @method static ServicePackageService servicePackage()
+ * @method static ServiceSettingService serviceSetting()
+ * @method static ServiceStatService serviceStat()
+ * @method static ServiceTypeService serviceType()
+ * @method static ServiceVendorService serviceVendor()
+ * @method static ChargeBreakDownService chargeBreakDown()
+ * @method static PackageTopChartService PackageTopChart()
+ * @method static ServiceService service()
+ * @method static CurrencyRateService currencyRate()
+ * @method static ServiceFieldService serviceField()
  *                                                                              // Crud Service Method Point Do not Remove //
  *
  * @see \Fintech\Business\Business

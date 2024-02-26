@@ -3,7 +3,9 @@
 namespace Fintech\Business;
 
 use Fintech\Business\Services\ChargeBreakDownService;
+use Fintech\Business\Services\CurrencyRateService;
 use Fintech\Business\Services\PackageTopChartService;
+use Fintech\Business\Services\ServiceFieldService;
 use Fintech\Business\Services\ServicePackageService;
 use Fintech\Business\Services\ServiceService;
 use Fintech\Business\Services\ServiceSettingService;
@@ -54,19 +56,19 @@ class Business
     }
 
     /**
-     * @return \Fintech\Business\Services\CurrencyRateService
+     * @return CurrencyRateService
      */
     public function currencyRate()
     {
-        return app(\Fintech\Business\Services\CurrencyRateService::class);
+        return app(CurrencyRateService::class);
     }
 
     /**
-     * @return \Fintech\Business\Services\ServiceFieldService
+     * @return ServiceFieldService
      */
     public function serviceField()
     {
-        return app(\Fintech\Business\Services\ServiceFieldService::class);
+        return app(ServiceFieldService::class);
     }
 
     //** Crud Service Method Point Do not Remove **//

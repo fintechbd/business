@@ -16,20 +16,6 @@ class ChargeBreakDownService
     {
     }
 
-    /**
-     * @return mixed
-     */
-    public function list(array $filters = [])
-    {
-        return $this->chargeBreakDownRepository->list($filters);
-
-    }
-
-    public function create(array $inputs = [])
-    {
-        return $this->chargeBreakDownRepository->create($inputs);
-    }
-
     public function find($id, $onlyTrashed = false)
     {
         return $this->chargeBreakDownRepository->find($id, $onlyTrashed);
@@ -55,8 +41,22 @@ class ChargeBreakDownService
         return $this->chargeBreakDownRepository->list($filters);
     }
 
+    /**
+     * @return mixed
+     */
+    public function list(array $filters = [])
+    {
+        return $this->chargeBreakDownRepository->list($filters);
+
+    }
+
     public function import(array $filters)
     {
         return $this->chargeBreakDownRepository->create($filters);
+    }
+
+    public function create(array $inputs = [])
+    {
+        return $this->chargeBreakDownRepository->create($inputs);
     }
 }

@@ -8,7 +8,6 @@ use Fintech\Core\Repositories\EloquentRepository;
 use Illuminate\Contracts\Container\BindingResolutionException;
 use Illuminate\Contracts\Pagination\Paginator;
 use Illuminate\Database\Eloquent\Collection;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Query\JoinClause;
 use Illuminate\Support\Facades\DB;
 use InvalidArgumentException;
@@ -22,7 +21,7 @@ class ServiceTypeRepository extends EloquentRepository implements InterfacesServ
     {
         $model = app(config('fintech.business.service_type_model', ServiceType::class));
 
-        if (! $model instanceof Model) {
+        if (!$model instanceof Model) {
             throw new InvalidArgumentException("Eloquent repository require model class to be `Illuminate\Database\Eloquent\Model` instance.");
         }
 
@@ -179,7 +178,7 @@ class ServiceTypeRepository extends EloquentRepository implements InterfacesServ
             }
 
             if (isset($filters['service_vendor_enabled']) && $filters['service_vendor_enabled']) {
-                $query->where('service_vendors'.'.enabled', '=', $filters['service_vendor_enabled']);
+                $query->where('service_vendors' . '.enabled', '=', $filters['service_vendor_enabled']);
             }
 
             if (isset($filters['service_stat_enabled']) && $filters['service_stat_enabled']) {
@@ -188,13 +187,13 @@ class ServiceTypeRepository extends EloquentRepository implements InterfacesServ
 
             $select = [
                 'service_stats.*',
-                'service_vendors'.'.*',
+                'service_vendors' . '.*',
                 'services.*',
                 DB::raw('service_stats.id as service_stat_id')];
         }
 
         //Searching
-        if (isset($filters['search']) && ! empty($filters['search'])) {
+        if (isset($filters['search']) && !empty($filters['search'])) {
             if (is_numeric($filters['search'])) {
                 $query->where($this->model->getKeyName(), 'like', "%{$filters['search']}%");
             } else {
@@ -244,7 +243,7 @@ class ServiceTypeRepository extends EloquentRepository implements InterfacesServ
         }
 
         //Display Trashed
-        if (isset($filters['trashed']) && ! empty($filters['trashed'])) {
+        if (isset($filters['trashed']) && !empty($filters['trashed'])) {
             $query->onlyTrashed();
         }
 

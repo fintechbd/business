@@ -16,20 +16,6 @@ class ServicePackageService
     {
     }
 
-    /**
-     * @return mixed
-     */
-    public function list(array $filters = [])
-    {
-        return $this->servicePackageRepository->list($filters);
-
-    }
-
-    public function create(array $inputs = [])
-    {
-        return $this->servicePackageRepository->create($inputs);
-    }
-
     public function find($id, $onlyTrashed = false)
     {
         return $this->servicePackageRepository->find($id, $onlyTrashed);
@@ -55,8 +41,22 @@ class ServicePackageService
         return $this->servicePackageRepository->list($filters);
     }
 
+    /**
+     * @return mixed
+     */
+    public function list(array $filters = [])
+    {
+        return $this->servicePackageRepository->list($filters);
+
+    }
+
     public function import(array $filters)
     {
         return $this->servicePackageRepository->create($filters);
+    }
+
+    public function create(array $inputs = [])
+    {
+        return $this->servicePackageRepository->create($inputs);
     }
 }

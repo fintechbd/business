@@ -3,6 +3,7 @@
 namespace Fintech\Business\Repositories\Mongodb;
 
 use Fintech\Business\Interfaces\CurrencyRateRepository as InterfacesCurrencyRateRepository;
+use Fintech\Business\Models\CurrencyRate;
 use Fintech\Core\Repositories\MongodbRepository;
 use Illuminate\Contracts\Pagination\Paginator;
 use Illuminate\Database\Eloquent\Collection;
@@ -16,9 +17,9 @@ class CurrencyRateRepository extends MongodbRepository implements InterfacesCurr
 {
     public function __construct()
     {
-        $model = app(config('fintech.business.currency_rate_model', \Fintech\Business\Models\CurrencyRate::class));
+        $model = app(config('fintech.business.currency_rate_model', CurrencyRate::class));
 
-        if (! $model instanceof Model) {
+        if (!$model instanceof Model) {
             throw new InvalidArgumentException("Mongodb repository require model class to be `MongoDB\Laravel\Eloquent\Model` instance.");
         }
 
@@ -36,7 +37,7 @@ class CurrencyRateRepository extends MongodbRepository implements InterfacesCurr
         $query = $this->model->newQuery();
 
         //Searching
-        if (isset($filters['search']) && ! empty($filters['search'])) {
+        if (isset($filters['search']) && !empty($filters['search'])) {
             if (is_numeric($filters['search'])) {
                 $query->where($this->model->getKeyName(), 'like', "%{$filters['search']}%");
             } else {
@@ -46,7 +47,7 @@ class CurrencyRateRepository extends MongodbRepository implements InterfacesCurr
         }
 
         //Display Trashed
-        if (isset($filters['trashed']) && ! empty($filters['trashed'])) {
+        if (isset($filters['trashed']) && !empty($filters['trashed'])) {
             $query->onlyTrashed();
         }
 

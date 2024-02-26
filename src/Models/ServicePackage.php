@@ -2,11 +2,11 @@
 
 namespace Fintech\Business\Models;
 
+use Fintech\Core\Abstracts\BaseModel;
 use Fintech\Core\Traits\AuditableTrait;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class ServicePackage extends Model
+class ServicePackage extends BaseModel
 {
     use AuditableTrait;
     use SoftDeletes;
