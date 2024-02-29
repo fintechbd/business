@@ -16,13 +16,7 @@ class ServiceStatRepository extends EloquentRepository implements InterfacesServ
 {
     public function __construct()
     {
-        $model = app(config('fintech.business.service_stat_model', ServiceStat::class));
-
-        if (!$model instanceof Model) {
-            throw new InvalidArgumentException("Eloquent repository require model class to be `Illuminate\Database\Eloquent\Model` instance.");
-        }
-
-        $this->model = $model;
+        parent::__construct(config('fintech.business.service_stat_model', ServiceStat::class));
     }
 
     /**

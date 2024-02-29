@@ -60,7 +60,9 @@
     "extra": {
         "laravel": {
             "providers": [
-                "Fintech\\Business\\BusinessServiceProvider"
+                "Fintech\\Business\\BusinessServiceProvider",
+                "Fintech\\Business\\RepositoryServiceProvider",
+                "Fintech\\Business\\RouteServiceProvider"
             ],
             "aliases": {
                 "Business": "Fintech\\Business\\Facades\\Business"

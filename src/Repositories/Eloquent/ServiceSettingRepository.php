@@ -16,13 +16,7 @@ class ServiceSettingRepository extends EloquentRepository implements InterfacesS
 {
     public function __construct()
     {
-        $model = app(config('fintech.business.service_setting_model', ServiceSetting::class));
-
-        if (!$model instanceof Model) {
-            throw new InvalidArgumentException("Eloquent repository require model class to be `Illuminate\Database\Eloquent\Model` instance.");
-        }
-
-        $this->model = $model;
+        parent::__construct(config('fintech.business.service_setting_model', ServiceSetting::class));
     }
 
     /**

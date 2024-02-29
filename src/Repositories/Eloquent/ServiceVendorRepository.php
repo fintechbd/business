@@ -17,13 +17,7 @@ class ServiceVendorRepository extends EloquentRepository implements InterfacesSe
 {
     public function __construct()
     {
-        $model = app(config('fintech.business.service_vendor_model', ServiceVendor::class));
-
-        if (!$model instanceof Model) {
-            throw new InvalidArgumentException("Eloquent repository require model class to be `Illuminate\Database\Eloquent\Model` instance.");
-        }
-
-        $this->model = $model;
+        parent::__construct(config('fintech.business.service_vendor_model', ServiceVendor::class));
     }
 
     /**
