@@ -25,7 +25,7 @@ use Illuminate\Support\Facades\Facade;
  * @method static ServiceService service()
  * @method static CurrencyRateService currencyRate()
  * @method static ServiceFieldService serviceField()
- *                                                                              // Crud Service Method Point Do not Remove //
+ *                                                   // Crud Service Method Point Do not Remove //
  *
  * @see \Fintech\Business\Business
  */

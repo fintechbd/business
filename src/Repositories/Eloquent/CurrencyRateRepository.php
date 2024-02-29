@@ -7,7 +7,6 @@ use Fintech\Business\Models\CurrencyRate;
 use Fintech\Core\Repositories\EloquentRepository;
 use Illuminate\Contracts\Pagination\Paginator;
 use Illuminate\Database\Eloquent\Collection;
-use InvalidArgumentException;
 
 /**
  * Class CurrencyRateRepository
@@ -30,7 +29,7 @@ class CurrencyRateRepository extends EloquentRepository implements InterfacesCur
         $query = $this->model->newQuery();
 
         //Searching
-        if (!empty($filters['search'])) {
+        if (! empty($filters['search'])) {
             if (is_numeric($filters['search'])) {
                 $query->where($this->model->getKeyName(), 'like', "%{$filters['search']}%");
             } else {
@@ -39,19 +38,19 @@ class CurrencyRateRepository extends EloquentRepository implements InterfacesCur
             }
         }
 
-        if (!empty($filters['source_country_id'])) {
+        if (! empty($filters['source_country_id'])) {
             $query->where('source_country_id', '=', $filters['source_country_id']);
         }
 
-        if (!empty($filters['destination_country_id'])) {
+        if (! empty($filters['destination_country_id'])) {
             $query->where('destination_country_id', '=', $filters['destination_country_id']);
         }
 
-        if (!empty($filters['destination_country_id'])) {
+        if (! empty($filters['destination_country_id'])) {
             $query->where('destination_country_id', '=', $filters['destination_country_id']);
         }
 
-        if (!empty($filters['service_id'])) {
+        if (! empty($filters['service_id'])) {
             $query->where('service_id', '=', $filters['service_id']);
         }
 

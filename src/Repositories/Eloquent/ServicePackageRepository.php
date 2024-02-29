@@ -7,7 +7,6 @@ use Fintech\Business\Models\ServicePackage;
 use Fintech\Core\Repositories\EloquentRepository;
 use Illuminate\Contracts\Pagination\Paginator;
 use Illuminate\Database\Eloquent\Collection;
-use InvalidArgumentException;
 
 /**
  * Class ServicePackageRepository
@@ -30,7 +29,7 @@ class ServicePackageRepository extends EloquentRepository implements InterfacesS
         $query = $this->model->newQuery();
 
         //Searching
-        if (isset($filters['search']) && !empty($filters['search'])) {
+        if (isset($filters['search']) && ! empty($filters['search'])) {
             if (is_numeric($filters['search'])) {
                 $query->where($this->model->getKeyName(), 'like', "%{$filters['search']}%");
             } else {
@@ -39,7 +38,7 @@ class ServicePackageRepository extends EloquentRepository implements InterfacesS
         }
 
         //Display Trashed
-        if (isset($filters['trashed']) && !empty($filters['trashed'])) {
+        if (isset($filters['trashed']) && ! empty($filters['trashed'])) {
             $query->onlyTrashed();
         }
 

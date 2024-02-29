@@ -24,8 +24,8 @@ class UpdateServiceVendorRequest extends FormRequest
     public function rules(): array
     {
         /** @phpstan-ignore-next-line */
-        $service_vendor_id = (int)collect(request()->segments())->last(); //id of the resource
-        $uniqueRule = 'unique:' . config('fintech.business.service_vendor_model', ServiceVendor::class) . ',service_vendor_slug,' . $service_vendor_id . ',id,deleted_at,NULL';
+        $service_vendor_id = (int) collect(request()->segments())->last(); //id of the resource
+        $uniqueRule = 'unique:'.config('fintech.business.service_vendor_model', ServiceVendor::class).',service_vendor_slug,'.$service_vendor_id.',id,deleted_at,NULL';
 
         return [
             'service_vendor_name' => ['string', 'required', 'max:255'],
