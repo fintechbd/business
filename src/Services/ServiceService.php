@@ -19,12 +19,12 @@ class ServiceService
     {
     }
 
-    public function find($id, bool $onlyTrashed = false): Model|null
+    public function find($id, bool $onlyTrashed = false): ?Model
     {
         return $this->serviceRepository->find($id, $onlyTrashed);
     }
 
-    public function update($id, array $inputs = []): Model|null
+    public function update($id, array $inputs = []): ?Model
     {
         return $this->serviceRepository->update($id, $inputs);
     }
@@ -50,12 +50,12 @@ class ServiceService
 
     }
 
-    public function import(array $filters): Model|null
+    public function import(array $filters): ?Model
     {
         return $this->serviceRepository->create($filters);
     }
 
-    public function create(array $inputs = []): Model|null
+    public function create(array $inputs = []): ?Model
     {
         return $this->serviceRepository->create($inputs);
     }
