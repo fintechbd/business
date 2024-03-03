@@ -18,6 +18,9 @@ class BusinessServiceProvider extends ServiceProvider
         $this->mergeConfigFrom(
             __DIR__.'/../config/business.php', 'fintech.business'
         );
+
+        $this->app->register(RouteServiceProvider::class);
+        $this->app->register(RepositoryServiceProvider::class);
     }
 
     /**
