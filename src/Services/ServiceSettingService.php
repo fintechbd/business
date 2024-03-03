@@ -20,12 +20,12 @@ class ServiceSettingService
 
     }
 
-    public function find($id, bool $onlyTrashed = false): Model|Model|null
+    public function find($id, bool $onlyTrashed = false): Model|null
     {
         return $this->serviceSettingRepository->find($id, $onlyTrashed);
     }
 
-    public function update($id, array $inputs = []): Model|Model|null
+    public function update($id, array $inputs = []): Model|null
     {
         return $this->serviceSettingRepository->update($id, $inputs);
     }
@@ -51,12 +51,12 @@ class ServiceSettingService
 
     }
 
-    public function import(array $filters): Model|Model|null
+    public function import(array $filters): Model|null
     {
         return $this->serviceSettingRepository->create($filters);
     }
 
-    public function create(array $inputs = []): Model|Model|null
+    public function create(array $inputs = []): Model|null
     {
         return $this->serviceSettingRepository->create($inputs);
     }
