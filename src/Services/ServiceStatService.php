@@ -5,10 +5,10 @@ namespace Fintech\Business\Services;
 use Exception;
 use Fintech\Business\Facades\Business;
 use Fintech\Business\Interfaces\ServiceStatRepository;
+use Fintech\Core\Abstracts\BaseModel;
 use Illuminate\Contracts\Pagination\Paginator;
 use Illuminate\Support\Collection;
 use InvalidArgumentException;
-use Fintech\Core\Abstracts\BaseModel;
 
 /**
  * Class ServiceStatService

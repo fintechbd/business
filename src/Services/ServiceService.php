@@ -3,9 +3,9 @@
 namespace Fintech\Business\Services;
 
 use Fintech\Business\Interfaces\ServiceRepository;
+use Fintech\Core\Abstracts\BaseModel;
 use Illuminate\Contracts\Pagination\Paginator;
 use Illuminate\Support\Collection;
-use Fintech\Core\Abstracts\BaseModel;
 
 /**
  * Class ServiceService
