@@ -5,7 +5,7 @@ namespace Fintech\Business\Services;
 use Fintech\Business\Interfaces\ServiceRepository;
 use Illuminate\Contracts\Pagination\Paginator;
 use Illuminate\Support\Collection;
-use MongoDB\Laravel\Eloquent\Model;
+use Fintech\Core\Abstracts\BaseModel;
 
 /**
  * Class ServiceService
@@ -19,12 +19,12 @@ class ServiceService
     {
     }
 
-    public function find($id, bool $onlyTrashed = false): ?Model
+    public function find($id, bool $onlyTrashed = false): ?BaseModel
     {
         return $this->serviceRepository->find($id, $onlyTrashed);
     }
 
-    public function update($id, array $inputs = []): ?Model
+    public function update($id, array $inputs = []): ?BaseModel
     {
         return $this->serviceRepository->update($id, $inputs);
     }
@@ -50,12 +50,12 @@ class ServiceService
 
     }
 
-    public function import(array $filters): ?Model
+    public function import(array $filters): ?BaseModel
     {
         return $this->serviceRepository->create($filters);
     }
 
-    public function create(array $inputs = []): ?Model
+    public function create(array $inputs = []): ?BaseModel
     {
         return $this->serviceRepository->create($inputs);
     }

@@ -8,7 +8,7 @@ use Fintech\Business\Interfaces\ServiceStatRepository;
 use Illuminate\Contracts\Pagination\Paginator;
 use Illuminate\Support\Collection;
 use InvalidArgumentException;
-use MongoDB\Laravel\Eloquent\Model;
+use Fintech\Core\Abstracts\BaseModel;
 
 /**
  * Class ServiceStatService
@@ -22,12 +22,12 @@ class ServiceStatService
     {
     }
 
-    public function find($id, bool $onlyTrashed = false): ?Model
+    public function find($id, bool $onlyTrashed = false): ?BaseModel
     {
         return $this->serviceStatRepository->find($id, $onlyTrashed);
     }
 
-    public function update($id, array $inputs = []): ?Model
+    public function update($id, array $inputs = []): ?BaseModel
     {
         return $this->serviceStatRepository->update($id, $inputs);
     }
@@ -53,12 +53,12 @@ class ServiceStatService
 
     }
 
-    public function import(array $filters): ?Model
+    public function import(array $filters): ?BaseModel
     {
         return $this->serviceStatRepository->create($filters);
     }
 
-    public function create(array $inputs = []): ?Model
+    public function create(array $inputs = []): ?BaseModel
     {
         return $this->serviceStatRepository->create($inputs);
     }
