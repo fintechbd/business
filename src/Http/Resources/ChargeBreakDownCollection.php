@@ -16,22 +16,22 @@ class ChargeBreakDownCollection extends ResourceCollection
      */
     public function toArray($request)
     {
-        return $this->collection->map(function ($serviceSlap) {
+        return $this->collection->map(function ($chargeBreakDown) {
 
             return [
-                'id' => $serviceSlap->getKey(),
-                'service_stat_id' => $serviceSlap->serviceStat_id,
-                'service_stat_name' => $serviceSlap->serviceStat?->service?->service_name ?? null,
-                'service_slug' => $serviceSlap->service_slug,
-                'charge_break_down_lower' => $serviceSlap->charge_break_down_lower,
-                'charge_break_down_higher' => $serviceSlap->charge_break_down_higher,
-                'charge_break_down_charge' => $serviceSlap->charge_break_down_charge,
-                'charge_break_down_discount' => $serviceSlap->charge_break_down_discount,
-                'charge_break_down_commission' => $serviceSlap->charge_break_down_commission,
-                'enabled' => $serviceSlap->enabled,
-                'links' => $serviceSlap->links,
-                'created_at' => $serviceSlap->created_at,
-                'updated_at' => $serviceSlap->updated_at,
+                'id' => $chargeBreakDown->getKey(),
+                'service_stat_id' => $chargeBreakDown->serviceStat_id,
+                'service_stat_name' => $chargeBreakDown->serviceStat?->service?->service_name ?? null,
+                'service_slug' => $chargeBreakDown->service_slug,
+                'charge_break_down_lower' => $chargeBreakDown->charge_break_down_lower,
+                'charge_break_down_higher' => $chargeBreakDown->charge_break_down_higher,
+                'charge_break_down_charge' => $chargeBreakDown->charge_break_down_charge,
+                'charge_break_down_discount' => $chargeBreakDown->charge_break_down_discount,
+                'charge_break_down_commission' => $chargeBreakDown->charge_break_down_commission,
+                'enabled' => $chargeBreakDown->enabled,
+                'links' => $chargeBreakDown->links,
+                'created_at' => $chargeBreakDown->created_at,
+                'updated_at' => $chargeBreakDown->updated_at,
             ];
         })->toArray();
     }
