@@ -5,8 +5,10 @@ namespace Fintech\Business\Services;
 use Exception;
 use Fintech\Business\Facades\Business;
 use Fintech\Business\Interfaces\ServiceStatRepository;
+use Fintech\Business\Models\ServiceStat;
 use Fintech\Core\Abstracts\BaseModel;
 use Illuminate\Contracts\Pagination\Paginator;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Collection;
 use InvalidArgumentException;
 
@@ -151,8 +153,8 @@ class ServiceStatService
 
         $exchangeRate = Business::currencyRate()->convert($currencyRateParams);
         if (! $exchangeRate) {
-            //throw (new ModelNotFoundException())->setModel(config('fintech.business.service_stat_model', ServiceStat::class), $inputs);
-            throw new InvalidArgumentException("Currency Convert Rate doesn't exists");
+            throw (new ModelNotFoundException())->setModel(config('fintech.business.service_stat_model', ServiceStat::class), $inputs);
+//            throw new InvalidArgumentException("Currency Convert Rate doesn't exist");
         }
         $serviceStat = $this->list([
             'role_id' => $inputs['role_id'],
@@ -162,8 +164,8 @@ class ServiceStatService
         ])->first();
 
         if (! $serviceStat) {
-            //throw (new ModelNotFoundException())->setModel(config('fintech.business.service_stat_model', ServiceStat::class), $inputs);
-            throw new InvalidArgumentException("Service State doesn't exists");
+            throw (new ModelNotFoundException())->setModel(config('fintech.business.service_stat_model', ServiceStat::class), $inputs);
+//            throw new InvalidArgumentException("Service State doesn't exist");
         }
 
         $serviceStatData = $serviceStat->service_stat_data[0];
