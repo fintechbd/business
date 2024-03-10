@@ -9,7 +9,6 @@ use Fintech\Core\Abstracts\BaseModel;
 use Illuminate\Contracts\Pagination\Paginator;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Collection;
-use InvalidArgumentException;
 
 /**
  * Class ServiceStatService
