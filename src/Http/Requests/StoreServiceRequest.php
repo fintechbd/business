@@ -3,7 +3,6 @@
 namespace Fintech\Business\Http\Requests;
 
 use Fintech\Business\Facades\Business;
-use Fintech\Business\Models\Service;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 
