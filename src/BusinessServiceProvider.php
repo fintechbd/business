@@ -4,10 +4,13 @@ namespace Fintech\Business;
 
 use Fintech\Business\Commands\BusinessCommand;
 use Fintech\Business\Commands\InstallCommand;
+use Fintech\Core\Traits\RegisterPackageTrait;
 use Illuminate\Support\ServiceProvider;
 
 class BusinessServiceProvider extends ServiceProvider
 {
+    use RegisterPackageTrait;
+
     /**
      * Register any application services.
      *
@@ -15,6 +18,8 @@ class BusinessServiceProvider extends ServiceProvider
      */
     public function register()
     {
+        $this->packageCode = 'business';
+
         $this->mergeConfigFrom(
             __DIR__.'/../config/business.php', 'fintech.business'
         );
@@ -28,6 +33,8 @@ class BusinessServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        $this->injectOnConfig();
+
         $this->publishes([
             __DIR__.'/../config/business.php' => config_path('fintech/business.php'),
         ]);
