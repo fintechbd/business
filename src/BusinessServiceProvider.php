@@ -4,8 +4,6 @@ namespace Fintech\Business;
 
 use Fintech\Business\Commands\BusinessCommand;
 use Fintech\Business\Commands\InstallCommand;
-use Fintech\Business\Providers\RepositoryServiceProvider;
-use Fintech\Business\Providers\RouteServiceProvider;
 use Fintech\Core\Traits\RegisterPackageTrait;
 use Illuminate\Support\ServiceProvider;
 
