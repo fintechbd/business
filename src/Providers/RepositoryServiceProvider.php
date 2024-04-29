@@ -1,6 +1,6 @@
 <?php
 
-namespace Fintech\Business;
+namespace Fintech\Business\Providers;
 
 use Illuminate\Contracts\Support\DeferrableProvider;
 use Illuminate\Support\Facades\Config;
