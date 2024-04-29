@@ -26,8 +26,8 @@ class BusinessServiceProvider extends ServiceProvider
             __DIR__.'/../config/business.php', 'fintech.business'
         );
 
-        $this->app->register(RouteServiceProvider::class);
-        $this->app->register(RepositoryServiceProvider::class);
+        $this->app->register(\Fintech\Business\Providers\RouteServiceProvider::class);
+        $this->app->register(\Fintech\Business\Providers\RepositoryServiceProvider::class);
     }
 
     /**
