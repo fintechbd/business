@@ -53,7 +53,7 @@ class BusinessServiceProvider extends ServiceProvider
 
         if ($this->app->runningInConsole()) {
             $this->commands([
-                InstallCommand::class
+                InstallCommand::class,
             ]);
         }
     }
