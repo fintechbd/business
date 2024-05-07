@@ -2,7 +2,6 @@
 
 namespace Fintech\Business;
 
-use Fintech\Business\Commands\BusinessCommand;
 use Fintech\Business\Commands\InstallCommand;
 use Fintech\Core\Traits\RegisterPackageTrait;
 use Illuminate\Support\ServiceProvider;
@@ -24,7 +23,6 @@ class BusinessServiceProvider extends ServiceProvider
             __DIR__.'/../config/business.php', 'fintech.business'
         );
 
-        $this->app->register(\Fintech\Business\Providers\RouteServiceProvider::class);
         $this->app->register(\Fintech\Business\Providers\RepositoryServiceProvider::class);
     }
 
@@ -55,8 +53,7 @@ class BusinessServiceProvider extends ServiceProvider
 
         if ($this->app->runningInConsole()) {
             $this->commands([
-                InstallCommand::class,
-                BusinessCommand::class,
+                InstallCommand::class
             ]);
         }
     }
