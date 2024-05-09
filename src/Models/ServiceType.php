@@ -96,7 +96,7 @@ class ServiceType extends BaseModel implements HasMedia
     {
         $data = [];
         $parentList = $this->allParentAccounts ? $this->allParentAccounts->toArray() : null;
-        if (! empty($parentList)) {
+        if (!empty($parentList)) {
             $data = [$parentList['id'] => $parentList['service_type_name']];
             if (isset($parentList['all_parent_accounts'])) {
                 $data = array_merge($data, $this->all_accounts($parentList['all_parent_accounts']));

@@ -27,35 +27,35 @@ class ServiceStatRepository extends EloquentRepository implements InterfacesServ
         $query = $this->model->newQuery();
         $modelTable = $this->model->getTable();
         //Searching
-        if (isset($filters['search']) && ! empty($filters['search'])) {
+        if (isset($filters['search']) && !empty($filters['search'])) {
             if (is_numeric($filters['search'])) {
                 $query->where($this->model->getKeyName(), 'like', "%{$filters['search']}%");
             } else {
-                $query->where($modelTable.'.service_slug', 'like', "%{$filters['search']}%");
+                $query->where($modelTable . '.service_slug', 'like', "%{$filters['search']}%");
             }
         }
 
         if (isset($filters['role_id']) && $filters['role_id']) {
-            $query->where($modelTable.'.role_id', '=', $filters['role_id']);
+            $query->where($modelTable . '.role_id', '=', $filters['role_id']);
         }
         if (isset($filters['service_id']) && $filters['service_id']) {
-            $query->where($modelTable.'.service_id', '=', $filters['service_id']);
+            $query->where($modelTable . '.service_id', '=', $filters['service_id']);
         }
         if (isset($filters['source_country_id']) && $filters['source_country_id']) {
-            $query->where($modelTable.'.source_country_id', '=', $filters['source_country_id']);
+            $query->where($modelTable . '.source_country_id', '=', $filters['source_country_id']);
         }
         if (isset($filters['destination_country_id']) && $filters['destination_country_id']) {
-            $query->where($modelTable.'.destination_country_id', '=', $filters['destination_country_id']);
+            $query->where($modelTable . '.destination_country_id', '=', $filters['destination_country_id']);
         }
         if (isset($filters['service_vendor_id']) && $filters['service_vendor_id']) {
-            $query->where($modelTable.'.service_vendor_id', '=', $filters['service_vendor_id']);
+            $query->where($modelTable . '.service_vendor_id', '=', $filters['service_vendor_id']);
         }
         if (isset($filters['service_slug']) && $filters['service_slug']) {
-            $query->where($modelTable.'.service_slug', '=', $filters['service_slug']);
+            $query->where($modelTable . '.service_slug', '=', $filters['service_slug']);
         }
 
         //Display Trashed
-        if (isset($filters['trashed']) && ! empty($filters['trashed'])) {
+        if (isset($filters['trashed']) && !empty($filters['trashed'])) {
             $query->onlyTrashed();
         }
 

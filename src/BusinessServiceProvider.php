@@ -3,6 +3,7 @@
 namespace Fintech\Business;
 
 use Fintech\Business\Commands\InstallCommand;
+use Fintech\Business\Providers\RepositoryServiceProvider;
 use Fintech\Core\Traits\RegisterPackageTrait;
 use Illuminate\Support\ServiceProvider;
 
@@ -20,10 +21,10 @@ class BusinessServiceProvider extends ServiceProvider
         $this->packageCode = 'business';
 
         $this->mergeConfigFrom(
-            __DIR__.'/../config/business.php', 'fintech.business'
+            __DIR__ . '/../config/business.php', 'fintech.business'
         );
 
-        $this->app->register(\Fintech\Business\Providers\RepositoryServiceProvider::class);
+        $this->app->register(RepositoryServiceProvider::class);
     }
 
     /**
@@ -34,21 +35,21 @@ class BusinessServiceProvider extends ServiceProvider
         $this->injectOnConfig();
 
         $this->publishes([
-            __DIR__.'/../config/business.php' => config_path('fintech/business.php'),
+            __DIR__ . '/../config/business.php' => config_path('fintech/business.php'),
         ]);
 
-        $this->loadMigrationsFrom(__DIR__.'/../database/migrations');
+        $this->loadMigrationsFrom(__DIR__ . '/../database/migrations');
 
-        $this->loadTranslationsFrom(__DIR__.'/../lang', 'business');
+        $this->loadTranslationsFrom(__DIR__ . '/../lang', 'business');
 
         $this->publishes([
-            __DIR__.'/../lang' => $this->app->langPath('vendor/business'),
+            __DIR__ . '/../lang' => $this->app->langPath('vendor/business'),
         ]);
 
-        $this->loadViewsFrom(__DIR__.'/../resources/views', 'business');
+        $this->loadViewsFrom(__DIR__ . '/../resources/views', 'business');
 
         $this->publishes([
-            __DIR__.'/../resources/views' => resource_path('views/vendor/business'),
+            __DIR__ . '/../resources/views' => resource_path('views/vendor/business'),
         ]);
 
         if ($this->app->runningInConsole()) {
