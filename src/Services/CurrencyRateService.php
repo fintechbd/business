@@ -68,7 +68,7 @@ class CurrencyRateService
 
         $onlyRate = $data['get_only_rate'] ?? false;
 
-        if (!$inputCountryId || !$outputCountryId || !$serviceId) {
+        if (! $inputCountryId || ! $outputCountryId || ! $serviceId) {
             throw new InvalidArgumentException('Source, destination country or service id value missing or empty');
         }
 
@@ -78,7 +78,7 @@ class CurrencyRateService
 
         $service = Business::service()->find($serviceId);
 
-        if (!$inputCountry || !$outputCountry || !$service) {
+        if (! $inputCountry || ! $outputCountry || ! $service) {
             throw new InvalidArgumentException("source, destination country or service doesn't exists");
         }
 
@@ -92,15 +92,15 @@ class CurrencyRateService
             'service_id' => $serviceId,
         ])->first();
 
-        if (!$currencyRate) {
+        if (! $currencyRate) {
             //throw (new ModelNotFoundException())->setModel(config('fintech.business.currency_rate_model', \Fintech\Business\Models\CurrencyRate::class), []);
             throw new InvalidArgumentException("currency rate doesn't exists");
         }
 
         if ($isReverse) {
-            $convertedAmount = (float)$amount / (float)$currencyRate->rate;
+            $convertedAmount = (float) $amount / (float) $currencyRate->rate;
         } else {
-            $convertedAmount = (float)$amount * (float)$currencyRate->rate;
+            $convertedAmount = (float) $amount * (float) $currencyRate->rate;
         }
 
         $exchangeData['input'] = ($isReverse) ? $outputCountry->currency : $inputCountry->currency;
