@@ -38,7 +38,10 @@ class ServicePackage extends BaseModel
     | RELATIONS
     |--------------------------------------------------------------------------
     */
-
+    public function service(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    {
+        return $this->belongsTo(config('fintech.business.service_model', Service::class), 'service_id', 'id');
+    }
     /*
     |--------------------------------------------------------------------------
     | SCOPES
