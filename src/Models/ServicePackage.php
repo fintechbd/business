@@ -10,8 +10,8 @@ use Spatie\Translatable\HasTranslations;
 class ServicePackage extends BaseModel
 {
     use AuditableTrait;
-    use SoftDeletes;
     use HasTranslations;
+    use SoftDeletes;
 
     /*
     |--------------------------------------------------------------------------
