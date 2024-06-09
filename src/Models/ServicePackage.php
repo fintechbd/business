@@ -5,11 +5,13 @@ namespace Fintech\Business\Models;
 use Fintech\Core\Abstracts\BaseModel;
 use Fintech\Core\Traits\AuditableTrait;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Spatie\Translatable\HasTranslations;
 
 class ServicePackage extends BaseModel
 {
     use AuditableTrait;
     use SoftDeletes;
+    use HasTranslations;
 
     /*
     |--------------------------------------------------------------------------
@@ -27,6 +29,7 @@ class ServicePackage extends BaseModel
 
     protected $hidden = ['creator_id', 'editor_id', 'destroyer_id', 'restorer_id'];
 
+    public $translatable = ['name'];
     /*
     |--------------------------------------------------------------------------
     | FUNCTIONS
