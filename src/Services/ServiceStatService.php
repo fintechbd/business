@@ -18,9 +18,7 @@ class ServiceStatService
     /**
      * ServiceStatService constructor.
      */
-    public function __construct(private readonly ServiceStatRepository $serviceStatRepository)
-    {
-    }
+    public function __construct(private readonly ServiceStatRepository $serviceStatRepository) {}
 
     public function find($id, bool $onlyTrashed = false): ?BaseModel
     {

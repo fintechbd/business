@@ -15,10 +15,7 @@ class ServiceSettingService
     /**
      * ServiceSettingService constructor.
      */
-    public function __construct(private readonly ServiceSettingRepository $serviceSettingRepository)
-    {
-
-    }
+    public function __construct(private readonly ServiceSettingRepository $serviceSettingRepository) {}
 
     public function find($id, bool $onlyTrashed = false): ?BaseModel
     {

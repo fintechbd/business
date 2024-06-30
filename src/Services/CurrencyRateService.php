@@ -15,9 +15,7 @@ class CurrencyRateService
     /**
      * CurrencyRateService constructor.
      */
-    public function __construct(private readonly CurrencyRateRepository $currencyRateRepository)
-    {
-    }
+    public function __construct(private readonly CurrencyRateRepository $currencyRateRepository) {}
 
     public function update($id, array $inputs = [])
     {
