@@ -24,7 +24,7 @@ class CurrencyRate extends BaseModel
 
     protected $guarded = ['id'];
 
-    protected $appends = ['links'];
+
 
     protected $casts = ['currency_rate_data' => 'array', 'restored_at' => 'datetime', 'is_default' => 'bool'];
 

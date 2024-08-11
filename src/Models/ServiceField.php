@@ -26,7 +26,7 @@ class ServiceField extends BaseModel
 
     protected $guarded = ['id'];
 
-    protected $appends = ['links', 'service_name'];
+
 
     protected $casts = ['options' => 'array', 'service_field_data' => 'array', 'restored_at' => 'datetime', 'enabled' => 'bool', 'required' => 'bool', 'reserved' => 'bool'];
 

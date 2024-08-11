@@ -22,7 +22,7 @@ class ChargeBreakDown extends BaseModel
 
     protected $guarded = ['id'];
 
-    protected $appends = ['links'];
+
 
     protected $casts = ['charge_break_down_data' => 'array', 'restored_at' => 'datetime', 'enabled' => 'bool'];
 

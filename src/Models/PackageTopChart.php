@@ -21,7 +21,7 @@ class PackageTopChart extends BaseModel
 
     protected $guarded = ['id'];
 
-    protected $appends = ['links'];
+
 
     protected $casts = ['package_top_chart_data' => 'array', 'restored_at' => 'datetime', 'enabled' => 'bool'];
 

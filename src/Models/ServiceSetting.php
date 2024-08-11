@@ -21,7 +21,7 @@ class ServiceSetting extends BaseModel
 
     protected $guarded = ['id'];
 
-    protected $appends = ['links'];
+
 
     protected $casts = ['service_setting_data' => 'array', 'restored_at' => 'datetime', 'enabled' => 'bool'];
 

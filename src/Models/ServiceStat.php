@@ -24,7 +24,7 @@ class ServiceStat extends BaseModel
 
     protected $guarded = ['id'];
 
-    protected $appends = ['links'];
+
 
     protected $casts = ['service_stat_data' => 'array', 'restored_at' => 'datetime', 'enabled' => 'bool'];
 
