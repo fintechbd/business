@@ -21,8 +21,6 @@ class ServiceSetting extends BaseModel
 
     protected $guarded = ['id'];
 
-
-
     protected $casts = ['service_setting_data' => 'array', 'restored_at' => 'datetime', 'enabled' => 'bool'];
 
     protected $hidden = ['creator_id', 'editor_id', 'destroyer_id', 'restorer_id'];

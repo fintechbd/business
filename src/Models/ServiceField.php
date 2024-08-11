@@ -26,8 +26,6 @@ class ServiceField extends BaseModel
 
     protected $guarded = ['id'];
 
-
-
     protected $casts = ['options' => 'array', 'service_field_data' => 'array', 'restored_at' => 'datetime', 'enabled' => 'bool', 'required' => 'bool', 'reserved' => 'bool'];
 
     protected $hidden = ['creator_id', 'editor_id', 'destroyer_id', 'restorer_id', 'service'];
