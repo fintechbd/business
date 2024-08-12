@@ -164,7 +164,6 @@ class ServiceStatService
             throw new ModelNotFoundException("Service State doesn't exists");
         }
 
-        logger('Service Stat', [$serviceStat->toArray()]);
 
         $serviceStatData = $serviceStat->service_stat_data[0];
 
