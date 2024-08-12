@@ -166,8 +166,6 @@ class ServiceStatService
 
         $serviceStatData = $serviceStat->service_stat_data[0];
 
-        logger('service_stat_data', $serviceStatData);
-
         $serviceCost = [
             ...$exchangeRate,
             'charge' => $serviceStatData['charge'] ?? null,
