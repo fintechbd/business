@@ -164,10 +164,9 @@ class ServiceStatService
             throw new ModelNotFoundException("Service State doesn't exists");
         }
 
-
         $serviceStatData = $serviceStat->service_stat_data[0];
 
-        logger("service_stat_data", $serviceStatData);
+        logger('service_stat_data', $serviceStatData);
 
         $serviceCost = [
             ...$exchangeRate,
