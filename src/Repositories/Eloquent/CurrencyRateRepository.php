@@ -32,10 +32,14 @@ class CurrencyRateRepository extends EloquentRepository implements InterfacesCur
         //Searching
         if (!empty($filters['search'])) {
             $query->where(function (Builder $query) use ($filters) {
-                    return $query->where($this->model->getKeyName(), 'like', "%{$filters['search']}%")
-                        ->orWhere('name', 'like', "%{$filters['search']}%")
-                        ->orWhere('currency_rate_data', 'like', "%{$filters['search']}%");
-                });
+                return $query->where($this->model->getKeyName(), 'like', "%{$filters['search']}%")
+                    ->orWhere('name', 'like', "%{$filters['search']}%")
+                    ->orWhere('currency_rate_data', 'like', "%{$filters['search']}%")
+                    ->orWhereHas('service', function ($query) use ($filters) {
+                        return $query->where('service_name', 'like', "%{$filters['search']}%")
+                            ->where('service_slug', 'like', "%{$filters['search']}%");
+                    });
+            });
         }
 
         if (!empty($filters['source_country_id'])) {
