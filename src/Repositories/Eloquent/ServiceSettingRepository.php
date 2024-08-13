@@ -30,8 +30,11 @@ class ServiceSettingRepository extends EloquentRepository implements InterfacesS
         //Searching
         if (!empty($filters['search'])) {
             $query->where($this->model->getKeyName(), 'like', "%{$filters['search']}%")
-                ->orWhere('service_type_name', 'like', "%{$filters['search']}%")
-                ->orWhere('service_type_slug', 'like', "%{$filters['search']}%");
+                ->orWhere('service_setting_type', 'like', "%{$filters['search']}%")
+                ->orWhere('service_setting_name', 'like', "%{$filters['search']}%")
+                ->orWhere('service_setting_field_name', 'like', "%{$filters['search']}%")
+                ->orWhere('service_setting_type_field', 'like', "%{$filters['search']}%")
+                ->orWhere('service_setting_feature', 'like', "%{$filters['search']}%");
         }
 
         if (!empty($filters['service_setting_type'])) {
