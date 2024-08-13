@@ -6,7 +6,6 @@ use Fintech\Business\Interfaces\ServiceSettingRepository as InterfacesServiceSet
 use Fintech\Business\Models\ServiceSetting;
 use Fintech\Core\Repositories\EloquentRepository;
 use Illuminate\Contracts\Pagination\Paginator;
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 
 /**
@@ -28,7 +27,7 @@ class ServiceSettingRepository extends EloquentRepository implements InterfacesS
         $query = $this->model->newQuery();
 
         //Searching
-        if (!empty($filters['search'])) {
+        if (! empty($filters['search'])) {
             $query->where($this->model->getKeyName(), 'like', "%{$filters['search']}%")
                 ->orWhere('service_setting_type', 'like', "%{$filters['search']}%")
                 ->orWhere('service_setting_name', 'like', "%{$filters['search']}%")
@@ -37,23 +36,23 @@ class ServiceSettingRepository extends EloquentRepository implements InterfacesS
                 ->orWhere('service_setting_feature', 'like', "%{$filters['search']}%");
         }
 
-        if (!empty($filters['service_setting_type'])) {
+        if (! empty($filters['service_setting_type'])) {
             $query->where('service_setting_type', '=', $filters['service_setting_type']);
         }
 
-        if (!empty($filters['service_setting_name'])) {
+        if (! empty($filters['service_setting_name'])) {
             $query->where('service_setting_name', '=', $filters['service_setting_name']);
         }
 
-        if (!empty($filters['service_setting_field_name'])) {
+        if (! empty($filters['service_setting_field_name'])) {
             $query->where('service_setting_field_name', '=', $filters['service_setting_field_name']);
         }
 
-        if (!empty($filters['service_setting_type_field'])) {
+        if (! empty($filters['service_setting_type_field'])) {
             $query->where('service_setting_type_field', '=', $filters['service_setting_type_field']);
         }
 
-        if (!empty($filters['service_setting_feature'])) {
+        if (! empty($filters['service_setting_feature'])) {
             $query->where('service_setting_feature', '=', $filters['service_setting_feature']);
         }
 
@@ -62,7 +61,7 @@ class ServiceSettingRepository extends EloquentRepository implements InterfacesS
         }
 
         //Display Trashed
-        if (isset($filters['trashed']) && !empty($filters['trashed'])) {
+        if (isset($filters['trashed']) && ! empty($filters['trashed'])) {
             $query->onlyTrashed();
         }
 

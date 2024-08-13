@@ -30,7 +30,7 @@ class CurrencyRateRepository extends EloquentRepository implements InterfacesCur
         $query = $this->model->newQuery();
 
         //Searching
-        if (!empty($filters['search'])) {
+        if (! empty($filters['search'])) {
             $query->where(function (Builder $query) use ($filters) {
                 return $query->where($this->model->getKeyName(), 'like', "%{$filters['search']}%")
                     ->orWhere('name', 'like', "%{$filters['search']}%")
@@ -42,15 +42,15 @@ class CurrencyRateRepository extends EloquentRepository implements InterfacesCur
             });
         }
 
-        if (!empty($filters['source_country_id'])) {
+        if (! empty($filters['source_country_id'])) {
             $query->where('currency_rates.source_country_id', '=', $filters['source_country_id']);
         }
 
-        if (!empty($filters['destination_country_id'])) {
+        if (! empty($filters['destination_country_id'])) {
             $query->where('currency_rates.destination_country_id', '=', $filters['destination_country_id']);
         }
 
-        if (!empty($filters['service_id'])) {
+        if (! empty($filters['service_id'])) {
             $query->where('service_id', '=', $filters['service_id']);
         }
 
