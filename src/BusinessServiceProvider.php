@@ -38,6 +38,10 @@ class BusinessServiceProvider extends ServiceProvider
             __DIR__.'/../config/business.php' => config_path('fintech/business.php'),
         ]);
 
+        $this->publishes([
+            __DIR__.'/../database/seeders/currency_rates.json' => database_path('seeders/currency_rates.json'),
+        ], 'currency-rate-stub');
+
         $this->loadMigrationsFrom(__DIR__.'/../database/migrations');
 
         $this->loadTranslationsFrom(__DIR__.'/../lang', 'business');
