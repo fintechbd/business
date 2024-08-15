@@ -3,9 +3,7 @@
 namespace Fintech\Business\Seeders;
 
 use Fintech\Business\Facades\Business;
-use Fintech\Core\Facades\Core;
 use Illuminate\Database\Seeder;
-use MetaData;
 
 class CurrencyRateSeeder extends Seeder
 {
@@ -44,14 +42,14 @@ class CurrencyRateSeeder extends Seeder
                             'output' => $this->currencyRates[$destCountry]['code'],
                             'output_partner' => null,
                             'rate' => null,
-                            'markup' => mt_rand(1, 5) . '%',
+                            'markup' => mt_rand(1, 5).'%',
                             'usd_to_input' => $this->currencyRates[$sourceCountry]['rate'],
                             'usd_to_output' => $this->currencyRates[$destCountry]['rate'],
                         ],
                     ];
                     $temp['currency_rate_data']['rate'] = $temp['rate'];
                     $temp['currency_rate_data']['markup_amount'] = calculate_flat_percent($temp['rate'], $temp['currency_rate_data']['markup']);
-                    $temp['currency_rate_data']['customer_rate'] = (float)$temp['rate'] - calculate_flat_percent($temp['rate'], $temp['currency_rate_data']['markup']);
+                    $temp['currency_rate_data']['customer_rate'] = (float) $temp['rate'] - calculate_flat_percent($temp['rate'], $temp['currency_rate_data']['markup']);
                     $data[] = $temp;
                 }
             }
@@ -69,15 +67,15 @@ class CurrencyRateSeeder extends Seeder
         $srcRate = $this->currencyRates[$sourceCountry]['rate'];
         $destRate = $this->currencyRates[$destCountry]['rate'];
 
-        return (string)round(($destRate / $srcRate), 5);
+        return (string) round(($destRate / $srcRate), 5);
 
     }
 
     private function loadCurrencyRates(): void
     {
         $path = file_exists(database_path('seeders/currency_rates.json'))
-            ? database_path('seeders' . DIRECTORY_SEPARATOR . 'currency_rates.json')
-            : __DIR__ . DIRECTORY_SEPARATOR . 'currency_rates.json';
+            ? database_path('seeders'.DIRECTORY_SEPARATOR.'currency_rates.json')
+            : __DIR__.DIRECTORY_SEPARATOR.'currency_rates.json';
 
         $this->currencyRates = json_decode(file_get_contents($path), true);
     }
