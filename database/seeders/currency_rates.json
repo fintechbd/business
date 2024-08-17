@@ -1,1002 +1,252 @@
 {
-    "1": {
-        "code": "AFN",
-        "rate": 71.01
-    },
-    "2": {
-        "code": "EUR",
-        "rate": 0.90752
-    },
-    "3": {
-        "code": "ALL",
-        "rate": null
-    },
-    "4": {
-        "code": "DZD",
-        "rate": null
-    },
-    "5": {
-        "code": "USD",
-        "rate": 1
-    },
-    "6": {
-        "code": "EUR",
-        "rate": 0.90752
-    },
-    "7": {
-        "code": "AOA",
-        "rate": null
-    },
-    "8": {
-        "code": "XCD",
-        "rate": null
-    },
-    "9": {
-        "code": "AAD",
-        "rate": null
-    },
-    "10": {
-        "code": "XCD",
-        "rate": null
-    },
-    "11": {
-        "code": "ARS",
-        "rate": null
-    },
-    "12": {
-        "code": "AMD",
-        "rate": null
-    },
-    "13": {
-        "code": "AWG",
-        "rate": null
-    },
-    "14": {
-        "code": "AUD",
-        "rate": 1.51039
-    },
-    "15": {
-        "code": "EUR",
-        "rate": 0.90752
-    },
-    "16": {
-        "code": "AZN",
-        "rate": null
-    },
-    "17": {
-        "code": "BSD",
-        "rate": null
-    },
-    "18": {
-        "code": "BHD",
-        "rate": null
-    },
-    "19": {
-        "code": "BDT",
-        "rate": 117.5152
-    },
-    "20": {
-        "code": "BBD",
-        "rate": null
-    },
-    "21": {
-        "code": "BYN",
-        "rate": null
-    },
-    "22": {
-        "code": "EUR",
-        "rate": 0.90752
-    },
-    "23": {
-        "code": "BZD",
-        "rate": null
-    },
-    "24": {
-        "code": "XOF",
-        "rate": null
-    },
-    "25": {
-        "code": "BMD",
-        "rate": null
-    },
-    "26": {
-        "code": "BTN",
-        "rate": null
-    },
-    "27": {
-        "code": "BOB",
-        "rate": null
-    },
-    "28": {
-        "code": "BAM",
-        "rate": null
-    },
-    "29": {
-        "code": "BWP",
-        "rate": null
-    },
-    "30": {
-        "code": "NOK",
-        "rate": 10.67837
-    },
-    "31": {
-        "code": "BRL",
-        "rate": 5.44732
-    },
-    "32": {
-        "code": "USD",
-        "rate": 1
-    },
-    "33": {
-        "code": "BND",
-        "rate": null
-    },
-    "34": {
-        "code": "BGN",
-        "rate": 1.77493
-    },
-    "35": {
-        "code": "XOF",
-        "rate": null
-    },
-    "36": {
-        "code": "BIF",
-        "rate": null
-    },
-    "37": {
-        "code": "KHR",
-        "rate": null
-    },
-    "38": {
-        "code": "XAF",
-        "rate": null
-    },
-    "39": {
-        "code": "CAD",
-        "rate": 1.37172
-    },
-    "40": {
-        "code": "CVE",
-        "rate": null
-    },
-    "41": {
-        "code": "KYD",
-        "rate": null
-    },
-    "42": {
-        "code": "XAF",
-        "rate": null
-    },
-    "43": {
-        "code": "XAF",
-        "rate": null
-    },
-    "44": {
-        "code": "CLP",
-        "rate": null
-    },
-    "45": {
-        "code": "CNY",
-        "rate": 7.13558
-    },
-    "46": {
-        "code": "AUD",
-        "rate": 1.51039
-    },
-    "47": {
-        "code": "AUD",
-        "rate": 1.51039
-    },
-    "48": {
-        "code": "COP",
-        "rate": null
-    },
-    "49": {
-        "code": "KMF",
-        "rate": null
-    },
-    "50": {
-        "code": "XAF",
-        "rate": null
-    },
-    "51": {
-        "code": "CDF",
-        "rate": null
-    },
-    "52": {
-        "code": "NZD",
-        "rate": 1.66295
-    },
-    "53": {
-        "code": "CRC",
-        "rate": null
-    },
-    "54": {
-        "code": "XOF",
-        "rate": null
-    },
-    "55": {
-        "code": "HRK",
-        "rate": null
-    },
-    "56": {
-        "code": "CUP",
-        "rate": null
-    },
-    "57": {
-        "code": "EUR",
-        "rate": 0.90752
-    },
-    "58": {
-        "code": "CZK",
-        "rate": 22.86687
-    },
-    "59": {
-        "code": "DKK",
-        "rate": 6.77194
-    },
-    "60": {
-        "code": "DJF",
-        "rate": null
-    },
-    "61": {
-        "code": "XCD",
-        "rate": null
-    },
-    "62": {
-        "code": "DOP",
-        "rate": null
-    },
-    "63": {
-        "code": "USD",
-        "rate": 1
-    },
-    "64": {
-        "code": "USD",
-        "rate": 1
-    },
-    "65": {
-        "code": "EGP",
-        "rate": null
-    },
-    "66": {
-        "code": "USD",
-        "rate": 1
-    },
-    "67": {
-        "code": "XAF",
-        "rate": null
-    },
-    "68": {
-        "code": "ERN",
-        "rate": null
-    },
-    "69": {
-        "code": "EUR",
-        "rate": 0.90752
-    },
-    "70": {
-        "code": "ETB",
-        "rate": null
-    },
-    "71": {
-        "code": "FKP",
-        "rate": null
-    },
-    "72": {
-        "code": "DKK",
-        "rate": 6.77194
-    },
-    "73": {
-        "code": "FJD",
-        "rate": null
-    },
-    "74": {
-        "code": "EUR",
-        "rate": 0.90752
-    },
-    "75": {
-        "code": "EUR",
-        "rate": 0.90752
-    },
-    "76": {
-        "code": "EUR",
-        "rate": 0.90752
-    },
-    "77": {
-        "code": "XPF",
-        "rate": null
-    },
-    "78": {
-        "code": "EUR",
-        "rate": 0.90752
-    },
-    "79": {
-        "code": "XAF",
-        "rate": null
-    },
-    "80": {
-        "code": "GMD",
-        "rate": null
-    },
-    "81": {
-        "code": "GEL",
-        "rate": null
-    },
-    "82": {
-        "code": "EUR",
-        "rate": 0.90752
-    },
-    "83": {
-        "code": "GHS",
-        "rate": null
-    },
-    "84": {
-        "code": "GIP",
-        "rate": null
-    },
-    "85": {
-        "code": "EUR",
-        "rate": 0.90752
-    },
-    "86": {
-        "code": "DKK",
-        "rate": 6.77194
-    },
-    "87": {
-        "code": "XCD",
-        "rate": null
-    },
-    "88": {
-        "code": "EUR",
-        "rate": 0.90752
-    },
-    "89": {
-        "code": "USD",
-        "rate": 1
-    },
-    "90": {
-        "code": "GTQ",
-        "rate": null
-    },
-    "91": {
-        "code": "GBP",
-        "rate": 0.7785
-    },
-    "92": {
-        "code": "GNF",
-        "rate": null
-    },
-    "93": {
-        "code": "XOF",
-        "rate": null
-    },
-    "94": {
-        "code": "GYD",
-        "rate": null
-    },
-    "95": {
-        "code": "HTG",
-        "rate": null
-    },
-    "96": {
-        "code": "AUD",
-        "rate": 1.51039
-    },
-    "97": {
-        "code": "HNL",
-        "rate": null
-    },
-    "98": {
-        "code": "HKD",
-        "rate": 7.78873
-    },
-    "99": {
-        "code": "HUF",
-        "rate": 357.97259
-    },
-    "100": {
-        "code": "ISK",
-        "rate": 138.0343
-    },
-    "101": {
-        "code": "INR",
-        "rate": 83.94818
-    },
-    "102": {
-        "code": "IDR",
-        "rate": 15604.50132
-    },
-    "103": {
-        "code": "IRR",
-        "rate": null
-    },
-    "104": {
-        "code": "IQD",
-        "rate": null
-    },
-    "105": {
-        "code": "EUR",
-        "rate": 0.90752
-    },
-    "106": {
-        "code": "ILS",
-        "rate": 3.73237
-    },
-    "107": {
-        "code": "EUR",
-        "rate": 0.90752
-    },
-    "108": {
-        "code": "JMD",
-        "rate": null
-    },
-    "109": {
-        "code": "JPY",
-        "rate": 147.00064
-    },
-    "110": {
-        "code": "GBP",
-        "rate": 0.7785
-    },
-    "111": {
-        "code": "JOD",
-        "rate": null
-    },
-    "112": {
-        "code": "KZT",
-        "rate": null
-    },
-    "113": {
-        "code": "KES",
-        "rate": null
-    },
-    "114": {
-        "code": "AUD",
-        "rate": 1.51039
-    },
-    "115": {
-        "code": "KPW",
-        "rate": null
-    },
-    "116": {
-        "code": "KRW",
-        "rate": 1355.60396
-    },
-    "117": {
-        "code": "KWD",
-        "rate": null
-    },
-    "118": {
-        "code": "KGS",
-        "rate": null
-    },
-    "119": {
-        "code": "LAK",
-        "rate": null
-    },
-    "120": {
-        "code": "EUR",
-        "rate": 0.90752
-    },
-    "121": {
-        "code": "LBP",
-        "rate": null
-    },
-    "122": {
-        "code": "LSL",
-        "rate": null
-    },
-    "123": {
-        "code": "LRD",
-        "rate": null
-    },
-    "124": {
-        "code": "LYD",
-        "rate": null
-    },
-    "125": {
-        "code": "CHF",
-        "rate": 0.86351
-    },
-    "126": {
-        "code": "EUR",
-        "rate": 0.90752
-    },
-    "127": {
-        "code": "EUR",
-        "rate": 0.90752
-    },
-    "128": {
-        "code": "MOP",
-        "rate": null
-    },
-    "129": {
-        "code": "MKD",
-        "rate": null
-    },
-    "130": {
-        "code": "MGA",
-        "rate": null
-    },
-    "131": {
-        "code": "MWK",
-        "rate": null
-    },
-    "132": {
-        "code": "MYR",
-        "rate": 4.42
-    },
-    "133": {
-        "code": "MVR",
-        "rate": null
-    },
-    "134": {
-        "code": "XOF",
-        "rate": null
-    },
-    "135": {
-        "code": "EUR",
-        "rate": 0.90752
-    },
-    "136": {
-        "code": "GBP",
-        "rate": 0.7785
-    },
-    "137": {
-        "code": "USD",
-        "rate": 1
-    },
-    "138": {
-        "code": "EUR",
-        "rate": 0.90752
-    },
-    "139": {
-        "code": "MRO",
-        "rate": null
-    },
-    "140": {
-        "code": "MUR",
-        "rate": null
-    },
-    "141": {
-        "code": "EUR",
-        "rate": 0.90752
-    },
-    "142": {
-        "code": "MXN",
-        "rate": 18.94727
-    },
-    "143": {
-        "code": "USD",
-        "rate": 1
-    },
-    "144": {
-        "code": "MDL",
-        "rate": null
-    },
-    "145": {
-        "code": "EUR",
-        "rate": 0.90752
-    },
-    "146": {
-        "code": "MNT",
-        "rate": null
-    },
-    "147": {
-        "code": "EUR",
-        "rate": 0.90752
-    },
-    "148": {
-        "code": "XCD",
-        "rate": null
-    },
-    "149": {
-        "code": "MAD",
-        "rate": null
-    },
-    "150": {
-        "code": "MZN",
-        "rate": null
-    },
-    "151": {
-        "code": "MMK",
-        "rate": null
-    },
-    "152": {
-        "code": "NAD",
-        "rate": null
-    },
-    "153": {
-        "code": "AUD",
-        "rate": 1.51039
-    },
-    "154": {
-        "code": "NPR",
-        "rate": null
-    },
-    "155": {
-        "code": "USD",
-        "rate": 1
-    },
-    "156": {
-        "code": "EUR",
-        "rate": 0.90752
-    },
-    "157": {
-        "code": "XPF",
-        "rate": null
-    },
-    "158": {
-        "code": "NZD",
-        "rate": 1.66295
-    },
-    "159": {
-        "code": "NIO",
-        "rate": null
-    },
-    "160": {
-        "code": "XOF",
-        "rate": null
-    },
-    "161": {
-        "code": "NGN",
-        "rate": null
-    },
-    "162": {
-        "code": "NZD",
-        "rate": 1.66295
-    },
-    "163": {
-        "code": "AUD",
-        "rate": 1.51039
-    },
-    "164": {
-        "code": "USD",
-        "rate": 1
-    },
-    "165": {
-        "code": "NOK",
-        "rate": 10.67837
-    },
-    "166": {
-        "code": "OMR",
-        "rate": null
-    },
-    "167": {
-        "code": "PKR",
-        "rate": null
-    },
-    "168": {
-        "code": "USD",
-        "rate": 1
-    },
-    "169": {
-        "code": "ILS",
-        "rate": 3.73237
-    },
-    "170": {
-        "code": "PAB",
-        "rate": null
-    },
-    "171": {
-        "code": "PGK",
-        "rate": null
-    },
-    "172": {
-        "code": "PYG",
-        "rate": null
-    },
-    "173": {
-        "code": "PEN",
-        "rate": null
-    },
-    "174": {
-        "code": "PHP",
-        "rate": 56.95707
-    },
-    "175": {
-        "code": "NZD",
-        "rate": 1.66295
-    },
-    "176": {
-        "code": "PLN",
-        "rate": 3.90008
-    },
-    "177": {
-        "code": "EUR",
-        "rate": 0.90752
-    },
-    "178": {
-        "code": "USD",
-        "rate": 1
-    },
-    "179": {
-        "code": "QAR",
-        "rate": null
-    },
-    "180": {
-        "code": "EUR",
-        "rate": 0.90752
-    },
-    "181": {
-        "code": "RON",
-        "rate": 4.51611
-    },
-    "182": {
-        "code": "RUB",
-        "rate": null
-    },
-    "183": {
-        "code": "RWF",
-        "rate": null
-    },
-    "184": {
-        "code": "SHP",
-        "rate": null
-    },
-    "185": {
-        "code": "XCD",
-        "rate": null
-    },
-    "186": {
-        "code": "XCD",
-        "rate": null
-    },
-    "187": {
-        "code": "EUR",
-        "rate": 0.90752
-    },
-    "188": {
-        "code": "XCD",
-        "rate": null
-    },
-    "189": {
-        "code": "EUR",
-        "rate": 0.90752
-    },
-    "190": {
-        "code": "EUR",
-        "rate": 0.90752
-    },
-    "191": {
-        "code": "WST",
-        "rate": null
-    },
-    "192": {
-        "code": "EUR",
-        "rate": 0.90752
-    },
-    "193": {
-        "code": "STD",
-        "rate": null
-    },
-    "194": {
-        "code": "SAR",
-        "rate": null
-    },
-    "195": {
-        "code": "XOF",
-        "rate": null
-    },
-    "196": {
-        "code": "RSD",
-        "rate": null
-    },
-    "197": {
-        "code": "SCR",
-        "rate": null
-    },
-    "198": {
-        "code": "SLL",
-        "rate": null
-    },
-    "199": {
-        "code": "SGD",
-        "rate": 1.31536
-    },
-    "200": {
-        "code": "EUR",
-        "rate": 0.90752
-    },
-    "201": {
-        "code": "EUR",
-        "rate": 0.90752
-    },
-    "202": {
-        "code": "SBD",
-        "rate": null
-    },
-    "203": {
-        "code": "SOS",
-        "rate": null
-    },
-    "204": {
-        "code": "ZAR",
-        "rate": 18.08395
-    },
-    "205": {
-        "code": "GBP",
-        "rate": 0.7785
-    },
-    "206": {
-        "code": "SSP",
-        "rate": null
-    },
-    "207": {
-        "code": "EUR",
-        "rate": 0.90752
-    },
-    "208": {
-        "code": "LKR",
-        "rate": null
-    },
-    "209": {
-        "code": "SDG",
-        "rate": null
-    },
-    "210": {
-        "code": "SRD",
-        "rate": null
-    },
-    "211": {
-        "code": "NOK",
-        "rate": 10.67837
-    },
-    "212": {
-        "code": "SZL",
-        "rate": null
-    },
-    "213": {
-        "code": "SEK",
-        "rate": 10.42227
-    },
-    "214": {
-        "code": "CHF",
-        "rate": 0.86351
-    },
-    "215": {
-        "code": "SYP",
-        "rate": null
-    },
-    "216": {
-        "code": "TWD",
-        "rate": null
-    },
-    "217": {
-        "code": "TJS",
-        "rate": null
-    },
-    "218": {
-        "code": "TZS",
-        "rate": null
-    },
-    "219": {
-        "code": "THB",
-        "rate": 34.87522
-    },
-    "220": {
-        "code": "XOF",
-        "rate": null
-    },
-    "221": {
-        "code": "NZD",
-        "rate": 1.66295
-    },
-    "222": {
-        "code": "TOP",
-        "rate": null
-    },
-    "223": {
-        "code": "TTD",
-        "rate": null
-    },
-    "224": {
-        "code": "TND",
-        "rate": null
-    },
-    "225": {
-        "code": "TRY",
-        "rate": 33.54796
-    },
-    "226": {
-        "code": "TMT",
-        "rate": null
-    },
-    "227": {
-        "code": "USD",
-        "rate": 1
-    },
-    "228": {
-        "code": "AUD",
-        "rate": 1.51039
-    },
-    "229": {
-        "code": "UGX",
-        "rate": null
-    },
-    "230": {
-        "code": "UAH",
-        "rate": null
-    },
-    "231": {
-        "code": "AED",
-        "rate": 3.67
-    },
-    "232": {
-        "code": "GBP",
-        "rate": 0.7785
-    },
-    "233": {
-        "code": "USD",
-        "rate": 1
-    },
-    "234": {
-        "code": "USD",
-        "rate": 1
-    },
-    "235": {
-        "code": "UYU",
-        "rate": null
-    },
-    "236": {
-        "code": "UZS",
-        "rate": null
-    },
-    "237": {
-        "code": "VUV",
-        "rate": null
-    },
-    "238": {
-        "code": "EUR",
-        "rate": 0.90752
-    },
-    "239": {
-        "code": "VES",
-        "rate": null
-    },
-    "240": {
-        "code": "VND",
-        "rate": null
-    },
-    "241": {
-        "code": "USD",
-        "rate": 1
-    },
-    "242": {
-        "code": "USD",
-        "rate": 1
-    },
-    "243": {
-        "code": "XPF",
-        "rate": null
-    },
-    "244": {
-        "code": "MAD",
-        "rate": null
-    },
-    "245": {
-        "code": "YER",
-        "rate": null
-    },
-    "246": {
-        "code": "ZMW",
-        "rate": null
-    },
-    "247": {
-        "code": "ZWL",
-        "rate": null
-    },
-    "248": {
-        "code": "EUR",
-        "rate": 0.90752
-    },
-    "249": {
-        "code": "ANG",
-        "rate": null
-    },
-    "250": {
-        "code": "ANG",
-        "rate": null
-    }
+    "1": { "code": "AFN","rate": 71.01 },
+    "2": { "code": "EUR","rate": 0.90752 },
+    "3": { "code": "ALL","rate": 90.74409 },
+    "4": { "code": "DZD","rate": 134.2235 },
+    "5": { "code": "USD","rate": 1 },
+    "6": { "code": "EUR","rate": 0.90752 },
+    "7": { "code": "AOA","rate": 885.97528 },
+    "8": { "code": "XCD","rate": 2.70236 },
+    "9": { "code": "AAD","rate": null },
+    "10": { "code": "XCD","rate": 2.70236 },
+    "11": { "code": "ARS","rate": null },
+    "12": { "code": "AMD","rate": null },
+    "13": { "code": "AWG","rate": null },
+    "14": { "code": "AUD","rate": 1.51039 },
+    "15": { "code": "EUR","rate": 0.90752 },
+    "16": { "code": "AZN","rate": null },
+    "17": { "code": "BSD","rate": null },
+    "18": { "code": "BHD","rate": null },
+    "19": { "code": "BDT","rate": 117.5152 },
+    "20": { "code": "BBD","rate": null },
+    "21": { "code": "BYN","rate": null },
+    "22": { "code": "EUR","rate": 0.90752 },
+    "23": { "code": "BZD","rate": null },
+    "24": { "code": "XOF","rate": 594.41000 },
+    "25": { "code": "BMD","rate": null },
+    "26": { "code": "BTN","rate": null },
+    "27": { "code": "BOB","rate": null },
+    "28": { "code": "BAM","rate": null },
+    "29": { "code": "BWP","rate": null },
+    "30": { "code": "NOK","rate": 10.67837 },
+    "31": { "code": "BRL","rate": 5.44732 },
+    "32": { "code": "USD","rate": 1 },
+    "33": { "code": "BND","rate": null },
+    "34": { "code": "BGN","rate": 1.77493 },
+    "35": { "code": "XOF","rate": 594.41000 },
+    "36": { "code": "BIF","rate": null },
+    "37": { "code": "KHR","rate": null },
+    "38": { "code": "XAF","rate": 594.73096 },
+    "39": { "code": "CAD","rate": 1.37172 },
+    "40": { "code": "CVE","rate": null },
+    "41": { "code": "KYD","rate": null },
+    "42": { "code": "XAF","rate": 594.73096 },
+    "43": { "code": "XAF","rate": 594.73096 },
+    "44": { "code": "CLP","rate": null },
+    "45": { "code": "CNY","rate": 7.13558 },
+    "46": { "code": "AUD","rate": 1.51039 },
+    "47": { "code": "AUD","rate": 1.51039 },
+    "48": { "code": "COP","rate": null },
+    "49": { "code": "KMF","rate": null },
+    "50": { "code": "XAF","rate": 594.73096 },
+    "51": { "code": "CDF","rate": null },
+    "52": { "code": "NZD","rate": 1.66295 },
+    "53": { "code": "CRC","rate": null },
+    "54": { "code": "XOF","rate": 594.41000 },
+    "55": { "code": "HRK","rate": null },
+    "56": { "code": "CUP","rate": null },
+    "57": { "code": "EUR","rate": 0.90752 },
+    "58": { "code": "CZK","rate": 22.86687 },
+    "59": { "code": "DKK","rate": 6.77194 },
+    "60": { "code": "DJF","rate": null },
+    "61": { "code": "XCD","rate": 2.70236 },
+    "62": { "code": "DOP","rate": null },
+    "63": { "code": "USD","rate": 1 },
+    "64": { "code": "USD","rate": 1 },
+    "65": { "code": "EGP","rate": null },
+    "66": { "code": "USD","rate": 1 },
+    "67": { "code": "XAF","rate": 594.73096 },
+    "68": { "code": "ERN","rate": null },
+    "69": { "code": "EUR","rate": 0.90752 },
+    "70": { "code": "ETB","rate": null },
+    "71": { "code": "FKP","rate": null },
+    "72": { "code": "DKK","rate": 6.77194 },
+    "73": { "code": "FJD","rate": null },
+    "74": { "code": "EUR","rate": 0.90752 },
+    "75": { "code": "EUR","rate": 0.90752 },
+    "76": { "code": "EUR","rate": 0.90752 },
+    "77": { "code": "XPF","rate": 108.1935 },
+    "78": { "code": "EUR","rate": 0.90752 },
+    "79": { "code": "XAF","rate": 594.73096 },
+    "80": { "code": "GMD","rate": null },
+    "81": { "code": "GEL","rate": null },
+    "82": { "code": "EUR","rate": 0.90752 },
+    "83": { "code": "GHS","rate": null },
+    "84": { "code": "GIP","rate": null },
+    "85": { "code": "EUR","rate": 0.90752 },
+    "86": { "code": "DKK","rate": 6.77194 },
+    "87": { "code": "XCD","rate": 2.70236 },
+    "88": { "code": "EUR","rate": 0.90752 },
+    "89": { "code": "USD","rate": 1 },
+    "90": { "code": "GTQ","rate": null },
+    "91": { "code": "GBP","rate": 0.7785 },
+    "92": { "code": "GNF","rate": null },
+    "93": { "code": "XOF","rate": 594.41000 },
+    "94": { "code": "GYD","rate": null },
+    "95": { "code": "HTG","rate": null },
+    "96": { "code": "AUD","rate": 1.51039 },
+    "97": { "code": "HNL","rate": null },
+    "98": { "code": "HKD","rate": 7.78873 },
+    "99": { "code": "HUF","rate": 357.97259 },
+    "100": { "code": "ISK","rate": 138.0343 },
+    "101": { "code": "INR","rate": 83.94818 },
+    "102": { "code": "IDR","rate": 15604.50132 },
+    "103": { "code": "IRR","rate": null },
+    "104": { "code": "IQD","rate": null },
+    "105": { "code": "EUR","rate": 0.90752 },
+    "106": { "code": "ILS","rate": 3.73237 },
+    "107": { "code": "EUR","rate": 0.90752 },
+    "108": { "code": "JMD","rate": null },
+    "109": { "code": "JPY","rate": 147.00064 },
+    "110": { "code": "GBP","rate": 0.7785 },
+    "111": { "code": "JOD","rate": null },
+    "112": { "code": "KZT","rate": null },
+    "113": { "code": "KES","rate": null },
+    "114": { "code": "AUD","rate": 1.51039 },
+    "115": { "code": "KPW","rate": null },
+    "116": { "code": "KRW","rate": 1355.60396 },
+    "117": { "code": "KWD","rate": null },
+    "118": { "code": "KGS","rate": null },
+    "119": { "code": "LAK","rate": null },
+    "120": { "code": "EUR","rate": 0.90752 },
+    "121": { "code": "LBP","rate": null },
+    "122": { "code": "LSL","rate": null },
+    "123": { "code": "LRD","rate": null },
+    "124": { "code": "LYD","rate": null },
+    "125": { "code": "CHF","rate": 0.86351 },
+    "126": { "code": "EUR","rate": 0.90752 },
+    "127": { "code": "EUR","rate": 0.90752 },
+    "128": { "code": "MOP","rate": null },
+    "129": { "code": "MKD","rate": null },
+    "130": { "code": "MGA","rate": null },
+    "131": { "code": "MWK","rate": null },
+    "132": { "code": "MYR","rate": 4.42 },
+    "133": { "code": "MVR","rate": null },
+    "134": { "code": "XOF","rate": 594.41000 },
+    "135": { "code": "EUR","rate": 0.90752 },
+    "136": { "code": "GBP","rate": 0.7785 },
+    "137": { "code": "USD","rate": 1 },
+    "138": { "code": "EUR","rate": 0.90752 },
+    "139": { "code": "MRO","rate": null },
+    "140": { "code": "MUR","rate": null },
+    "141": { "code": "EUR","rate": 0.90752 },
+    "142": { "code": "MXN","rate": 18.94727 },
+    "143": { "code": "USD","rate": 1 },
+    "144": { "code": "MDL","rate": null },
+    "145": { "code": "EUR","rate": 0.90752 },
+    "146": { "code": "MNT","rate": null },
+    "147": { "code": "EUR","rate": 0.90752 },
+    "148": { "code": "XCD","rate": 2.70236 },
+    "149": { "code": "MAD","rate": 9.78016 },
+    "150": { "code": "MZN","rate": null },
+    "151": { "code": "MMK","rate": null },
+    "152": { "code": "NAD","rate": null },
+    "153": { "code": "AUD","rate": 1.51039 },
+    "154": { "code": "NPR","rate": null },
+    "155": { "code": "USD","rate": 1 },
+    "156": { "code": "EUR","rate": 0.90752 },
+    "157": { "code": "XPF","rate": 108.1935 },
+    "158": { "code": "NZD","rate": 1.66295 },
+    "159": { "code": "NIO","rate": null },
+    "160": { "code": "XOF","rate": 594.41000 },
+    "161": { "code": "NGN","rate": null },
+    "162": { "code": "NZD","rate": 1.66295 },
+    "163": { "code": "AUD","rate": 1.51039 },
+    "164": { "code": "USD","rate": 1 },
+    "165": { "code": "NOK","rate": 10.67837 },
+    "166": { "code": "OMR","rate": null },
+    "167": { "code": "PKR","rate": null },
+    "168": { "code": "USD","rate": 1 },
+    "169": { "code": "ILS","rate": 3.73237 },
+    "170": { "code": "PAB","rate": null },
+    "171": { "code": "PGK","rate": null },
+    "172": { "code": "PYG","rate": null },
+    "173": { "code": "PEN","rate": null },
+    "174": { "code": "PHP","rate": 56.95707 },
+    "175": { "code": "NZD","rate": 1.66295 },
+    "176": { "code": "PLN","rate": 3.90008 },
+    "177": { "code": "EUR","rate": 0.90752 },
+    "178": { "code": "USD","rate": 1 },
+    "179": { "code": "QAR","rate": null },
+    "180": { "code": "EUR","rate": 0.90752 },
+    "181": { "code": "RON","rate": 4.51611 },
+    "182": { "code": "RUB","rate": null },
+    "183": { "code": "RWF","rate": null },
+    "184": { "code": "SHP","rate": null },
+    "185": { "code": "XCD","rate": 2.70236 },
+    "186": { "code": "XCD","rate": 2.70236 },
+    "187": { "code": "EUR","rate": 0.90752 },
+    "188": { "code": "XCD","rate": 2.70236 },
+    "189": { "code": "EUR","rate": 0.90752 },
+    "190": { "code": "EUR","rate": 0.90752 },
+    "191": { "code": "WST","rate": null },
+    "192": { "code": "EUR","rate": 0.90752 },
+    "193": { "code": "STD","rate": null },
+    "194": { "code": "SAR","rate": null },
+    "195": { "code": "XOF","rate": 594.41000 },
+    "196": { "code": "RSD","rate": null },
+    "197": { "code": "SCR","rate": null },
+    "198": { "code": "SLL","rate": null },
+    "199": { "code": "SGD","rate": 1.31536 },
+    "200": { "code": "EUR","rate": 0.90752 },
+    "201": { "code": "EUR","rate": 0.90752 },
+    "202": { "code": "SBD","rate": null },
+    "203": { "code": "SOS","rate": null },
+    "204": { "code": "ZAR","rate": 18.08395 },
+    "205": { "code": "GBP","rate": 0.7785 },
+    "206": { "code": "SSP","rate": null },
+    "207": { "code": "EUR","rate": 0.90752 },
+    "208": { "code": "LKR","rate": null },
+    "209": { "code": "SDG","rate": null },
+    "210": { "code": "SRD","rate": null },
+    "211": { "code": "NOK","rate": 10.67837 },
+    "212": { "code": "SZL","rate": null },
+    "213": { "code": "SEK","rate": 10.42227 },
+    "214": { "code": "CHF","rate": 0.86351 },
+    "215": { "code": "SYP","rate": null },
+    "216": { "code": "TWD","rate": null },
+    "217": { "code": "TJS","rate": null },
+    "218": { "code": "TZS","rate": null },
+    "219": { "code": "THB","rate": 34.87522 },
+    "220": { "code": "XOF","rate": 594.41000 },
+    "221": { "code": "NZD","rate": 1.66295 },
+    "222": { "code": "TOP","rate": null },
+    "223": { "code": "TTD","rate": null },
+    "224": { "code": "TND","rate": null },
+    "225": { "code": "TRY","rate": 33.54796 },
+    "226": { "code": "TMT","rate": null },
+    "227": { "code": "USD","rate": 1 },
+    "228": { "code": "AUD","rate": 1.51039 },
+    "229": { "code": "UGX","rate": null },
+    "230": { "code": "UAH","rate": null },
+    "231": { "code": "AED","rate": 3.67 },
+    "232": { "code": "GBP","rate": 0.7785 },
+    "233": { "code": "USD","rate": 1 },
+    "234": { "code": "USD","rate": 1 },
+    "235": { "code": "UYU","rate": null },
+    "236": { "code": "UZS","rate": null },
+    "237": { "code": "VUV","rate": null },
+    "238": { "code": "EUR","rate": 0.90752 },
+    "239": { "code": "VES","rate": null },
+    "240": { "code": "VND","rate": null },
+    "241": { "code": "USD","rate": 1 },
+    "242": { "code": "USD","rate": 1 },
+    "243": { "code": "XPF","rate": 108.1935 },
+    "244": { "code": "MAD","rate": 9.78016 },
+    "245": { "code": "YER","rate": null },
+    "246": { "code": "ZMW","rate": null },
+    "247": { "code": "ZWL","rate": null },
+    "248": { "code": "EUR","rate": 0.90752 },
+    "249": { "code": "ANG","rate": 1.78750 },
+    "250": { "code": "ANG","rate": 1.78750 }
 }
