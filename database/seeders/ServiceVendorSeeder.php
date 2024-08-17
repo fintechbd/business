@@ -3,6 +3,7 @@
 namespace Fintech\Business\Seeders;
 
 use Fintech\Business\Facades\Business;
+use Fintech\Core\Facades\Core;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Str;
 
@@ -19,12 +20,12 @@ class ServiceVendorSeeder extends Seeder
             set_time_limit(2100);
             foreach ($block as $entry) {
                 if ($entry['logo_png'] != null) {
-                    $image_png = __DIR__.'/../../resources/img/service_vendor_logo_png/'.$entry['logo_png'];
-                    $entry['logo_png'] = 'data:image/png;base64,'.base64_encode(file_get_contents($image_png));
+                    $image_png = __DIR__ . '/../../resources/img/service_vendor_logo_png/' . $entry['logo_png'];
+                    $entry['logo_png'] = 'data:image/png;base64,' . base64_encode(file_get_contents($image_png));
                 }
                 if ($entry['logo_svg'] != null) {
-                    $image_svg = __DIR__.'/../../resources/img/service_vendor_logo_svg/'.$entry['logo_svg'];
-                    $entry['logo_svg'] = 'data:image/svg+xml;base64,'.base64_encode(file_get_contents($image_svg));
+                    $image_svg = __DIR__ . '/../../resources/img/service_vendor_logo_svg/' . $entry['logo_svg'];
+                    $entry['logo_svg'] = 'data:image/svg+xml;base64,' . base64_encode(file_get_contents($image_svg));
                 }
                 Business::serviceVendor()->create($entry);
             }
@@ -33,19 +34,16 @@ class ServiceVendorSeeder extends Seeder
 
     private function data()
     {
-        $name = config('fintech.business.default_vendor_name');
-        $slug = Str::slug($name, '_');
-
         return [
             [
-                'id' => '1',
-                'service_vendor_name' => ucwords($name),
-                'service_vendor_slug' => $slug,
-                'service_vendor_data' => [],
-                'logo_svg' => 'mt-technology-ltd-logo.svg',
-                'logo_png' => 'mt-technology-ltd-logo.png',
-                'enabled' => true,
-            ],
+            'id' => config('fintech.business.default_vendor', 1),
+            'service_vendor_name' => ucwords(config('fintech.business.default_vendor_name')),
+            'service_vendor_slug' => Str::slug(config('fintech.business.default_vendor_name'), '_'),
+            'service_vendor_data' => [],
+            'logo_svg' => 'mt-technology-ltd-logo.svg',
+            'logo_png' => 'mt-technology-ltd-logo.png',
+            'enabled' => true,
+            ]
         ];
     }
 }
