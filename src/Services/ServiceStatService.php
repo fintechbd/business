@@ -161,7 +161,7 @@ class ServiceStatService
 
         if (! $serviceStat) {
             //throw (new ModelNotFoundException())->setModel(config('fintech.business.service_stat_model', ServiceStat::class), $inputs);
-            throw new ModelNotFoundException("Service State doesn't exists");
+            throw new ModelNotFoundException("Service Stat doesn't exists");
         }
 
         $serviceStatData = $serviceStat->service_stat_data[0];
