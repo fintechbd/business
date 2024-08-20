@@ -176,7 +176,7 @@ class ServiceStatService
             'commission_amount' => calculate_flat_percent($inputs['amount'], $serviceStatData['commission']),
         ];
 
-        $serviceCost['total_amount'] = ($inputs['converted'] + $serviceCost['charge_amount']) - $serviceCost['discount_amount'];
+        $serviceCost['total_amount'] = ($serviceCost['converted'] + $serviceCost['charge_amount']) - $serviceCost['discount_amount'];
 
         return $serviceCost;
     }
