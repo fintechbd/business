@@ -183,13 +183,15 @@ class ServiceStatService
             'commission_amount' => calculate_flat_percent($inputs['amount'], $serviceStatData['commission']),
         ];
 
+        $totalAmountCurrency = ($inputs['reverse']) ? $serviceCost['output'] : $serviceCost['input'];
+
         $baseAmount = ($inputs['reverse'])
             ? $serviceCost['converted']
             : $inputs['amount'];
 
         $serviceCost['total_amount'] = ($baseAmount + $serviceCost['charge_amount']) - ($serviceCost['discount_amount'] + $serviceCost['commission_amount']);
-        $serviceCost['total_amount'] = round($serviceCost['total_amount'], Currency::config($serviceCost['input'])['precision']);
-        $serviceCost['total_amount_formatted'] = currency($serviceCost['total_amount'], $serviceCost['input'])->format();
+        $serviceCost['total_amount'] = round($serviceCost['total_amount'], Currency::config($totalAmountCurrency)['precision']);
+        $serviceCost['total_amount_formatted'] = currency($serviceCost['total_amount'], $totalAmountCurrency)->format();
 
         return $serviceCost;
     }
