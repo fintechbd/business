@@ -6,6 +6,7 @@ use Exception;
 use Fintech\Business\Facades\Business;
 use Fintech\Business\Interfaces\ServiceStatRepository;
 use Fintech\Core\Abstracts\BaseModel;
+use Fintech\Core\Supports\Currency;
 use Illuminate\Contracts\Pagination\Paginator;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Collection;
@@ -187,6 +188,7 @@ class ServiceStatService
             : $inputs['amount'];
 
         $serviceCost['total_amount'] = ($baseAmount + $serviceCost['charge_amount']) - ($serviceCost['discount_amount'] + $serviceCost['commission_amount']);
+        $serviceCost['total_amount'] = round($serviceCost['total_amount'], Currency::config($serviceCost['input'])['precision']);
         $serviceCost['total_amount_formatted'] = currency($serviceCost['total_amount'], $serviceCost['input'])->format();
 
         return $serviceCost;

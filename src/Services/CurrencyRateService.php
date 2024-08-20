@@ -4,6 +4,7 @@ namespace Fintech\Business\Services;
 
 use Fintech\Business\Facades\Business;
 use Fintech\Business\Interfaces\CurrencyRateRepository;
+use Fintech\Core\Supports\Currency;
 use Fintech\MetaData\Facades\MetaData;
 use InvalidArgumentException;
 
@@ -108,9 +109,9 @@ class CurrencyRateService
             : (1 / $currencyRate->rate);
 
         $exchangeData['rate'] = round($exchangeData['rate'], 5);
-        $exchangeData['amount'] = $amount;
+        $exchangeData['amount'] = round($amount, Currency::config($exchangeData['input'])['precision']);
         $exchangeData['amount_formatted'] = currency($amount, $exchangeData['input'])->format();
-        $exchangeData['converted'] = $convertedAmount;
+        $exchangeData['converted'] = round($convertedAmount, Currency::config($exchangeData['output'])['precision']);
         $exchangeData['converted_formatted'] = currency($convertedAmount, $exchangeData['output'])->format();
 
         return ($onlyRate) ? $exchangeData['rate'] : $exchangeData;
