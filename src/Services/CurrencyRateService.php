@@ -109,9 +109,9 @@ class CurrencyRateService
 
         $exchangeData['rate'] = round($exchangeData['rate'], 5);
         $exchangeData['amount'] = $amount;
-        $exchangeData['amount_formatted'] = currency($amount, $inputCountry->currency)->format();
+        $exchangeData['amount_formatted'] = currency($amount, $exchangeData['input'])->format();
         $exchangeData['converted'] = $convertedAmount;
-        $exchangeData['converted_formatted'] = currency($convertedAmount, $outputCountry->currency)->format();
+        $exchangeData['converted_formatted'] = currency($convertedAmount, $exchangeData['output'])->format();
 
         return ($onlyRate) ? $exchangeData['rate'] : $exchangeData;
     }
