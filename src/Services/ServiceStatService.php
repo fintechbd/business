@@ -18,9 +18,7 @@ class ServiceStatService
     /**
      * ServiceStatService constructor.
      */
-    public function __construct(private readonly ServiceStatRepository $serviceStatRepository)
-    {
-    }
+    public function __construct(private readonly ServiceStatRepository $serviceStatRepository) {}
 
     public function find($id, bool $onlyTrashed = false): ?BaseModel
     {
@@ -105,7 +103,7 @@ class ServiceStatService
         $serviceStateData['amount'] = $data->amount;
         $serviceStateData['enable'] = true;
         $serviceStates = Business::serviceStat()->list($serviceStateData)->first();
-        if (!$serviceStates) {
+        if (! $serviceStates) {
             throw new Exception('Service State Data not found');
         }
         $serviceState = $serviceStates->toArray();
@@ -141,10 +139,10 @@ class ServiceStatService
      */
     public function cost(array $inputs): array
     {
-        if (!isset($inputs['reverse'])) {
+        if (! isset($inputs['reverse'])) {
             $inputs['reverse'] = false;
         } else {
-            $inputs['reverse'] = !in_array($inputs['reverse'], ['', '0', 0, 'false', false], true);
+            $inputs['reverse'] = ! in_array($inputs['reverse'], ['', '0', 0, 'false', false], true);
         }
 
         $currencyRateParams = [
@@ -156,7 +154,7 @@ class ServiceStatService
         ];
 
         $exchangeRate = Business::currencyRate()->convert($currencyRateParams);
-        if (!$exchangeRate) {
+        if (! $exchangeRate) {
             //throw (new ModelNotFoundException())->setModel(config('fintech.business.service_stat_model', ServiceStat::class), $inputs);
             throw new ModelNotFoundException("Currency Convert Rate doesn't exists");
         }
@@ -167,7 +165,7 @@ class ServiceStatService
             'destination_country_id' => $inputs['destination_country_id'],
         ])->first();
 
-        if (!$serviceStat) {
+        if (! $serviceStat) {
             //throw (new ModelNotFoundException())->setModel(config('fintech.business.service_stat_model', ServiceStat::class), $inputs);
             throw new ModelNotFoundException("Service Stat doesn't exists");
         }
