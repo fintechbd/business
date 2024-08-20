@@ -103,9 +103,9 @@ class CurrencyRateService
 
         $exchangeData['input'] = ($isReverse) ? $outputCountry->currency : $inputCountry->currency;
         $exchangeData['output'] = ($isReverse) ? $inputCountry->currency : $outputCountry->currency;
-        $exchangeData['rate'] = (!$data['reverse'])
+        $exchangeData['rate'] = (! $data['reverse'])
             ? $currencyRate->rate
-            : (1/$currencyRate->rate);
+            : (1 / $currencyRate->rate);
 
         $exchangeData['rate'] = round($exchangeData['rate'], 5);
         $exchangeData['amount'] = $amount;
