@@ -178,20 +178,20 @@ class ServiceStatService
         $baseAmount = ($inputs['reverse']) ? $serviceCost['converted'] : $inputs['amount'];
 
         $serviceCost['charge'] = $serviceStatData['charge'] ?? null;
-        $serviceCost['charge_amount'] = calculate_flat_percent($baseAmount, $serviceStatData['charge']);
+        $serviceCost['charge_amount'] = (string)calculate_flat_percent($baseAmount, $serviceStatData['charge']);
         $serviceCost['charge_amount_formatted'] = currency($serviceCost['charge_amount'], $baseCurrency)->format();
 
         $serviceCost['discount'] = $serviceStatData['discount'] ?? null;
-        $serviceCost['discount_amount'] = calculate_flat_percent($baseAmount, $serviceStatData['discount']);
+        $serviceCost['discount_amount'] = (string)calculate_flat_percent($baseAmount, $serviceStatData['discount']);
         $serviceCost['discount_amount_formatted'] = currency($serviceCost['discount_amount'], $baseCurrency)->format();
 
         $serviceCost['commission'] = $serviceStatData['commission'] ?? null;
-        $serviceCost['commission_amount'] = calculate_flat_percent($baseAmount, $serviceStatData['commission']);
+        $serviceCost['commission_amount'] = (string)calculate_flat_percent($baseAmount, $serviceStatData['commission']);
         $serviceCost['commission_amount_formatted'] = currency($serviceCost['commission_amount'], $baseCurrency)->format();
 
-        $serviceCost['total_amount'] = ($baseAmount + $serviceCost['charge_amount']) - ($serviceCost['discount_amount'] + $serviceCost['commission_amount']);
+        $serviceCost['total_amount'] = (string)(($baseAmount + $serviceCost['charge_amount']) - ($serviceCost['discount_amount'] + $serviceCost['commission_amount']));
         $serviceCost['total_amount_formatted'] = currency($serviceCost['total_amount'], $baseCurrency)->format();
-
+//dd();
         return $serviceCost;
     }
 }

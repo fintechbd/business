@@ -96,22 +96,27 @@ class CurrencyRateService
             throw new InvalidArgumentException("currency rate doesn't exists");
         }
 
+        $exchangeData['rate'] = round($currencyRate->rate, 5);
+
         if ($isReverse) {
             $convertedAmount = (float) $amount / (float) $currencyRate->rate;
+            $exchangeData['input'] = $outputCountry->currency;
+            $exchangeData['output'] = $inputCountry->currency;
+            $exchangeData['input_unit'] = currency(1, $exchangeData['output'])->format();
+            $exchangeData['output_unit'] = currency($exchangeData['rate'], $exchangeData['input'])->format();
         } else {
             $convertedAmount = (float) $amount * (float) $currencyRate->rate;
+            $exchangeData['input'] = $inputCountry->currency;
+            $exchangeData['output'] = $outputCountry->currency;
+            $exchangeData['input_unit'] = currency(1, $exchangeData['input'])->format();
+            $exchangeData['output_unit'] = currency($exchangeData['rate'], $exchangeData['output'])->format();
         }
 
-        $exchangeData['input'] = ($isReverse) ? $outputCountry->currency : $inputCountry->currency;
-        $exchangeData['output'] = ($isReverse) ? $inputCountry->currency : $outputCountry->currency;
-        $exchangeData['rate'] = (! $data['reverse'])
-            ? $currencyRate->rate
-            : (1 / $currencyRate->rate);
-
-        $exchangeData['rate'] = round($exchangeData['rate'], 5);
-        $exchangeData['amount'] = round($amount, Currency::config($exchangeData['input'])['precision']);
+        $exchangeData['input_symbol'] = Currency::config($exchangeData['input'])['symbol'];
+        $exchangeData['output_symbol'] = Currency::config($exchangeData['output'])['symbol'];
+        $exchangeData['amount'] = (string)round($amount, Currency::config($exchangeData['input'])['precision']);
         $exchangeData['amount_formatted'] = currency($amount, $exchangeData['input'])->format();
-        $exchangeData['converted'] = round($convertedAmount, Currency::config($exchangeData['output'])['precision']);
+        $exchangeData['converted'] = (string)round($convertedAmount, Currency::config($exchangeData['output'])['precision']);
         $exchangeData['converted_formatted'] = currency($convertedAmount, $exchangeData['output'])->format();
 
         return ($onlyRate) ? $exchangeData['rate'] : $exchangeData;
