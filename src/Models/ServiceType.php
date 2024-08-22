@@ -82,10 +82,10 @@ class ServiceType extends BaseModel implements HasMedia
 
     public function allChildAccounts(): HasMany
     {
-        return $this->serviceTypeChild()->with('allChildAccounts');
+        return $this->serviceTypeChildren()->with('allChildAccounts');
     }
 
-    public function serviceTypeChild(): HasMany
+    public function serviceTypeChildren(): HasMany
     {
         return $this->hasMany(self::class, 'service_type_parent_id', 'id');
     }
