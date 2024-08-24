@@ -5,12 +5,10 @@ namespace Fintech\Business\Models;
 use Fintech\Core\Abstracts\BaseModel;
 use Fintech\Core\Traits\AuditableTrait;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Spatie\Translatable\HasTranslations;
 
 class ServicePackage extends BaseModel
 {
     use AuditableTrait;
-    use HasTranslations;
     use SoftDeletes;
 
     /*
