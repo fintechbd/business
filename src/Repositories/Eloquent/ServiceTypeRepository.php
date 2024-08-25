@@ -178,12 +178,12 @@ class ServiceTypeRepository extends EloquentRepository implements InterfacesServ
                 $query->where('service_stats.enabled', '=', $filters['service_stat_enabled']);
             }
 
-            if (!empty($filters['id_not_in'])) {
-                $query->whereNotIn($this->model->getKeyName(), (array)$filters['id_not_in']);
+            if (! empty($filters['id_not_in'])) {
+                $query->whereNotIn($this->model->getKeyName(), (array) $filters['id_not_in']);
             }
 
-            if (!empty($filters['id_in'])) {
-                $query->whereIn($this->model->getKeyName(), (array)$filters['id_in']);
+            if (! empty($filters['id_in'])) {
+                $query->whereIn($this->model->getKeyName(), (array) $filters['id_in']);
             }
 
             $select = [

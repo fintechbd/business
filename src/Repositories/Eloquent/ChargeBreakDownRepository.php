@@ -50,12 +50,12 @@ class ChargeBreakDownRepository extends EloquentRepository implements Interfaces
             $query->where('enabled', $filters['enabled']);
         }
 
-        if (!empty($filters['id_not_in'])) {
-            $query->whereNotIn($this->model->getKeyName(), (array)$filters['id_not_in']);
+        if (! empty($filters['id_not_in'])) {
+            $query->whereNotIn($this->model->getKeyName(), (array) $filters['id_not_in']);
         }
 
-        if (!empty($filters['id_in'])) {
-            $query->whereIn($this->model->getKeyName(), (array)$filters['id_in']);
+        if (! empty($filters['id_in'])) {
+            $query->whereIn($this->model->getKeyName(), (array) $filters['id_in']);
         }
 
         //Display Trashed
