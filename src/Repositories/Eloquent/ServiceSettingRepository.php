@@ -36,6 +36,14 @@ class ServiceSettingRepository extends EloquentRepository implements InterfacesS
                 ->orWhere('service_setting_feature', 'like', "%{$filters['search']}%");
         }
 
+        if (!empty($filters['id_not_in'])) {
+            $query->whereNotIn($this->model->getKeyName(), (array)$filters['id_not_in']);
+        }
+
+        if (!empty($filters['id_in'])) {
+            $query->whereIn($this->model->getKeyName(), (array)$filters['id_in']);
+        }
+
         if (! empty($filters['service_setting_type'])) {
             $query->where('service_setting_type', '=', $filters['service_setting_type']);
         }
@@ -61,7 +69,7 @@ class ServiceSettingRepository extends EloquentRepository implements InterfacesS
         }
 
         //Display Trashed
-        if (isset($filters['trashed']) && ! empty($filters['trashed'])) {
+        if (! empty($filters['trashed']) || $filters['trashed'] === true) {
             $query->onlyTrashed();
         }
 

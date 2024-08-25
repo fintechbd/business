@@ -10,7 +10,7 @@ trait ServiceSeeder
     public function serviceStat($source_countries = [], $destination_countries = []): array
     {
         $serviceStats = [];
-        $roles = Auth::role()->list(['id_not_in_array' => [1]])->pluck('id')->toArray();
+        $roles = Auth::role()->list(['id_not_in' => [1]])->pluck('id')->toArray();
         if (! empty($roles) && ! empty($source_countries) && ! empty($destination_countries)) {
             foreach ($this->service() as $service) {
                 $serviceModel = Business::service()->list(['service_slug' => $service['service_slug']])->first();

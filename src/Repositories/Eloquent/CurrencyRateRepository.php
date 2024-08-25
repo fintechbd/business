@@ -42,6 +42,14 @@ class CurrencyRateRepository extends EloquentRepository implements InterfacesCur
             });
         }
 
+        if (!empty($filters['id_not_in'])) {
+            $query->whereNotIn($this->model->getKeyName(), (array)$filters['id_not_in']);
+        }
+
+        if (!empty($filters['id_in'])) {
+            $query->whereIn($this->model->getKeyName(), (array)$filters['id_in']);
+        }
+
         if (! empty($filters['source_country_id'])) {
             $query->where('currency_rates.source_country_id', '=', $filters['source_country_id']);
         }

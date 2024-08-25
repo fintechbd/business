@@ -34,6 +34,14 @@ class ServiceStatRepository extends EloquentRepository implements InterfacesServ
                 ->orWhere('service_stat_data', 'like', "%{$filters['search']}%");
         }
 
+        if (!empty($filters['id_not_in'])) {
+            $query->whereNotIn($this->model->getKeyName(), (array)$filters['id_not_in']);
+        }
+
+        if (!empty($filters['id_in'])) {
+            $query->whereIn($this->model->getKeyName(), (array)$filters['id_in']);
+        }
+
         if (isset($filters['role_id']) && $filters['role_id']) {
             $query->where($modelTable.'.role_id', '=', $filters['role_id']);
         }
