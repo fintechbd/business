@@ -13,8 +13,13 @@ return new class extends Migration
     {
         Schema::create('service_packages', function (Blueprint $table) {
             $table->id();
-            $table->json('name')->nullable();
-
+            $table->foreignId('service_id')->nullable();
+            $table->foreignId('country_id')->nullable();
+            $table->string('name')->nullable();
+            $table->string('slug')->nullable();
+            $table->text('description')->nullable();
+            $table->decimal('amount')->nullable();
+            $table->boolean('enabled')->nullable();
             $table->json('service_package_data')->nullable();
             $table->foreignId('creator_id')->nullable();
             $table->foreignId('editor_id')->nullable();
