@@ -8,16 +8,18 @@ use Fintech\Core\Facades\Core;
 class ServiceGenerator
 {
     public array $attributes = [];
+
     public $parent = null;
+
     public array $children = [];
+
     public int $level = 1;
+
     public $instance = null;
+
     public $roles = [];
-    /**
-     * @param array $data
-     * @param integer|null $parentId
-     */
-    public function __construct(array $data, int $parentId = null)
+
+    public function __construct(array $data, ?int $parentId = null)
     {
         $this->loadParent($parentId);
 
@@ -31,7 +33,7 @@ class ServiceGenerator
 
     private function loadData($data): void
     {
-        if (!empty($data['children'])) {
+        if (! empty($data['children'])) {
             $this->children = $data['children'];
             $data['service_type_is_parent'] = 'yes';
             unset($data['children']);
@@ -50,56 +52,55 @@ class ServiceGenerator
 
     private function setupService()
     {
-//        [
-//            'service_type_id' => Business::serviceType()->list(['service_type_slug' => 'bank_transfer'])->first()->id,
-//            'service_vendor_id' => $vendor_id,
-//            'service_name' => 'Bank Transfer',
-//            'service_slug' => 'bank_transfer',
-//            'logo_svg' => 'data:image/svg+xml;base64,'.base64_encode(file_get_contents($image_svg.'bank_transfer.svg')),
-//            'logo_png' => 'data:image/png;base64,'.base64_encode(file_get_contents($image_png.'bank_transfer.png')),
-//            'service_notification' => 'yes',
-//            'service_delay' => 'yes',
-//            'service_stat_policy' => 'yes',
-//            'service_serial' => 1,
-//            'service_data' => [
-//                'visible_website' => 'yes',
-//                'visible_android_app' => 'yes',
-//                'visible_ios_app' => 'yes',
-//                'account_name' => '',
-//                'account_number' => '',
-//                'transactional_currency' => '',
-//                'beneficiary_type_id' => 1,
-//                'operator_short_code' => null
-//            ],
-//            'enabled' => true
-//        ]
+        //        [
+        //            'service_type_id' => Business::serviceType()->list(['service_type_slug' => 'bank_transfer'])->first()->id,
+        //            'service_vendor_id' => $vendor_id,
+        //            'service_name' => 'Bank Transfer',
+        //            'service_slug' => 'bank_transfer',
+        //            'logo_svg' => 'data:image/svg+xml;base64,'.base64_encode(file_get_contents($image_svg.'bank_transfer.svg')),
+        //            'logo_png' => 'data:image/png;base64,'.base64_encode(file_get_contents($image_png.'bank_transfer.png')),
+        //            'service_notification' => 'yes',
+        //            'service_delay' => 'yes',
+        //            'service_stat_policy' => 'yes',
+        //            'service_serial' => 1,
+        //            'service_data' => [
+        //                'visible_website' => 'yes',
+        //                'visible_android_app' => 'yes',
+        //                'visible_ios_app' => 'yes',
+        //                'account_name' => '',
+        //                'account_number' => '',
+        //                'transactional_currency' => '',
+        //                'beneficiary_type_id' => 1,
+        //                'operator_short_code' => null
+        //            ],
+        //            'enabled' => true
+        //        ]
     }
 
     private function setupServiceStat()
     {
-//        [
-//            'role_id' => $roles,
-//            'service_id' => $service->getKey(),
-//            'service_slug' => $service->service_slug,
-//            'source_country_id' => $source_countries,
-//            'destination_country_id' => [19, 39, 101, 132, 133, 167, 192, 231],
-//            'service_vendor_id' => config('fintech.business.default_vendor', 1),
-//            'service_stat_data' => [
-//                [
-//                    'lower_limit' => '10.00',
-//                    'higher_limit' => '5000.00',
-//                    'local_currency_higher_limit' => '25000.00',
-//                    'charge' => mt_rand(1, 7).'%',
-//                    'discount' => mt_rand(1, 7).'%',
-//                    'commission' => '0',
-//                    'cost' => '0.00',
-//                    'charge_refund' => 'yes',
-//                    'discount_refund' => 'yes',
-//                    'commission_refund' => 'yes',
-//                ],
-//            ],
-//            'enabled' => true,
-//        ]
+        //        [
+        //            'role_id' => $roles,
+        //            'service_id' => $service->getKey(),
+        //            'service_slug' => $service->service_slug,
+        //            'source_country_id' => $source_countries,
+        //            'destination_country_id' => [19, 39, 101, 132, 133, 167, 192, 231],
+        //            'service_vendor_id' => config('fintech.business.default_vendor', 1),
+        //            'service_stat_data' => [
+        //                [
+        //                    'lower_limit' => '10.00',
+        //                    'higher_limit' => '5000.00',
+        //                    'local_currency_higher_limit' => '25000.00',
+        //                    'charge' => mt_rand(1, 7).'%',
+        //                    'discount' => mt_rand(1, 7).'%',
+        //                    'commission' => '0',
+        //                    'cost' => '0.00',
+        //                    'charge_refund' => 'yes',
+        //                    'discount_refund' => 'yes',
+        //                    'commission_refund' => 'yes',
+        //                ],
+        //            ],
+        //            'enabled' => true,
+        //        ]
     }
-
 }
