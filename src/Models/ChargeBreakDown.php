@@ -26,6 +26,8 @@ class ChargeBreakDown extends BaseModel
 
     protected $hidden = ['creator_id', 'editor_id', 'destroyer_id', 'restorer_id'];
 
+    protected $attributes = ['enabled' => false];
+
     /*
     |--------------------------------------------------------------------------
     | FUNCTIONS
