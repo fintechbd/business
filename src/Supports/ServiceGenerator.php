@@ -20,6 +20,7 @@ class ServiceGenerator
     public $roles = [];
 
     public $logoSvg;
+
     public $logoPng;
 
     public function __construct(array $data, ?int $parentId = null)
@@ -36,7 +37,7 @@ class ServiceGenerator
 
     private function loadData($data): void
     {
-        if (!empty($data['children'])) {
+        if (! empty($data['children'])) {
             $this->children = $data['children'];
             $data['service_type_is_parent'] = 'yes';
             unset($data['children']);
@@ -54,8 +55,7 @@ class ServiceGenerator
 
     }
 
-
-    private function verifyImage(string $path, array $accepts = null): bool
+    private function verifyImage(string $path, ?array $accepts = null): bool
     {
         if (empty($accepts)) {
             return true;
