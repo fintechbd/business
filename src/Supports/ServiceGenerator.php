@@ -19,6 +19,9 @@ class ServiceGenerator
 
     public $roles = [];
 
+    public $logoSvg;
+    public $logoPng;
+
     public function __construct(array $data, ?int $parentId = null)
     {
         $this->loadParent($parentId);
@@ -33,13 +36,38 @@ class ServiceGenerator
 
     private function loadData($data): void
     {
-        if (! empty($data['children'])) {
+        if (!empty($data['children'])) {
             $this->children = $data['children'];
             $data['service_type_is_parent'] = 'yes';
             unset($data['children']);
         }
 
         $data['enabled'] = $data['enabled'] ?? false;
+
+        if ($data['logo_svg'] && $this->verifyImage($data['logo_svg'], ['image/svg+xml'])) {
+            $this->logoSvg = 'data:image/svg+xml;base64,'.base64_encode(file_get_contents($data['logo_svg']));
+        }
+
+        if ($data['logo_png'] && $this->verifyImage($data['logo_png'], ['image/png'])) {
+            $this->logoPng = 'data:image/png;base64,'.base64_encode(file_get_contents($data['logo_png']));
+        }
+
+    }
+
+
+    private function verifyImage(string $path, array $accepts = null): bool
+    {
+        if (empty($accepts)) {
+            return true;
+        }
+
+        $mime = mime_content_type($path);
+
+        if (in_array($mime, $accepts)) {
+            return true;
+        }
+
+        return false;
     }
 
     private function loadParent($parentId): void
@@ -102,5 +130,10 @@ class ServiceGenerator
         //            ],
         //            'enabled' => true,
         //        ]
+    }
+
+    public function execute(): bool
+    {
+        return true;
     }
 }
