@@ -3,28 +3,39 @@
 namespace Fintech\Business\Supports;
 
 use Fintech\Business\Facades\Business;
+use Fintech\Core\Abstracts\BaseModel;
 use Fintech\Core\Facades\Core;
+use Illuminate\Support\Str;
 
 class ServiceGenerator
 {
     public array $attributes = [];
 
+    /**
+     * @var null|BaseModel
+     */
     public $parent = null;
 
     public array $children = [];
 
     public int $level = 1;
 
+    /**
+     * @var null|BaseModel
+     */
     public $instance = null;
 
-    public $roles = [];
-
-    public $logoSvg;
-
-    public $logoPng;
+    public array $roles = [];
+    public string $logoSvg;
+    public string $logoPng;
 
     public function __construct(array $data, ?int $parentId = null)
     {
+        if (!empty($data['service_type_parent_id'])) {
+            $parentId = $data['service_type_parent_id'];
+            unset($data['service_type_parent_id']);
+        }
+
         $this->loadParent($parentId);
 
         $this->loadData($data);
@@ -37,22 +48,21 @@ class ServiceGenerator
 
     private function loadData($data): void
     {
-        if (! empty($data['children'])) {
+        if (isset($data['children']) && count($data['children']) > 0) {
             $this->children = $data['children'];
             $data['service_type_is_parent'] = 'yes';
             unset($data['children']);
         }
 
-        $data['enabled'] = $data['enabled'] ?? false;
-
         if ($data['logo_svg'] && $this->verifyImage($data['logo_svg'], ['image/svg+xml'])) {
-            $this->logoSvg = 'data:image/svg+xml;base64,'.base64_encode(file_get_contents($data['logo_svg']));
+            $this->logoSvg = 'data:image/svg+xml;base64,' . base64_encode(file_get_contents($data['logo_svg']));
         }
 
         if ($data['logo_png'] && $this->verifyImage($data['logo_png'], ['image/png'])) {
-            $this->logoPng = 'data:image/png;base64,'.base64_encode(file_get_contents($data['logo_png']));
+            $this->logoPng = 'data:image/png;base64,' . base64_encode(file_get_contents($data['logo_png']));
         }
 
+        $this->attributes = $data;
     }
 
     private function verifyImage(string $path, ?array $accepts = null): bool
@@ -74,7 +84,7 @@ class ServiceGenerator
     {
         if ($parent = Business::serviceType()->find($parentId)) {
             $this->parent = $parent;
-            $this->level = ($parent->service_type_step ?? 0) + 1;
+            $this->level = intval($parent->service_type_step ?? 0) + 1;
         }
     }
 
@@ -132,8 +142,30 @@ class ServiceGenerator
         //        ]
     }
 
+    private function setupServiceType()
+    {
+        $attributes = [];
+        $attributes['service_type_parent_id'] = $this->parent->getKey();
+        $attributes['service_type_name'] = $this->attributes['service_type_name'];
+        $attributes['service_type_slug'] = $this->attributes['service_type_slug'] ?? Str::slug($this->attributes['service_type_name']);
+        $attributes['logo_svg'] = $this->logoSvg;
+        $attributes['logo_png'] = $this->logoPng;
+        $attributes['service_type_is_parent'] = $this->attributes['service_type_is_parent'] ?? 'no';
+        $attributes['service_type_is_description'] = $this->attributes['service_type_is_description'] ?? 'no';
+        $attributes['service_type_step'] = $this->level;
+        $attributes['enabled'] = $this->attributes['enabled'] ?? false;
+
+        if ($instance = Business::serviceType()->list(['service_type_slug' => $attributes['service_type_slug']])->first()) {
+            $this->instance = $instance;
+        } else {
+            $this->instance = Business::serviceType()->create($attributes);
+        }
+    }
+
     public function execute(): bool
     {
+        $this->setupServiceType();
+
         return true;
     }
 }
