@@ -199,7 +199,8 @@ class ServiceStatService
             $baseAmount -= $serviceCost['charge_amount'];
             $baseAmount += $serviceCost['discount_amount'];
             $baseAmount += $serviceCost['commission_amount'];
-        } else {
+        }
+        else {
             $baseAmount += $serviceCost['charge_amount'];
             $baseAmount -= $serviceCost['discount_amount'];
             $baseAmount -= $serviceCost['commission_amount'];
