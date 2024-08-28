@@ -3,6 +3,7 @@
 namespace Fintech\Business\Services;
 
 use Exception;
+use Fintech\Business\Exceptions\BusinessException;
 use Fintech\Business\Facades\Business;
 use Fintech\Business\Interfaces\ServiceStatRepository;
 use Fintech\Core\Abstracts\BaseModel;
@@ -18,7 +19,9 @@ class ServiceStatService
     /**
      * ServiceStatService constructor.
      */
-    public function __construct(private readonly ServiceStatRepository $serviceStatRepository) {}
+    public function __construct(private readonly ServiceStatRepository $serviceStatRepository)
+    {
+    }
 
     public function find($id, bool $onlyTrashed = false): ?BaseModel
     {
@@ -103,7 +106,7 @@ class ServiceStatService
         $serviceStateData['amount'] = $data->amount;
         $serviceStateData['enable'] = true;
         $serviceStates = Business::serviceStat()->list($serviceStateData)->first();
-        if (! $serviceStates) {
+        if (!$serviceStates) {
             throw new Exception('Service State Data not found');
         }
         $serviceState = $serviceStates->toArray();
@@ -136,19 +139,20 @@ class ServiceStatService
 
     /**
      * @return array{0: array|float, charge: mixed|null, charge_amount: float|int, discount: mixed|null, discount_amount: float|int, commission: mixed|null, commission_amount: float|int, total_amount: mixed}
+     * @throws BusinessException
      */
     public function cost(array $inputs): array
     {
-        if (! isset($inputs['reverse'])) {
+        if (!isset($inputs['reverse'])) {
             $inputs['reverse'] = false;
         } else {
-            $inputs['reverse'] = ! in_array($inputs['reverse'], ['', '0', 0, 'false', false], true);
+            $inputs['reverse'] = !in_array($inputs['reverse'], ['', '0', 0, 'false', false], true);
         }
 
-        if (! isset($inputs['reload'])) {
+        if (!isset($inputs['reload'])) {
             $inputs['reload'] = false;
         } else {
-            $inputs['reload'] = ! in_array($inputs['reload'], ['', '0', 0, 'false', false], true);
+            $inputs['reload'] = !in_array($inputs['reload'], ['', '0', 0, 'false', false], true);
         }
 
         $currencyRateParams = [
@@ -160,7 +164,7 @@ class ServiceStatService
         ];
 
         $exchangeRate = Business::currencyRate()->convert($currencyRateParams);
-        if (! $exchangeRate) {
+        if (!$exchangeRate) {
             //throw (new ModelNotFoundException())->setModel(config('fintech.business.service_stat_model', ServiceStat::class), $inputs);
             throw new ModelNotFoundException("Currency Convert Rate doesn't exists");
         }
@@ -172,7 +176,7 @@ class ServiceStatService
             'destination_country_id' => $inputs['destination_country_id'],
         ])->first();
 
-        if (! $serviceStat) {
+        if (!$serviceStat) {
             //throw (new ModelNotFoundException())->setModel(config('fintech.business.service_stat_model', ServiceStat::class), $inputs);
             throw new ModelNotFoundException("Service Stat doesn't exists");
         }
@@ -183,6 +187,14 @@ class ServiceStatService
 
         $baseCurrency = ($inputs['reverse']) ? $serviceCost['output'] : $serviceCost['input'];
         $baseAmount = ($inputs['reverse']) ? $serviceCost['converted'] : $inputs['amount'];
+
+        if ($baseAmount < floatval($serviceStatData['lower_limit'] ?? '0')) {
+            throw new BusinessException("The specified amount " . currency($baseAmount, $baseCurrency) . " is less than the minimum amount allowed. Use a higher amount and try again.");
+        }
+
+        if ($baseAmount > floatval($serviceStatData['higher_limit'] ?? '0')) {
+            throw new BusinessException("The specified amount " . currency($baseAmount, $baseCurrency) . " is greater than the maximum amount allowed. Use a higher amount and try again.");
+        }
 
         $serviceCost['charge'] = $serviceStatData['charge'] ?? null;
         $serviceCost['charge_amount'] = calculate_flat_percent($baseAmount, $serviceStatData['charge']);
@@ -203,14 +215,14 @@ class ServiceStatService
             $baseAmount -= $serviceCost['commission_amount'];
         }
 
-        $serviceCost['charge_amount'] = (string) $serviceCost['charge_amount'];
-        $serviceCost['discount_amount'] = (string) $serviceCost['discount_amount'];
-        $serviceCost['commission_amount'] = (string) $serviceCost['commission_amount'];
-        $serviceCost['total_amount'] = (string) $baseAmount;
-        $serviceCost['charge_amount_formatted'] = currency($serviceCost['charge_amount'], $baseCurrency)->format();
-        $serviceCost['discount_amount_formatted'] = currency($serviceCost['discount_amount'], $baseCurrency)->format();
-        $serviceCost['commission_amount_formatted'] = currency($serviceCost['commission_amount'], $baseCurrency)->format();
-        $serviceCost['total_amount_formatted'] = currency($serviceCost['total_amount'], $baseCurrency)->format();
+        $serviceCost['charge_amount'] = (string)$serviceCost['charge_amount'];
+        $serviceCost['discount_amount'] = (string)$serviceCost['discount_amount'];
+        $serviceCost['commission_amount'] = (string)$serviceCost['commission_amount'];
+        $serviceCost['total_amount'] = (string)$baseAmount;
+        $serviceCost['charge_amount_formatted'] = (string)currency($serviceCost['charge_amount'], $baseCurrency);
+        $serviceCost['discount_amount_formatted'] = (string)currency($serviceCost['discount_amount'], $baseCurrency);
+        $serviceCost['commission_amount_formatted'] = (string)currency($serviceCost['commission_amount'], $baseCurrency);
+        $serviceCost['total_amount_formatted'] = (string)currency($serviceCost['total_amount'], $baseCurrency);
 
         return $serviceCost;
     }
