@@ -12,13 +12,8 @@ class ServiceSettingSeeder extends Seeder
      */
     public function run(): void
     {
-        $data = $this->data();
-
-        foreach (array_chunk($data, 200) as $block) {
-            set_time_limit(2100);
-            foreach ($block as $entry) {
-                Business::serviceSetting()->create($entry);
-            }
+        foreach ($this->data() as $entry) {
+            Business::serviceSetting()->create($entry);
         }
     }
 
