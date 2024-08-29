@@ -5,6 +5,7 @@ namespace Fintech\Business\Repositories\Eloquent;
 use Fintech\Business\Interfaces\ChargeBreakDownRepository as InterfacesChargeBreakDownRepository;
 use Fintech\Business\Models\ChargeBreakDown;
 use Fintech\Core\Repositories\EloquentRepository;
+use Illuminate\Contracts\Container\BindingResolutionException;
 use Illuminate\Contracts\Pagination\Paginator;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\DB;
@@ -24,42 +25,50 @@ class ChargeBreakDownRepository extends EloquentRepository implements Interfaces
      * filtered options
      *
      * @return Paginator|Collection
+     * @throws BindingResolutionException
      */
     public function list(array $filters = [])
     {
         $query = $this->model->newQuery();
 
         //Searching
-        if (isset($filters['search']) && ! empty($filters['search'])) {
-            if (is_numeric($filters['search'])) {
-                $query->where($this->model->getKeyName(), 'like', "%{$filters['search']}%");
-            } else {
-                $query->where('service_slug', 'like', "%{$filters['search']}%");
-            }
+        if (!empty($filters['search'])) {
+            $query->where(function ($query) use ($filters) {
+                return $query->where('higher_limit', 'like', "%{$filters['search']}%")
+                    ->orWhere('discount', 'like', "%{$filters['search']}%")
+                    ->orWhere('charge', 'like', "%{$filters['search']}%")
+                    ->orWhere('commission', 'like', "%{$filters['search']}%")
+                    ->orWhere('lower_limit', 'like', "%{$filters['search']}%");
+            });
         }
 
-        if (isset($filters['amount']) && ! empty($filters['amount'])) {
-            $query->whereBetween(DB::raw($filters['amount']), [DB::raw(get_table('business.charge_break_down').'.charge_break_down_lower'), DB::raw(get_table('business.charge_break_down').'.charge_break_down_higher')]);
+        if (!empty($filters['amount'])) {
+            $query->where('higher_limit', '>=', $filters['amount'])
+                ->where('lower_limit', '<=', $filters['amount']);
         }
 
-        if (isset($filters['service_stat_id']) && ! empty($filters['service_stat_id'])) {
+        if (!empty($filters['service_stat_id'])) {
             $query->where('service_stat_id', $filters['service_stat_id']);
         }
 
-        if (isset($filters['enabled']) && ! empty($filters['enabled'])) {
+        if (!empty($filters['service_id'])) {
+            $query->where('service_id', $filters['service_id']);
+        }
+
+        if (!empty($filters['enabled'])) {
             $query->where('enabled', $filters['enabled']);
         }
 
-        if (! empty($filters['id_not_in'])) {
-            $query->whereNotIn($this->model->getKeyName(), (array) $filters['id_not_in']);
+        if (!empty($filters['id_not_in'])) {
+            $query->whereNotIn($this->model->getKeyName(), (array)$filters['id_not_in']);
         }
 
-        if (! empty($filters['id_in'])) {
-            $query->whereIn($this->model->getKeyName(), (array) $filters['id_in']);
+        if (!empty($filters['id_in'])) {
+            $query->whereIn($this->model->getKeyName(), (array)$filters['id_in']);
         }
 
         //Display Trashed
-        if (isset($filters['trashed']) && ! empty($filters['trashed'])) {
+        if (isset($filters['trashed']) && !empty($filters['trashed'])) {
             $query->onlyTrashed();
         }
 
