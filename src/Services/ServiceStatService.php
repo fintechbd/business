@@ -188,11 +188,11 @@ class ServiceStatService
         $baseAmount = ($inputs['reverse']) ? $serviceCost['converted'] : $inputs['amount'];
 
         if ($baseAmount < floatval($serviceStatData['lower_limit'] ?? '0')) {
-            throw new BusinessException('The specified amount '.currency($baseAmount, $baseCurrency).' is less than the minimum amount allowed. Use a higher amount and try again.');
+            throw new BusinessException('Transaction amount below Minimum Limit! Please adjust the transaction amount.');
         }
 
         if ($baseAmount > floatval($serviceStatData['higher_limit'] ?? '0')) {
-            throw new BusinessException('The specified amount '.currency($baseAmount, $baseCurrency).' is greater than the maximum amount allowed. Use a higher amount and try again.');
+            throw new BusinessException('Transaction Limit exceeded! Please adjust the transaction amount.');
         }
 
         $serviceCost['charge'] = $serviceStatData['charge'] ?? null;
