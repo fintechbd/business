@@ -3,6 +3,7 @@
 namespace Fintech\Business\Services;
 
 use Exception;
+use Fintech\Business\Exceptions\BusinessException;
 use Fintech\Business\Facades\Business;
 use Fintech\Business\Interfaces\ServiceStatRepository;
 use Fintech\Core\Abstracts\BaseModel;
@@ -136,6 +137,8 @@ class ServiceStatService
 
     /**
      * @return array{0: array|float, charge: mixed|null, charge_amount: float|int, discount: mixed|null, discount_amount: float|int, commission: mixed|null, commission_amount: float|int, total_amount: mixed}
+     *
+     * @throws BusinessException
      */
     public function cost(array $inputs): array
     {
@@ -184,6 +187,14 @@ class ServiceStatService
         $baseCurrency = ($inputs['reverse']) ? $serviceCost['output'] : $serviceCost['input'];
         $baseAmount = ($inputs['reverse']) ? $serviceCost['converted'] : $inputs['amount'];
 
+        if ($baseAmount < floatval($serviceStatData['lower_limit'] ?? '0')) {
+            throw new BusinessException('The specified amount '.currency($baseAmount, $baseCurrency).' is less than the minimum amount allowed. Use a higher amount and try again.');
+        }
+
+        if ($baseAmount > floatval($serviceStatData['higher_limit'] ?? '0')) {
+            throw new BusinessException('The specified amount '.currency($baseAmount, $baseCurrency).' is greater than the maximum amount allowed. Use a higher amount and try again.');
+        }
+
         $serviceCost['charge'] = $serviceStatData['charge'] ?? null;
         $serviceCost['charge_amount'] = calculate_flat_percent($baseAmount, $serviceStatData['charge']);
 
@@ -207,10 +218,10 @@ class ServiceStatService
         $serviceCost['discount_amount'] = (string) $serviceCost['discount_amount'];
         $serviceCost['commission_amount'] = (string) $serviceCost['commission_amount'];
         $serviceCost['total_amount'] = (string) $baseAmount;
-        $serviceCost['charge_amount_formatted'] = currency($serviceCost['charge_amount'], $baseCurrency)->format();
-        $serviceCost['discount_amount_formatted'] = currency($serviceCost['discount_amount'], $baseCurrency)->format();
-        $serviceCost['commission_amount_formatted'] = currency($serviceCost['commission_amount'], $baseCurrency)->format();
-        $serviceCost['total_amount_formatted'] = currency($serviceCost['total_amount'], $baseCurrency)->format();
+        $serviceCost['charge_amount_formatted'] = (string) currency($serviceCost['charge_amount'], $baseCurrency);
+        $serviceCost['discount_amount_formatted'] = (string) currency($serviceCost['discount_amount'], $baseCurrency);
+        $serviceCost['commission_amount_formatted'] = (string) currency($serviceCost['commission_amount'], $baseCurrency);
+        $serviceCost['total_amount_formatted'] = (string) currency($serviceCost['total_amount'], $baseCurrency);
 
         return $serviceCost;
     }
