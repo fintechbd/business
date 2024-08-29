@@ -69,7 +69,7 @@ class ServiceSettingRepository extends EloquentRepository implements InterfacesS
         }
 
         //Display Trashed
-        if (! empty($filters['trashed']) || $filters['trashed'] === true) {
+        if (isset($filters['trashed']) && !empty($filters['trashed'])) {
             $query->onlyTrashed();
         }
 

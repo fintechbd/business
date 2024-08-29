@@ -31,9 +31,12 @@ class ServiceGenerator
 
     public string $logoPng;
 
+    public array $srcCountries = [];
+    public array $dstCountries = [];
+
     public function __construct(array $data, ?int $parentId = null)
     {
-        if (! empty($data['service_type_parent_id'])) {
+        if (!empty($data['service_type_parent_id'])) {
             $parentId = $data['service_type_parent_id'];
             unset($data['service_type_parent_id']);
         }
@@ -41,11 +44,6 @@ class ServiceGenerator
         $this->loadParent($parentId);
 
         $this->loadData($data);
-
-        //get all role except `Super Admin`
-        if (Core::packageExists('Auth')) {
-            $this->roles = \Fintech\Auth\Facades\Auth::role()->list(['id_not_in' => [1]])->pluck('id')->toArray();
-        }
     }
 
     private function loadData($data): void
@@ -56,12 +54,27 @@ class ServiceGenerator
             unset($data['children']);
         }
 
+        if (isset($data['source_country']) && count($data['source_country']) > 0) {
+            $this->sourceCountries($data['source_country']);
+            unset($data['source_country']);
+        }
+
+        if (isset($data['destination_country']) && count($data['destination_country']) > 0) {
+            $this->destinationCountries($data['destination_country']);
+            unset($data['destination_country']);
+        }
+
+        if (isset($data['roles']) && count($data['roles']) > 0) {
+            $this->roles($data['roles']);
+            unset($data['roles']);
+        }
+
         if ($data['logo_svg'] && $this->verifyImage($data['logo_svg'], ['image/svg+xml'])) {
-            $this->logoSvg = 'data:image/svg+xml;base64,'.base64_encode(file_get_contents($data['logo_svg']));
+            $this->logoSvg = 'data:image/svg+xml;base64,' . base64_encode(file_get_contents($data['logo_svg']));
         }
 
         if ($data['logo_png'] && $this->verifyImage($data['logo_png'], ['image/png'])) {
-            $this->logoPng = 'data:image/png;base64,'.base64_encode(file_get_contents($data['logo_png']));
+            $this->logoPng = 'data:image/png;base64,' . base64_encode(file_get_contents($data['logo_png']));
         }
 
         $this->attributes = $data;
@@ -162,6 +175,68 @@ class ServiceGenerator
         } else {
             $this->instance = Business::serviceType()->create($attributes);
         }
+    }
+
+    public function logoSvg(string $path): self
+    {
+        if (file_exists($path) && is_readable($path)) {
+            if ($this->verifyImage($path, ['image/svg+xml'])) {
+                $this->logoSvg = 'data:image/svg+xml;base64,' . base64_encode(file_get_contents($path));
+            } else {
+                throw new \Exception('File is a has invalid mime format');
+            }
+        } else {
+            throw new \Exception("Invalid Logo SVG Path[{$path}]");
+        }
+
+        return $this;
+    }
+
+    public function logoPng(string $path): self
+    {
+        if (file_exists($path) && is_readable($path)) {
+            if ($this->verifyImage($path, ['image/png'])) {
+                $this->logoPng = 'data:image/png;base64,' . base64_encode(file_get_contents($path));
+            } else {
+                throw new \Exception('File is a has invalid mime format');
+            }
+        } else {
+            throw new \Exception("Invalid Logo PNG Path[{$path}]");
+        }
+
+        return $this;
+    }
+
+    public function sourceCountries(array $countries): self
+    {
+        $countries = array_filter(array_unique($countries), 'ctype_digit');
+
+        $this->srcCountries = $countries;
+
+        return $this;
+    }
+
+    public function destinationCountries(array $countries): self
+    {
+        $countries = array_filter(array_unique($countries), 'ctype_digit');
+
+        $this->dstCountries = $countries;
+
+        return $this;
+    }
+
+    public function roles(array $roles): self
+    {
+        $roles = array_filter(array_unique($roles), 'ctype_digit');
+
+        if ($index = array_search(1, $roles)) {
+            unset($roles[$index]);
+        }
+
+        $this->roles = $roles;
+
+        return $this;
+
     }
 
     public function execute(): bool
