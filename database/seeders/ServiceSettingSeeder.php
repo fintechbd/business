@@ -45,7 +45,7 @@ class ServiceSettingSeeder extends Seeder
             ['service_setting_type' => 'service', 'service_setting_name' => 'Operator Short Code', 'service_setting_field_name' => 'operator_short_code', 'service_setting_type_field' => 'text', 'service_setting_feature' => 'Operator Short Code', 'enabled' => true],
             ['service_setting_type' => 'service', 'service_setting_name' => 'Service Feature List', 'service_setting_field_name' => 'service_feature_list', 'service_setting_type_field' => 'textarea', 'service_setting_feature' => 'Service Feature List', 'enabled' => true],
             ['service_setting_type' => 'service', 'service_setting_name' => 'Amount Range', 'service_setting_field_name' => 'amount_range', 'service_setting_type_field' => 'text', 'service_setting_feature' => 'Amount Range', 'enabled' => true],
-            ['service_setting_type' => 'service', 'service_setting_name' => 'Routing Number', 'service_setting_field_name' => 'routing_number', 'service_setting_type_field' => 'text', 'service_setting_feature' => 'Routing Number', 'enabled' => true],
+            ['service_setting_type' => 'service', 'service_setting_name' => 'Routing Code', 'service_setting_field_name' => 'routing_code', 'service_setting_type_field' => 'text', 'service_setting_feature' => 'Routing Code', 'enabled' => true],
             ['service_setting_type' => 'service', 'service_setting_name' => 'Interac', 'service_setting_field_name' => 'interac', 'service_setting_type_field' => 'text', 'service_setting_feature' => 'Interac', 'enabled' => true],
         ];
     }
