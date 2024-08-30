@@ -10,7 +10,6 @@ use Illuminate\Contracts\Pagination\Paginator;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Query\JoinClause;
 use Illuminate\Support\Facades\DB;
-use Monolog\Handler\IFTTTHandler;
 
 /**
  * Class ServiceTypeRepository
@@ -172,30 +171,30 @@ class ServiceTypeRepository extends EloquentRepository implements InterfacesServ
             }
 
             if (isset($filters['service_vendor_enabled']) && $filters['service_vendor_enabled']) {
-                $query->where('service_vendors' . '.enabled', '=', $filters['service_vendor_enabled']);
+                $query->where('service_vendors'.'.enabled', '=', $filters['service_vendor_enabled']);
             }
 
             if (isset($filters['service_stat_enabled']) && $filters['service_stat_enabled']) {
                 $query->where('service_stats.enabled', '=', $filters['service_stat_enabled']);
             }
 
-            if (!empty($filters['id_not_in'])) {
-                $query->whereNotIn($this->model->getKeyName(), (array)$filters['id_not_in']);
+            if (! empty($filters['id_not_in'])) {
+                $query->whereNotIn($this->model->getKeyName(), (array) $filters['id_not_in']);
             }
 
-            if (!empty($filters['id_in'])) {
-                $query->whereIn($this->model->getKeyName(), (array)$filters['id_in']);
+            if (! empty($filters['id_in'])) {
+                $query->whereIn($this->model->getKeyName(), (array) $filters['id_in']);
             }
 
             $select = [
                 'service_stats.*',
-                'service_vendors' . '.*',
+                'service_vendors'.'.*',
                 'services.*',
                 DB::raw('service_stats.id as service_stat_id')];
         }
 
         //Searching
-        if (isset($filters['search']) && !empty($filters['search'])) {
+        if (isset($filters['search']) && ! empty($filters['search'])) {
             if (is_numeric($filters['search'])) {
                 $query->where($this->model->getKeyName(), 'like', "%{$filters['search']}%");
             } else {
@@ -245,15 +244,14 @@ class ServiceTypeRepository extends EloquentRepository implements InterfacesServ
         }
 
         //Display Trashed
-        if (isset($filters['trashed']) && !empty($filters['trashed'])) {
+        if (isset($filters['trashed']) && ! empty($filters['trashed'])) {
             $query->onlyTrashed();
         }
 
         //Handle Sorting
         $query->orderBy($filters['sort'] ?? $this->model->getKeyName(), $filters['dir'] ?? 'asc');
 
-
-        if (!empty($filters['get'])) {
+        if (! empty($filters['get'])) {
             $select = is_string($filters['get']) ? explode(',', $filters['get']) : $filters['get'];
         } else {
             $select[] = 'service_types.*';
