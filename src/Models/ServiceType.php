@@ -30,7 +30,7 @@ class ServiceType extends BaseModel implements HasMedia
 
     protected $guarded = ['id'];
 
-    protected $casts = ['service_type_data' => 'array', 'restored_at' => 'datetime', 'enabled' => 'bool'];
+    protected $casts = ['service_type_data' => 'array', 'restored_at' => 'datetime', 'enabled' => 'bool', 'service_stat_data' => 'array', 'service_data' => 'array'];
 
     protected $hidden = ['creator_id', 'editor_id', 'destroyer_id', 'restorer_id'];
 
