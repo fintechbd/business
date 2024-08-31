@@ -15,16 +15,13 @@ class ServiceTypeService
     /**
      * ServiceTypeService constructor.
      */
-    public function __construct(private readonly ServiceTypeRepository $serviceTypeRepository) {}
+    public function __construct(private readonly ServiceTypeRepository $serviceTypeRepository)
+    {
+    }
 
     public function find($id, bool $onlyTrashed = false): ?BaseModel
     {
         return $this->serviceTypeRepository->find($id, $onlyTrashed);
-    }
-
-    public function create(array $inputs = []): ?BaseModel
-    {
-        return $this->serviceTypeRepository->create($inputs);
     }
 
     public function update($id, array $inputs = []): ?BaseModel
@@ -56,5 +53,10 @@ class ServiceTypeService
     public function import(array $filters): ?BaseModel
     {
         return $this->serviceTypeRepository->create($filters);
+    }
+
+    public function create(array $inputs = []): ?BaseModel
+    {
+        return $this->serviceTypeRepository->create($inputs);
     }
 }

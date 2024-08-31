@@ -12,7 +12,9 @@ class ServiceFieldService
     /**
      * ServiceFieldService constructor.
      */
-    public function __construct(private readonly ServiceFieldRepository $serviceFieldRepository) {}
+    public function __construct(private readonly ServiceFieldRepository $serviceFieldRepository)
+    {
+    }
 
     public function find($id, $onlyTrashed = false)
     {

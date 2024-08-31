@@ -17,15 +17,11 @@ class ServicePackage extends BaseModel
     |--------------------------------------------------------------------------
     */
 
-    protected $primaryKey = 'id';
-
-    protected $guarded = ['id'];
-
-    protected $casts = ['service_package_data' => 'array', 'restored_at' => 'datetime', 'enabled' => 'bool'];
-
-    protected $hidden = ['creator_id', 'editor_id', 'destroyer_id', 'restorer_id'];
-
     public $translatable = ['name'];
+    protected $primaryKey = 'id';
+    protected $guarded = ['id'];
+    protected $casts = ['service_package_data' => 'array', 'restored_at' => 'datetime', 'enabled' => 'bool'];
+    protected $hidden = ['creator_id', 'editor_id', 'destroyer_id', 'restorer_id'];
     /*
     |--------------------------------------------------------------------------
     | FUNCTIONS
@@ -37,6 +33,7 @@ class ServicePackage extends BaseModel
     | RELATIONS
     |--------------------------------------------------------------------------
     */
+
     public function service(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(config('fintech.business.service_model', Service::class), 'service_id', 'id');

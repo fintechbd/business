@@ -19,12 +19,12 @@ class ServiceVendorSeeder extends Seeder
             set_time_limit(2100);
             foreach ($block as $entry) {
                 if ($entry['logo_png'] != null) {
-                    $image_png = __DIR__.'/../../resources/img/service_vendor_logo_png/'.$entry['logo_png'];
-                    $entry['logo_png'] = 'data:image/png;base64,'.base64_encode(file_get_contents($image_png));
+                    $image_png = __DIR__ . '/../../resources/img/service_vendor_logo_png/' . $entry['logo_png'];
+                    $entry['logo_png'] = 'data:image/png;base64,' . base64_encode(file_get_contents($image_png));
                 }
                 if ($entry['logo_svg'] != null) {
-                    $image_svg = __DIR__.'/../../resources/img/service_vendor_logo_svg/'.$entry['logo_svg'];
-                    $entry['logo_svg'] = 'data:image/svg+xml;base64,'.base64_encode(file_get_contents($image_svg));
+                    $image_svg = __DIR__ . '/../../resources/img/service_vendor_logo_svg/' . $entry['logo_svg'];
+                    $entry['logo_svg'] = 'data:image/svg+xml;base64,' . base64_encode(file_get_contents($image_svg));
                 }
                 Business::serviceVendor()->create($entry);
             }
