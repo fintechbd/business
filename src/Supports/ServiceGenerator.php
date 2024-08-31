@@ -36,7 +36,7 @@ class ServiceGenerator
 
     public function __construct(array $data, ?int $parentId = null)
     {
-        if (! empty($data['service_type_parent_id'])) {
+        if (!empty($data['service_type_parent_id'])) {
             $parentId = $data['service_type_parent_id'];
             unset($data['service_type_parent_id']);
         }
@@ -44,6 +44,14 @@ class ServiceGenerator
         $this->loadParent($parentId);
 
         $this->loadData($data);
+    }
+
+    private function loadParent($parentId): void
+    {
+        if ($parent = Business::serviceType()->find($parentId)) {
+            $this->parent = $parent;
+            $this->level = intval($parent->service_type_step ?? 0) + 1;
+        }
     }
 
     private function loadData($data): void
@@ -70,14 +78,46 @@ class ServiceGenerator
         }
 
         if ($data['logo_svg'] && $this->verifyImage($data['logo_svg'], ['image/svg+xml'])) {
-            $this->logoSvg = 'data:image/svg+xml;base64,'.base64_encode(file_get_contents($data['logo_svg']));
+            $this->logoSvg = 'data:image/svg+xml;base64,' . base64_encode(file_get_contents($data['logo_svg']));
         }
 
         if ($data['logo_png'] && $this->verifyImage($data['logo_png'], ['image/png'])) {
-            $this->logoPng = 'data:image/png;base64,'.base64_encode(file_get_contents($data['logo_png']));
+            $this->logoPng = 'data:image/png;base64,' . base64_encode(file_get_contents($data['logo_png']));
         }
 
         $this->attributes = $data;
+    }
+
+    public function sourceCountries(array $countries): self
+    {
+        $countries = array_filter(array_unique($countries), 'ctype_digit');
+
+        $this->srcCountries = $countries;
+
+        return $this;
+    }
+
+    public function destinationCountries(array $countries): self
+    {
+        $countries = array_filter(array_unique($countries), 'ctype_digit');
+
+        $this->dstCountries = $countries;
+
+        return $this;
+    }
+
+    public function roles(array $roles): self
+    {
+        $roles = array_filter(array_unique($roles), 'ctype_digit');
+
+        if ($index = array_search(1, $roles)) {
+            unset($roles[$index]);
+        }
+
+        $this->roles = $roles;
+
+        return $this;
+
     }
 
     private function verifyImage(string $path, ?array $accepts = null): bool
@@ -95,11 +135,60 @@ class ServiceGenerator
         return false;
     }
 
-    private function loadParent($parentId): void
+    public function logoSvg(string $path): self
     {
-        if ($parent = Business::serviceType()->find($parentId)) {
-            $this->parent = $parent;
-            $this->level = intval($parent->service_type_step ?? 0) + 1;
+        if (file_exists($path) && is_readable($path)) {
+            if ($this->verifyImage($path, ['image/svg+xml'])) {
+                $this->logoSvg = 'data:image/svg+xml;base64,' . base64_encode(file_get_contents($path));
+            } else {
+                throw new \Exception('File is a has invalid mime format');
+            }
+        } else {
+            throw new \Exception("Invalid Logo SVG Path[{$path}]");
+        }
+
+        return $this;
+    }
+
+    public function logoPng(string $path): self
+    {
+        if (file_exists($path) && is_readable($path)) {
+            if ($this->verifyImage($path, ['image/png'])) {
+                $this->logoPng = 'data:image/png;base64,' . base64_encode(file_get_contents($path));
+            } else {
+                throw new \Exception('File is a has invalid mime format');
+            }
+        } else {
+            throw new \Exception("Invalid Logo PNG Path[{$path}]");
+        }
+
+        return $this;
+    }
+
+    public function execute(): bool
+    {
+        $this->setupServiceType();
+
+        return true;
+    }
+
+    private function setupServiceType()
+    {
+        $attributes = [];
+        $attributes['service_type_parent_id'] = $this->parent->getKey();
+        $attributes['service_type_name'] = $this->attributes['service_type_name'];
+        $attributes['service_type_slug'] = $this->attributes['service_type_slug'] ?? Str::slug($this->attributes['service_type_name']);
+        $attributes['logo_svg'] = $this->logoSvg;
+        $attributes['logo_png'] = $this->logoPng;
+        $attributes['service_type_is_parent'] = $this->attributes['service_type_is_parent'] ?? 'no';
+        $attributes['service_type_is_description'] = $this->attributes['service_type_is_description'] ?? 'no';
+        $attributes['service_type_step'] = $this->level;
+        $attributes['enabled'] = $this->attributes['enabled'] ?? false;
+
+        if ($instance = Business::serviceType()->list(['service_type_slug' => $attributes['service_type_slug']])->first()) {
+            $this->instance = $instance;
+        } else {
+            $this->instance = Business::serviceType()->create($attributes);
         }
     }
 
@@ -155,94 +244,5 @@ class ServiceGenerator
         //            ],
         //            'enabled' => true,
         //        ]
-    }
-
-    private function setupServiceType()
-    {
-        $attributes = [];
-        $attributes['service_type_parent_id'] = $this->parent->getKey();
-        $attributes['service_type_name'] = $this->attributes['service_type_name'];
-        $attributes['service_type_slug'] = $this->attributes['service_type_slug'] ?? Str::slug($this->attributes['service_type_name']);
-        $attributes['logo_svg'] = $this->logoSvg;
-        $attributes['logo_png'] = $this->logoPng;
-        $attributes['service_type_is_parent'] = $this->attributes['service_type_is_parent'] ?? 'no';
-        $attributes['service_type_is_description'] = $this->attributes['service_type_is_description'] ?? 'no';
-        $attributes['service_type_step'] = $this->level;
-        $attributes['enabled'] = $this->attributes['enabled'] ?? false;
-
-        if ($instance = Business::serviceType()->list(['service_type_slug' => $attributes['service_type_slug']])->first()) {
-            $this->instance = $instance;
-        } else {
-            $this->instance = Business::serviceType()->create($attributes);
-        }
-    }
-
-    public function logoSvg(string $path): self
-    {
-        if (file_exists($path) && is_readable($path)) {
-            if ($this->verifyImage($path, ['image/svg+xml'])) {
-                $this->logoSvg = 'data:image/svg+xml;base64,'.base64_encode(file_get_contents($path));
-            } else {
-                throw new \Exception('File is a has invalid mime format');
-            }
-        } else {
-            throw new \Exception("Invalid Logo SVG Path[{$path}]");
-        }
-
-        return $this;
-    }
-
-    public function logoPng(string $path): self
-    {
-        if (file_exists($path) && is_readable($path)) {
-            if ($this->verifyImage($path, ['image/png'])) {
-                $this->logoPng = 'data:image/png;base64,'.base64_encode(file_get_contents($path));
-            } else {
-                throw new \Exception('File is a has invalid mime format');
-            }
-        } else {
-            throw new \Exception("Invalid Logo PNG Path[{$path}]");
-        }
-
-        return $this;
-    }
-
-    public function sourceCountries(array $countries): self
-    {
-        $countries = array_filter(array_unique($countries), 'ctype_digit');
-
-        $this->srcCountries = $countries;
-
-        return $this;
-    }
-
-    public function destinationCountries(array $countries): self
-    {
-        $countries = array_filter(array_unique($countries), 'ctype_digit');
-
-        $this->dstCountries = $countries;
-
-        return $this;
-    }
-
-    public function roles(array $roles): self
-    {
-        $roles = array_filter(array_unique($roles), 'ctype_digit');
-
-        if ($index = array_search(1, $roles)) {
-            unset($roles[$index]);
-        }
-
-        $this->roles = $roles;
-
-        return $this;
-
-    }
-
-    public function execute(): bool
-    {
-        $this->setupServiceType();
-
-        return true;
     }
 }
