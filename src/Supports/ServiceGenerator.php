@@ -139,7 +139,7 @@ class ServiceGenerator
     {
         if (file_exists($path) && is_readable($path)) {
             if ($this->verifyImage($path, ['image/svg+xml'])) {
-                $this->logoSvg = 'data:image/svg+xml;base64,' . base64_encode(file_get_contents($path));
+                $this->logoSvg = 'data:image/svg+xml;base64,'.base64_encode(file_get_contents($path));
             } else {
                 throw new \Exception('File is a has invalid mime format');
             }
@@ -154,7 +154,7 @@ class ServiceGenerator
     {
         if (file_exists($path) && is_readable($path)) {
             if ($this->verifyImage($path, ['image/png'])) {
-                $this->logoPng = 'data:image/png;base64,' . base64_encode(file_get_contents($path));
+                $this->logoPng = 'data:image/png;base64,'.base64_encode(file_get_contents($path));
             } else {
                 throw new \Exception('File is a has invalid mime format');
             }
