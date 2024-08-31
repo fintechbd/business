@@ -2,13 +2,9 @@
 
 namespace Fintech\Business\Commands;
 
-use Fintech\Auth\Facades\Auth;
-use Fintech\Auth\Seeders\PermissionSeeder;
 use Fintech\Business\Facades\Business;
-use Fintech\Core\Enums\Auth\SystemRole;
 use Fintech\Core\Traits\HasCoreSettingTrait;
 use Illuminate\Console\Command;
-use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Str;
 
 class InstallCommand extends Command
@@ -16,8 +12,11 @@ class InstallCommand extends Command
     use HasCoreSettingTrait;
 
     public $signature = 'business:install';
+
     public $description = 'Configure the system for the `fintech/business` module';
+
     private string $module = 'Business';
+
     private array $serviceSettings = [
         ['service_setting_type' => 'service_stat', 'service_setting_name' => 'Lower Limit', 'service_setting_field_name' => 'lower_limit', 'service_setting_type_field' => 'text', 'service_setting_feature' => 'Lower Limit', 'enabled' => true],
         ['service_setting_type' => 'service_stat', 'service_setting_name' => 'Higher Limit', 'service_setting_field_name' => 'higher_limit', 'service_setting_type_field' => 'text', 'service_setting_feature' => 'Higher Limit', 'enabled' => true],
@@ -48,7 +47,7 @@ class InstallCommand extends Command
 
         $this->addDefaultServiceVendor();
 
-        $this->components->twoColumnDetail("[<fg=yellow;options=bold>{$this->module}</>] Installation", "<fg=green;options=bold>COMPLETED</>");
+        $this->components->twoColumnDetail("[<fg=yellow;options=bold>{$this->module}</>] Installation", '<fg=green;options=bold>COMPLETED</>');
 
         return self::SUCCESS;
     }
@@ -73,11 +72,11 @@ class InstallCommand extends Command
                 'enabled' => true,
             ];
 
-            $image_png = __DIR__ . '/../../resources/img/service_vendor_logo_png/mt-technology-ltd-logo.png';
-            $vendor['logo_png'] = 'data:image/png;base64,' . base64_encode(file_get_contents($image_png));
+            $image_png = __DIR__.'/../../resources/img/service_vendor_logo_png/mt-technology-ltd-logo.png';
+            $vendor['logo_png'] = 'data:image/png;base64,'.base64_encode(file_get_contents($image_png));
 
-            $image_svg = __DIR__ . '/../../resources/img/service_vendor_logo_svg/mt-technology-ltd-logo.svg';
-            $vendor['logo_svg'] = 'data:image/svg+xml;base64,' . base64_encode(file_get_contents($image_svg));
+            $image_svg = __DIR__.'/../../resources/img/service_vendor_logo_svg/mt-technology-ltd-logo.svg';
+            $vendor['logo_svg'] = 'data:image/svg+xml;base64,'.base64_encode(file_get_contents($image_svg));
 
             Business::serviceVendor()->create($vendor);
         });
