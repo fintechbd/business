@@ -11,7 +11,7 @@ trait ServiceSeeder
     {
         $serviceStats = [];
         $roles = Auth::role()->list(['id_not_in' => [1]])->pluck('id')->toArray();
-        if (!empty($roles) && !empty($source_countries) && !empty($destination_countries)) {
+        if (! empty($roles) && ! empty($source_countries) && ! empty($destination_countries)) {
             foreach ($this->service() as $service) {
                 $serviceModel = Business::service()->list(['service_slug' => $service['service_slug']])->first();
                 $serviceStats[] = [
@@ -26,8 +26,8 @@ trait ServiceSeeder
                             'lower_limit' => '10.00',
                             'higher_limit' => '5000.00',
                             'local_currency_higher_limit' => '25000.00',
-                            'charge' => mt_rand(1, 7) . '%',
-                            'discount' => mt_rand(1, 7) . '%',
+                            'charge' => mt_rand(1, 7).'%',
+                            'discount' => mt_rand(1, 7).'%',
                             'commission' => '0',
                             'cost' => '0.00',
                             'charge_refund' => 'yes',
