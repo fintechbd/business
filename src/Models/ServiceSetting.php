@@ -25,6 +25,8 @@ class ServiceSetting extends BaseModel
 
     protected $hidden = ['creator_id', 'editor_id', 'destroyer_id', 'restorer_id'];
 
+    protected $attributes = ['service_setting_rule' => 'string|nullable|max:255|min:1'];
+
     /*
     |--------------------------------------------------------------------------
     | FUNCTIONS
