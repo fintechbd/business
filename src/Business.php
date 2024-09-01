@@ -72,10 +72,6 @@ class Business
         return app(ServiceFieldService::class);
     }
 
-    /**
-     * @param array $attributes
-     * @return ServiceTypeGenerator
-     */
     public function serviceTypeManager(array $attributes = []): ServiceTypeGenerator
     {
         return new ServiceTypeGenerator($attributes);

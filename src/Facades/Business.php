@@ -27,7 +27,7 @@ use Illuminate\Support\Facades\Facade;
  * @method static CurrencyRateService currencyRate()
  * @method static ServiceFieldService serviceField()
  * @method static ServiceTypeGenerator serviceTypeManager(array $attributes = [])
- *  // Crud Service Method Point Do not Remove //
+ *                                                                                // Crud Service Method Point Do not Remove //
  *
  * @see \Fintech\Business\Business
  */

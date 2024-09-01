@@ -56,7 +56,7 @@ class ServiceSettingRepository extends EloquentRepository implements InterfacesS
             $query->where('service_setting_field_name', '=', $filters['service_setting_field_name']);
         }
         if (! empty($filters['service_setting_field_name_not_in'])) {
-            $query->whereNotIn('service_setting_field_name', (array)$filters['service_setting_field_name_not_in']);
+            $query->whereNotIn('service_setting_field_name', (array) $filters['service_setting_field_name_not_in']);
         }
 
         if (! empty($filters['service_setting_type_field'])) {
