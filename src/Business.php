@@ -12,6 +12,7 @@ use Fintech\Business\Services\ServiceSettingService;
 use Fintech\Business\Services\ServiceStatService;
 use Fintech\Business\Services\ServiceTypeService;
 use Fintech\Business\Services\ServiceVendorService;
+use Fintech\Business\Supports\ServiceTypeGenerator;
 
 class Business
 {
@@ -71,6 +72,14 @@ class Business
         return app(ServiceFieldService::class);
     }
 
+    /**
+     * @param array $attributes
+     * @return ServiceTypeGenerator
+     */
+    public function serviceTypeManager(array $attributes = []): ServiceTypeGenerator
+    {
+        return new ServiceTypeGenerator($attributes);
+    }
     //** Crud Service Method Point Do not Remove **//
 
 }

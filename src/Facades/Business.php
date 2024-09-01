@@ -12,6 +12,7 @@ use Fintech\Business\Services\ServiceSettingService;
 use Fintech\Business\Services\ServiceStatService;
 use Fintech\Business\Services\ServiceTypeService;
 use Fintech\Business\Services\ServiceVendorService;
+use Fintech\Business\Supports\ServiceTypeGenerator;
 use Illuminate\Support\Facades\Facade;
 
 /**
@@ -25,7 +26,8 @@ use Illuminate\Support\Facades\Facade;
  * @method static ServiceService service()
  * @method static CurrencyRateService currencyRate()
  * @method static ServiceFieldService serviceField()
- *                                                   // Crud Service Method Point Do not Remove //
+ * @method static ServiceTypeGenerator serviceTypeManager(array $attributes = [])
+ *  // Crud Service Method Point Do not Remove //
  *
  * @see \Fintech\Business\Business
  */
