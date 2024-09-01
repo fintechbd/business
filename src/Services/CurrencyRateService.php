@@ -81,6 +81,10 @@ class CurrencyRateService
             throw new InvalidArgumentException("source, destination country or service doesn't exists");
         }
 
+        if ($service->enabled == false) {
+            throw new InvalidArgumentException("This service is disabled");
+        }
+
         $amount = $data['amount'] ?? 1;
 
         $isReverse = $data['reverse'] ?? false;
