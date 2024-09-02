@@ -44,15 +44,23 @@ class ServiceRepository extends EloquentRepository implements InterfacesServiceR
         }
 
         if (isset($filters['service_id']) && $filters['service_id']) {
-            $query->where($modelTable.'.id', '=', $filters['service_id']);
+            $query->where($this->model->getKeyName(), '=', $filters['service_id']);
+        }
+
+        if (isset($filters['service_type_id']) && $filters['service_type_id']) {
+            $query->where('service_type_id', '=', $filters['service_type_id']);
+        }
+
+        if (isset($filters['service_vendor_id']) && $filters['service_vendor_id']) {
+            $query->where('service_vendor_id', '=', $filters['service_vendor_id']);
         }
 
         if (isset($filters['service_slug']) && $filters['service_slug']) {
-            $query->where($modelTable.'.service_slug', '=', $filters['service_slug']);
+            $query->where('service_slug', '=', $filters['service_slug']);
         }
 
         if (isset($filters['service_delay']) && $filters['service_delay']) {
-            $query->where($modelTable.'.service_delay', '=', $filters['service_delay']);
+            $query->where('service_delay', '=', $filters['service_delay']);
         }
         //Display Trashed
         if (isset($filters['trashed']) && ! empty($filters['trashed'])) {
