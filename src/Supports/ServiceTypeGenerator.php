@@ -316,9 +316,9 @@ class ServiceTypeGenerator
             return true;
         }
 
-        $this->createOrUpdateService();
-
-        $this->setupServiceStat();
+//        $this->createOrUpdateService();
+//
+//        $this->setupServiceStat();
 
         return true;
     }
