@@ -47,12 +47,12 @@ class ServiceTypeGenerator
      */
     public function __construct(array $data, ?int $parentId = null)
     {
-        if (!empty($data['service_type_parent_id']) && $parentId == null) {
+        if (! empty($data['service_type_parent_id']) && $parentId == null) {
             $parentId = $data['service_type_parent_id'];
             unset($data['service_type_parent_id']);
         }
 
-        if (!empty($parentId)) {
+        if (! empty($parentId)) {
             $this->loadParent($parentId);
         }
 
@@ -114,7 +114,7 @@ class ServiceTypeGenerator
             $this->hasService = true;
         }
 
-        if (!empty($data['service_vendor_id'])) {
+        if (! empty($data['service_vendor_id'])) {
             $this->vendor($data['service_vendor_id']);
             unset($data['service_vendor_id']);
         } else {
@@ -273,7 +273,7 @@ class ServiceTypeGenerator
     {
         if (file_exists($path) && is_readable($path)) {
             if ($this->verifyImage($path, ['image/svg+xml'])) {
-                $this->logoSvg = 'data:image/svg+xml;base64,' . base64_encode(file_get_contents($path));
+                $this->logoSvg = 'data:image/svg+xml;base64,'.base64_encode(file_get_contents($path));
             } else {
                 throw new \Exception('File is a has invalid mime format');
             }
@@ -288,7 +288,7 @@ class ServiceTypeGenerator
     {
         if (file_exists($path) && is_readable($path)) {
             if ($this->verifyImage($path, ['image/png'])) {
-                $this->logoPng = 'data:image/png;base64,' . base64_encode(file_get_contents($path));
+                $this->logoPng = 'data:image/png;base64,'.base64_encode(file_get_contents($path));
             } else {
                 throw new \Exception('File is a has invalid mime format');
             }
@@ -355,6 +355,7 @@ class ServiceTypeGenerator
             return true;
         } catch (\Exception $exception) {
             logger()->error($exception);
+
             return false;
         }
     }
