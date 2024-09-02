@@ -47,26 +47,16 @@ class ServiceTypeGenerator
      */
     public function __construct(array $data, ?int $parentId = null)
     {
-        if (! empty($data['service_type_parent_id']) && $parentId == null) {
+        if (!empty($data['service_type_parent_id']) && $parentId == null) {
             $parentId = $data['service_type_parent_id'];
             unset($data['service_type_parent_id']);
         }
 
-        if (! empty($parentId)) {
+        if (!empty($parentId)) {
             $this->loadParent($parentId);
         }
 
         $this->loadData($data);
-
-        $this->vendorId = config('fintech.business.default_vendor_id');
-
-        $this->roles = Auth::role()->list(['id_not_in' => 1])->pluck('id')->toArray();
-
-        $servingCountries = MetaData::country()->list(['is_serving' => true])->pluck('id')->toArray();
-
-        $this->srcCountries($servingCountries);
-
-        $this->distCountries($servingCountries);
     }
 
     /**************************************************************************************/
@@ -83,6 +73,8 @@ class ServiceTypeGenerator
      */
     private function loadData($data): void
     {
+        $servingCountries = MetaData::country()->list(['is_serving' => true])->pluck('id')->toArray();
+
         if (isset($data['children']) && count($data['children']) > 0) {
             $this->children = $data['children'];
             $data['service_type_is_parent'] = 'yes';
@@ -92,16 +84,22 @@ class ServiceTypeGenerator
         if (isset($data['source_country']) && count($data['source_country']) > 0) {
             $this->srcCountries($data['source_country']);
             unset($data['source_country']);
+        } else {
+            $this->srcCountries($servingCountries);
         }
 
         if (isset($data['destination_country']) && count($data['destination_country']) > 0) {
             $this->distCountries($data['destination_country']);
             unset($data['destination_country']);
+        } else {
+            $this->distCountries($servingCountries);
         }
 
         if (isset($data['roles']) && count($data['roles']) > 0) {
             $this->serviceStatRoles($data['roles']);
             unset($data['roles']);
+        } else {
+            $this->serviceStatRoles(Auth::role()->list(['id_not_in' => 1])->pluck('id')->toArray());
         }
 
         if (isset($data['logo_svg'])) {
@@ -114,6 +112,13 @@ class ServiceTypeGenerator
 
         if (isset($data['service_type_is_parent']) && $data['service_type_is_parent'] == 'no') {
             $this->hasService = true;
+        }
+
+        if (!empty($data['service_vendor_id'])) {
+            $this->vendor($data['service_vendor_id']);
+            unset($data['service_vendor_id']);
+        } else {
+            $this->vendor(config('fintech.business.default_vendor_id', 1));
         }
 
         $this->enabled = $data['enabled'] ?? false;
@@ -178,9 +183,11 @@ class ServiceTypeGenerator
         } else {
             $this->serviceInstance = Business::service()->create($attributes);
         }
+
+        $this->createOrUpdateServiceStat();
     }
 
-    private function setupServiceStat()
+    private function createOrUpdateServiceStat()
     {
         return [
             'role_id' => $this->roles,
@@ -266,7 +273,7 @@ class ServiceTypeGenerator
     {
         if (file_exists($path) && is_readable($path)) {
             if ($this->verifyImage($path, ['image/svg+xml'])) {
-                $this->logoSvg = 'data:image/svg+xml;base64,'.base64_encode(file_get_contents($path));
+                $this->logoSvg = 'data:image/svg+xml;base64,' . base64_encode(file_get_contents($path));
             } else {
                 throw new \Exception('File is a has invalid mime format');
             }
@@ -281,7 +288,7 @@ class ServiceTypeGenerator
     {
         if (file_exists($path) && is_readable($path)) {
             if ($this->verifyImage($path, ['image/png'])) {
-                $this->logoPng = 'data:image/png;base64,'.base64_encode(file_get_contents($path));
+                $this->logoPng = 'data:image/png;base64,' . base64_encode(file_get_contents($path));
             } else {
                 throw new \Exception('File is a has invalid mime format');
             }
@@ -320,18 +327,35 @@ class ServiceTypeGenerator
         return $this;
     }
 
-    public function execute(): bool
+    public function vendor($vendor): static
     {
-        $this->createOrUpdateServiceType();
-
-        if (! $this->hasService) {
-            return true;
+        if ($vendor instanceof BaseModel) {
+            $this->vendorId = $vendor->getKey();
+        } else {
+            $this->vendorId = $vendor;
         }
 
-        //        $this->createOrUpdateService();
-        //
-        //        $this->setupServiceStat();
+        return $this;
+    }
 
-        return true;
+    public function execute(): bool
+    {
+        try {
+
+            $this->createOrUpdateServiceType();
+
+            if ($this->hasService) {
+                $this->createOrUpdateService();
+            }
+
+            foreach ($this->children as $child) {
+                (new static($child))->execute();
+            }
+
+            return true;
+        } catch (\Exception $exception) {
+            logger()->error($exception);
+            return false;
+        }
     }
 }
