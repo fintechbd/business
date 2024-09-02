@@ -72,9 +72,9 @@ class Business
         return app(ServiceFieldService::class);
     }
 
-    public function serviceTypeManager(array $attributes = []): ServiceTypeGenerator
+    public function serviceTypeManager(array $attributes = [], ?int $parentId = null): ServiceTypeGenerator
     {
-        return new ServiceTypeGenerator($attributes);
+        return new ServiceTypeGenerator($attributes, $parentId);
     }
     //** Crud Service Method Point Do not Remove **//
 

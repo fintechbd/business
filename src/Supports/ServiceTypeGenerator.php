@@ -5,6 +5,7 @@ namespace Fintech\Business\Supports;
 use Fintech\Auth\Facades\Auth;
 use Fintech\Business\Facades\Business;
 use Fintech\Core\Abstracts\BaseModel;
+use Fintech\MetaData\Facades\MetaData;
 use Illuminate\Support\Str;
 
 class ServiceTypeGenerator
@@ -41,20 +42,31 @@ class ServiceTypeGenerator
 
     private bool $enabled = false;
 
+    /**
+     * @throws \Exception
+     */
     public function __construct(array $data, ?int $parentId = null)
     {
-        if (! empty($data['service_type_parent_id'])) {
+        if (!empty($data['service_type_parent_id']) && $parentId == null) {
             $parentId = $data['service_type_parent_id'];
             unset($data['service_type_parent_id']);
         }
 
-        $this->loadParent($parentId);
+        if (!empty($parentId)) {
+            $this->loadParent($parentId);
+        }
 
         $this->loadData($data);
 
         $this->vendorId = config('fintech.business.default_vendor_id');
 
         $this->roles = Auth::role()->list(['id_not_in' => 1])->pluck('id')->toArray();
+
+        $servingCountries = MetaData::country()->list(['is_serving' => true])->pluck('id')->toArray();
+
+        $this->srcCountries($servingCountries);
+
+        $this->distCountries($servingCountries);
     }
 
     /**************************************************************************************/
@@ -127,7 +139,7 @@ class ServiceTypeGenerator
     private function createOrUpdateServiceType(): void
     {
         $attributes = [];
-        $attributes['service_type_parent_id'] = $this->parent->getKey();
+        $attributes['service_type_parent_id'] = $this->parent?->getKey() ?? null;
         $attributes['service_type_name'] = $this->attributes['service_type_name'];
         $attributes['service_type_slug'] = $this->attributes['service_type_slug'] ?? Str::slug($this->attributes['service_type_name']);
         $attributes['logo_svg'] = $this->logoSvg;
@@ -254,7 +266,7 @@ class ServiceTypeGenerator
     {
         if (file_exists($path) && is_readable($path)) {
             if ($this->verifyImage($path, ['image/svg+xml'])) {
-                $this->logoSvg = 'data:image/svg+xml;base64,'.base64_encode(file_get_contents($path));
+                $this->logoSvg = 'data:image/svg+xml;base64,' . base64_encode(file_get_contents($path));
             } else {
                 throw new \Exception('File is a has invalid mime format');
             }
@@ -269,7 +281,7 @@ class ServiceTypeGenerator
     {
         if (file_exists($path) && is_readable($path)) {
             if ($this->verifyImage($path, ['image/png'])) {
-                $this->logoPng = 'data:image/png;base64,'.base64_encode(file_get_contents($path));
+                $this->logoPng = 'data:image/png;base64,' . base64_encode(file_get_contents($path));
             } else {
                 throw new \Exception('File is a has invalid mime format');
             }
@@ -312,7 +324,7 @@ class ServiceTypeGenerator
     {
         $this->createOrUpdateServiceType();
 
-        if (! $this->hasService) {
+        if (!$this->hasService) {
             return true;
         }
 
