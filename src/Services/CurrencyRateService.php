@@ -82,7 +82,7 @@ class CurrencyRateService
         }
 
         if ($service->enabled == false) {
-            throw new InvalidArgumentException("This service is disabled");
+            throw new InvalidArgumentException('This service is disabled');
         }
 
         $amount = $data['amount'] ?? 1;

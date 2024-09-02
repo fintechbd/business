@@ -40,6 +40,25 @@ return [
     */
     'default_vendor_name' => env('PACKAGE_BUSINESS_DEFAULT_VENDOR', 'Fintech Bangladesh'),
     'default_vendor' => 1,
+
+    /*
+    |--------------------------------------------------------------------------
+    | Default Service Stat Settings
+    |--------------------------------------------------------------------------
+    | this setting values will be used for service stat setting value
+    */
+    'service_stat_settings' => [
+        'lower_limit' => '10.00',
+        'higher_limit' => '5000.00',
+        'local_currency_higher_limit' => '25000.00',
+        'charge' => '1%',
+        'discount' => '1%',
+        'commission' => '0',
+        'cost' => '0.00',
+        'charge_refund' => 'yes',
+        'discount_refund' => 'yes',
+        'commission_refund' => 'yes',
+    ],
     /*
     |--------------------------------------------------------------------------
     | Business Group Root Prefix
@@ -106,15 +125,6 @@ return [
     | This value will be used to across system where model is needed
     */
     'charge_break_down_model' => ChargeBreakDown::class,
-
-    /*
-    |--------------------------------------------------------------------------
-    | Vendor Model
-    |--------------------------------------------------------------------------
-    |
-    | This value will be used to across system where model is needed
-    */
-    //'vendor_model' => \Fintech\Business\Models\Vendor::class,
 
     /*
     |--------------------------------------------------------------------------
@@ -199,7 +209,7 @@ return [
     | Repositories
     |--------------------------------------------------------------------------
     |
-    | This value will be used across systems where a repositoy instance is needed
+    | This value will be used across systems where a repository instance is needed
     */
 
     'repositories' => [
