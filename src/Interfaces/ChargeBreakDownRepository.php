@@ -56,10 +56,6 @@ interface ChargeBreakDownRepository
 
     /**
      * Check if this slot is available
-     *
-     * @param string|float|int $lower
-     * @param string|float|int $higher
-     * @return bool
      */
-    public function available(string|float|int $lower, string|float|int $higher) : bool;
+    public function available(string|float|int $lower, string|float|int $higher): bool;
 }
