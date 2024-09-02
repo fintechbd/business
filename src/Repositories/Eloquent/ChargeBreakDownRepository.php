@@ -4,6 +4,7 @@ namespace Fintech\Business\Repositories\Eloquent;
 
 use Fintech\Business\Interfaces\ChargeBreakDownRepository as InterfacesChargeBreakDownRepository;
 use Fintech\Business\Models\ChargeBreakDown;
+use Fintech\Core\Abstracts\BaseModel;
 use Fintech\Core\Repositories\EloquentRepository;
 use Illuminate\Contracts\Container\BindingResolutionException;
 use Illuminate\Contracts\Pagination\Paginator;
@@ -78,5 +79,17 @@ class ChargeBreakDownRepository extends EloquentRepository implements Interfaces
         //Execute Output
         return $this->executeQuery($query, $filters);
 
+    }
+
+    /**
+     * Check if this slot is available
+     *
+     * @param string|float|int $lower
+     * @param string|float|int $higher
+     * @return bool
+     */
+    public function available(string|float|int $lower, string|float|int $higher) : bool
+    {
+        // TODO: Implement available() method.
     }
 }

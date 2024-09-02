@@ -48,6 +48,18 @@ class ChargeBreakDownService
 
     }
 
+    /**
+     * Check if this slot is available
+     *
+     * @param string|float|int $lower
+     * @param string|float|int $higher
+     * @return bool
+     */
+    public function available(string|float|int $lower, string|float|int $higher) : bool
+    {
+        return $this->chargeBreakDownRepository->available($lower, $higher);
+    }
+
     public function import(array $filters)
     {
         return $this->chargeBreakDownRepository->create($filters);
