@@ -144,13 +144,15 @@ class ServiceStatService
     {
         if (! isset($inputs['reverse'])) {
             $inputs['reverse'] = false;
-        } else {
+        }
+        else {
             $inputs['reverse'] = ! in_array($inputs['reverse'], ['', '0', 0, 'false', false], true);
         }
 
         if (! isset($inputs['reload'])) {
             $inputs['reload'] = false;
-        } else {
+        }
+        else {
             $inputs['reload'] = ! in_array($inputs['reload'], ['', '0', 0, 'false', false], true);
         }
 
@@ -168,9 +170,13 @@ class ServiceStatService
             throw new ModelNotFoundException("Currency Convert Rate doesn't exists");
         }
 
+        $service = Business::service()->find($inputs['service_id']);
+
+
         $serviceStat = $this->list([
             'role_id' => $inputs['role_id'],
-            'service_id' => $inputs['service_id'],
+            'service_id' => $service->getKey() ?? $inputs['service_id'],
+            'service_vendor_id' => $service->service_vendor_id ?? config('fintech.business.default_vendor', 1),
             'source_country_id' => $inputs['source_country_id'],
             'destination_country_id' => $inputs['destination_country_id'],
         ])->first();
