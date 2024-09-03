@@ -5,10 +5,7 @@ namespace Fintech\Business\Services;
 use Fintech\Business\Facades\Business;
 use Fintech\Business\Interfaces\ServiceTypeRepository;
 use Fintech\Core\Abstracts\BaseModel;
-use Fintech\RestApi\Http\Requests\Business\ServiceTypeListRequest;
-use Fintech\RestApi\Http\Resources\Business\ServiceTypeListCollection;
 use Illuminate\Contracts\Pagination\Paginator;
-use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Collection;
 
 /**
@@ -55,82 +52,75 @@ class ServiceTypeService
     /**
      * return a list of service types that will be displayed on frontend
      * or in mobile application.
-     *
-     * @param array $filters
-     * @return Collection
      */
     public function available(array $filters = []): Collection
     {
         $input['service_type_enabled'] = true;
-            $input['sort'] = $filters['sort'] ?? 'service_types.id';
-            $input['dir'] = $filters['dir'] ?? 'asc';
-            $input['paginate'] = false;
+        $input['sort'] = $filters['sort'] ?? 'service_types.id';
+        $input['dir'] = $filters['dir'] ?? 'asc';
+        $input['paginate'] = false;
 
-            $input = array_merge($filters, $input);
+        $input = array_merge($filters, $input);
 
-            $serviceTypes = $this->list($input);
+        $serviceTypes = $this->list($input);
 
-            $serviceTypeCollection = collect();
+        $serviceTypeCollection = collect();
 
-            foreach ($serviceTypes as $serviceType) {
+        foreach ($serviceTypes as $serviceType) {
 
-                if ($serviceType->service_type_is_parent == 'no') {
-                    $inputNo = $input;
-                    $inputNo['service_join_active'] = true;
-                    $inputNo['service_type_id'] = $serviceType->id;
-                    $inputNo['service_enabled'] = true;
-                    $inputNo['service_vendor_enabled'] = true;
-                    $inputNo['service_stat_enabled'] = true;
+            if ($serviceType->service_type_is_parent == 'no') {
+                $inputNo = $input;
+                $inputNo['service_join_active'] = true;
+                $inputNo['service_type_id'] = $serviceType->id;
+                $inputNo['service_enabled'] = true;
+                $inputNo['service_vendor_enabled'] = true;
+                $inputNo['service_stat_enabled'] = true;
 
-                    $fullServiceTypes = Business::serviceType()->list($inputNo);
-                    if ($fullServiceTypes->isNotEmpty()) {
-                        foreach ($fullServiceTypes as $fullServiceType) {
-                            $fullServiceType['service_stat_data'] = $fullServiceType['service_stat_data'] ?? [];
-                            $fullServiceType['service_data'] = $fullServiceType['service_data'] ?? [];
-                            $fullServiceType->logo_svg = Business::service()->find($fullServiceType->service_id)?->getFirstMediaUrl('logo_svg') ?? null;
-                            $fullServiceType->logo_png = Business::service()->find($fullServiceType->service_id)?->getFirstMediaUrl('logo_png') ?? null;
-                            if (isset($fullServiceType->media)) {
-                                unset($fullServiceType->media);
-                            }
-                            $serviceTypeCollection->push($fullServiceType);
+                $fullServiceTypes = Business::serviceType()->list($inputNo);
+                if ($fullServiceTypes->isNotEmpty()) {
+                    foreach ($fullServiceTypes as $fullServiceType) {
+                        $fullServiceType['service_stat_data'] = $fullServiceType['service_stat_data'] ?? [];
+                        $fullServiceType['service_data'] = $fullServiceType['service_data'] ?? [];
+                        $fullServiceType->logo_svg = Business::service()->find($fullServiceType->service_id)?->getFirstMediaUrl('logo_svg') ?? null;
+                        $fullServiceType->logo_png = Business::service()->find($fullServiceType->service_id)?->getFirstMediaUrl('logo_png') ?? null;
+                        if (isset($fullServiceType->media)) {
+                            unset($fullServiceType->media);
                         }
+                        $serviceTypeCollection->push($fullServiceType);
                     }
                 }
-
-                elseif ($serviceType['service_type_is_parent'] == 'yes') {
-                    $inputYes = $input;
-                    $collectID = [];
-                    $findAllChildServiceType = Business::serviceType()->find($serviceType->getKey());
-                    $arrayFindData[$serviceType->getKey()] = $findAllChildServiceType->allChildList ?? [];
-                    foreach ($arrayFindData[$serviceType->getKey()] as $allChildAccounts) {
-                        $collectID[$serviceType->getKey()][] = $allChildAccounts['id'];
-                    }
-
-                    $inputYes['service_type_id_array'] = $collectID[$serviceType->getKey()] ?? [];
-                    //TODO may be need to work future
-                    $inputYes['service_type_parent_id'] = $serviceType->getKey();
-                    $inputYes['service_type_parent_id_is_null'] = false;
-                    $inputYes['service_type_id'] = false;
-                    $findServiceType = Business::serviceType()->list($inputYes)->count();
-                    if ($findServiceType > 0) {
-                        $serviceType->logo_svg = $serviceType?->getFirstMediaUrl('logo_svg') ?? null;
-                        $serviceType->logo_png = $serviceType?->getFirstMediaUrl('logo_png') ?? null;
-                        if (isset($serviceType->media)) {
-                            unset($serviceType->media);
-                        }
-                        $serviceTypeCollection->push($serviceType);
-                    }
+            } elseif ($serviceType['service_type_is_parent'] == 'yes') {
+                $inputYes = $input;
+                $collectID = [];
+                $findAllChildServiceType = Business::serviceType()->find($serviceType->getKey());
+                $arrayFindData[$serviceType->getKey()] = $findAllChildServiceType->allChildList ?? [];
+                foreach ($arrayFindData[$serviceType->getKey()] as $allChildAccounts) {
+                    $collectID[$serviceType->getKey()][] = $allChildAccounts['id'];
                 }
 
-                else {
+                $inputYes['service_type_id_array'] = $collectID[$serviceType->getKey()] ?? [];
+                //TODO may be need to work future
+                $inputYes['service_type_parent_id'] = $serviceType->getKey();
+                $inputYes['service_type_parent_id_is_null'] = false;
+                $inputYes['service_type_id'] = false;
+                $findServiceType = Business::serviceType()->list($inputYes)->count();
+                if ($findServiceType > 0) {
+                    $serviceType->logo_svg = $serviceType?->getFirstMediaUrl('logo_svg') ?? null;
+                    $serviceType->logo_png = $serviceType?->getFirstMediaUrl('logo_png') ?? null;
                     if (isset($serviceType->media)) {
                         unset($serviceType->media);
                     }
                     $serviceTypeCollection->push($serviceType);
                 }
+            } else {
+                if (isset($serviceType->media)) {
+                    unset($serviceType->media);
+                }
+                $serviceTypeCollection->push($serviceType);
             }
+        }
 
-            return $serviceTypeCollection;
+        return $serviceTypeCollection;
     }
 
     public function import(array $filters): ?BaseModel
