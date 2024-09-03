@@ -48,15 +48,15 @@ class ChargeBreakDownRepository extends EloquentRepository implements Interfaces
         }
 
         if (! empty($filters['service_stat_id'])) {
-            $query->where('service_stat_id', $filters['service_stat_id']);
+            $query->where('service_stat_id', '=', $filters['service_stat_id']);
         }
 
         if (! empty($filters['service_id'])) {
-            $query->where('service_id', $filters['service_id']);
+            $query->where('service_id', '=', $filters['service_id']);
         }
 
         if (! empty($filters['enabled'])) {
-            $query->where('enabled', $filters['enabled']);
+            $query->where('enabled', '=', $filters['enabled']);
         }
 
         if (! empty($filters['id_not_in'])) {
