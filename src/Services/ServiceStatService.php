@@ -144,15 +144,13 @@ class ServiceStatService
     {
         if (! isset($inputs['reverse'])) {
             $inputs['reverse'] = false;
-        }
-        else {
+        } else {
             $inputs['reverse'] = ! in_array($inputs['reverse'], ['', '0', 0, 'false', false], true);
         }
 
         if (! isset($inputs['reload'])) {
             $inputs['reload'] = false;
-        }
-        else {
+        } else {
             $inputs['reload'] = ! in_array($inputs['reload'], ['', '0', 0, 'false', false], true);
         }
 
@@ -171,7 +169,6 @@ class ServiceStatService
         }
 
         $service = Business::service()->find($inputs['service_id']);
-
 
         $serviceStat = $this->list([
             'role_id' => $inputs['role_id'],
