@@ -12,9 +12,7 @@ class ChargeBreakDownService
     /**
      * ChargeBreakDownService constructor.
      */
-    public function __construct(private readonly ChargeBreakDownRepository $chargeBreakDownRepository)
-    {
-    }
+    public function __construct(private readonly ChargeBreakDownRepository $chargeBreakDownRepository) {}
 
     public function find($id, $onlyTrashed = false)
     {
@@ -78,6 +76,7 @@ class ChargeBreakDownService
                 return true;
             }
         }
+
         return true;
     }
 
