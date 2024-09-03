@@ -12,7 +12,9 @@ class ChargeBreakDownService
     /**
      * ChargeBreakDownService constructor.
      */
-    public function __construct(private readonly ChargeBreakDownRepository $chargeBreakDownRepository) {}
+    public function __construct(private readonly ChargeBreakDownRepository $chargeBreakDownRepository)
+    {
+    }
 
     public function find($id, $onlyTrashed = false)
     {
@@ -51,9 +53,32 @@ class ChargeBreakDownService
     /**
      * Check if this slot is available
      */
-    public function available(string|float|int $lower, string|float|int $higher): bool
+    public function available($service_stat_id, $lower, $higher = null): bool
     {
-        return $this->chargeBreakDownRepository->available($lower, $higher);
+        $slot = $this->list([
+            'service_stat_id' => $service_stat_id,
+            'enabled' => true,
+            'paginate' => false,
+            'available_slot' => 'yes'])->first()->toArray();
+
+        if ($slot['lower_limit'] == null && $slot['higher_limit'] == null) {
+            return true;
+        }
+
+        if ($lower >= $slot['lower_limit'] && $lower <= $slot['higher_limit']) {
+            return false;
+        }
+
+        if ($higher != null) {
+            if ($higher >= $slot['lower_limit'] && $higher <= $slot['higher_limit']) {
+                return true;
+            }
+
+            if ($lower <= $slot['lower_limit'] && $higher >= $slot['higher_limit']) {
+                return true;
+            }
+        }
+        return true;
     }
 
     public function import(array $filters)

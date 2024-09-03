@@ -18,6 +18,8 @@ class ChargeBreakDown extends BaseModel
     |--------------------------------------------------------------------------
     */
 
+    protected $table = 'charge_break_downs';
+
     protected $primaryKey = 'id';
 
     protected $guarded = ['id'];

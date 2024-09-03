@@ -7,6 +7,7 @@ use Fintech\Business\Models\ChargeBreakDown;
 use Fintech\Core\Repositories\EloquentRepository;
 use Illuminate\Contracts\Container\BindingResolutionException;
 use Illuminate\Contracts\Pagination\Paginator;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 
 /**
@@ -32,7 +33,7 @@ class ChargeBreakDownRepository extends EloquentRepository implements Interfaces
         $query = $this->model->newQuery();
 
         //Searching
-        if (! empty($filters['search'])) {
+        if (!empty($filters['search'])) {
             $query->where(function ($query) use ($filters) {
                 return $query->where('higher_limit', 'like', "%{$filters['search']}%")
                     ->orWhere('discount', 'like', "%{$filters['search']}%")
@@ -42,35 +43,40 @@ class ChargeBreakDownRepository extends EloquentRepository implements Interfaces
             });
         }
 
-        if (! empty($filters['amount'])) {
+        if (!empty($filters['amount'])) {
             $query->where('higher_limit', '>=', $filters['amount'])
                 ->where('lower_limit', '<=', $filters['amount']);
         }
 
-        if (! empty($filters['service_stat_id'])) {
+        if (!empty($filters['service_stat_id'])) {
             $query->where('service_stat_id', $filters['service_stat_id']);
         }
 
-        if (! empty($filters['service_id'])) {
+        if (!empty($filters['service_id'])) {
             $query->where('service_id', $filters['service_id']);
         }
 
-        if (! empty($filters['enabled'])) {
+        if (!empty($filters['enabled'])) {
             $query->where('enabled', $filters['enabled']);
         }
 
-        if (! empty($filters['id_not_in'])) {
-            $query->whereNotIn($this->model->getKeyName(), (array) $filters['id_not_in']);
+        if (!empty($filters['id_not_in'])) {
+            $query->whereNotIn($this->model->getKeyName(), (array)$filters['id_not_in']);
         }
 
-        if (! empty($filters['id_in'])) {
-            $query->whereIn($this->model->getKeyName(), (array) $filters['id_in']);
+        if (!empty($filters['id_in'])) {
+            $query->whereIn($this->model->getKeyName(), (array)$filters['id_in']);
         }
 
         //Display Trashed
-        if (isset($filters['trashed']) && ! empty($filters['trashed'])) {
+        if (isset($filters['trashed']) && !empty($filters['trashed'])) {
             $query->onlyTrashed();
         }
+
+        if (!empty($filters['available_slot'])) {
+            $query->selectRaw('min(`lower_limit`) as lower_limit, max(`higher_limit`) as higher_limit');
+        }
+
 
         //Handle Sorting
         $query->orderBy($filters['sort'] ?? $this->model->getKeyName(), $filters['dir'] ?? 'asc');
@@ -78,13 +84,5 @@ class ChargeBreakDownRepository extends EloquentRepository implements Interfaces
         //Execute Output
         return $this->executeQuery($query, $filters);
 
-    }
-
-    /**
-     * Check if this slot is available
-     */
-    public function available(string|float|int $lower, string|float|int $higher): bool
-    {
-        // TODO: Implement available() method.
     }
 }
