@@ -26,6 +26,8 @@ class ServiceTypeGenerator
 
     private array $roles = [];
 
+    private array $servingPairs = [];
+
     private string $logoSvg;
 
     private string $logoPng;
@@ -42,35 +44,40 @@ class ServiceTypeGenerator
 
     private bool $enabled = false;
 
+    private array $serviceStatData = [];
+
     /**
      * @throws \Exception
      */
-    public function __construct(array $data, ?int $parentId = null)
+    public function __construct(array $data, string|int|BaseModel|null $parent = null)
     {
-        if (! empty($data['service_type_parent_id']) && $parentId == null) {
-            $parentId = $data['service_type_parent_id'];
+        if (!empty($data['service_type_parent_id']) && $parent == null) {
+            $parent = $data['service_type_parent_id'];
             unset($data['service_type_parent_id']);
         }
 
-        if (! empty($parentId)) {
-            $this->loadParent($parentId);
+        if (!empty($parent)) {
+            $this->loadParent($parent);
         }
 
         $this->loadData($data);
     }
 
     /**************************************************************************************/
-    private function loadParent($parentId): void
+    private function loadParent($parent): void
     {
-        if ($parent = Business::serviceType()->find($parentId)) {
+        if ($parent instanceof BaseModel) {
             $this->parent = $parent;
-            $this->level = intval($parent->service_type_step ?? 0) + 1;
+        } else if (is_string($parent) || is_int($parent)) {
+            if ($parent = Business::serviceType()->find($parent)) {
+                $this->parent = $parent;
+            }
+        } else {
+            $this->parent = null;
         }
+        $this->level = intval(($parent?->service_type_step ?? 0)) + 1;
     }
 
-    /**
-     * @throws \Exception
-     */
     private function loadData($data): void
     {
         $servingCountries = MetaData::country()->list(['is_serving' => true])->pluck('id')->toArray();
@@ -96,10 +103,10 @@ class ServiceTypeGenerator
         }
 
         if (isset($data['roles']) && count($data['roles']) > 0) {
-            $this->serviceStatRoles($data['roles']);
+            $this->roles($data['roles']);
             unset($data['roles']);
         } else {
-            $this->serviceStatRoles(Auth::role()->list(['id_not_in' => 1])->pluck('id')->toArray());
+            $this->roles(Auth::role()->list(['id_not_in' => 1])->pluck('id')->toArray());
         }
 
         if (isset($data['logo_svg'])) {
@@ -114,7 +121,7 @@ class ServiceTypeGenerator
             $this->hasService = true;
         }
 
-        if (! empty($data['service_vendor_id'])) {
+        if (!empty($data['service_vendor_id'])) {
             $this->vendor($data['service_vendor_id']);
             unset($data['service_vendor_id']);
         } else {
@@ -163,7 +170,7 @@ class ServiceTypeGenerator
 
     private function createOrUpdateService(): void
     {
-        $attributes = array_merge([
+        $attributes = [
             'service_type_id' => $this->instance->getKey(),
             'service_vendor_id' => $this->vendorId,
             'service_name' => $this->instance->service_type_name,
@@ -174,9 +181,12 @@ class ServiceTypeGenerator
             'service_delay' => 'yes',
             'service_stat_policy' => 'yes',
             'service_serial' => 1,
+            'roles' => $this->roles,
+            'countries' => array_unique($this->srcCountries),
             'service_data' => $this->injectDefaultServiceSettings(),
             'enabled' => $this->enabled,
-        ], $this->serviceAttributes);
+            ...$this->serviceAttributes
+        ];
 
         if ($instance = Business::service()->list(['service_slug' => $attributes['service_slug']])->first()) {
             $this->serviceInstance = $instance;
@@ -187,29 +197,37 @@ class ServiceTypeGenerator
         $this->createOrUpdateServiceStat();
     }
 
-    private function createOrUpdateServiceStat()
+    private function createOrUpdateServiceStat(): void
     {
-        return [
-            'role_id' => $this->roles,
-            'service_id' => $this->serviceInstance->getKey(),
-            'service_slug' => $this->serviceInstance->service_slug,
-            'source_country_id' => $this->srcCountries,
-            'destination_country_id' => $this->dstCountries,
-            'service_vendor_id' => config('fintech.business.default_vendor', 1),
-            'service_stat_data' => [
-                'lower_limit' => config('fintech.business.service_stat_settings.lower_limit', '10.00'),
-                'higher_limit' => config('fintech.business.service_stat_settings.lower_limit', '5000.00'),
-                'local_currency_higher_limit' => config('fintech.business.service_stat_settings.local_currency_higher_limit', '25000.00'),
-                'charge' => config('fintech.business.service_stat_settings.charge', '1%'),
-                'discount' => config('fintech.business.service_stat_settings.discount', '0'),
-                'commission' => config('fintech.business.service_stat_settings.commission', '0'),
-                'cost' => config('fintech.business.service_stat_settings.cost', '0'),
-                'charge_refund' => config('fintech.business.service_stat_settings.charge_refund', 'yes'),
-                'discount_refund' => config('fintech.business.service_stat_settings.discount_refund', 'yes'),
-                'commission_refund' => config('fintech.business.service_stat_settings.commission_refund', 'yes'),
-            ],
-            'enabled' => $this->enabled,
-        ];
+        $serviceStats = [];
+
+        foreach ($this->roles as $role) {
+            foreach ($this->servingPairs as $pairs) {
+                [$src, $dst] = $pairs;
+                $serviceStats[] = [
+                    'role_id' => $role,
+                    'service_id' => $this->serviceInstance->getKey(),
+                    'service_slug' => $this->serviceInstance->service_slug,
+                    'source_country_id' => $src,
+                    'destination_country_id' => $dst,
+                    'service_vendor_id' => $this->vendorId,
+                    'service_stat_data' => [
+                        'lower_limit' => config('fintech.business.service_stat_settings.lower_limit', '10.00'),
+                        'higher_limit' => config('fintech.business.service_stat_settings.lower_limit', '5000.00'),
+                        'local_currency_higher_limit' => config('fintech.business.service_stat_settings.local_currency_higher_limit', '25000.00'),
+                        'charge' => config('fintech.business.service_stat_settings.charge', '1%'),
+                        'discount' => config('fintech.business.service_stat_settings.discount', '0'),
+                        'commission' => config('fintech.business.service_stat_settings.commission', '0'),
+                        'cost' => config('fintech.business.service_stat_settings.cost', '0'),
+                        'charge_refund' => config('fintech.business.service_stat_settings.charge_refund', 'yes'),
+                        'discount_refund' => config('fintech.business.service_stat_settings.discount_refund', 'yes'),
+                        'commission_refund' => config('fintech.business.service_stat_settings.commission_refund', 'yes'),
+                        ...$this->serviceStatData
+                    ],
+                    'enabled' => $this->enabled,
+                ];
+            }
+        }
     }
 
     private function injectDefaultServiceSettings(): array
@@ -222,6 +240,7 @@ class ServiceTypeGenerator
             'account_number' => '',
             'transactional_currency' => '',
             'beneficiary_type_id' => 1,
+            ...$this->serviceSettings
         ];
 
         Business::serviceSetting()->list([
@@ -232,7 +251,7 @@ class ServiceTypeGenerator
             $defaultSettings[$item->service_setting_field_name] = ($item->service_setting_type_field == 'text') ? '' : null;
         });
 
-        return array_merge($defaultSettings, $this->serviceSettings);
+        return $defaultSettings;
     }
 
     /**************************************************************************************/
@@ -255,7 +274,20 @@ class ServiceTypeGenerator
         return $this;
     }
 
-    public function serviceStatRoles(array $roles): static
+    public function servingPairs(array $servingPairs = []): static
+    {
+        $this->servingPairs = $servingPairs;
+        return $this;
+    }
+
+    public function serviceStatData(array $serviceStatData): static
+    {
+        $this->serviceStatData = $serviceStatData;
+
+        return $this;
+    }
+
+    public function roles(array $roles): static
     {
         $roles = array_filter(array_unique($roles), 'ctype_digit');
 
@@ -273,7 +305,7 @@ class ServiceTypeGenerator
     {
         if (file_exists($path) && is_readable($path)) {
             if ($this->verifyImage($path, ['image/svg+xml'])) {
-                $this->logoSvg = 'data:image/svg+xml;base64,'.base64_encode(file_get_contents($path));
+                $this->logoSvg = 'data:image/svg+xml;base64,' . base64_encode(file_get_contents($path));
             } else {
                 throw new \Exception('File is a has invalid mime format');
             }
@@ -288,7 +320,7 @@ class ServiceTypeGenerator
     {
         if (file_exists($path) && is_readable($path)) {
             if ($this->verifyImage($path, ['image/png'])) {
-                $this->logoPng = 'data:image/png;base64,'.base64_encode(file_get_contents($path));
+                $this->logoPng = 'data:image/png;base64,' . base64_encode(file_get_contents($path));
             } else {
                 throw new \Exception('File is a has invalid mime format');
             }
@@ -345,12 +377,22 @@ class ServiceTypeGenerator
             $this->createOrUpdateServiceType();
 
             if ($this->hasService) {
+                if (empty($this->servingPairs)) {
+                    foreach ($this->srcCountries as $src) {
+                        foreach ($this->dstCountries as $dst) {
+                            $this->servingPairs[] = [$src, $dst];
+                        }
+                    }
+                }
+
                 $this->createOrUpdateService();
             }
 
-            foreach ($this->children as $child) {
-                (new static($child))->execute();
-            }
+//            foreach ($this->children as $child) {
+//                (new static($child, $this->instance))
+//                    ->vendor($this->vendorId)
+//                    ->execute();
+//            }
 
             return true;
         } catch (\Exception $exception) {
