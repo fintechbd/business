@@ -202,6 +202,7 @@ return [
         'number' => 'NUMBER',
         'tel' => 'TEL',
         'url' => 'URL',
+        'select-beneficiary-type' => 'SELECT BENEFICIARY TYPE'
     ],
 
     /*
