@@ -51,12 +51,12 @@ class ServiceTypeGenerator
      */
     public function __construct(array $data, string|int|BaseModel|null $parent = null)
     {
-        if (!empty($data['service_type_parent_id']) && $parent == null) {
+        if (! empty($data['service_type_parent_id']) && $parent == null) {
             $parent = $data['service_type_parent_id'];
             unset($data['service_type_parent_id']);
         }
 
-        if (!empty($parent)) {
+        if (! empty($parent)) {
             $this->loadParent($parent);
         }
 
@@ -68,7 +68,7 @@ class ServiceTypeGenerator
     {
         if ($parent instanceof BaseModel) {
             $this->parent = $parent;
-        } else if (is_string($parent) || is_int($parent)) {
+        } elseif (is_string($parent) || is_int($parent)) {
             if ($parent = Business::serviceType()->find($parent)) {
                 $this->parent = $parent;
             }
@@ -121,7 +121,7 @@ class ServiceTypeGenerator
             $this->hasService = true;
         }
 
-        if (!empty($data['service_vendor_id'])) {
+        if (! empty($data['service_vendor_id'])) {
             $this->vendor($data['service_vendor_id']);
             unset($data['service_vendor_id']);
         } else {
@@ -185,7 +185,7 @@ class ServiceTypeGenerator
             'countries' => array_unique($this->srcCountries),
             'service_data' => $this->injectDefaultServiceSettings(),
             'enabled' => $this->enabled,
-            ...$this->serviceAttributes
+            ...$this->serviceAttributes,
         ];
 
         if ($instance = Business::service()->list(['service_slug' => $attributes['service_slug']])->first()) {
@@ -222,7 +222,7 @@ class ServiceTypeGenerator
                         'charge_refund' => config('fintech.business.service_stat_settings.charge_refund', 'yes'),
                         'discount_refund' => config('fintech.business.service_stat_settings.discount_refund', 'yes'),
                         'commission_refund' => config('fintech.business.service_stat_settings.commission_refund', 'yes'),
-                        ...$this->serviceStatData
+                        ...$this->serviceStatData,
                     ],
                     'enabled' => $this->enabled,
                 ];
@@ -240,7 +240,7 @@ class ServiceTypeGenerator
             'account_number' => '',
             'transactional_currency' => '',
             'beneficiary_type_id' => 1,
-            ...$this->serviceSettings
+            ...$this->serviceSettings,
         ];
 
         Business::serviceSetting()->list([
@@ -277,6 +277,7 @@ class ServiceTypeGenerator
     public function servingPairs(array $servingPairs = []): static
     {
         $this->servingPairs = $servingPairs;
+
         return $this;
     }
 
@@ -305,7 +306,7 @@ class ServiceTypeGenerator
     {
         if (file_exists($path) && is_readable($path)) {
             if ($this->verifyImage($path, ['image/svg+xml'])) {
-                $this->logoSvg = 'data:image/svg+xml;base64,' . base64_encode(file_get_contents($path));
+                $this->logoSvg = 'data:image/svg+xml;base64,'.base64_encode(file_get_contents($path));
             } else {
                 throw new \Exception('File is a has invalid mime format');
             }
@@ -320,7 +321,7 @@ class ServiceTypeGenerator
     {
         if (file_exists($path) && is_readable($path)) {
             if ($this->verifyImage($path, ['image/png'])) {
-                $this->logoPng = 'data:image/png;base64,' . base64_encode(file_get_contents($path));
+                $this->logoPng = 'data:image/png;base64,'.base64_encode(file_get_contents($path));
             } else {
                 throw new \Exception('File is a has invalid mime format');
             }
@@ -388,11 +389,11 @@ class ServiceTypeGenerator
                 $this->createOrUpdateService();
             }
 
-//            foreach ($this->children as $child) {
-//                (new static($child, $this->instance))
-//                    ->vendor($this->vendorId)
-//                    ->execute();
-//            }
+            //            foreach ($this->children as $child) {
+            //                (new static($child, $this->instance))
+            //                    ->vendor($this->vendorId)
+            //                    ->execute();
+            //            }
 
             return true;
         } catch (\Exception $exception) {
