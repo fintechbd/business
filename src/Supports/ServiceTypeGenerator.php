@@ -182,7 +182,7 @@ class ServiceTypeGenerator
             'service_stat_policy' => 'yes',
             'service_serial' => 1,
             'roles' => $this->roles,
-            'countries' => array_unique(array_map(fn($i) => $i[0], $this->servingPairs)),
+            'countries' => array_unique(array_map(fn ($i) => $i[0], $this->servingPairs)),
             'service_data' => $this->injectDefaultServiceSettings(),
             'enabled' => $this->enabled,
             ...$this->serviceAttributes,

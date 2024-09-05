@@ -73,7 +73,7 @@ class Business
         return app(ServiceFieldService::class);
     }
 
-    public function serviceTypeManager(array $attributes = [], int|BaseModel|string $parent = null): ServiceTypeGenerator
+    public function serviceTypeManager(array $attributes = [], int|BaseModel|string|null $parent = null): ServiceTypeGenerator
     {
         return new ServiceTypeGenerator($attributes, $parent);
     }
