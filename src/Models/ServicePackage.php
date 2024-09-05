@@ -4,6 +4,7 @@ namespace Fintech\Business\Models;
 
 use Fintech\Core\Abstracts\BaseModel;
 use Fintech\Core\Traits\AuditableTrait;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class ServicePackage extends BaseModel
@@ -38,7 +39,7 @@ class ServicePackage extends BaseModel
     |--------------------------------------------------------------------------
     */
 
-    public function service(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    public function service(): BelongsTo
     {
         return $this->belongsTo(config('fintech.business.service_model', Service::class), 'service_id', 'id');
     }

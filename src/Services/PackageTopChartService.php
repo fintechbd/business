@@ -12,7 +12,9 @@ class PackageTopChartService
     /**
      * PackageTopChartService constructor.
      */
-    public function __construct(private readonly PackageTopChartRepository $packageTopChartRepository) {}
+    public function __construct(private readonly PackageTopChartRepository $packageTopChartRepository)
+    {
+    }
 
     public function find($id, $onlyTrashed = false)
     {

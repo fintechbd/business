@@ -16,7 +16,9 @@ class ServiceTypeService
     /**
      * ServiceTypeService constructor.
      */
-    public function __construct(private readonly ServiceTypeRepository $serviceTypeRepository) {}
+    public function __construct(private readonly ServiceTypeRepository $serviceTypeRepository)
+    {
+    }
 
     public function find($id, bool $onlyTrashed = false): ?BaseModel
     {

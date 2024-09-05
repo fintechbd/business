@@ -2,6 +2,7 @@
 
 namespace Fintech\Business\Supports;
 
+use Exception;
 use Fintech\Auth\Facades\Auth;
 use Fintech\Business\Facades\Business;
 use Fintech\Core\Abstracts\BaseModel;
@@ -47,18 +48,38 @@ class ServiceTypeGenerator
     private array $serviceStatData = [];
 
     /**
-     * @throws \Exception
+     * @throws Exception
      */
     public function __construct(array $data, string|int|BaseModel|null $parent = null)
     {
-        if (! empty($data['service_type_parent_id']) && $parent == null) {
+        if (!empty($data['service_type_parent_id']) && $parent == null) {
             $parent = $data['service_type_parent_id'];
             unset($data['service_type_parent_id']);
         }
 
-        if (! empty($parent)) {
+        if (!empty($parent)) {
             $this->loadParent($parent);
         }
+
+        $servingCountries = MetaData::country()->list(['is_serving' => true])->pluck('id')->toArray();
+
+        $this->srcCountries($servingCountries);
+
+        $this->distCountries($servingCountries);
+
+        $this->serviceSettings([
+            'visible_website' => 'yes',
+            'visible_android_app' => 'yes',
+            'visible_ios_app' => 'yes',
+            'account_name' => '',
+            'account_number' => '',
+            'transactional_currency' => '',
+            'beneficiary_type_id' => 1
+        ]);
+
+        $this->roles(Auth::role()->list(['id_not_in' => 1])->pluck('id')->toArray());
+
+        $this->vendor(config('fintech.business.default_vendor_id', 1));
 
         $this->loadData($data);
     }
@@ -75,13 +96,12 @@ class ServiceTypeGenerator
         } else {
             $this->parent = null;
         }
+
         $this->level = intval(($parent?->service_type_step ?? 0)) + 1;
     }
 
     private function loadData($data): void
     {
-        $servingCountries = MetaData::country()->list(['is_serving' => true])->pluck('id')->toArray();
-
         if (isset($data['children']) && count($data['children']) > 0) {
             $this->children = $data['children'];
             $data['service_type_is_parent'] = 'yes';
@@ -91,22 +111,16 @@ class ServiceTypeGenerator
         if (isset($data['source_country']) && count($data['source_country']) > 0) {
             $this->srcCountries($data['source_country']);
             unset($data['source_country']);
-        } else {
-            $this->srcCountries($servingCountries);
         }
 
         if (isset($data['destination_country']) && count($data['destination_country']) > 0) {
             $this->distCountries($data['destination_country']);
             unset($data['destination_country']);
-        } else {
-            $this->distCountries($servingCountries);
         }
 
         if (isset($data['roles']) && count($data['roles']) > 0) {
             $this->roles($data['roles']);
             unset($data['roles']);
-        } else {
-            $this->roles(Auth::role()->list(['id_not_in' => 1])->pluck('id')->toArray());
         }
 
         if (isset($data['logo_svg'])) {
@@ -121,11 +135,14 @@ class ServiceTypeGenerator
             $this->hasService = true;
         }
 
-        if (! empty($data['service_vendor_id'])) {
+        if (!empty($data['service_vendor_id'])) {
             $this->vendor($data['service_vendor_id']);
             unset($data['service_vendor_id']);
-        } else {
-            $this->vendor(config('fintech.business.default_vendor_id', 1));
+        }
+
+        if (!empty($data['service_settings'])) {
+            $this->serviceSettings($data['service_settings']);
+            unset($data['service_settings']);
         }
 
         $this->enabled = $data['enabled'] ?? false;
@@ -182,7 +199,7 @@ class ServiceTypeGenerator
             'service_stat_policy' => 'yes',
             'service_serial' => 1,
             'roles' => $this->roles,
-            'countries' => array_unique(array_map(fn ($i) => $i[0], $this->servingPairs)),
+            'countries' => array_unique(array_map(fn($i) => $i[0], $this->servingPairs)),
             'service_data' => $this->injectDefaultServiceSettings(),
             'enabled' => $this->enabled,
             ...$this->serviceAttributes,
@@ -200,8 +217,11 @@ class ServiceTypeGenerator
     private function createOrUpdateServiceStat(): void
     {
         foreach ($this->roles as $role) {
+
             foreach ($this->servingPairs as $pairs) {
+
                 [$src, $dst] = $pairs;
+
                 $serviceStat = [
                     'role_id' => $role,
                     'service_id' => $this->serviceInstance->getKey(),
@@ -224,6 +244,7 @@ class ServiceTypeGenerator
                     ],
                     'enabled' => $this->enabled,
                 ];
+
                 Business::serviceStat()->create($serviceStat);
             }
         }
@@ -231,26 +252,15 @@ class ServiceTypeGenerator
 
     private function injectDefaultServiceSettings(): array
     {
-        $defaultSettings = [
-            'visible_website' => 'yes',
-            'visible_android_app' => 'yes',
-            'visible_ios_app' => 'yes',
-            'account_name' => '',
-            'account_number' => '',
-            'transactional_currency' => '',
-            'beneficiary_type_id' => 1,
-            ...$this->serviceSettings,
-        ];
-
         Business::serviceSetting()->list([
             'enabled' => true,
-            'service_setting_field_name_not_in' => array_keys($defaultSettings),
+            'service_setting_field_name_not_in' => array_keys($this->serviceSettings),
             'service_setting_type' => 'service',
-        ])->each(function ($item) use (&$defaultSettings) {
-            $defaultSettings[$item->service_setting_field_name] = ($item->service_setting_type_field == 'text') ? '' : null;
+        ])->each(function ($item) {
+            $this->serviceSettings[$item->service_setting_field_name] = ($item->service_setting_type_field == 'text') ? '' : null;
         });
 
-        return $defaultSettings;
+        return $this->serviceSettings;
     }
 
     /**************************************************************************************/
@@ -299,31 +309,37 @@ class ServiceTypeGenerator
 
     }
 
+    /**
+     * @throws Exception
+     */
     public function logoSvg(string $path): static
     {
         if (file_exists($path) && is_readable($path)) {
             if ($this->verifyImage($path, ['image/svg+xml'])) {
-                $this->logoSvg = 'data:image/svg+xml;base64,'.base64_encode(file_get_contents($path));
+                $this->logoSvg = 'data:image/svg+xml;base64,' . base64_encode(file_get_contents($path));
             } else {
-                throw new \Exception('File is a has invalid mime format');
+                throw new Exception('File is a has invalid mime format');
             }
         } else {
-            throw new \Exception("Invalid Logo SVG Path[{$path}]");
+            throw new Exception("Invalid Logo SVG Path[{$path}]");
         }
 
         return $this;
     }
 
+    /**
+     * @throws Exception
+     */
     public function logoPng(string $path): static
     {
         if (file_exists($path) && is_readable($path)) {
             if ($this->verifyImage($path, ['image/png'])) {
-                $this->logoPng = 'data:image/png;base64,'.base64_encode(file_get_contents($path));
+                $this->logoPng = 'data:image/png;base64,' . base64_encode(file_get_contents($path));
             } else {
-                throw new \Exception('File is a has invalid mime format');
+                throw new Exception('File is a has invalid mime format');
             }
         } else {
-            throw new \Exception("Invalid Logo PNG Path[{$path}]");
+            throw new Exception("Invalid Logo PNG Path[{$path}]");
         }
 
         return $this;
@@ -395,7 +411,7 @@ class ServiceTypeGenerator
             }
 
             return true;
-        } catch (\Exception $exception) {
+        } catch (Exception $exception) {
             logger()->error($exception);
 
             return false;
