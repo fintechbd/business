@@ -182,14 +182,14 @@ class ServiceTypeGenerator
             'service_stat_policy' => 'yes',
             'service_serial' => 1,
             'roles' => $this->roles,
-            'countries' => array_unique($this->srcCountries),
+            'countries' => array_unique(array_map(fn($i) => $i[0], $this->servingPairs)),
             'service_data' => $this->injectDefaultServiceSettings(),
             'enabled' => $this->enabled,
             ...$this->serviceAttributes
         ];
 
         if ($instance = Business::service()->list(['service_slug' => $attributes['service_slug']])->first()) {
-            $this->serviceInstance = $instance;
+            $this->serviceInstance = Business::service()->update($instance->getKey(), $attributes);
         } else {
             $this->serviceInstance = Business::service()->create($attributes);
         }
@@ -199,12 +199,10 @@ class ServiceTypeGenerator
 
     private function createOrUpdateServiceStat(): void
     {
-        $serviceStats = [];
-
         foreach ($this->roles as $role) {
             foreach ($this->servingPairs as $pairs) {
                 [$src, $dst] = $pairs;
-                $serviceStats[] = [
+                $serviceStat = [
                     'role_id' => $role,
                     'service_id' => $this->serviceInstance->getKey(),
                     'service_slug' => $this->serviceInstance->service_slug,
@@ -226,6 +224,7 @@ class ServiceTypeGenerator
                     ],
                     'enabled' => $this->enabled,
                 ];
+                Business::serviceStat()->create($serviceStat);
             }
         }
     }
@@ -274,7 +273,7 @@ class ServiceTypeGenerator
         return $this;
     }
 
-    public function servingPairs(array $servingPairs = []): static
+    public function servingPairs(array ...$servingPairs): static
     {
         $this->servingPairs = $servingPairs;
         return $this;
@@ -289,8 +288,6 @@ class ServiceTypeGenerator
 
     public function roles(array $roles): static
     {
-        $roles = array_filter(array_unique($roles), 'ctype_digit');
-
         if ($index = array_search(1, $roles)) {
             unset($roles[$index]);
         }
@@ -388,11 +385,13 @@ class ServiceTypeGenerator
                 $this->createOrUpdateService();
             }
 
-//            foreach ($this->children as $child) {
-//                (new static($child, $this->instance))
-//                    ->vendor($this->vendorId)
-//                    ->execute();
-//            }
+            foreach ($this->children as $child) {
+                (new static($child, $this->instance))
+                    ->vendor($this->vendorId)
+                    ->servingPairs(...$this->servingPairs)
+                    ->roles($this->roles)
+                    ->execute();
+            }
 
             return true;
         } catch (\Exception $exception) {
