@@ -20,6 +20,13 @@ class CurrencyRateService
 
     public function update($id, array $inputs = [])
     {
+        if (isset($inputs['rate'])) {
+            <<<JSON
+{"rate": 1, "input": "AFN", "markup": "5%", "output": "AFN", "usd_to_input": 71.01, "customer_rate": 0.95, "input_partner": null, "markup_amount": 0.05, "usd_to_output": 71.01, "output_partner": null}
+JSON;
+
+        }
+
         return $this->currencyRateRepository->update($id, $inputs);
     }
 

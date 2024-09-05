@@ -47,6 +47,8 @@ class InstallCommand extends Command
 
         $this->addDefaultServiceVendor();
 
+        $this->enableServingCountries();
+
         $this->components->twoColumnDetail("[<fg=yellow;options=bold>{$this->module}</>] Installation", '<fg=green;options=bold>COMPLETED</>');
 
         return self::SUCCESS;
@@ -80,5 +82,10 @@ class InstallCommand extends Command
 
             Business::serviceVendor()->create($vendor);
         });
+    }
+
+    private function enableServingCountries()
+    {
+
     }
 }
