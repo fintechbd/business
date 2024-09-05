@@ -33,7 +33,7 @@ class CurrencyRateRepository extends EloquentRepository implements InterfacesCur
         $query->leftJoin('service_types', 'services.service_type_id', '=', 'service_types.id');
 
         //Searching
-        if (!empty($filters['search'])) {
+        if (! empty($filters['search'])) {
             $query->where(function (Builder $query) use ($filters) {
                 return $query->where('currency_rates.'.$this->model->getKeyName(), 'like', "%{$filters['search']}%")
                     ->orWhere('name', 'like', "%{$filters['search']}%")
@@ -43,27 +43,27 @@ class CurrencyRateRepository extends EloquentRepository implements InterfacesCur
             });
         }
 
-        if (!empty($filters['id_not_in'])) {
-            $query->whereNotIn($this->model->getKeyName(), (array)$filters['id_not_in']);
+        if (! empty($filters['id_not_in'])) {
+            $query->whereNotIn($this->model->getKeyName(), (array) $filters['id_not_in']);
         }
 
-        if (!empty($filters['id_in'])) {
-            $query->whereIn($this->model->getKeyName(), (array)$filters['id_in']);
+        if (! empty($filters['id_in'])) {
+            $query->whereIn($this->model->getKeyName(), (array) $filters['id_in']);
         }
 
-        if (!empty($filters['source_country_id'])) {
+        if (! empty($filters['source_country_id'])) {
             $query->where('currency_rates.source_country_id', '=', $filters['source_country_id']);
         }
 
-        if (!empty($filters['destination_country_id'])) {
+        if (! empty($filters['destination_country_id'])) {
             $query->where('currency_rates.destination_country_id', '=', $filters['destination_country_id']);
         }
 
-        if (!empty($filters['service_id'])) {
+        if (! empty($filters['service_id'])) {
             $query->where('service_id', '=', $filters['service_id']);
         }
 
-        if (!empty($filters['service_type_id'])) {
+        if (! empty($filters['service_type_id'])) {
             $query->where('service_types.service_type_parent_id', '=', $filters['service_type_id']);
         }
 

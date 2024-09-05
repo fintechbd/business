@@ -84,8 +84,5 @@ class InstallCommand extends Command
         });
     }
 
-    private function enableServingCountries()
-    {
-
-    }
+    private function enableServingCountries() {}
 }
