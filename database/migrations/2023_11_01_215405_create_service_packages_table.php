@@ -15,6 +15,7 @@ return new class extends Migration {
             $table->foreignId('service_id')->nullable();
             $table->foreignId('country_id')->nullable();
             $table->string('name')->nullable();
+            $table->string('type')->nullable();
             $table->string('slug')->nullable();
             $table->text('description')->nullable();
             $table->decimal('amount')->nullable();
