@@ -244,12 +244,12 @@ class ServiceTypeGenerator
                     'enabled' => $this->enabled,
                 ];
 
-                if (!Business::serviceStat()->list([
+                if (! Business::serviceStat()->list([
                     'role_id' => $serviceStat['role_id'],
                     'service_id' => $serviceStat['service_id'],
                     'source_country_id' => $serviceStat['source_country_id'],
                     'destination_country_id' => $serviceStat['destination_country_id'],
-                    'service_vendor_id' => $serviceStat['service_vendor_id']
+                    'service_vendor_id' => $serviceStat['service_vendor_id'],
                 ])->first()) {
                     Business::serviceStat()->create($serviceStat);
                 }
@@ -418,8 +418,7 @@ class ServiceTypeGenerator
                         foreach ($this->srcCountries as $src) {
                             $this->servingPairs[] = [$src, $src];
                         }
-                    }
-                    else {
+                    } else {
                         foreach ($this->srcCountries as $src) {
                             foreach ($this->dstCountries as $dst) {
                                 $this->servingPairs[] = [$src, $dst];
