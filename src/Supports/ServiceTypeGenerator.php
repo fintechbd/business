@@ -6,7 +6,9 @@ use Exception;
 use Fintech\Auth\Facades\Auth;
 use Fintech\Business\Facades\Business;
 use Fintech\Core\Abstracts\BaseModel;
+use Fintech\Core\Facades\Core;
 use Fintech\MetaData\Facades\MetaData;
+use Fintech\Transaction\Facades\Transaction;
 use Illuminate\Support\Str;
 
 class ServiceTypeGenerator
@@ -47,6 +49,8 @@ class ServiceTypeGenerator
 
     private array $serviceStatData = [];
 
+    private bool $hasTransactionForm = false;
+
     /**
      * @throws Exception
      */
@@ -65,16 +69,14 @@ class ServiceTypeGenerator
 
         $this->srcCountries($servingCountries);
 
-        $this->distCountries($servingCountries);
-
         $this->serviceSettings([
             'visible_website' => 'yes',
             'visible_android_app' => 'yes',
             'visible_ios_app' => 'yes',
-            'account_name' => '',
-            'account_number' => '',
             'transactional_currency' => '',
             'beneficiary_type_id' => 1,
+            'account_name' => 'DEMO: '.config('fintech.business.default_vendor_name', 'Fintech Bangladesh'),
+            'account_number' => 'DEMO-'.str_pad(date('siHdmY'), 16, '0', STR_PAD_LEFT),
         ]);
 
         $this->roles(Auth::role()->list(['id_not_in' => 1])->pluck('id')->toArray());
@@ -249,6 +251,17 @@ class ServiceTypeGenerator
             }
         }
     }
+    private function createOrUpdateTransactionForm(): void
+    {
+        if (Core::packageExists('Transaction') && ! Transaction::transactionForm()->list(['code' => $this->instance->service_type_slug])->first()) {
+            Transaction::transactionForm()->create([
+                'name' => $this->instance->service_type_name,
+                'code' => $this->instance->service_type_slug,
+                'enabled' => $this->enabled,
+                'transaction_form_data' => [],
+            ]);
+        }
+    }
 
     private function injectDefaultServiceSettings(): array
     {
@@ -384,6 +397,13 @@ class ServiceTypeGenerator
         return $this;
     }
 
+    public function hasTransactionForm(): static
+    {
+        $this->hasTransactionForm = true;
+
+        return $this;
+    }
+
     public function execute(): bool
     {
         try {
@@ -392,14 +412,24 @@ class ServiceTypeGenerator
 
             if ($this->hasService) {
                 if (empty($this->servingPairs)) {
-                    foreach ($this->srcCountries as $src) {
-                        foreach ($this->dstCountries as $dst) {
-                            $this->servingPairs[] = [$src, $dst];
+                    if (empty($this->dstCountries)) {
+                        foreach ($this->srcCountries as $src) {
+                            $this->servingPairs[] = [$src, $src];
+                        }
+                    } else {
+                        foreach ($this->srcCountries as $src) {
+                            foreach ($this->dstCountries as $dst) {
+                                $this->servingPairs[] = [$src, $dst];
+                            }
                         }
                     }
                 }
 
                 $this->createOrUpdateService();
+            }
+
+            if ($this->hasTransactionForm) {
+                $this->createOrUpdateTransactionForm();
             }
 
             foreach ($this->children as $child) {
