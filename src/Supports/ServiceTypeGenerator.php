@@ -219,11 +219,8 @@ class ServiceTypeGenerator
     private function createOrUpdateServiceStat(): void
     {
         foreach ($this->roles as $role) {
-
             foreach ($this->servingPairs as $pairs) {
-
                 [$src, $dst] = $pairs;
-
                 $serviceStat = [
                     'role_id' => $role,
                     'service_id' => $this->serviceInstance->getKey(),
@@ -247,7 +244,15 @@ class ServiceTypeGenerator
                     'enabled' => $this->enabled,
                 ];
 
-                Business::serviceStat()->create($serviceStat);
+                if (!Business::serviceStat()->list([
+                    'role_id' => $serviceStat['role_id'],
+                    'service_id' => $serviceStat['service_id'],
+                    'source_country_id' => $serviceStat['source_country_id'],
+                    'destination_country_id' => $serviceStat['destination_country_id'],
+                    'service_vendor_id' => $serviceStat['service_vendor_id']
+                ])->first()) {
+                    Business::serviceStat()->create($serviceStat);
+                }
             }
         }
     }
@@ -281,8 +286,6 @@ class ServiceTypeGenerator
 
     public function srcCountries(array $countries): static
     {
-        $countries = array_filter(array_unique($countries), 'ctype_digit');
-
         $this->srcCountries = $countries;
 
         return $this;
@@ -290,8 +293,6 @@ class ServiceTypeGenerator
 
     public function distCountries(array $countries): static
     {
-        $countries = array_filter(array_unique($countries), 'ctype_digit');
-
         $this->dstCountries = $countries;
 
         return $this;
@@ -417,7 +418,8 @@ class ServiceTypeGenerator
                         foreach ($this->srcCountries as $src) {
                             $this->servingPairs[] = [$src, $src];
                         }
-                    } else {
+                    }
+                    else {
                         foreach ($this->srcCountries as $src) {
                             foreach ($this->dstCountries as $dst) {
                                 $this->servingPairs[] = [$src, $dst];
