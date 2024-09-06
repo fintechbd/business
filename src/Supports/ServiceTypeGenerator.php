@@ -251,6 +251,7 @@ class ServiceTypeGenerator
             }
         }
     }
+
     private function createOrUpdateTransactionForm(): void
     {
         if (Core::packageExists('Transaction') && ! Transaction::transactionForm()->list(['code' => $this->instance->service_type_slug])->first()) {
