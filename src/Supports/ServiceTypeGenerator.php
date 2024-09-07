@@ -142,6 +142,11 @@ class ServiceTypeGenerator
             unset($data['service_vendor_id']);
         }
 
+        if (! empty($data['service_stat_data'])) {
+            $this->serviceStatData($data['service_stat_data']);
+            unset($data['service_stat_data']);
+        }
+
         if (! empty($data['service_settings'])) {
             $this->serviceSettings($data['service_settings']);
             unset($data['service_settings']);
