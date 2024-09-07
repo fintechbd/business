@@ -65,7 +65,7 @@ class ServiceTypeGenerator
             $this->loadParent($parent);
         }
 
-        $servingCountries = MetaData::country()->list(['is_serving' => true])->pluck('id')->toArray();
+        $servingCountries = MetaData::country()->servingIds();;
 
         $this->srcCountries($servingCountries);
 
