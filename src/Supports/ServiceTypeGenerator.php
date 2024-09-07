@@ -65,7 +65,7 @@ class ServiceTypeGenerator
             $this->loadParent($parent);
         }
 
-        $servingCountries = MetaData::country()->servingIds();;
+        $servingCountries = MetaData::country()->servingIds();
 
         $this->srcCountries($servingCountries);
 
