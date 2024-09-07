@@ -102,6 +102,9 @@ class ServiceTypeGenerator
         $this->level = intval(($parent?->service_type_step ?? 0)) + 1;
     }
 
+    /**
+     * @throws Exception
+     */
     private function loadData($data): void
     {
         if (isset($data['children']) && count($data['children']) > 0) {
