@@ -110,7 +110,7 @@ class ServiceStatService
         $serviceState = $serviceStates->toArray();
         $serviceStateData['service_stat_id'] = $serviceState['id'];
         $charge_break_down = Business::chargeBreakDown()->list($serviceStateData)->first();
-        $serviceState = $serviceState['service_stat_data'][0];
+        $serviceState = $serviceState['service_stat_data'];
         if ($charge_break_down) {
             $serviceStateJsonData['charge'] = $charge_break_down->charge_break_down_charge;
             $serviceStateJsonData['discount'] = $charge_break_down->charge_break_down_discount;
