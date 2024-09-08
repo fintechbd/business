@@ -125,10 +125,8 @@ JSON;
 
         $exchangeData['input_symbol'] = Currency::config($exchangeData['input'])['symbol'];
         $exchangeData['output_symbol'] = Currency::config($exchangeData['output'])['symbol'];
-        $exchangeData['amount'] = (string) round($amount, Currency::config($exchangeData['input'])['precision']);
-        $exchangeData['amount_formatted'] = currency($amount, $exchangeData['input'])->format();
-        $exchangeData['converted'] = (string) round($convertedAmount, Currency::config($exchangeData['output'])['precision']);
-        $exchangeData['converted_formatted'] = currency($convertedAmount, $exchangeData['output'])->format();
+        $exchangeData['amount'] = round($amount, Currency::config($exchangeData['input'])['precision']);
+        $exchangeData['converted'] = round($convertedAmount, Currency::config($exchangeData['output'])['precision']);
 
         return ($onlyRate) ? $exchangeData['rate'] : $exchangeData;
     }

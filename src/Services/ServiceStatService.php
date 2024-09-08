@@ -191,6 +191,8 @@ class ServiceStatService
 
         $baseAmount = ($inputs['reverse']) ? $serviceCost['converted'] : $inputs['amount'];
 
+        $serviceCost['base_currency'] = $baseCurrency;
+
         if ($baseAmount < floatval($serviceStatData['lower_limit'] ?? '0')) {
             throw new BusinessException('Transaction amount below Minimum Limit! Please adjust the transaction amount.');
         }
@@ -239,14 +241,7 @@ class ServiceStatService
             $baseAmount -= $serviceCost['commission_amount'];
         }
 
-        $serviceCost['charge_amount'] = (string) $serviceCost['charge_amount'];
-        $serviceCost['discount_amount'] = (string) $serviceCost['discount_amount'];
-        $serviceCost['commission_amount'] = (string) $serviceCost['commission_amount'];
-        $serviceCost['total_amount'] = (string) $baseAmount;
-        $serviceCost['charge_amount_formatted'] = (string) currency($serviceCost['charge_amount'], $baseCurrency);
-        $serviceCost['discount_amount_formatted'] = (string) currency($serviceCost['discount_amount'], $baseCurrency);
-        $serviceCost['commission_amount_formatted'] = (string) currency($serviceCost['commission_amount'], $baseCurrency);
-        $serviceCost['total_amount_formatted'] = (string) currency($serviceCost['total_amount'], $baseCurrency);
+        $serviceCost['total_amount'] = $baseAmount;
 
         return $serviceCost;
     }
