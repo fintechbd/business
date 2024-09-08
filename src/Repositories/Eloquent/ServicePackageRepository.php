@@ -29,7 +29,7 @@ class ServicePackageRepository extends EloquentRepository implements InterfacesS
         $query = $this->model->newQuery();
 
         //Searching
-        if (isset($filters['search']) && ! empty($filters['search'])) {
+        if (! empty($filters['search'])) {
             if (is_numeric($filters['search'])) {
                 $query->where($this->model->getKeyName(), 'like', "%{$filters['search']}%");
             } else {
@@ -41,8 +41,20 @@ class ServicePackageRepository extends EloquentRepository implements InterfacesS
             $query->whereNotIn($this->model->getKeyName(), (array) $filters['id_not_in']);
         }
 
-        if (! empty($filters['id_in'])) {
-            $query->whereIn($this->model->getKeyName(), (array) $filters['id_in']);
+        if (! empty($filters['type'])) {
+            $query->where('type', 'like', "%{$filters['type']}%");
+        }
+
+        if (isset($filters['country_id'])) {
+            $query->where('country_id', '=', $filters['country_id']);
+        }
+
+        if (isset($filters['service_id'])) {
+            $query->where('service_id', '=', $filters['service_id']);
+        }
+
+        if (isset($filters['enabled'])) {
+            $query->where('enabled', '=', $filters['enabled']);
         }
 
         //Display Trashed

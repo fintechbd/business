@@ -43,6 +43,11 @@ class ServicePackage extends BaseModel
     {
         return $this->belongsTo(config('fintech.business.service_model', Service::class), 'service_id', 'id');
     }
+
+    public function country(): BelongsTo
+    {
+        return $this->belongsTo(config('fintech.metadata.country_model', \Fintech\MetaData\Models\Country::class));
+    }
     /*
     |--------------------------------------------------------------------------
     | SCOPES
