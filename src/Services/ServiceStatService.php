@@ -185,8 +185,6 @@ class ServiceStatService
 
         $serviceStatData = $serviceStat->service_stat_data;
 
-        dd($serviceStatData);
-
         $serviceCost = $exchangeRate;
 
         $baseCurrency = ($inputs['reverse']) ? $serviceCost['output'] : $serviceCost['input'];
