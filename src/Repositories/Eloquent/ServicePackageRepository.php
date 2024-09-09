@@ -53,6 +53,10 @@ class ServicePackageRepository extends EloquentRepository implements InterfacesS
             $query->where('service_id', '=', $filters['service_id']);
         }
 
+        if (isset($filters['connection_type'])) {
+            $query->where('service_package_data->connection_type', '=', $filters['connection_type']);
+        }
+
         if (isset($filters['enabled'])) {
             $query->where('enabled', '=', $filters['enabled']);
         }
