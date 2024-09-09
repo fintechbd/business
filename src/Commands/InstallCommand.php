@@ -75,17 +75,15 @@ class InstallCommand extends Command
                 'enabled' => true,
             ];
 
-            $image_png = __DIR__ . '/../../resources/img/service_vendor_logo_png/mt-technology-ltd-logo.png';
-            $vendor['logo_png'] = 'data:image/png;base64,' . base64_encode(file_get_contents($image_png));
+            $image_png = __DIR__.'/../../resources/img/service_vendor_logo_png/mt-technology-ltd-logo.png';
+            $vendor['logo_png'] = 'data:image/png;base64,'.base64_encode(file_get_contents($image_png));
 
-            $image_svg = __DIR__ . '/../../resources/img/service_vendor_logo_svg/mt-technology-ltd-logo.svg';
-            $vendor['logo_svg'] = 'data:image/svg+xml;base64,' . base64_encode(file_get_contents($image_svg));
+            $image_svg = __DIR__.'/../../resources/img/service_vendor_logo_svg/mt-technology-ltd-logo.svg';
+            $vendor['logo_svg'] = 'data:image/svg+xml;base64,'.base64_encode(file_get_contents($image_svg));
 
             Business::serviceVendor()->create($vendor);
         });
     }
 
-    private function enableServingCountries()
-    {
-    }
+    private function enableServingCountries() {}
 }
