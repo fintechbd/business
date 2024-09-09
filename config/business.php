@@ -50,6 +50,7 @@ return [
     'service_stat_settings' => [
         'lower_limit' => '10.00',
         'higher_limit' => '5000.00',
+        'local_currency_lower_limit' => '10.00',
         'local_currency_higher_limit' => '25000.00',
         'charge' => '1%',
         'discount' => '1%',

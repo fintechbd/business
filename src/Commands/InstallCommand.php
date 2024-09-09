@@ -18,9 +18,10 @@ class InstallCommand extends Command
     private string $module = 'Business';
 
     private array $serviceSettings = [
-        ['service_setting_type' => 'service_stat', 'service_setting_name' => 'Lower Limit', 'service_setting_field_name' => 'lower_limit', 'service_setting_type_field' => 'text', 'service_setting_feature' => 'Lower Limit', 'enabled' => true],
-        ['service_setting_type' => 'service_stat', 'service_setting_name' => 'Higher Limit', 'service_setting_field_name' => 'higher_limit', 'service_setting_type_field' => 'text', 'service_setting_feature' => 'Higher Limit', 'enabled' => true],
-        ['service_setting_type' => 'service_stat', 'service_setting_name' => 'Local Currency Higher Limit', 'service_setting_field_name' => 'local_currency_higher_limit', 'service_setting_type_field' => 'text', 'service_setting_feature' => 'Local Currency Higher Limit', 'enabled' => true],
+        ['service_setting_type' => 'service_stat', 'service_setting_name' => 'Lower Limit', 'service_setting_field_name' => 'lower_limit', 'service_setting_type_field' => 'number', 'service_setting_feature' => 'Lower Limit', 'service_setting_rule' => 'nullable|integer|min:0|max:999999999', 'service_setting_value' => '', 'enabled' => true],
+        ['service_setting_type' => 'service_stat', 'service_setting_name' => 'Higher Limit', 'service_setting_field_name' => 'higher_limit', 'service_setting_type_field' => 'number', 'service_setting_feature' => 'Higher Limit', 'service_setting_rule' => 'nullable|integer|min:0|max:999999999', 'service_setting_value' => '', 'enabled' => true],
+        ['service_setting_type' => 'service_stat', 'service_setting_name' => 'Local Currency Lower Limit', 'service_setting_field_name' => 'local_currency_lower_limit', 'service_setting_type_field' => 'number', 'service_setting_feature' => 'Local Currency Higher Limit', 'service_setting_rule' => 'nullable|integer|min:0|max:999999999', 'service_setting_value' => '', 'enabled' => true],
+        ['service_setting_type' => 'service_stat', 'service_setting_name' => 'Local Currency Higher Limit', 'service_setting_field_name' => 'local_currency_higher_limit', 'service_setting_type_field' => 'number', 'service_setting_feature' => 'Local Currency Higher Limit', 'service_setting_rule' => 'nullable|integer|min:0|max:999999999', 'service_setting_value' => '', 'enabled' => true],
         ['service_setting_type' => 'service_stat', 'service_setting_name' => 'Charge', 'service_setting_field_name' => 'charge', 'service_setting_type_field' => 'text', 'service_setting_feature' => 'Charge', 'enabled' => true],
         ['service_setting_type' => 'service_stat', 'service_setting_name' => 'Discount', 'service_setting_field_name' => 'discount', 'service_setting_type_field' => 'text', 'service_setting_feature' => 'Discount', 'enabled' => true],
         ['service_setting_type' => 'service_stat', 'service_setting_name' => 'Commission', 'service_setting_field_name' => 'commission', 'service_setting_type_field' => 'text', 'service_setting_feature' => 'Commission', 'enabled' => true],
@@ -74,15 +75,17 @@ class InstallCommand extends Command
                 'enabled' => true,
             ];
 
-            $image_png = __DIR__.'/../../resources/img/service_vendor_logo_png/mt-technology-ltd-logo.png';
-            $vendor['logo_png'] = 'data:image/png;base64,'.base64_encode(file_get_contents($image_png));
+            $image_png = __DIR__ . '/../../resources/img/service_vendor_logo_png/mt-technology-ltd-logo.png';
+            $vendor['logo_png'] = 'data:image/png;base64,' . base64_encode(file_get_contents($image_png));
 
-            $image_svg = __DIR__.'/../../resources/img/service_vendor_logo_svg/mt-technology-ltd-logo.svg';
-            $vendor['logo_svg'] = 'data:image/svg+xml;base64,'.base64_encode(file_get_contents($image_svg));
+            $image_svg = __DIR__ . '/../../resources/img/service_vendor_logo_svg/mt-technology-ltd-logo.svg';
+            $vendor['logo_svg'] = 'data:image/svg+xml;base64,' . base64_encode(file_get_contents($image_svg));
 
             Business::serviceVendor()->create($vendor);
         });
     }
 
-    private function enableServingCountries() {}
+    private function enableServingCountries()
+    {
+    }
 }

@@ -193,12 +193,28 @@ class ServiceStatService
 
         $serviceCost['base_currency'] = $baseCurrency;
 
-        if ($baseAmount < floatval($serviceStatData['lower_limit'] ?? '0')) {
-            throw new BusinessException('Transaction amount below Minimum Limit! Please adjust the transaction amount.');
+        if (isset($serviceStatData['lower_limit']) && is_numeric($serviceStatData['lower_limit'])) {
+            if ($baseAmount < floatval($serviceStatData['lower_limit'])) {
+                throw new BusinessException(__('business::service_stat.below_lower_limit'));
+            }
         }
 
-        if ($baseAmount > floatval($serviceStatData['higher_limit'] ?? '0')) {
-            throw new BusinessException('Transaction Limit exceeded! Please adjust the transaction amount.');
+        if (isset($serviceStatData['higher_limit']) && is_numeric($serviceStatData['higher_limit'])) {
+            if ($baseAmount > floatval($serviceStatData['higher_limit'])) {
+                throw new BusinessException(__('business::service_stat.upper_limit_exceed'));
+            }
+        }
+
+        if (isset($serviceStatData['local_currency_lower_limit']) && is_numeric($serviceStatData['local_currency_lower_limit'])) {
+            if ($baseAmount < floatval($serviceStatData['local_currency_lower_limit'])) {
+                throw new BusinessException(__('business::service_stat.local_currency_below_lower_limit'));
+            }
+        }
+
+        if (isset($serviceStatData['local_currency_higher_limit']) && is_numeric($serviceStatData['local_currency_higher_limit'])) {
+            if ($baseAmount > floatval($serviceStatData['higher_limit'] ?? '0')) {
+                throw new BusinessException(__('business::service_stat.local_currency_upper_limit_exceed'));
+            }
         }
 
         $chargeBreakDown = Business::chargeBreakDown()->list([

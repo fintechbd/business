@@ -239,6 +239,7 @@ class ServiceTypeGenerator
                     'service_stat_data' => [
                         'lower_limit' => config('fintech.business.service_stat_settings.lower_limit', '10.00'),
                         'higher_limit' => config('fintech.business.service_stat_settings.higher_limit', '5000.00'),
+                        'local_currency_lower_limit' => config('fintech.business.service_stat_settings.local_currency_lower_limit', '10.00'),
                         'local_currency_higher_limit' => config('fintech.business.service_stat_settings.local_currency_higher_limit', '25000.00'),
                         'charge' => config('fintech.business.service_stat_settings.charge', '1%'),
                         'discount' => config('fintech.business.service_stat_settings.discount', '0'),
