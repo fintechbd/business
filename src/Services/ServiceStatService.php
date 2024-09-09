@@ -212,7 +212,7 @@ class ServiceStatService
         }
 
         if (isset($serviceStatData['local_currency_higher_limit']) && is_numeric($serviceStatData['local_currency_higher_limit'])) {
-            if ($baseAmount > floatval($serviceStatData['higher_limit'] ?? '0')) {
+            if ($baseAmount > floatval($serviceStatData['local_currency_higher_limit'])) {
                 throw new BusinessException(__('business::service_stat.local_currency_upper_limit_exceed'));
             }
         }
