@@ -61,6 +61,10 @@ class ServicePackageRepository extends EloquentRepository implements InterfacesS
             $query->where('enabled', '=', $filters['enabled']);
         }
 
+        if (isset($filters['amount'])) {
+            $query->where('amount', '=', $filters['amount']);
+        }
+
         //Display Trashed
         if (isset($filters['trashed']) && ! empty($filters['trashed'])) {
             $query->onlyTrashed();
