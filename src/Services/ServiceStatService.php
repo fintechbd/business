@@ -191,10 +191,9 @@ class ServiceStatService
 
         $baseAmount = ($inputs['reverse']) ? $serviceCost['converted'] : $inputs['amount'];
 
-        $localeAmount = (!$inputs['reverse']) ? $serviceCost['converted'] : $inputs['amount'];
+        $localeAmount = (! $inputs['reverse']) ? $serviceCost['converted'] : $inputs['amount'];
 
         $serviceCost['base_currency'] = $baseCurrency;
-
 
         if (isset($serviceStatData['lower_limit']) && is_numeric($serviceStatData['lower_limit'])) {
             if ($baseAmount < floatval($serviceStatData['lower_limit'])) {
