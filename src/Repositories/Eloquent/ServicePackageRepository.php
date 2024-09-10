@@ -70,7 +70,7 @@ class ServicePackageRepository extends EloquentRepository implements InterfacesS
         }
 
         if (isset($filters['limit'])) {
-            $query->limit($filters['limit']);
+            $query->take($filters['limit']);
         }
 
         //Display Trashed
