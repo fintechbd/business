@@ -13,7 +13,7 @@ return [
     'service_stat' => [
         'below_lower_limit' => 'Transaction amount below Minimum Limit! Please adjust the transaction amount.',
         'upper_limit_exceed' => 'Transaction Limit exceeded! Please adjust the transaction amount.',
-        'local_currency_below_lower_limit' => 'Transaction amount below Minimum Limit! Please adjust the transaction amount.',
-        'local_currency_upper_limit_exceed' => 'Transaction Limit exceeded! Please adjust the transaction amount.',
+        'local_currency_below_lower_limit' => 'Local Currency Transaction amount below Minimum Limit! Please adjust the transaction amount.',
+        'local_currency_upper_limit_exceed' => 'Local Currency Transaction Limit exceeded! Please adjust the transaction amount.',
     ],
 ];

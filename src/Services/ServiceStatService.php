@@ -191,7 +191,10 @@ class ServiceStatService
 
         $baseAmount = ($inputs['reverse']) ? $serviceCost['converted'] : $inputs['amount'];
 
+        $localeAmount = (!$inputs['reverse']) ? $serviceCost['converted'] : $inputs['amount'];
+
         $serviceCost['base_currency'] = $baseCurrency;
+
 
         if (isset($serviceStatData['lower_limit']) && is_numeric($serviceStatData['lower_limit'])) {
             if ($baseAmount < floatval($serviceStatData['lower_limit'])) {
@@ -206,13 +209,13 @@ class ServiceStatService
         }
 
         if (isset($serviceStatData['local_currency_lower_limit']) && is_numeric($serviceStatData['local_currency_lower_limit'])) {
-            if ($baseAmount < floatval($serviceStatData['local_currency_lower_limit'])) {
+            if ($localeAmount < floatval($serviceStatData['local_currency_lower_limit'])) {
                 throw new BusinessException(__('business::messages.service_stat.local_currency_below_lower_limit'));
             }
         }
 
         if (isset($serviceStatData['local_currency_higher_limit']) && is_numeric($serviceStatData['local_currency_higher_limit'])) {
-            if ($baseAmount > floatval($serviceStatData['local_currency_higher_limit'])) {
+            if ($localeAmount > floatval($serviceStatData['local_currency_higher_limit'])) {
                 throw new BusinessException(__('business::messages.service_stat.local_currency_upper_limit_exceed'));
             }
         }
