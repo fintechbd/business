@@ -65,6 +65,14 @@ class ServicePackageRepository extends EloquentRepository implements InterfacesS
             $query->where('amount', '=', $filters['amount']);
         }
 
+        if (isset($filters['near_amount'])) {
+            $query->where('amount', '>=', $filters['near_amount']);
+        }
+
+        if (isset($filters['limit'])) {
+            $query->limit($filters['limit']);
+        }
+
         //Display Trashed
         if (isset($filters['trashed']) && ! empty($filters['trashed'])) {
             $query->onlyTrashed();
