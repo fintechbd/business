@@ -54,7 +54,7 @@ class ServicePackageRepository extends EloquentRepository implements InterfacesS
 
         if (!empty($filters['service_slug_in'])) {
             $query->join('services', 'services.id', '=', 'service_packages.service_id')
-                ->whereNotIn('services.service_slug', (array)$filters['service_slug_in'])
+                ->whereIn('services.service_slug', (array)$filters['service_slug_in'])
                 ->select('service_packages.*');
         }
 
