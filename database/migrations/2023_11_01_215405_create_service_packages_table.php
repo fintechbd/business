@@ -21,6 +21,7 @@ return new class extends Migration
             $table->text('description')->nullable();
             $table->decimal('amount')->nullable();
             $table->boolean('enabled')->nullable();
+            $table->boolean('blocked')->default(false);
             $table->json('service_package_data')->nullable();
             $table->foreignId('creator_id')->nullable();
             $table->foreignId('editor_id')->nullable();
