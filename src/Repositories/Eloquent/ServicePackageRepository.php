@@ -29,19 +29,18 @@ class ServicePackageRepository extends EloquentRepository implements InterfacesS
         $query = $this->model->newQuery();
 
         //Searching
-        if (! empty($filters['search'])) {
-            if (is_numeric($filters['search'])) {
-                $query->where($this->model->getKeyName(), 'like', "%{$filters['search']}%");
-            } else {
-                $query->where('name', 'like', "%{$filters['search']}%");
-            }
+        if (!empty($filters['search'])) {
+            $query->where(function ($query) use ($filters) {
+                $query->where($this->model->getKeyName(), 'like', "%{$filters['search']}%")
+                    ->orWwhere('name', 'like', "%{$filters['search']}%");
+            });
         }
 
-        if (! empty($filters['id_not_in'])) {
-            $query->whereNotIn($this->model->getKeyName(), (array) $filters['id_not_in']);
+        if (!empty($filters['id_not_in'])) {
+            $query->whereNotIn($this->model->getKeyName(), (array)$filters['id_not_in']);
         }
 
-        if (! empty($filters['type'])) {
+        if (!empty($filters['type'])) {
             $query->where('type', 'like', "%{$filters['type']}%");
         }
 
@@ -51,6 +50,12 @@ class ServicePackageRepository extends EloquentRepository implements InterfacesS
 
         if (isset($filters['service_id'])) {
             $query->where('service_id', '=', $filters['service_id']);
+        }
+
+        if (!empty($filters['service_slug_in'])) {
+            $query->join('services', 'services.id', '=', 'service_packages.service_id')
+                ->whereNotIn('services.service_slug', (array)$filters['service_slug_in'])
+                ->select('service_packages.*');
         }
 
         if (isset($filters['connection_type'])) {
@@ -74,7 +79,7 @@ class ServicePackageRepository extends EloquentRepository implements InterfacesS
         }
 
         //Display Trashed
-        if (isset($filters['trashed']) && ! empty($filters['trashed'])) {
+        if (isset($filters['trashed']) && !empty($filters['trashed'])) {
             $query->onlyTrashed();
         }
 
