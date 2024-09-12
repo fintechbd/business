@@ -40,7 +40,7 @@ class ServicePackageService
     }
 
     /**
-     * @return mixed
+     * @return \Illuminate\Contracts\Pagination\Paginator|\Illuminate\Support\Collection
      */
     public function list(array $filters = [])
     {
