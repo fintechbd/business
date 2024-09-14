@@ -88,7 +88,7 @@ JSON;
         $service = Business::service()->find($data['service_id']);
 
         if (empty($service)) {
-            throw (new ModelNotFoundException())->setModel(config('fintech.business.service_model', \Fintech\Business\Models\Service::class), $data['service_id']);
+            throw (new ModelNotFoundException)->setModel(config('fintech.business.service_model', \Fintech\Business\Models\Service::class), $data['service_id']);
         }
 
         if ($service->enabled == false) {
