@@ -67,8 +67,6 @@ JSON;
 
     public function convert(array $data): float|array
     {
-        $serviceId = $data['service_id'] ?? null;
-
         $onlyRate = $data['get_only_rate'] ?? false;
 
         if (empty($data['source_country_id'])) {
@@ -89,11 +87,11 @@ JSON;
 
         $service = Business::service()->find($data['service_id']);
 
-        if (!empty($service)) {
+        if (empty($service)) {
             throw (new ModelNotFoundException())->setModel(config('fintech.business.service_model', \Fintech\Business\Models\Service::class), $data['service_id']);
         }
 
-        if (!$service->enabled) {
+        if ($service->enabled == false) {
             throw new InvalidArgumentException("The {$service->service_name} service is disabled");
         }
 
