@@ -6,6 +6,7 @@ use Fintech\Business\Facades\Business;
 use Fintech\Business\Interfaces\CurrencyRateRepository;
 use Fintech\Core\Supports\Currency;
 use Fintech\MetaData\Facades\MetaData;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use InvalidArgumentException;
 
 /**
@@ -66,30 +67,34 @@ JSON;
 
     public function convert(array $data): float|array
     {
-        $inputCountryId = $data['source_country_id'] ?? null;
-
-        $outputCountryId = $data['destination_country_id'] ?? null;
-
         $serviceId = $data['service_id'] ?? null;
 
         $onlyRate = $data['get_only_rate'] ?? false;
 
-        if (! $inputCountryId || ! $outputCountryId || ! $serviceId) {
-            throw new InvalidArgumentException('Source, destination country or service id value missing or empty');
+        if (empty($data['source_country_id'])) {
+            throw new InvalidArgumentException('Source country id value missing or empty');
         }
 
-        $inputCountry = MetaData::country()->find($inputCountryId);
-
-        $outputCountry = MetaData::country()->find($outputCountryId);
-
-        $service = Business::service()->find($serviceId);
-
-        if (! $inputCountry || ! $outputCountry || ! $service) {
-            throw new InvalidArgumentException("source, destination country or service doesn't exists");
+        if (empty($data['destination_country_id'])) {
+            throw new InvalidArgumentException('Destination country id value missing or empty');
         }
 
-        if ($service->enabled == false) {
-            throw new InvalidArgumentException('This service is disabled');
+        if (empty($data['service_id'])) {
+            throw new InvalidArgumentException('Service id value missing or empty');
+        }
+
+        $inputCountry = MetaData::country()->find($data['source_country_id']);
+
+        $outputCountry = MetaData::country()->find($data['destination_country_id']);
+
+        $service = Business::service()->find($data['service_id']);
+
+        if (!empty($service)) {
+            throw (new ModelNotFoundException())->setModel(config('fintech.business.service_model', \Fintech\Business\Models\Service::class), $data['service_id']);
+        }
+
+        if (!$service->enabled) {
+            throw new InvalidArgumentException("The {$service->service_name} service is disabled");
         }
 
         $amount = $data['amount'] ?? 1;
@@ -97,9 +102,9 @@ JSON;
         $isReverse = $data['reverse'] ?? false;
 
         $currencyRate = $this->currencyRateRepository->list([
-            'source_country_id' => $inputCountryId,
-            'destination_country_id' => $outputCountryId,
-            'service_id' => $serviceId,
+            'source_country_id' => $data['source_country_id'],
+            'destination_country_id' => $data['destination_country_id'],
+            'service_id' => $data['service_id'],
         ])->first();
 
         if (! $currencyRate) {
