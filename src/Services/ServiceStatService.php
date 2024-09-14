@@ -207,15 +207,18 @@ class ServiceStatService
             }
         }
 
-        if (isset($serviceStatData['local_currency_lower_limit']) && is_numeric($serviceStatData['local_currency_lower_limit'])) {
-            if ($localeAmount < floatval($serviceStatData['local_currency_lower_limit'])) {
-                throw new BusinessException(__('business::messages.service_stat.local_currency_below_lower_limit'));
-            }
-        }
+        if ($inputs['source_country_id'] != $inputs['destination_country_id']) {
 
-        if (isset($serviceStatData['local_currency_higher_limit']) && is_numeric($serviceStatData['local_currency_higher_limit'])) {
-            if ($localeAmount > floatval($serviceStatData['local_currency_higher_limit'])) {
-                throw new BusinessException(__('business::messages.service_stat.local_currency_upper_limit_exceed'));
+            if (isset($serviceStatData['local_currency_lower_limit']) && is_numeric($serviceStatData['local_currency_lower_limit'])) {
+                if ($localeAmount < floatval($serviceStatData['local_currency_lower_limit'])) {
+                    throw new BusinessException(__('business::messages.service_stat.local_currency_below_lower_limit'));
+                }
+            }
+
+            if (isset($serviceStatData['local_currency_higher_limit']) && is_numeric($serviceStatData['local_currency_higher_limit'])) {
+                if ($localeAmount > floatval($serviceStatData['local_currency_higher_limit'])) {
+                    throw new BusinessException(__('business::messages.service_stat.local_currency_upper_limit_exceed'));
+                }
             }
         }
 
