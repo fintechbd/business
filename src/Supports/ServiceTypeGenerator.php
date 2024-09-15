@@ -56,12 +56,12 @@ class ServiceTypeGenerator
      */
     public function __construct(array $data, string|int|BaseModel|null $parent = null)
     {
-        if (!empty($data['service_type_parent_id']) && $parent == null) {
+        if (! empty($data['service_type_parent_id']) && $parent == null) {
             $parent = $data['service_type_parent_id'];
             unset($data['service_type_parent_id']);
         }
 
-        if (!empty($parent)) {
+        if (! empty($parent)) {
             $this->loadParent($parent);
         }
 
@@ -75,8 +75,8 @@ class ServiceTypeGenerator
             'visible_ios_app' => 'yes',
             'transactional_currency' => '',
             'beneficiary_type_id' => 1,
-            'account_name' => 'DEMO: ' . config('fintech.business.default_vendor_name', 'Fintech Bangladesh'),
-            'account_number' => 'DEMO-' . str_pad(date('siHdmY'), 16, '0', STR_PAD_LEFT),
+            'account_name' => 'DEMO: '.config('fintech.business.default_vendor_name', 'Fintech Bangladesh'),
+            'account_number' => 'DEMO-'.str_pad(date('siHdmY'), 16, '0', STR_PAD_LEFT),
         ]);
 
         $this->roles(Auth::role()->list(['id_not_in' => 1])->pluck('id')->toArray());
@@ -140,17 +140,17 @@ class ServiceTypeGenerator
             $this->hasService = true;
         }
 
-        if (!empty($data['service_vendor_id'])) {
+        if (! empty($data['service_vendor_id'])) {
             $this->vendor($data['service_vendor_id']);
             unset($data['service_vendor_id']);
         }
 
-        if (!empty($data['service_stat_data'])) {
+        if (! empty($data['service_stat_data'])) {
             $this->serviceStatData($data['service_stat_data']);
             unset($data['service_stat_data']);
         }
 
-        if (!empty($data['service_settings'])) {
+        if (! empty($data['service_settings'])) {
             $this->serviceSettings($data['service_settings']);
             unset($data['service_settings']);
         }
@@ -209,7 +209,7 @@ class ServiceTypeGenerator
             'service_stat_policy' => 'yes',
             'service_serial' => 1,
             'roles' => $this->roles,
-            'countries' => array_unique(array_map(fn($i) => $i[0], $this->servingPairs)),
+            'countries' => array_unique(array_map(fn ($i) => $i[0], $this->servingPairs)),
             'service_data' => $this->injectDefaultServiceSettings(),
             'enabled' => $this->enabled,
             ...$this->serviceAttributes,
@@ -253,7 +253,7 @@ class ServiceTypeGenerator
                     'enabled' => $this->enabled,
                 ];
 
-                if (!Business::serviceStat()->list([
+                if (! Business::serviceStat()->list([
                     'role_id' => $serviceStat['role_id'],
                     'service_id' => $serviceStat['service_id'],
                     'source_country_id' => $serviceStat['source_country_id'],
@@ -268,7 +268,7 @@ class ServiceTypeGenerator
 
     private function createOrUpdateTransactionForm(): void
     {
-        if (Core::packageExists('Transaction') && !Transaction::transactionForm()->list(['code' => $this->instance->service_type_slug])->first()) {
+        if (Core::packageExists('Transaction') && ! Transaction::transactionForm()->list(['code' => $this->instance->service_type_slug])->first()) {
             Transaction::transactionForm()->create([
                 'name' => $this->instance->service_type_name,
                 'code' => $this->instance->service_type_slug,
@@ -340,7 +340,7 @@ class ServiceTypeGenerator
     {
         if (file_exists($path) && is_readable($path)) {
             if ($this->verifyImage($path, ['image/svg+xml'])) {
-                $this->logoSvg = 'data:image/svg+xml;base64,' . base64_encode(file_get_contents($path));
+                $this->logoSvg = 'data:image/svg+xml;base64,'.base64_encode(file_get_contents($path));
             } else {
                 throw new Exception('File is a has invalid mime format');
             }
@@ -358,7 +358,7 @@ class ServiceTypeGenerator
     {
         if (file_exists($path) && is_readable($path)) {
             if ($this->verifyImage($path, ['image/png'])) {
-                $this->logoPng = 'data:image/png;base64,' . base64_encode(file_get_contents($path));
+                $this->logoPng = 'data:image/png;base64,'.base64_encode(file_get_contents($path));
             } else {
                 throw new Exception('File is a has invalid mime format');
             }

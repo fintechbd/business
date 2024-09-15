@@ -14,9 +14,7 @@ class ServicePackageService
     /**
      * ServicePackageService constructor.
      */
-    public function __construct(private readonly ServicePackageRepository $servicePackageRepository)
-    {
-    }
+    public function __construct(private readonly ServicePackageRepository $servicePackageRepository) {}
 
     public function find($id, $onlyTrashed = false)
     {

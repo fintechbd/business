@@ -44,9 +44,9 @@ class InstallCommand extends Command
 
     public function handle(): int
     {
-        $this->infoMessage("Module Installation", 'RUNNING');
+        $this->infoMessage('Module Installation', 'RUNNING');
 
-        $this->task("Module Installation", function () {
+        $this->task('Module Installation', function () {
 
             $this->addServiceSettings();
 
@@ -61,7 +61,7 @@ class InstallCommand extends Command
 
     private function addServiceSettings(): void
     {
-        $this->task("Populating service settings", function () {
+        $this->task('Populating service settings', function () {
             foreach ($this->serviceSettings as $serviceSetting) {
                 Business::serviceSetting()->create($serviceSetting);
             }
@@ -70,7 +70,7 @@ class InstallCommand extends Command
 
     private function addDefaultServiceVendor(): void
     {
-        $this->task("Creating service default vendor", function () {
+        $this->task('Creating service default vendor', function () {
             $vendor = [
                 'id' => config('fintech.business.default_vendor', 1),
                 'service_vendor_name' => ucwords(config('fintech.business.default_vendor_name')),
@@ -79,17 +79,15 @@ class InstallCommand extends Command
                 'enabled' => true,
             ];
 
-            $image_png = __DIR__ . '/../../resources/img/service_vendor_logo_png/mt-technology-ltd-logo.png';
-            $vendor['logo_png'] = 'data:image/png;base64,' . base64_encode(file_get_contents($image_png));
+            $image_png = __DIR__.'/../../resources/img/service_vendor_logo_png/mt-technology-ltd-logo.png';
+            $vendor['logo_png'] = 'data:image/png;base64,'.base64_encode(file_get_contents($image_png));
 
-            $image_svg = __DIR__ . '/../../resources/img/service_vendor_logo_svg/mt-technology-ltd-logo.svg';
-            $vendor['logo_svg'] = 'data:image/svg+xml;base64,' . base64_encode(file_get_contents($image_svg));
+            $image_svg = __DIR__.'/../../resources/img/service_vendor_logo_svg/mt-technology-ltd-logo.svg';
+            $vendor['logo_svg'] = 'data:image/svg+xml;base64,'.base64_encode(file_get_contents($image_svg));
 
             Business::serviceVendor()->create($vendor);
         });
     }
 
-    private function enableServingCountries()
-    {
-    }
+    private function enableServingCountries() {}
 }
