@@ -50,14 +50,14 @@ class InstallCommand extends Command
 
         $this->enableServingCountries();
 
-        $this->components->twoColumnDetail("[<fg=yellow;options=bold>{$this->module}</>] Installation", '<fg=green;options=bold>COMPLETED</>');
+        $this->components->twoColumnDetail("<fg=black;bg=bright-yellow;options=bold> {$this->module} </> Installation", '<fg=green;options=bold>COMPLETED</>');
 
         return self::SUCCESS;
     }
 
     private function addServiceSettings(): void
     {
-        $this->components->task("[<fg=yellow;options=bold>{$this->module}</>] Populating service settings", function () {
+        $this->components->task("<fg=black;bg=bright-yellow;options=bold> {$this->module} </> Populating service settings", function () {
             foreach ($this->serviceSettings as $serviceSetting) {
                 Business::serviceSetting()->create($serviceSetting);
             }
@@ -66,7 +66,7 @@ class InstallCommand extends Command
 
     private function addDefaultServiceVendor(): void
     {
-        $this->components->task("[<fg=yellow;options=bold>{$this->module}</>] Creating service default vendor", function () {
+        $this->components->task("<fg=black;bg=bright-yellow;options=bold> {$this->module} </> Creating service default vendor", function () {
             $vendor = [
                 'id' => config('fintech.business.default_vendor', 1),
                 'service_vendor_name' => ucwords(config('fintech.business.default_vendor_name')),
