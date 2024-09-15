@@ -44,6 +44,8 @@ class InstallCommand extends Command
 
     public function handle(): int
     {
+        $this->infoMessage("Module Installation", 'RUNNING');
+
         $this->task("Module Installation", function () {
 
             $this->addServiceSettings();
@@ -52,7 +54,7 @@ class InstallCommand extends Command
 
             $this->enableServingCountries();
 
-        }, "COMPETED");
+        });
 
         return self::SUCCESS;
     }
