@@ -55,7 +55,7 @@ class ServiceTypeRepository extends EloquentRepository implements InterfacesServ
                 $query->orWhere('service_vendors.service_vendor_name', 'like', "%{$filters['search']}%");
             }
 
-            if (!empty($filters['destination_country_id'])) {
+            if (! empty($filters['destination_country_id'])) {
                 $query->whereIn('service_stats.destination_country_id', $filters['destination_country_id']);
             }
 
