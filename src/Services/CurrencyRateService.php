@@ -4,6 +4,7 @@ namespace Fintech\Business\Services;
 
 use Fintech\Business\Facades\Business;
 use Fintech\Business\Interfaces\CurrencyRateRepository;
+use Fintech\Business\Models\Service;
 use Fintech\Core\Supports\Currency;
 use Fintech\MetaData\Facades\MetaData;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
@@ -17,7 +18,9 @@ class CurrencyRateService
     /**
      * CurrencyRateService constructor.
      */
-    public function __construct(private readonly CurrencyRateRepository $currencyRateRepository) {}
+    public function __construct(private readonly CurrencyRateRepository $currencyRateRepository)
+    {
+    }
 
     public function update($id, array $inputs = [])
     {
@@ -88,7 +91,7 @@ JSON;
         $service = Business::service()->find($data['service_id']);
 
         if (empty($service)) {
-            throw (new ModelNotFoundException)->setModel(config('fintech.business.service_model', \Fintech\Business\Models\Service::class), $data['service_id']);
+            throw (new ModelNotFoundException)->setModel(config('fintech.business.service_model', Service::class), $data['service_id']);
         }
 
         if ($service->enabled == false) {
@@ -105,7 +108,7 @@ JSON;
             'service_id' => $data['service_id'],
         ])->first();
 
-        if (! $currencyRate) {
+        if (!$currencyRate) {
             //throw (new ModelNotFoundException())->setModel(config('fintech.business.currency_rate_model', \Fintech\Business\Models\CurrencyRate::class), []);
             throw new InvalidArgumentException("currency rate doesn't exists");
         }
@@ -113,13 +116,13 @@ JSON;
         $exchangeData['rate'] = round($currencyRate->rate, 5);
 
         if ($isReverse) {
-            $convertedAmount = (float) $amount / (float) $currencyRate->rate;
+            $convertedAmount = (float)$amount / (float)$currencyRate->rate;
             $exchangeData['input'] = $outputCountry->currency;
             $exchangeData['output'] = $inputCountry->currency;
             $exchangeData['input_unit'] = currency(1, $exchangeData['output'])->format();
             $exchangeData['output_unit'] = currency($exchangeData['rate'], $exchangeData['input'])->format();
         } else {
-            $convertedAmount = (float) $amount * (float) $currencyRate->rate;
+            $convertedAmount = (float)$amount * (float)$currencyRate->rate;
             $exchangeData['input'] = $inputCountry->currency;
             $exchangeData['output'] = $outputCountry->currency;
             $exchangeData['input_unit'] = currency(1, $exchangeData['input'])->format();

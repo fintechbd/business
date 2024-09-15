@@ -29,7 +29,7 @@ class ServiceFieldRepository extends EloquentRepository implements InterfacesSer
         $query = $this->model->newQuery();
 
         //Searching
-        if (! empty($filters['search'])) {
+        if (!empty($filters['search'])) {
             $query->leftJoin('services', 'services.id', '=', 'service_fields.service_id');
             $query->where(function ($query) use ($filters) {
                 return $query->where('name', 'like', "%{$filters['search']}%")
@@ -45,15 +45,15 @@ class ServiceFieldRepository extends EloquentRepository implements InterfacesSer
             });
         }
 
-        if (! empty($filters['id_not_in'])) {
-            $query->whereNotIn($this->model->getKeyName(), (array) $filters['id_not_in']);
+        if (!empty($filters['id_not_in'])) {
+            $query->whereNotIn($this->model->getKeyName(), (array)$filters['id_not_in']);
         }
 
-        if (! empty($filters['id_in'])) {
-            $query->whereIn($this->model->getKeyName(), (array) $filters['id_in']);
+        if (!empty($filters['id_in'])) {
+            $query->whereIn($this->model->getKeyName(), (array)$filters['id_in']);
         }
 
-        if (! empty($filters['service_id'])) {
+        if (!empty($filters['service_id'])) {
             $query->where('service_id', $filters['service_id']);
         }
 
@@ -62,7 +62,7 @@ class ServiceFieldRepository extends EloquentRepository implements InterfacesSer
             $query->onlyTrashed();
         }
 
-        $query->select($this->model->getTable().'.*');
+        $query->select($this->model->getTable() . '.*');
 
         //Handle Sorting
         $query->orderBy($filters['sort'] ?? $this->model->getKeyName(), $filters['dir'] ?? 'asc');

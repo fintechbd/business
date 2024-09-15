@@ -4,6 +4,7 @@ namespace Fintech\Business\Models;
 
 use Fintech\Core\Abstracts\BaseModel;
 use Fintech\Core\Traits\AuditableTrait;
+use Fintech\MetaData\Models\Country;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
@@ -46,7 +47,7 @@ class ServicePackage extends BaseModel
 
     public function country(): BelongsTo
     {
-        return $this->belongsTo(config('fintech.metadata.country_model', \Fintech\MetaData\Models\Country::class));
+        return $this->belongsTo(config('fintech.metadata.country_model', Country::class));
     }
     /*
     |--------------------------------------------------------------------------

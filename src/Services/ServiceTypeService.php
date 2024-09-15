@@ -16,7 +16,9 @@ class ServiceTypeService
     /**
      * ServiceTypeService constructor.
      */
-    public function __construct(private readonly ServiceTypeRepository $serviceTypeRepository) {}
+    public function __construct(private readonly ServiceTypeRepository $serviceTypeRepository)
+    {
+    }
 
     public function find($id, bool $onlyTrashed = false): ?BaseModel
     {
@@ -45,8 +47,8 @@ class ServiceTypeService
 
     public function list(array $filters = []): Collection|Paginator
     {
-        if (isset($filters['destination_country_id']) && ! is_array($filters['destination_country_id'])) {
-            $filters['destination_country_id'] = (array) $filters['destination_country_id'];
+        if (isset($filters['destination_country_id']) && !is_array($filters['destination_country_id'])) {
+            $filters['destination_country_id'] = (array)$filters['destination_country_id'];
         }
 
         return $this->serviceTypeRepository->list($filters);

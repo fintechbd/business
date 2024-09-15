@@ -3,6 +3,8 @@
 namespace Fintech\Business\Services;
 
 use Fintech\Business\Interfaces\ServicePackageRepository;
+use Illuminate\Contracts\Pagination\Paginator;
+use Illuminate\Support\Collection;
 
 /**
  * Class ServicePackageService
@@ -12,7 +14,9 @@ class ServicePackageService
     /**
      * ServicePackageService constructor.
      */
-    public function __construct(private readonly ServicePackageRepository $servicePackageRepository) {}
+    public function __construct(private readonly ServicePackageRepository $servicePackageRepository)
+    {
+    }
 
     public function find($id, $onlyTrashed = false)
     {
@@ -40,7 +44,7 @@ class ServicePackageService
     }
 
     /**
-     * @return \Illuminate\Contracts\Pagination\Paginator|\Illuminate\Support\Collection
+     * @return Paginator|Collection
      */
     public function list(array $filters = [])
     {
