@@ -16,7 +16,9 @@ class ServiceTypeService
     /**
      * ServiceTypeService constructor.
      */
-    public function __construct(private readonly ServiceTypeRepository $serviceTypeRepository) {}
+    public function __construct(private readonly ServiceTypeRepository $serviceTypeRepository)
+    {
+    }
 
     public function find($id, bool $onlyTrashed = false): ?BaseModel
     {
@@ -45,6 +47,10 @@ class ServiceTypeService
 
     public function list(array $filters = []): Collection|Paginator
     {
+        if (isset($filters['destination_country_id']) && !is_array($filters['destination_country_id'])) {
+            $filters['destination_country_id'] = (array)$filters['destination_country_id'];
+        }
+
         return $this->serviceTypeRepository->list($filters);
 
     }
@@ -58,6 +64,7 @@ class ServiceTypeService
         $input['service_type_enabled'] = true;
         $input['sort'] = $filters['sort'] ?? 'service_types.id';
         $input['dir'] = $filters['dir'] ?? 'asc';
+        $input['destination_country_id'] = [$filters['destination_country_id'], $filters['source_country_id']];
         $input['paginate'] = false;
 
         $input = array_merge($filters, $input);
@@ -76,7 +83,7 @@ class ServiceTypeService
                 $inputNo['service_vendor_enabled'] = true;
                 $inputNo['service_stat_enabled'] = true;
 
-                $fullServiceTypes = Business::serviceType()->list($inputNo);
+                $fullServiceTypes = $this->list($inputNo);
                 if ($fullServiceTypes->isNotEmpty()) {
                     foreach ($fullServiceTypes as $fullServiceType) {
                         $fullServiceType['service_stat_data'] = $fullServiceType['service_stat_data'] ?? [];
@@ -92,7 +99,7 @@ class ServiceTypeService
             } elseif ($serviceType['service_type_is_parent'] == 'yes') {
                 $inputYes = $input;
                 $collectID = [];
-                $findAllChildServiceType = Business::serviceType()->find($serviceType->getKey());
+                $findAllChildServiceType = $this->find($serviceType->getKey());
                 $arrayFindData[$serviceType->getKey()] = $findAllChildServiceType->allChildList ?? [];
                 foreach ($arrayFindData[$serviceType->getKey()] as $allChildAccounts) {
                     $collectID[$serviceType->getKey()][] = $allChildAccounts['id'];
@@ -103,7 +110,7 @@ class ServiceTypeService
                 $inputYes['service_type_parent_id'] = $serviceType->getKey();
                 $inputYes['service_type_parent_id_is_null'] = false;
                 $inputYes['service_type_id'] = false;
-                $findServiceType = Business::serviceType()->list($inputYes)->count();
+                $findServiceType = $this->list($inputYes)->count();
                 if ($findServiceType > 0) {
                     $serviceType->logo_svg = $serviceType?->getFirstMediaUrl('logo_svg') ?? null;
                     $serviceType->logo_png = $serviceType?->getFirstMediaUrl('logo_png') ?? null;

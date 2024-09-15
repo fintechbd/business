@@ -47,17 +47,18 @@ class ServiceTypeRepository extends EloquentRepository implements InterfacesServ
             });
 
             $query->join('country_service', function ($join) {
-                $join->on('service_stats.service_id', '=', 'country_service.service_id');
-                $join->on('service_stats.destination_country_id', '=', 'country_service.country_id');
+                $join->on('service_stats.service_id', '=', 'country_service.service_id')
+                    ->on('service_stats.destination_country_id', '=', 'country_service.country_id');
             });
             if (isset($filters['search']) && $filters['search']) {
                 $query->where('service_types.service_type_name', 'like', "%{$filters['search']}%");
                 $query->orWhere('service_vendors.service_vendor_name', 'like', "%{$filters['search']}%");
             }
 
-            if (isset($filters['destination_country_id']) && $filters['destination_country_id']) {
-                $query->where('service_stats.destination_country_id', '=', $filters['destination_country_id']);
+            if (!empty($filters['destination_country_id'])) {
+                $query->whereIn('service_stats.destination_country_id', $filters['destination_country_id']);
             }
+
             //@TODO show local and targeted destination country services
             //            if (isset($filters['destination_country_id']) && $filters['destination_country_id']) {
             //                $query->where(function ($query) use ($filters) {
