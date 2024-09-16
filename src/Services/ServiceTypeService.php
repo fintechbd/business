@@ -62,7 +62,7 @@ class ServiceTypeService
         $input['service_type_enabled'] = true;
         $input['sort'] = $filters['sort'] ?? 'service_types.id';
         $input['dir'] = $filters['dir'] ?? 'asc';
-//        $input['destination_country_id'] = [$filters['destination_country_id'], $filters['source_country_id']];
+        //        $input['destination_country_id'] = [$filters['destination_country_id'], $filters['source_country_id']];
         $input['destination_country_id'] = [$filters['destination_country_id']];
         $input['paginate'] = false;
 
