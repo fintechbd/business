@@ -105,13 +105,13 @@ class ServiceStatService
         $serviceStateData['destination_country_id'] = $data->destination_country_id;
         $serviceStateData['amount'] = $data->amount;
         $serviceStateData['enable'] = true;
-        $serviceStates = Business::serviceStat()->list($serviceStateData)->first();
+        $serviceStates = Business::serviceStat()->findWhere($serviceStateData);
         if (! $serviceStates) {
             throw new Exception('Service State Data not found');
         }
         $serviceState = $serviceStates->toArray();
         $serviceStateData['service_stat_id'] = $serviceState['id'];
-        $charge_break_down = Business::chargeBreakDown()->list($serviceStateData)->first();
+        $charge_break_down = Business::chargeBreakDown()->findWhere($serviceStateData);
         $serviceState = $serviceState['service_stat_data'];
         if ($charge_break_down) {
             $serviceStateJsonData['charge'] = $charge_break_down->charge_break_down_charge;

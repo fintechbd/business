@@ -13,7 +13,7 @@ trait ServiceSeeder
         $roles = Auth::role()->list(['id_not_in' => [1]])->pluck('id')->toArray();
         if (! empty($roles) && ! empty($source_countries) && ! empty($destination_countries)) {
             foreach ($this->service() as $service) {
-                $serviceModel = Business::service()->list(['service_slug' => $service['service_slug']])->first();
+                $serviceModel = Business::service()->findWhere(['service_slug' => $service['service_slug']]);
                 $serviceStats[] = [
                     'role_id' => $roles,
                     'service_id' => $serviceModel->getKey(),

@@ -188,7 +188,7 @@ class ServiceTypeGenerator
         $attributes['service_type_step'] = $this->level;
         $attributes['enabled'] = $this->enabled;
 
-        if ($instance = Business::serviceType()->list(['service_type_slug' => $attributes['service_type_slug']])->first()) {
+        if ($instance = Business::serviceType()->findWhere(['service_type_slug' => $attributes['service_type_slug']])) {
             $this->instance = $instance;
         } else {
             $this->instance = Business::serviceType()->create($attributes);
@@ -215,7 +215,7 @@ class ServiceTypeGenerator
             ...$this->serviceAttributes,
         ];
 
-        if ($instance = Business::service()->list(['service_slug' => $attributes['service_slug']])->first()) {
+        if ($instance = Business::service()->findWhere(['service_slug' => $attributes['service_slug']])) {
             $this->serviceInstance = Business::service()->update($instance->getKey(), $attributes);
         } else {
             $this->serviceInstance = Business::service()->create($attributes);
@@ -268,7 +268,7 @@ class ServiceTypeGenerator
 
     private function createOrUpdateTransactionForm(): void
     {
-        if (Core::packageExists('Transaction') && ! Transaction::transactionForm()->list(['code' => $this->instance->service_type_slug])->first()) {
+        if (Core::packageExists('Transaction') && ! Transaction::transactionForm()->findWhere(['code' => $this->instance->service_type_slug])) {
             Transaction::transactionForm()->create([
                 'name' => $this->instance->service_type_name,
                 'code' => $this->instance->service_type_slug,
