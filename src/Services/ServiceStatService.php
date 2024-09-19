@@ -14,8 +14,10 @@ use Illuminate\Support\Collection;
 /**
  * Class ServiceStatService
  */
-class ServiceStatService extends \Fintech\Core\Abstracts\Service
+class ServiceStatService
 {
+    use \Fintech\Core\Traits\HasFindWhereSearch;
+
     /**
      * ServiceStatService constructor.
      */

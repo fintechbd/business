@@ -7,8 +7,10 @@ use Fintech\Business\Interfaces\ServiceFieldRepository;
 /**
  * Class ServiceFieldService
  */
-class ServiceFieldService extends \Fintech\Core\Abstracts\Service
+class ServiceFieldService
 {
+    use \Fintech\Core\Traits\HasFindWhereSearch;
+
     /**
      * ServiceFieldService constructor.
      */

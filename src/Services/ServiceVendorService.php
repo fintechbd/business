@@ -7,8 +7,10 @@ use Fintech\Business\Interfaces\ServiceVendorRepository;
 /**
  * Class ServiceVendorService
  */
-class ServiceVendorService extends \Fintech\Core\Abstracts\Service
+class ServiceVendorService
 {
+    use \Fintech\Core\Traits\HasFindWhereSearch;
+
     /**
      * ServiceVendorService constructor.
      */

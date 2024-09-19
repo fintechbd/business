@@ -7,8 +7,10 @@ use Fintech\Business\Interfaces\ChargeBreakDownRepository;
 /**
  * Class ChargeBreakDownService
  */
-class ChargeBreakDownService extends \Fintech\Core\Abstracts\Service
+class ChargeBreakDownService
 {
+    use \Fintech\Core\Traits\HasFindWhereSearch;
+
     /**
      * ChargeBreakDownService constructor.
      */

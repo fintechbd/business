@@ -11,8 +11,10 @@ use Illuminate\Support\Collection;
 /**
  * Class ServiceTypeService
  */
-class ServiceTypeService extends \Fintech\Core\Abstracts\Service
+class ServiceTypeService
 {
+    use \Fintech\Core\Traits\HasFindWhereSearch;
+
     /**
      * ServiceTypeService constructor.
      */

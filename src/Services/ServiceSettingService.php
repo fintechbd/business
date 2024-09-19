@@ -10,8 +10,10 @@ use Illuminate\Support\Collection;
 /**
  * Class ServiceSettingService
  */
-class ServiceSettingService extends \Fintech\Core\Abstracts\Service
+class ServiceSettingService
 {
+    use \Fintech\Core\Traits\HasFindWhereSearch;
+
     /**
      * ServiceSettingService constructor.
      */

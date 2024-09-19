@@ -7,8 +7,10 @@ use Fintech\Business\Interfaces\PackageTopChartRepository;
 /**
  * Class PackageTopChartService
  */
-class PackageTopChartService extends \Fintech\Core\Abstracts\Service
+class PackageTopChartService
 {
+    use \Fintech\Core\Traits\HasFindWhereSearch;
+
     /**
      * PackageTopChartService constructor.
      */

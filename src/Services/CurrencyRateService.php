@@ -13,8 +13,10 @@ use InvalidArgumentException;
 /**
  * Class CurrencyRateService
  */
-class CurrencyRateService extends \Fintech\Core\Abstracts\Service
+class CurrencyRateService
 {
+    use \Fintech\Core\Traits\HasFindWhereSearch;
+
     /**
      * CurrencyRateService constructor.
      */

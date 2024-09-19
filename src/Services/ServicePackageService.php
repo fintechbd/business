@@ -9,8 +9,10 @@ use Illuminate\Support\Collection;
 /**
  * Class ServicePackageService
  */
-class ServicePackageService extends \Fintech\Core\Abstracts\Service
+class ServicePackageService
 {
+    use \Fintech\Core\Traits\HasFindWhereSearch;
+
     /**
      * ServicePackageService constructor.
      */
