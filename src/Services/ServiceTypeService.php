@@ -11,7 +11,7 @@ use Illuminate\Support\Collection;
 /**
  * Class ServiceTypeService
  */
-class ServiceTypeService
+class ServiceTypeService extends \Fintech\Core\Abstracts\Service
 {
     /**
      * ServiceTypeService constructor.

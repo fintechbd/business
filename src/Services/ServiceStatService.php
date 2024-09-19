@@ -14,7 +14,7 @@ use Illuminate\Support\Collection;
 /**
  * Class ServiceStatService
  */
-class ServiceStatService
+class ServiceStatService extends \Fintech\Core\Abstracts\Service
 {
     /**
      * ServiceStatService constructor.

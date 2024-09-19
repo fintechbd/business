@@ -7,7 +7,7 @@ use Fintech\Business\Interfaces\ServiceFieldRepository;
 /**
  * Class ServiceFieldService
  */
-class ServiceFieldService
+class ServiceFieldService extends \Fintech\Core\Abstracts\Service
 {
     /**
      * ServiceFieldService constructor.

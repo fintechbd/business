@@ -13,7 +13,7 @@ use InvalidArgumentException;
 /**
  * Class CurrencyRateService
  */
-class CurrencyRateService
+class CurrencyRateService extends \Fintech\Core\Abstracts\Service
 {
     /**
      * CurrencyRateService constructor.

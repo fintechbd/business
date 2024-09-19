@@ -3,13 +3,13 @@
 namespace Fintech\Business\Commands;
 
 use Fintech\Business\Facades\Business;
-use Fintech\Core\Traits\HasCoreSettingTrait;
+use Fintech\Core\Traits\HasCoreSetting;
 use Illuminate\Console\Command;
 use Illuminate\Support\Str;
 
 class InstallCommand extends Command
 {
-    use HasCoreSettingTrait;
+    use HasCoreSetting;
 
     public $signature = 'business:install';
 

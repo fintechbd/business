@@ -10,7 +10,7 @@ use Illuminate\Support\Collection;
 /**
  * Class ServiceService
  */
-class ServiceService
+class ServiceService extends \Fintech\Core\Abstracts\Service
 {
     /**
      * ServiceService constructor.

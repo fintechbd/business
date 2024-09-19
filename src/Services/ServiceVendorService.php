@@ -7,7 +7,7 @@ use Fintech\Business\Interfaces\ServiceVendorRepository;
 /**
  * Class ServiceVendorService
  */
-class ServiceVendorService
+class ServiceVendorService extends \Fintech\Core\Abstracts\Service
 {
     /**
      * ServiceVendorService constructor.

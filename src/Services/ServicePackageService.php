@@ -9,7 +9,7 @@ use Illuminate\Support\Collection;
 /**
  * Class ServicePackageService
  */
-class ServicePackageService
+class ServicePackageService extends \Fintech\Core\Abstracts\Service
 {
     /**
      * ServicePackageService constructor.

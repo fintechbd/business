@@ -7,7 +7,7 @@ use Fintech\Business\Interfaces\ChargeBreakDownRepository;
 /**
  * Class ChargeBreakDownService
  */
-class ChargeBreakDownService
+class ChargeBreakDownService extends \Fintech\Core\Abstracts\Service
 {
     /**
      * ChargeBreakDownService constructor.

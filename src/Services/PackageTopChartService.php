@@ -7,7 +7,7 @@ use Fintech\Business\Interfaces\PackageTopChartRepository;
 /**
  * Class PackageTopChartService
  */
-class PackageTopChartService
+class PackageTopChartService extends \Fintech\Core\Abstracts\Service
 {
     /**
      * PackageTopChartService constructor.
