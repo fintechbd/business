@@ -57,17 +57,11 @@ class Business
         return \singleton(ServiceVendorService::class, $filters);
     }
 
-    /**
-     * @return CurrencyRateService
-     */
     public function currencyRate($filters = null)
     {
         return \singleton(CurrencyRateService::class, $filters);
     }
 
-    /**
-     * @return ServiceFieldService
-     */
     public function serviceField($filters = null)
     {
         return \singleton(ServiceFieldService::class, $filters);
