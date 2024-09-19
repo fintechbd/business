@@ -17,60 +17,60 @@ use Fintech\Core\Abstracts\BaseModel;
 
 class Business
 {
-    public function chargeBreakDown()
-    {
-        return app(ChargeBreakDownService::class);
+    public function chargeBreakDown($filters = null)
+{
+	return \singleton(ChargeBreakDownService::class, $filters);
     }
 
-    public function packageTopChart()
-    {
-        return app(PackageTopChartService::class);
+    public function packageTopChart($filters = null)
+{
+	return \singleton(PackageTopChartService::class, $filters);
     }
 
-    public function service()
-    {
-        return app(ServiceService::class);
+    public function service($filters = null)
+{
+	return \singleton(ServiceService::class, $filters);
     }
 
-    public function servicePackage()
-    {
-        return app(ServicePackageService::class);
+    public function servicePackage($filters = null)
+{
+	return \singleton(ServicePackageService::class, $filters);
     }
 
-    public function serviceSetting()
-    {
-        return app(ServiceSettingService::class);
+    public function serviceSetting($filters = null)
+{
+	return \singleton(ServiceSettingService::class, $filters);
     }
 
-    public function serviceStat()
-    {
-        return app(ServiceStatService::class);
+    public function serviceStat($filters = null)
+{
+	return \singleton(ServiceStatService::class, $filters);
     }
 
-    public function serviceType()
-    {
-        return app(ServiceTypeService::class);
+    public function serviceType($filters = null)
+{
+	return \singleton(ServiceTypeService::class, $filters);
     }
 
-    public function serviceVendor()
-    {
-        return app(ServiceVendorService::class);
+    public function serviceVendor($filters = null)
+{
+	return \singleton(ServiceVendorService::class, $filters);
     }
 
     /**
      * @return CurrencyRateService
      */
-    public function currencyRate()
-    {
-        return app(CurrencyRateService::class);
+    public function currencyRate($filters = null)
+{
+	return \singleton(CurrencyRateService::class, $filters);
     }
 
     /**
      * @return ServiceFieldService
      */
-    public function serviceField()
-    {
-        return app(ServiceFieldService::class);
+    public function serviceField($filters = null)
+{
+	return \singleton(ServiceFieldService::class, $filters);
     }
 
     public function serviceTypeManager(array $attributes = [], int|BaseModel|string|null $parent = null): ServiceTypeGenerator
