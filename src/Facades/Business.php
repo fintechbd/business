@@ -17,16 +17,16 @@ use Fintech\Core\Abstracts\BaseModel;
 use Illuminate\Support\Facades\Facade;
 
 /**
- * @method static ServicePackageService servicePackage()
- * @method static ServiceSettingService serviceSetting()
- * @method static ServiceStatService serviceStat()
- * @method static ServiceTypeService serviceType()
- * @method static ServiceVendorService serviceVendor()
- * @method static ChargeBreakDownService chargeBreakDown()
- * @method static PackageTopChartService PackageTopChart()
- * @method static ServiceService service()
- * @method static CurrencyRateService currencyRate()
- * @method static ServiceFieldService serviceField()
+ * @method static \Illuminate\Contracts\Pagination\Paginator|\Illuminate\Support\Collection|ServicePackageService servicePackage(array $filters = null)
+ * @method static \Illuminate\Contracts\Pagination\Paginator|\Illuminate\Support\Collection|ServiceSettingService serviceSetting(array $filters = null)
+ * @method static \Illuminate\Contracts\Pagination\Paginator|\Illuminate\Support\Collection|ServiceStatService serviceStat(array $filters = null)
+ * @method static \Illuminate\Contracts\Pagination\Paginator|\Illuminate\Support\Collection|ServiceTypeService serviceType(array $filters = null)
+ * @method static \Illuminate\Contracts\Pagination\Paginator|\Illuminate\Support\Collection|ServiceVendorService serviceVendor(array $filters = null)
+ * @method static \Illuminate\Contracts\Pagination\Paginator|\Illuminate\Support\Collection|ChargeBreakDownService chargeBreakDown(array $filters = null)
+ * @method static \Illuminate\Contracts\Pagination\Paginator|\Illuminate\Support\Collection|PackageTopChartService PackageTopChart(array $filters = null)
+ * @method static \Illuminate\Contracts\Pagination\Paginator|\Illuminate\Support\Collection|ServiceService service(array $filters = null)
+ * @method static \Illuminate\Contracts\Pagination\Paginator|\Illuminate\Support\Collection|CurrencyRateService currencyRate(array $filters = null)
+ * @method static \Illuminate\Contracts\Pagination\Paginator|\Illuminate\Support\Collection|ServiceFieldService serviceField(array $filters = null)
  * @method static ServiceTypeGenerator serviceTypeManager(array $attributes = [], string|int|BaseModel|null $parentId = null)
  *                                                                                                                            // Crud Service Method Point Do not Remove //
  *
