@@ -11,6 +11,7 @@ class ServingCountrySeeder extends Seeder
 {
     /**
      * Run the database seeds.
+     *
      * @throws UpdateOperationException
      */
     public function run(...$countries): void
@@ -19,8 +20,8 @@ class ServingCountrySeeder extends Seeder
 
             $country = MetaData::country()->find($countryId);
 
-            if (!$country) {
-                throw (new ModelNotFoundException())->setModel(config('fintech.metadata.country_model'), $countryId);
+            if (! $country) {
+                throw (new ModelNotFoundException)->setModel(config('fintech.metadata.country_model'), $countryId);
             }
 
             $countryData = $country->country_data;
@@ -29,8 +30,8 @@ class ServingCountrySeeder extends Seeder
             $countryData['multi_currency_enabled'] = true;
             $countryData['language_enabled'] = true;
 
-            if (!MetaData::country()->update($countryId, ['country_data' => $countryData])) {
-                throw (new UpdateOperationException())->setModel(config('fintech.metadata.country_model'), $countryId);
+            if (! MetaData::country()->update($countryId, ['country_data' => $countryData])) {
+                throw (new UpdateOperationException)->setModel(config('fintech.metadata.country_model'), $countryId);
             }
         }
     }
