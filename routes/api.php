@@ -32,7 +32,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 if (Config::get('fintech.business.enabled')) {
-    Route::prefix(config('fintech.business.root_prefix', 'api/'))->middleware(['api', 'http_log', 'encrypted'])->group(function () {
+    Route::prefix(config('fintech.business.root_prefix', 'api/'))->middleware(['api'])->group(function () {
         Route::prefix('business')->name('business.')
             ->middleware(config('fintech.auth.middleware'))
             ->group(function () {
