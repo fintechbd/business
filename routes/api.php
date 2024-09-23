@@ -86,7 +86,8 @@ if (Config::get('fintech.business.enabled')) {
                     Route::apiResource('country-services', CountryServiceController::class)
                         ->only(['show', 'update']);
                     Route::get('serving-countries', ServingCountryController::class)
-                        ->name('services.serving-countries');
+                        ->name('services.serving-countries')
+                        ->withoutMiddleware(config('fintech.auth.middleware'));
                 }
 
                 Route::apiResource('service-vendor-services', ServiceVendorServiceController::class)
