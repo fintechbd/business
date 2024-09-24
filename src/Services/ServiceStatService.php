@@ -114,9 +114,9 @@ class ServiceStatService
         $charge_break_down = Business::chargeBreakDown()->findWhere($serviceStateData);
         $serviceState = $serviceState['service_stat_data'];
         if ($charge_break_down) {
-            $serviceStateJsonData['charge'] = $charge_break_down->charge_break_down_charge;
-            $serviceStateJsonData['discount'] = $charge_break_down->charge_break_down_discount;
-            $serviceStateJsonData['commission'] = $charge_break_down->charge_break_down_commission;
+            $serviceStateJsonData['charge'] = $charge_break_down->charge;
+            $serviceStateJsonData['discount'] = $charge_break_down->discount;
+            $serviceStateJsonData['commission'] = $charge_break_down->commission;
             $serviceStateJsonData['charge_break_down_id'] = $charge_break_down->getKey();
         } else {
             $serviceStateJsonData['charge'] = $serviceState['charge'];
@@ -224,12 +224,12 @@ class ServiceStatService
             }
         }
 
-        $chargeBreakDown = Business::chargeBreakDown()->list([
+        $chargeBreakDown = Business::chargeBreakDown()->findWhere([
             'enabled' => true,
             'service_id' => $inputs['service_id'],
             'service_stat_id' => $serviceStat->getKey(),
             'amount' => $baseAmount,
-        ])->first();
+        ]);
 
         $serviceCost['charge_break_down_data'] = [
             'id' => null,
