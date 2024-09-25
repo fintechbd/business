@@ -96,14 +96,14 @@ class ServiceStatService
      *
      * @throws Exception
      */
-    public function serviceStateData($data): array
+    public function serviceStateData($order): array
     {
-        $data->role_id = $data->user->roles[0]->getKey();
-        $serviceStateData['role_id'] = $data->role_id;
-        $serviceStateData['service_id'] = $data->service_id;
-        $serviceStateData['source_country_id'] = $data->source_country_id;
-        $serviceStateData['destination_country_id'] = $data->destination_country_id;
-        $serviceStateData['amount'] = $data->amount;
+        $order->role_id = $order->user->roles[0]->getKey();
+        $serviceStateData['role_id'] = $order->role_id;
+        $serviceStateData['service_id'] = $order->service_id;
+        $serviceStateData['source_country_id'] = $order->source_country_id;
+        $serviceStateData['destination_country_id'] = $order->destination_country_id;
+        $serviceStateData['amount'] = $order->amount;
         $serviceStateData['enable'] = true;
         $serviceStates = Business::serviceStat()->findWhere($serviceStateData);
         if (! $serviceStates) {
@@ -146,13 +146,15 @@ class ServiceStatService
     {
         if (! isset($inputs['reverse'])) {
             $inputs['reverse'] = false;
-        } else {
+        }
+        else {
             $inputs['reverse'] = ! in_array($inputs['reverse'], ['', '0', 0, 'false', false], true);
         }
 
         if (! isset($inputs['reload'])) {
             $inputs['reload'] = false;
-        } else {
+        }
+        else {
             $inputs['reload'] = ! in_array($inputs['reload'], ['', '0', 0, 'false', false], true);
         }
 
