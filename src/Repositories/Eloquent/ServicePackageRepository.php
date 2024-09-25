@@ -28,16 +28,25 @@ class ServicePackageRepository extends EloquentRepository implements InterfacesS
     {
         $query = $this->model->newQuery();
 
+        $query->leftJoin('services', 'services.id', '=', 'service_packages.service_id');
+
         //Searching
         if (! empty($filters['search'])) {
             $query->where(function ($query) use ($filters) {
-                $query->where($this->model->getKeyName(), 'like', "%{$filters['search']}%")
-                    ->orWwhere('name', 'like', "%{$filters['search']}%");
+                $query->where('service_packages.'.$this->model->getKeyName(), 'like', "%{$filters['search']}%")
+                    ->orWhere('name', 'like', "%{$filters['search']}%")
+                    ->orWhere('services.service_name', 'like', "%{$filters['search']}%")
+                    ->orWhere('type', 'like', "%{$filters['search']}%")
+                    ->orWhere('slug', 'like', "%{$filters['search']}%")
+                    ->orWhere('description', 'like', "%{$filters['search']}%")
+                    ->orWhere('amount', 'like', "%{$filters['search']}%")
+                    ->orWhere('service_package_data->connection_type', 'like', "%{$filters['search']}%")
+                    ->orWhere('service_package_data', 'like', "%{$filters['search']}%");
             });
         }
 
         if (! empty($filters['id_not_in'])) {
-            $query->whereNotIn($this->model->getKeyName(), (array) $filters['id_not_in']);
+            $query->whereNotIn('service_packages.'.$this->model->getKeyName(), (array) $filters['id_not_in']);
         }
 
         if (! empty($filters['type'])) {
@@ -82,6 +91,8 @@ class ServicePackageRepository extends EloquentRepository implements InterfacesS
         if (isset($filters['trashed']) && ! empty($filters['trashed'])) {
             $query->onlyTrashed();
         }
+
+        $query->select('service_packages.*');
 
         //Handle Sorting
         $query->orderBy($filters['sort'] ?? $this->model->getKeyName(), $filters['dir'] ?? 'asc');
