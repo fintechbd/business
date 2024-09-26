@@ -160,10 +160,6 @@ class ServiceStatService
             $inputs['reload'] = !in_array($inputs['reload'], ['', '0', 0, 'false', false], true);
         }
 
-        if (!isset($inputs['role_id']) && isset($inputs['user_id'])) {
-            $inputs['role_id'] = $inputs['user_id'];
-        }
-
         $currencyRateParams = [
             'service_id' => $inputs['service_id'],
             'source_country_id' => $inputs['source_country_id'],
@@ -196,6 +192,10 @@ class ServiceStatService
         $serviceStatData = $serviceStat->service_stat_data;
 
         $serviceCost = $exchangeRate;
+        $serviceCost['service_stat_id'] = $serviceStat->getKey();
+        $serviceCost['charge_refund'] = $serviceStat->service_stat_data['charge_refund'] ?? 'no';
+        $serviceCost['discount_refund'] = $serviceStat->service_stat_data['discount_refund'] ?? 'no';
+        $serviceCost['commission_refund'] = $serviceStat->service_stat_data['commission_refund'] ?? 'no';
 
         $baseCurrency = ($inputs['reverse']) ? $serviceCost['output'] : $serviceCost['input'];
 
@@ -239,19 +239,12 @@ class ServiceStatService
             'amount' => $baseAmount,
         ]);
 
-        $serviceCost['charge_break_down_data'] = [
-            'id' => null,
-            'lower_limit' => $serviceStatData['lower_limit'] ?? 0,
-            'higher_limit' => $serviceStatData['higher_limit'] ?? 0,
-        ];
-
         if ($chargeBreakDown) {
             $serviceStatData['charge'] = $chargeBreakDown->charge;
             $serviceStatData['discount'] = $chargeBreakDown->discount;
             $serviceStatData['commission'] = $chargeBreakDown->commission;
-            $chargeBreakDown->setVisible(['id', 'lower_limit', 'higher_limit']);
-            $serviceCost['charge_break_down_data'] = $chargeBreakDown->toArray();
         }
+
         $serviceCost['charge_break_down_id'] = $chargeBreakDown?->getKey() ?? null;
 
         $serviceCost['charge'] = $serviceStatData['charge'] ?? null;
@@ -267,7 +260,9 @@ class ServiceStatService
             $baseAmount -= $serviceCost['charge_amount'];
             $baseAmount += $serviceCost['discount_amount'];
             $baseAmount += $serviceCost['commission_amount'];
-        } else {
+        }
+
+        else {
             $baseAmount += $serviceCost['charge_amount'];
             $baseAmount -= $serviceCost['discount_amount'];
             $baseAmount -= $serviceCost['commission_amount'];
