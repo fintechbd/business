@@ -149,7 +149,7 @@ class ServiceStatService
         return Arr::only($serviceCost, [
                 "charge", "discount", "commission", "charge_refund",
                 "discount_refund", "commission_refund", "charge_break_down_id",
-                "service_stat_id"
+                "service_stat_id", "total_amount"
             ]
         );
     }
