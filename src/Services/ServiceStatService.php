@@ -107,7 +107,7 @@ class ServiceStatService
         $serviceStateData['amount'] = $order->amount;
         $serviceStateData['enable'] = true;
         $serviceStates = Business::serviceStat()->findWhere($serviceStateData);
-        if (!$serviceStates) {
+        if (! $serviceStates) {
             throw new Exception('Service State Data not found');
         }
         $serviceState = $serviceStates->toArray();
@@ -139,15 +139,15 @@ class ServiceStatService
     }
 
     /**
-     * @param BaseModel|array{role_id: int, reload:bool, reverse: bool, service_id: int, source_country_id:int, destination_country_id:int, amount:float|int} $order
-     * @return array
+     * @param  BaseModel|array{role_id: int, reload:bool, reverse: bool, service_id: int, source_country_id:int, destination_country_id:int, amount:float|int}  $order
+     *
      * @throws BusinessException
      */
     public function serviceStateData($order): array
     {
         $inputs = $order;
 
-        if (!is_array($order)) {
+        if (! is_array($order)) {
             $inputs = $order->toArray();
             $inputs['role_id'] = $order->user->roles[0]->getKey();
         }
@@ -155,32 +155,32 @@ class ServiceStatService
         $serviceCost = $this->cost($inputs);
 
         return Arr::only($serviceCost, [
-                'charge', 'discount', 'commission', 'charge_refund',
-                'discount_refund', 'commission_refund', 'charge_break_down_id',
-                'service_stat_id', 'total_amount', 'charge_amount',
-                'commission_amount', 'discount_amount',
-            ]
+            'charge', 'discount', 'commission', 'charge_refund',
+            'discount_refund', 'commission_refund', 'charge_break_down_id',
+            'service_stat_id', 'total_amount', 'charge_amount',
+            'commission_amount', 'discount_amount',
+        ]
         );
     }
 
     /**
-     * @param array{role_id: int, reload:bool, reverse: bool, service_id: int, source_country_id:int, destination_country_id:int, amount:float|int} $inputs
+     * @param  array{role_id: int, reload:bool, reverse: bool, service_id: int, source_country_id:int, destination_country_id:int, amount:float|int}  $inputs
      * @return array{0: array|float, charge: mixed|null, charge_amount: float|int, discount: mixed|null, discount_amount: float|int, commission: mixed|null, commission_amount: float|int, total_amount: mixed}
      *
      * @throws BusinessException
      */
     public function cost(array $inputs): array
     {
-        if (!isset($inputs['reverse'])) {
+        if (! isset($inputs['reverse'])) {
             $inputs['reverse'] = false;
         } else {
-            $inputs['reverse'] = !in_array($inputs['reverse'], ['', '0', 0, 'false', false], true);
+            $inputs['reverse'] = ! in_array($inputs['reverse'], ['', '0', 0, 'false', false], true);
         }
 
-        if (!isset($inputs['reload'])) {
+        if (! isset($inputs['reload'])) {
             $inputs['reload'] = false;
         } else {
-            $inputs['reload'] = !in_array($inputs['reload'], ['', '0', 0, 'false', false], true);
+            $inputs['reload'] = ! in_array($inputs['reload'], ['', '0', 0, 'false', false], true);
         }
 
         $currencyRateParams = [
@@ -192,7 +192,7 @@ class ServiceStatService
         ];
 
         $exchangeRate = Business::currencyRate()->convert($currencyRateParams);
-        if (!$exchangeRate) {
+        if (! $exchangeRate) {
             //throw (new ModelNotFoundException())->setModel(config('fintech.business.service_stat_model', ServiceStat::class), $inputs);
             throw new ModelNotFoundException("Currency Convert Rate doesn't exists");
         }
@@ -207,7 +207,7 @@ class ServiceStatService
             'destination_country_id' => $inputs['destination_country_id'],
         ])->first();
 
-        if (!$serviceStat) {
+        if (! $serviceStat) {
             //throw (new ModelNotFoundException())->setModel(config('fintech.business.service_stat_model', ServiceStat::class), $inputs);
             throw new ModelNotFoundException("Service Stat doesn't exists");
         }
@@ -224,7 +224,7 @@ class ServiceStatService
 
         $baseAmount = ($inputs['reverse']) ? $serviceCost['converted'] : $inputs['amount'];
 
-        $localeAmount = (!$inputs['reverse']) ? $serviceCost['converted'] : $inputs['amount'];
+        $localeAmount = (! $inputs['reverse']) ? $serviceCost['converted'] : $inputs['amount'];
 
         $serviceCost['base_currency'] = $baseCurrency;
 
