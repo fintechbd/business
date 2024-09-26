@@ -9,6 +9,7 @@ use Fintech\Business\Interfaces\ServiceStatRepository;
 use Fintech\Core\Abstracts\BaseModel;
 use Illuminate\Contracts\Pagination\Paginator;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
 
 /**
@@ -96,7 +97,7 @@ class ServiceStatService
      *
      * @throws Exception
      */
-    public function serviceStateData($order): array
+    public function oldServiceStateData($order): array
     {
         $order->role_id = $order->user->roles[0]->getKey();
         $serviceStateData['role_id'] = $order->role_id;
@@ -135,6 +136,22 @@ class ServiceStatService
             'charge_break_down_id' => $serviceStateJsonData['charge_break_down_id'] ?? null,
             'service_stat_id' => $serviceStateJsonData['service_stat_id'] ?? null,
         ];
+    }
+
+    public function serviceStateData($order): array
+    {
+        if (!is_array($order)) {
+            $order = $order->toArray();
+        }
+
+        $serviceCost = $this->cost($order);
+
+        return Arr::only($serviceCost, [
+                "charge", "discount", "commission", "charge_refund",
+                "discount_refund", "commission_refund", "charge_break_down_id",
+                "service_stat_id"
+            ]
+        );
     }
 
     /**
