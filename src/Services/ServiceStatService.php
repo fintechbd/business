@@ -141,10 +141,11 @@ class ServiceStatService
     public function serviceStateData($order): array
     {
         if (!is_array($order)) {
-            $order = $order->toArray();
+            $inputs = $order->toArray();
+            $inputs['role_id'] = $order->user->roles[0]->getKey();
         }
 
-        $serviceCost = $this->cost($order);
+        $serviceCost = $this->cost($inputs);
 
         return Arr::only($serviceCost, [
                 "charge", "discount", "commission", "charge_refund",
