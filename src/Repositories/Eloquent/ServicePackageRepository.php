@@ -50,15 +50,15 @@ class ServicePackageRepository extends EloquentRepository implements InterfacesS
         }
 
         if (! empty($filters['type'])) {
-            $query->where('type', 'like', "%{$filters['type']}%");
+            $query->where('service_packages.type', 'like', "%{$filters['type']}%");
         }
 
         if (isset($filters['country_id'])) {
-            $query->where('country_id', '=', $filters['country_id']);
+            $query->where('service_packages.country_id', '=', $filters['country_id']);
         }
 
         if (isset($filters['service_id'])) {
-            $query->where('service_id', '=', $filters['service_id']);
+            $query->where('service_packages.service_id', '=', $filters['service_id']);
         }
 
         if (! empty($filters['service_slug_in'])) {
@@ -68,19 +68,19 @@ class ServicePackageRepository extends EloquentRepository implements InterfacesS
         }
 
         if (isset($filters['connection_type'])) {
-            $query->where('service_package_data->connection_type', '=', $filters['connection_type']);
+            $query->where('service_packages.service_package_data->connection_type', '=', $filters['connection_type']);
         }
 
         if (isset($filters['enabled'])) {
-            $query->where('enabled', '=', $filters['enabled']);
+            $query->where('service_packages.enabled', '=', $filters['enabled']);
         }
 
         if (isset($filters['amount'])) {
-            $query->where('amount', '=', $filters['amount']);
+            $query->where('service_packages.amount', '=', $filters['amount']);
         }
 
         if (isset($filters['near_amount'])) {
-            $query->where('amount', '>=', $filters['near_amount']);
+            $query->where('service_packages.amount', '>=', $filters['near_amount']);
         }
 
         if (isset($filters['limit'])) {
