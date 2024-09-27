@@ -3,6 +3,7 @@
 namespace Fintech\Business;
 
 use Fintech\Business\Commands\InstallCommand;
+use Fintech\Business\Commands\ServiceJsonFieldFixCommand;
 use Fintech\Business\Providers\RepositoryServiceProvider;
 use Fintech\Core\Traits\RegisterPackageTrait;
 use Illuminate\Support\ServiceProvider;
@@ -61,6 +62,7 @@ class BusinessServiceProvider extends ServiceProvider
         if ($this->app->runningInConsole()) {
             $this->commands([
                 InstallCommand::class,
+                ServiceJsonFieldFixCommand::class
             ]);
         }
     }
