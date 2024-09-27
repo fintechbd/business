@@ -26,7 +26,7 @@ class ServiceJsonFieldFixCommand extends Command
         foreach ($services as $service) {
             $this->task("Fixing <fg=blue>{$service->service_name}</> service casting issue", function () use (&$service) {
                 $serviceData = $service->service_data;
-                $serviceData['beneficiary_type_id'] = (is_numeric($serviceData['beneficiary_type_id']))
+                $serviceData['beneficiary_type_id'] = (empty($serviceData['beneficiary_type_id']))
                     ? intval($serviceData['beneficiary_type_id'])
                     : null;
                 $service->service_data = $serviceData;
