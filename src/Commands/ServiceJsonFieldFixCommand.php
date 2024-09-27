@@ -5,7 +5,6 @@ namespace Fintech\Business\Commands;
 use Fintech\Business\Facades\Business;
 use Fintech\Core\Traits\HasCoreSetting;
 use Illuminate\Console\Command;
-use Illuminate\Support\Str;
 
 class ServiceJsonFieldFixCommand extends Command
 {
