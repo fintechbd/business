@@ -30,6 +30,7 @@ class ServiceJsonFieldFixCommand extends Command
                 $serviceData['beneficiary_type_id'] = (is_numeric($serviceData['beneficiary_type_id']))
                     ? intval($serviceData['beneficiary_type_id'])
                     : null;
+                $service->service_data = $serviceData;
                 $service->save();
             });
         }
