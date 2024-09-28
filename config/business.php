@@ -204,6 +204,7 @@ return [
         'tel' => 'TEL',
         'url' => 'URL',
         'select-beneficiary-type' => 'SELECT BENEFICIARY TYPE',
+        'switch' => 'CHOOSE YES/NO',
     ],
 
     /*
