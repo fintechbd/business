@@ -100,7 +100,7 @@ JSON;
 
         $amount = $data['amount'] ?? 1;
 
-        $isReverse = (bool)($data['reverse'] ?? false);
+        $isReverse = (bool) ($data['reverse'] ?? false);
 
         $currencyRate = $this->currencyRateRepository->list([
             'source_country_id' => $data['source_country_id'],
