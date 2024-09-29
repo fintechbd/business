@@ -100,7 +100,7 @@ JSON;
 
         $amount = $data['amount'] ?? 1;
 
-        $isReverse = $data['reverse'] ?? false;
+        $isReverse = (bool)($data['reverse'] ?? false);
 
         $currencyRate = $this->currencyRateRepository->list([
             'source_country_id' => $data['source_country_id'],
@@ -114,6 +114,7 @@ JSON;
         }
 
         $exchangeData['rate'] = round($currencyRate->rate, 5);
+        $exchangeData['reverse'] = $isReverse;
 
         if ($isReverse) {
             $convertedAmount = (float) $amount / (float) $currencyRate->rate;
