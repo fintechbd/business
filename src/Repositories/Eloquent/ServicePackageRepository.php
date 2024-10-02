@@ -75,6 +75,10 @@ class ServicePackageRepository extends EloquentRepository implements InterfacesS
             $query->where('service_packages.enabled', '=', $filters['enabled']);
         }
 
+        if (isset($filters['blocked'])) {
+            $query->where('service_packages.blocked', '=', $filters['blocked']);
+        }
+
         if (isset($filters['amount'])) {
             $query->where('service_packages.amount', '=', $filters['amount']);
         }
