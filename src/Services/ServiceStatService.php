@@ -228,7 +228,7 @@ class ServiceStatService
 
         $serviceCost['base_currency'] = $baseCurrency;
 
-        /*if (isset($serviceStatData['lower_limit']) && is_numeric($serviceStatData['lower_limit'])) {
+        if (isset($serviceStatData['lower_limit']) && is_numeric($serviceStatData['lower_limit'])) {
             if ($baseAmount < floatval($serviceStatData['lower_limit'])) {
                 throw new BusinessException(__('business::messages.service_stat.below_lower_limit'));
             }
@@ -253,7 +253,7 @@ class ServiceStatService
                     throw new BusinessException(__('business::messages.service_stat.local_currency_upper_limit_exceed'));
                 }
             }
-        }*/
+        }
 
         $chargeBreakDown = Business::chargeBreakDown()->findWhere([
             'enabled' => true,
