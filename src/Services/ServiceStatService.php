@@ -256,10 +256,10 @@ class ServiceStatService
             if (isset($serviceStatData['local_currency_lower_limit']) && is_numeric($serviceStatData['local_currency_lower_limit'])) {
                 if ($localeAmount < floatval($serviceStatData['local_currency_lower_limit'])) {
                     throw new BusinessException(__('business::messages.service_stat.local_currency_below_lower_limit', [
-                            'current' => $localeAmount,
-                            'min_amount' => \currency($serviceStatData['local_currency_lower_limit'], $localCurrency),
-                            'currency' => $localCurrency
-                        ]
+                        'current' => $localeAmount,
+                        'min_amount' => \currency($serviceStatData['local_currency_lower_limit'], $localCurrency),
+                        'currency' => $localCurrency,
+                    ]
                     ));
                 }
             }
@@ -267,10 +267,10 @@ class ServiceStatService
             if (isset($serviceStatData['local_currency_higher_limit']) && is_numeric($serviceStatData['local_currency_higher_limit'])) {
                 if ($localeAmount > floatval($serviceStatData['local_currency_higher_limit'])) {
                     throw new BusinessException(__('business::messages.service_stat.local_currency_upper_limit_exceed', [
-                            'current' => $localeAmount,
-                            'max_amount' => \currency($serviceStatData['local_currency_higher_limit'], $localCurrency),
-                            'currency' => $localCurrency
-                        ]
+                        'current' => $localeAmount,
+                        'max_amount' => \currency($serviceStatData['local_currency_higher_limit'], $localCurrency),
+                        'currency' => $localCurrency,
+                    ]
                     ));
                 }
             }
