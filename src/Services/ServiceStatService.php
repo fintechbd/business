@@ -22,9 +22,7 @@ class ServiceStatService
     /**
      * ServiceStatService constructor.
      */
-    public function __construct(private readonly ServiceStatRepository $serviceStatRepository)
-    {
-    }
+    public function __construct(private readonly ServiceStatRepository $serviceStatRepository) {}
 
     public function find($id, bool $onlyTrashed = false): ?BaseModel
     {
@@ -109,7 +107,7 @@ class ServiceStatService
         $serviceStateData['amount'] = $order->amount;
         $serviceStateData['enable'] = true;
         $serviceStates = Business::serviceStat()->findWhere($serviceStateData);
-        if (!$serviceStates) {
+        if (! $serviceStates) {
             throw new Exception('Service State Data not found');
         }
         $serviceState = $serviceStates->toArray();
@@ -141,7 +139,7 @@ class ServiceStatService
     }
 
     /**
-     * @param BaseModel|array{role_id: int, reload:bool, reverse: bool, service_id: int, source_country_id:int, destination_country_id:int, amount:float|int} $order
+     * @param  BaseModel|array{role_id: int, reload:bool, reverse: bool, service_id: int, source_country_id:int, destination_country_id:int, amount:float|int}  $order
      *
      * @throws BusinessException
      */
@@ -149,7 +147,7 @@ class ServiceStatService
     {
         $inputs = $order;
 
-        if (!is_array($order)) {
+        if (! is_array($order)) {
             $inputs = $order->toArray();
             $inputs['role_id'] = $order->user->roles[0]->getKey();
         }
@@ -157,32 +155,32 @@ class ServiceStatService
         $serviceCost = $this->cost($inputs);
 
         return Arr::only($serviceCost, [
-                'charge', 'discount', 'commission', 'charge_refund',
-                'discount_refund', 'commission_refund', 'charge_break_down_id',
-                'service_stat_id', 'total_amount', 'charge_amount',
-                'commission_amount', 'discount_amount',
-            ]
+            'charge', 'discount', 'commission', 'charge_refund',
+            'discount_refund', 'commission_refund', 'charge_break_down_id',
+            'service_stat_id', 'total_amount', 'charge_amount',
+            'commission_amount', 'discount_amount',
+        ]
         );
     }
 
     /**
-     * @param array{role_id: int, reload:bool, reverse: bool, service_id: int, source_country_id:int, destination_country_id:int, amount:float|int} $inputs
+     * @param  array{role_id: int, reload:bool, reverse: bool, service_id: int, source_country_id:int, destination_country_id:int, amount:float|int}  $inputs
      * @return array{0: array|float, charge: mixed|null, charge_amount: float|int, discount: mixed|null, discount_amount: float|int, commission: mixed|null, commission_amount: float|int, total_amount: mixed}
      *
      * @throws BusinessException
      */
     public function cost(array $inputs): array
     {
-        if (!isset($inputs['reverse'])) {
+        if (! isset($inputs['reverse'])) {
             $inputs['reverse'] = false;
         } else {
-            $inputs['reverse'] = !in_array($inputs['reverse'], ['', '0', 0, 'false', false], true);
+            $inputs['reverse'] = ! in_array($inputs['reverse'], ['', '0', 0, 'false', false], true);
         }
 
-        if (!isset($inputs['reload'])) {
+        if (! isset($inputs['reload'])) {
             $inputs['reload'] = false;
         } else {
-            $inputs['reload'] = !in_array($inputs['reload'], ['', '0', 0, 'false', false], true);
+            $inputs['reload'] = ! in_array($inputs['reload'], ['', '0', 0, 'false', false], true);
         }
 
         $currencyRateParams = [
@@ -194,7 +192,7 @@ class ServiceStatService
         ];
 
         $exchangeRate = Business::currencyRate()->convert($currencyRateParams);
-        if (!$exchangeRate) {
+        if (! $exchangeRate) {
             //throw (new ModelNotFoundException())->setModel(config('fintech.business.service_stat_model', ServiceStat::class), $inputs);
             throw new ModelNotFoundException("Currency Convert Rate doesn't exists");
         }
@@ -209,7 +207,7 @@ class ServiceStatService
             'destination_country_id' => $inputs['destination_country_id'],
         ])->first();
 
-        if (!$serviceStat) {
+        if (! $serviceStat) {
             //throw (new ModelNotFoundException())->setModel(config('fintech.business.service_stat_model', ServiceStat::class), $inputs);
             throw new ModelNotFoundException("Service Stat doesn't exists");
         }
@@ -226,9 +224,9 @@ class ServiceStatService
 
         $baseAmount = ($inputs['reverse']) ? $serviceCost['converted'] : $inputs['amount'];
 
-        $localeAmount = (!$inputs['reverse']) ? $serviceCost['converted'] : $inputs['amount'];
+        $localeAmount = (! $inputs['reverse']) ? $serviceCost['converted'] : $inputs['amount'];
 
-        $localCurrency = (!$inputs['reverse']) ? $serviceCost['output'] : $serviceCost['input'];
+        $localCurrency = (! $inputs['reverse']) ? $serviceCost['output'] : $serviceCost['input'];
 
         $serviceCost['base_currency'] = $baseCurrency;
 
@@ -237,7 +235,7 @@ class ServiceStatService
                 throw new BusinessException(__('business::messages.service_stat.below_lower_limit',
                     [
                         'min_amount' => \currency($serviceStatData['lower_limit'], $baseCurrency),
-                        'currency' => $baseCurrency
+                        'currency' => $baseCurrency,
                     ]
                 ));
             }
@@ -246,9 +244,9 @@ class ServiceStatService
         if (isset($serviceStatData['higher_limit']) && is_numeric($serviceStatData['higher_limit'])) {
             if ($baseAmount > floatval($serviceStatData['higher_limit'])) {
                 throw new BusinessException(__('business::messages.service_stat.upper_limit_exceed', [
-                        'max_amount' => \currency($serviceStatData['higher_limit'], $baseCurrency),
-                        'currency' => $baseCurrency
-                    ]
+                    'max_amount' => \currency($serviceStatData['higher_limit'], $baseCurrency),
+                    'currency' => $baseCurrency,
+                ]
                 ));
             }
         }
@@ -258,9 +256,9 @@ class ServiceStatService
             if (isset($serviceStatData['local_currency_lower_limit']) && is_numeric($serviceStatData['local_currency_lower_limit'])) {
                 if ($localeAmount < floatval($serviceStatData['local_currency_lower_limit'])) {
                     throw new BusinessException(__('business::messages.service_stat.local_currency_below_lower_limit', [
-                            'min_amount' => \currency($serviceStatData['local_currency_lower_limit'], $localCurrency),
-                            'currency' => $localCurrency
-                        ]
+                        'min_amount' => \currency($serviceStatData['local_currency_lower_limit'], $localCurrency),
+                        'currency' => $localCurrency,
+                    ]
                     ));
                 }
             }
@@ -268,9 +266,9 @@ class ServiceStatService
             if (isset($serviceStatData['local_currency_higher_limit']) && is_numeric($serviceStatData['local_currency_higher_limit'])) {
                 if ($localeAmount > floatval($serviceStatData['local_currency_higher_limit'])) {
                     throw new BusinessException(__('business::messages.service_stat.local_currency_upper_limit_exceed', [
-                            'max_amount' => \currency($serviceStatData['local_currency_higher_limit'], $localCurrency),
-                            'currency' => $localCurrency
-                        ]
+                        'max_amount' => \currency($serviceStatData['local_currency_higher_limit'], $localCurrency),
+                        'currency' => $localCurrency,
+                    ]
                     ));
                 }
             }
