@@ -132,8 +132,6 @@ JSON;
         $exchangeData['amount'] = $amount;
         $exchangeData['converted'] = $convertedAmount;
 
-        dump($exchangeData);
-
         return ($onlyRate) ? $exchangeData['rate'] : $exchangeData;
     }
 
