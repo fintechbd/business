@@ -129,8 +129,8 @@ JSON;
             $exchangeData['input_unit'] = currency(1, $exchangeData['input'])->format();
             $exchangeData['output_unit'] = currency($exchangeData['rate'], $exchangeData['output'])->format();
         }
-        $exchangeData['amount'] = round($amount, Currency::config($exchangeData['input'])['precision']);
-        $exchangeData['converted'] = round($convertedAmount, Currency::config($exchangeData['output'])['precision']);
+        $exchangeData['amount'] = $amount;
+        $exchangeData['converted'] = $convertedAmount;
 
         dump($exchangeData);
 
