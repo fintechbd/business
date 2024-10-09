@@ -132,6 +132,8 @@ JSON;
         $exchangeData['amount'] = round($amount, Currency::config($exchangeData['input'])['precision']);
         $exchangeData['converted'] = round($convertedAmount, Currency::config($exchangeData['output'])['precision']);
 
+        dump($exchangeData);
+
         return ($onlyRate) ? $exchangeData['rate'] : $exchangeData;
     }
 
