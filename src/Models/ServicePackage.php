@@ -3,7 +3,6 @@
 namespace Fintech\Business\Models;
 
 use Fintech\Core\Abstracts\BaseModel;
-use Fintech\Core\Traits\AuditableTrait;
 use Fintech\Core\Traits\BlameableTrait;
 use Fintech\MetaData\Models\Country;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -12,8 +11,8 @@ use OwenIt\Auditing\Contracts\Auditable;
 
 class ServicePackage extends BaseModel implements Auditable
 {
-    use \OwenIt\Auditing\Auditable;
     use BlameableTrait;
+    use \OwenIt\Auditing\Auditable;
     use SoftDeletes;
 
     /*

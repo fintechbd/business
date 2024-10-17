@@ -3,7 +3,6 @@
 namespace Fintech\Business\Models;
 
 use Fintech\Core\Abstracts\BaseModel;
-use Fintech\Core\Traits\AuditableTrait;
 use Fintech\Core\Traits\BlameableTrait;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
@@ -16,11 +15,11 @@ use Spatie\MediaLibrary\InteractsWithMedia;
  * @property mixed $allParentAccounts
  * @property mixed $allChildAccounts
  */
-class ServiceType extends BaseModel implements HasMedia , Auditable
+class ServiceType extends BaseModel implements Auditable, HasMedia
 {
-    use \OwenIt\Auditing\Auditable;
     use BlameableTrait;
     use InteractsWithMedia;
+    use \OwenIt\Auditing\Auditable;
     use SoftDeletes;
 
     /*
