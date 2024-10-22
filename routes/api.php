@@ -1,6 +1,7 @@
 <?php
 
 use Fintech\Core\Facades\Core;
+use Fintech\RestApi\Http\Controllers\Business\AvailableServiceController;
 use Fintech\RestApi\Http\Controllers\Business\CalculateCostController;
 use Fintech\RestApi\Http\Controllers\Business\ChargeBreakDownController;
 use Fintech\RestApi\Http\Controllers\Business\Charts\ServiceRateCostController;
@@ -43,8 +44,9 @@ if (Config::get('fintech.business.enabled')) {
                 Route::apiResource('service-settings', ServiceSettingController::class);
                 //             Route::post('service-settings/{service_setting}/restore', [ServiceSettingController::class, 'restore'])->name('service-settings.restore');
 
-                Route::get('service-types/service-type-list', [ServiceTypeController::class, 'serviceTypeList'])
-                    ->name('service-types.service-type-list');
+                Route::get('service-types/service-type-list', AvailableServiceController::class)
+                    ->name('service-types.available-services');
+
                 Route::apiResource('service-types', ServiceTypeController::class);
                 //             Route::post('service-types/{service_type}/restore', [ServiceTypeController::class, 'restore'])->name('service-types.restore');
 
