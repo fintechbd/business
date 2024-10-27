@@ -453,7 +453,7 @@ class ServiceTypeGenerator
 
             return true;
         } catch (Exception $exception) {
-            logger()->error($exception);
+            \Log::error($exception);
 
             return false;
         }
