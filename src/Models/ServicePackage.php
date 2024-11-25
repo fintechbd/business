@@ -3,7 +3,7 @@
 namespace Fintech\Business\Models;
 
 use Fintech\Core\Abstracts\BaseModel;
-use Fintech\Core\Traits\BlameableTrait;
+use Fintech\Core\Traits\Audits\BlameableTrait;
 use Fintech\MetaData\Models\Country;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;

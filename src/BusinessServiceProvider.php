@@ -5,7 +5,7 @@ namespace Fintech\Business;
 use Fintech\Business\Commands\InstallCommand;
 use Fintech\Business\Commands\ServiceJsonFieldFixCommand;
 use Fintech\Business\Providers\RepositoryServiceProvider;
-use Fintech\Core\Traits\RegisterPackageTrait;
+use Fintech\Core\Traits\Packages\RegisterPackageTrait;
 use Illuminate\Support\ServiceProvider;
 
 class BusinessServiceProvider extends ServiceProvider
