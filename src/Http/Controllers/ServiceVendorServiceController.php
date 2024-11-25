@@ -4,9 +4,9 @@ namespace Fintech\Business\Http\Controllers;
 
 use Exception;
 use Fintech\Business\Facades\Business;
-use Fintech\Core\Exceptions\UpdateOperationException;
 use Fintech\Business\Http\Requests\ServiceVendorServiceRequest;
 use Fintech\Business\Http\Resources\ServiceVendorServiceResource;
+use Fintech\Core\Exceptions\UpdateOperationException;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Routing\Controller;

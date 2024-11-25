@@ -4,9 +4,9 @@ namespace Fintech\Business\Http\Controllers;
 
 use Exception;
 use Fintech\Business\Facades\Business;
-use Fintech\Core\Supports\Utility;
 use Fintech\Business\Http\Requests\ServiceTypeListRequest;
 use Fintech\Business\Http\Resources\ServiceTypeListCollection;
+use Fintech\Core\Supports\Utility;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\App;
