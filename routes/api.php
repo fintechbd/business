@@ -1,23 +1,23 @@
 <?php
 
 use Fintech\Core\Facades\Core;
-use Fintech\RestApi\Http\Controllers\Business\AvailableServiceController;
-use Fintech\RestApi\Http\Controllers\Business\CalculateCostController;
-use Fintech\RestApi\Http\Controllers\Business\ChargeBreakDownController;
-use Fintech\RestApi\Http\Controllers\Business\Charts\ServiceRateCostController;
-use Fintech\RestApi\Http\Controllers\Business\CountryServiceController;
-use Fintech\RestApi\Http\Controllers\Business\CurrencyRateController;
-use Fintech\RestApi\Http\Controllers\Business\PackageTopChartController;
-use Fintech\RestApi\Http\Controllers\Business\RoleServiceController;
-use Fintech\RestApi\Http\Controllers\Business\ServiceController;
-use Fintech\RestApi\Http\Controllers\Business\ServiceFieldController;
-use Fintech\RestApi\Http\Controllers\Business\ServicePackageController;
-use Fintech\RestApi\Http\Controllers\Business\ServiceSettingController;
-use Fintech\RestApi\Http\Controllers\Business\ServiceStatController;
-use Fintech\RestApi\Http\Controllers\Business\ServiceTypeController;
-use Fintech\RestApi\Http\Controllers\Business\ServiceVendorController;
-use Fintech\RestApi\Http\Controllers\Business\ServiceVendorServiceController;
-use Fintech\RestApi\Http\Controllers\Business\ServingCountryController;
+use Fintech\Business\Http\Controllers\AvailableServiceController;
+use Fintech\Business\Http\Controllers\CalculateCostController;
+use Fintech\Business\Http\Controllers\ChargeBreakDownController;
+use Fintech\Business\Http\Controllers\Charts\ServiceRateCostController;
+use Fintech\Business\Http\Controllers\CountryServiceController;
+use Fintech\Business\Http\Controllers\CurrencyRateController;
+use Fintech\Business\Http\Controllers\PackageTopChartController;
+use Fintech\Business\Http\Controllers\RoleServiceController;
+use Fintech\Business\Http\Controllers\ServiceController;
+use Fintech\Business\Http\Controllers\ServiceFieldController;
+use Fintech\Business\Http\Controllers\ServicePackageController;
+use Fintech\Business\Http\Controllers\ServiceSettingController;
+use Fintech\Business\Http\Controllers\ServiceStatController;
+use Fintech\Business\Http\Controllers\ServiceTypeController;
+use Fintech\Business\Http\Controllers\ServiceVendorController;
+use Fintech\Business\Http\Controllers\ServiceVendorServiceController;
+use Fintech\Business\Http\Controllers\ServingCountryController;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Route;
 
