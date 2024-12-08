@@ -72,7 +72,7 @@ class ServiceFieldController extends Controller
             }
 
             return response()->created([
-                'message' => __('restapi::messages.resource.created', ['model' => 'Service Field']),
+                'message' => __('core::messages.resource.created', ['model' => 'Service Field']),
                 'id' => $serviceField->id,
             ]);
 
@@ -138,7 +138,7 @@ class ServiceFieldController extends Controller
                 throw (new UpdateOperationException)->setModel(config('fintech.business.service_field_model'), $id);
             }
 
-            return response()->updated(__('restapi::messages.resource.updated', ['model' => 'Service Field']));
+            return response()->updated(__('core::messages.resource.updated', ['model' => 'Service Field']));
 
         } catch (ModelNotFoundException $exception) {
 
@@ -176,7 +176,7 @@ class ServiceFieldController extends Controller
                 throw (new DeleteOperationException)->setModel(config('fintech.business.service_field_model'), $id);
             }
 
-            return response()->deleted(__('restapi::messages.resource.deleted', ['model' => 'Service Field']));
+            return response()->deleted(__('core::messages.resource.deleted', ['model' => 'Service Field']));
 
         } catch (ModelNotFoundException $exception) {
 
@@ -212,7 +212,7 @@ class ServiceFieldController extends Controller
                 throw (new RestoreOperationException)->setModel(config('fintech.business.service_field_model'), $id);
             }
 
-            return response()->restored(__('restapi::messages.resource.restored', ['model' => 'Service Field']));
+            return response()->restored(__('core::messages.resource.restored', ['model' => 'Service Field']));
 
         } catch (ModelNotFoundException $exception) {
 
@@ -238,7 +238,7 @@ class ServiceFieldController extends Controller
 
             $serviceFieldPaginate = Business::serviceField()->export($inputs);
 
-            return response()->exported(__('restapi::messages.resource.exported', ['model' => 'Service Field']));
+            return response()->exported(__('core::messages.resource.exported', ['model' => 'Service Field']));
 
         } catch (Exception $exception) {
 

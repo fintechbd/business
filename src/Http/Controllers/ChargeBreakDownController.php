@@ -72,7 +72,7 @@ class ChargeBreakDownController extends Controller
             }
 
             return response()->created([
-                'message' => __('restapi::messages.resource.created', ['model' => 'Charge Break Down']),
+                'message' => __('core::messages.resource.created', ['model' => 'Charge Break Down']),
                 'id' => $chargeBreakDown->id,
             ]);
 
@@ -138,7 +138,7 @@ class ChargeBreakDownController extends Controller
                 throw (new UpdateOperationException)->setModel(config('fintech.business.charge_break_down_model'), $id);
             }
 
-            return response()->updated(__('restapi::messages.resource.updated', ['model' => 'Charge Break Down']));
+            return response()->updated(__('core::messages.resource.updated', ['model' => 'Charge Break Down']));
 
         } catch (ModelNotFoundException $exception) {
 
@@ -176,7 +176,7 @@ class ChargeBreakDownController extends Controller
                 throw (new DeleteOperationException)->setModel(config('fintech.business.charge_break_down_model'), $id);
             }
 
-            return response()->deleted(__('restapi::messages.resource.deleted', ['model' => 'Charge Break Down']));
+            return response()->deleted(__('core::messages.resource.deleted', ['model' => 'Charge Break Down']));
 
         } catch (ModelNotFoundException $exception) {
 
@@ -212,7 +212,7 @@ class ChargeBreakDownController extends Controller
                 throw (new RestoreOperationException)->setModel(config('fintech.business.charge_break_down_model'), $id);
             }
 
-            return response()->restored(__('restapi::messages.resource.restored', ['model' => 'Charge Break Down']));
+            return response()->restored(__('core::messages.resource.restored', ['model' => 'Charge Break Down']));
 
         } catch (ModelNotFoundException $exception) {
 
@@ -238,7 +238,7 @@ class ChargeBreakDownController extends Controller
 
             $chargeBreakDownPaginate = Business::chargeBreakDown()->export($inputs);
 
-            return response()->exported(__('restapi::messages.resource.exported', ['model' => 'Charge Break Down']));
+            return response()->exported(__('core::messages.resource.exported', ['model' => 'Charge Break Down']));
 
         } catch (Exception $exception) {
 

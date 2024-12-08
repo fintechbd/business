@@ -74,7 +74,7 @@ class ServiceVendorController extends Controller
             }
 
             return response()->created([
-                'message' => __('restapi::messages.resource.created', ['model' => 'Service Vendor']),
+                'message' => __('core::messages.resource.created', ['model' => 'Service Vendor']),
                 'id' => $serviceVendor->id,
             ]);
 
@@ -140,7 +140,7 @@ class ServiceVendorController extends Controller
                 throw (new UpdateOperationException)->setModel(config('fintech.business.service_vendor_model'), $id);
             }
 
-            return response()->updated(__('restapi::messages.resource.updated', ['model' => 'Service Vendor']));
+            return response()->updated(__('core::messages.resource.updated', ['model' => 'Service Vendor']));
 
         } catch (ModelNotFoundException $exception) {
 
@@ -178,7 +178,7 @@ class ServiceVendorController extends Controller
                 throw (new DeleteOperationException)->setModel(config('fintech.business.service_vendor_model'), $id);
             }
 
-            return response()->deleted(__('restapi::messages.resource.deleted', ['model' => 'Service Vendor']));
+            return response()->deleted(__('core::messages.resource.deleted', ['model' => 'Service Vendor']));
 
         } catch (ModelNotFoundException $exception) {
 
@@ -214,7 +214,7 @@ class ServiceVendorController extends Controller
                 throw (new RestoreOperationException)->setModel(config('fintech.business.service_vendor_model'), $id);
             }
 
-            return response()->restored(__('restapi::messages.resource.restored', ['model' => 'Service Vendor']));
+            return response()->restored(__('core::messages.resource.restored', ['model' => 'Service Vendor']));
 
         } catch (ModelNotFoundException $exception) {
 
@@ -240,7 +240,7 @@ class ServiceVendorController extends Controller
 
             $serviceVendorPaginate = Business::serviceVendor()->export($inputs);
 
-            return response()->exported(__('restapi::messages.resource.exported', ['model' => 'Service Vendor']));
+            return response()->exported(__('core::messages.resource.exported', ['model' => 'Service Vendor']));
 
         } catch (Exception $exception) {
 

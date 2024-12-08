@@ -71,7 +71,7 @@ class ServiceSettingController extends Controller
             }
 
             return response()->created([
-                'message' => __('restapi::messages.resource.created', ['model' => 'Service Setting']),
+                'message' => __('core::messages.resource.created', ['model' => 'Service Setting']),
                 'id' => $serviceSetting->getKey(),
             ]);
 
@@ -134,7 +134,7 @@ class ServiceSettingController extends Controller
                 throw (new UpdateOperationException)->setModel(config('fintech.business.service_setting_model'), $id);
             }
 
-            return response()->updated(__('restapi::messages.resource.updated', ['model' => 'Service Setting']));
+            return response()->updated(__('core::messages.resource.updated', ['model' => 'Service Setting']));
 
         } catch (ModelNotFoundException $exception) {
 
@@ -167,7 +167,7 @@ class ServiceSettingController extends Controller
                 throw (new DeleteOperationException)->setModel(config('fintech.business.service_setting_model'), $id);
             }
 
-            return response()->deleted(__('restapi::messages.resource.deleted', ['model' => 'Service Setting']));
+            return response()->deleted(__('core::messages.resource.deleted', ['model' => 'Service Setting']));
 
         } catch (ModelNotFoundException $exception) {
 
@@ -201,7 +201,7 @@ class ServiceSettingController extends Controller
                 throw (new RestoreOperationException)->setModel(config('fintech.business.service_setting_model'), $id);
             }
 
-            return response()->restored(__('restapi::messages.resource.restored', ['model' => 'Service Setting']));
+            return response()->restored(__('core::messages.resource.restored', ['model' => 'Service Setting']));
 
         } catch (ModelNotFoundException $exception) {
 
@@ -228,7 +228,7 @@ class ServiceSettingController extends Controller
             //$serviceSettingPaginate = Business::serviceSetting()->export($inputs);
             Business::serviceSetting()->export($inputs);
 
-            return response()->exported(__('restapi::messages.resource.exported', ['model' => 'Service Setting']));
+            return response()->exported(__('core::messages.resource.exported', ['model' => 'Service Setting']));
 
         } catch (Exception $exception) {
 
