@@ -7,6 +7,20 @@ use Illuminate\Http\Resources\Json\JsonResource;
 
 use function currency;
 
+/**
+ * @property-read float $rate
+ * @property-read string $base_currency
+ * @property-read float $input
+ * @property-read string $input_unit
+ * @property-read float $output
+ * @property-read string $output_unit
+ * @property-read float $amount
+ * @property-read float $converted
+ * @property-read float $charge_amount
+ * @property-read float $discount_amount
+ * @property-read float $commission_amount
+ * @property-read float $total_amount
+ */
 class ServiceCostResource extends JsonResource
 {
     /**
