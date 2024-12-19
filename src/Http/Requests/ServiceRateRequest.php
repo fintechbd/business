@@ -25,8 +25,8 @@ class ServiceRateRequest extends FormRequest
         return [
             'user_id' => ['nullable', 'integer', 'min:1'],
             'service_id' => ['required', 'integer', 'min:1'],
-            'source_country_id' => ['required', 'integer', 'min:1'],
-            'destination_country_id' => ['required', 'integer', 'min:1'],
+            'source_country_id' => ['required', 'integer', 'min:1', 'master_currency', 'master_currency'],
+            'destination_country_id' => ['required', 'integer', 'min:1', 'master_currency', 'master_currency'],
             'amount' => ['required', 'numeric', 'min:1'],
             'reverse' => ['required', 'boolean'],
             'reload' => ['nullable', 'boolean'],
