@@ -26,7 +26,8 @@ class InstallCommand extends Command
             'service_setting_feature' => 'Lower Limit',
             'service_setting_rule' => 'nullable|integer|min:0|max:999999999',
             'service_setting_value' => null,
-            'enabled' => true],
+            'enabled' => true,
+        ],
         [
             'service_setting_type' => 'service_stat',
             'service_setting_name' => 'Higher Limit',
@@ -35,7 +36,8 @@ class InstallCommand extends Command
             'service_setting_feature' => 'Higher Limit',
             'service_setting_rule' => 'nullable|integer|min:0|max:999999999',
             'service_setting_value' => null,
-            'enabled' => true],
+            'enabled' => true,
+        ],
         [
             'service_setting_type' => 'service_stat',
             'service_setting_name' => 'Local Currency Lower Limit',
@@ -44,7 +46,8 @@ class InstallCommand extends Command
             'service_setting_feature' => 'Local Currency Higher Limit',
             'service_setting_rule' => 'nullable|integer|min:0|max:999999999',
             'service_setting_value' => null,
-            'enabled' => true],
+            'enabled' => true,
+        ],
         [
             'service_setting_type' => 'service_stat',
             'service_setting_name' => 'Local Currency Higher Limit',
@@ -53,7 +56,8 @@ class InstallCommand extends Command
             'service_setting_feature' => 'Local Currency Higher Limit',
             'service_setting_rule' => 'nullable|integer|min:0|max:999999999',
             'service_setting_value' => null,
-            'enabled' => true],
+            'enabled' => true,
+        ],
         [
             'service_setting_type' => 'service_stat',
             'service_setting_name' => 'Charge',
@@ -62,7 +66,18 @@ class InstallCommand extends Command
             'service_setting_feature' => 'Charge',
             'service_setting_rule' => 'nullable|string|min:0|max:255',
             'service_setting_value' => null,
-            'enabled' => true],
+            'enabled' => true,
+        ],
+        [
+            'service_setting_type' => 'service_stat',
+            'service_setting_name' => 'Interac-E-Transfer Charge',
+            'service_setting_field_name' => 'interac_charge',
+            'service_setting_type_field' => 'text',
+            'service_setting_feature' => 'Interac-E-Transfer Charge',
+            'service_setting_rule' => 'nullable|string|min:0|max:255',
+            'service_setting_value' => null,
+            'enabled' => true,
+        ],
         [
             'service_setting_type' => 'service_stat',
             'service_setting_name' => 'Discount',
@@ -71,7 +86,8 @@ class InstallCommand extends Command
             'service_setting_feature' => 'Discount',
             'service_setting_rule' => 'nullable|string|min:0|max:255',
             'service_setting_value' => null,
-            'enabled' => true],
+            'enabled' => true,
+        ],
         [
             'service_setting_type' => 'service_stat',
             'service_setting_name' => 'Commission',
@@ -80,7 +96,8 @@ class InstallCommand extends Command
             'service_setting_feature' => 'Commission',
             'service_setting_rule' => 'nullable|string|min:0|max:255',
             'service_setting_value' => null,
-            'enabled' => true],
+            'enabled' => true,
+        ],
         [
             'service_setting_type' => 'service_stat',
             'service_setting_name' => 'Cost',
@@ -89,7 +106,8 @@ class InstallCommand extends Command
             'service_setting_feature' => 'Cost',
             'service_setting_rule' => 'nullable|string|min:0|max:255',
             'service_setting_value' => null,
-            'enabled' => true],
+            'enabled' => true,
+        ],
         [
             'service_setting_type' => 'service_stat',
             'service_setting_name' => 'Charge Refund',
@@ -98,7 +116,8 @@ class InstallCommand extends Command
             'service_setting_feature' => 'Charge Refund',
             'service_setting_rule' => 'nullable|string|in:yes,no',
             'service_setting_value' => 'no',
-            'enabled' => true],
+            'enabled' => true,
+        ],
         [
             'service_setting_type' => 'service_stat',
             'service_setting_name' => 'Discount Refund',
@@ -107,7 +126,8 @@ class InstallCommand extends Command
             'service_setting_feature' => 'Discount Refund',
             'service_setting_rule' => 'nullable|string|in:yes,no',
             'service_setting_value' => 'no',
-            'enabled' => true],
+            'enabled' => true,
+        ],
         [
             'service_setting_type' => 'service_stat',
             'service_setting_name' => 'Commission Refund',
@@ -116,7 +136,8 @@ class InstallCommand extends Command
             'service_setting_feature' => 'Commission Refund',
             'service_setting_rule' => 'nullable|string|in:yes,no',
             'service_setting_value' => 'no',
-            'enabled' => true],
+            'enabled' => true,
+        ],
         [
             'service_setting_type' => 'service',
             'service_setting_name' => 'Visible Website',
@@ -125,7 +146,8 @@ class InstallCommand extends Command
             'service_setting_feature' => 'Visible Website',
             'service_setting_rule' => 'nullable|string|in:yes,no',
             'service_setting_value' => 'no',
-            'enabled' => true],
+            'enabled' => true,
+        ],
         [
             'service_setting_type' => 'service',
             'service_setting_name' => 'Visible Android APP',
@@ -134,7 +156,8 @@ class InstallCommand extends Command
             'service_setting_feature' => 'Visible Android APP',
             'service_setting_rule' => 'nullable|string|in:yes,no',
             'service_setting_value' => 'no',
-            'enabled' => true],
+            'enabled' => true,
+        ],
         [
             'service_setting_type' => 'service',
             'service_setting_name' => 'Visible IOS APP',
@@ -143,7 +166,8 @@ class InstallCommand extends Command
             'service_setting_feature' => 'Visible IOS APP',
             'service_setting_rule' => 'nullable|string|in:yes,no',
             'service_setting_value' => 'no',
-            'enabled' => true],
+            'enabled' => true,
+        ],
         [
             'service_setting_type' => 'service',
             'service_setting_name' => 'Account Name',
@@ -152,7 +176,8 @@ class InstallCommand extends Command
             'service_setting_feature' => 'Account Name',
             'service_setting_rule' => 'nullable|string|min:0|max:255',
             'service_setting_value' => null,
-            'enabled' => true],
+            'enabled' => true,
+        ],
         [
             'service_setting_type' => 'service',
             'service_setting_name' => 'Account Number',
@@ -161,7 +186,8 @@ class InstallCommand extends Command
             'service_setting_feature' => 'Account Number',
             'service_setting_rule' => 'nullable|string|min:0|max:255',
             'service_setting_value' => null,
-            'enabled' => true],
+            'enabled' => true,
+        ],
         [
             'service_setting_type' => 'service',
             'service_setting_name' => 'Transactional Currency',
@@ -170,7 +196,8 @@ class InstallCommand extends Command
             'service_setting_feature' => 'Transactional Currency',
             'service_setting_rule' => 'nullable|string|size:3',
             'service_setting_value' => null,
-            'enabled' => true],
+            'enabled' => true,
+        ],
         [
             'service_setting_type' => 'service',
             'service_setting_name' => 'Beneficiary Type ID',
@@ -179,7 +206,8 @@ class InstallCommand extends Command
             'service_setting_feature' => 'Beneficiary Type ID',
             'service_setting_rule' => 'integer|nullable|min:1',
             'service_setting_value' => null,
-            'enabled' => true],
+            'enabled' => true,
+        ],
         [
             'service_setting_type' => 'service',
             'service_setting_name' => 'Operator Short Code',
@@ -188,7 +216,8 @@ class InstallCommand extends Command
             'service_setting_feature' => 'Operator Short Code',
             'service_setting_rule' => 'nullable|string|min:0|max:255',
             'service_setting_value' => null,
-            'enabled' => true],
+            'enabled' => true,
+        ],
         [
             'service_setting_type' => 'service',
             'service_setting_name' => 'Service Feature List',
@@ -197,7 +226,8 @@ class InstallCommand extends Command
             'service_setting_feature' => 'Service Feature List',
             'service_setting_rule' => 'nullable|string|min:0|max:255',
             'service_setting_value' => null,
-            'enabled' => true],
+            'enabled' => true,
+        ],
         [
             'service_setting_type' => 'service',
             'service_setting_name' => 'Amount Range',
@@ -206,7 +236,8 @@ class InstallCommand extends Command
             'service_setting_feature' => 'Amount Range',
             'service_setting_rule' => 'nullable|string|min:0|max:255',
             'service_setting_value' => null,
-            'enabled' => true],
+            'enabled' => true,
+        ],
         [
             'service_setting_type' => 'service',
             'service_setting_name' => 'Routing Code',
@@ -215,7 +246,8 @@ class InstallCommand extends Command
             'service_setting_feature' => 'Routing Code',
             'service_setting_rule' => 'nullable|string|min:0|max:255',
             'service_setting_value' => null,
-            'enabled' => true],
+            'enabled' => true,
+        ],
     ];
 
     public function handle(): int
@@ -255,15 +287,17 @@ class InstallCommand extends Command
                 'enabled' => true,
             ];
 
-            $image_png = __DIR__.'/../../resources/img/service_vendor_logo_png/mt-technology-ltd-logo.png';
-            $vendor['logo_png'] = 'data:image/png;base64,'.base64_encode(file_get_contents($image_png));
+            $image_png = __DIR__ . '/../../resources/img/service_vendor_logo_png/mt-technology-ltd-logo.png';
+            $vendor['logo_png'] = 'data:image/png;base64,' . base64_encode(file_get_contents($image_png));
 
-            $image_svg = __DIR__.'/../../resources/img/service_vendor_logo_svg/mt-technology-ltd-logo.svg';
-            $vendor['logo_svg'] = 'data:image/svg+xml;base64,'.base64_encode(file_get_contents($image_svg));
+            $image_svg = __DIR__ . '/../../resources/img/service_vendor_logo_svg/mt-technology-ltd-logo.svg';
+            $vendor['logo_svg'] = 'data:image/svg+xml;base64,' . base64_encode(file_get_contents($image_svg));
 
             Business::serviceVendor()->create($vendor);
         });
     }
 
-    private function enableServingCountries() {}
+    private function enableServingCountries()
+    {
+    }
 }

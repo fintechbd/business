@@ -53,6 +53,7 @@ return [
         'local_currency_lower_limit' => '10.00',
         'local_currency_higher_limit' => '25000.00',
         'charge' => '1%',
+        'interac_charge' => '0',
         'discount' => '1%',
         'commission' => '0',
         'cost' => '0.00',
