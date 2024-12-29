@@ -290,20 +290,25 @@ class ServiceStatService
         $serviceCost['charge_break_down_id'] = $chargeBreakDown?->getKey() ?? null;
 
         $serviceCost['charge'] = $serviceStatData['charge'] ?? null;
-        $serviceCost['charge_amount'] = calculate_flat_percent($baseAmount, $serviceStatData['charge']);
+        $serviceCost['charge_amount'] = calculate_flat_percent($baseAmount, $serviceCost['charge']);
+
+        $serviceCost['interac_charge'] = $serviceStatData['interac_charge'] ?? null;
+        $serviceCost['interac_charge_amount'] = calculate_flat_percent($baseAmount, $serviceCost['interac_charge']);
 
         $serviceCost['discount'] = $serviceStatData['discount'] ?? null;
-        $serviceCost['discount_amount'] = calculate_flat_percent($baseAmount, $serviceStatData['discount']);
+        $serviceCost['discount_amount'] = calculate_flat_percent($baseAmount, $serviceCost['discount']);
 
         $serviceCost['commission'] = $serviceStatData['commission'] ?? null;
-        $serviceCost['commission_amount'] = calculate_flat_percent($baseAmount, $serviceStatData['commission']);
+        $serviceCost['commission_amount'] = calculate_flat_percent($baseAmount, $serviceCost['commission']);
 
         if ($inputs['reload']) {
             $baseAmount -= $serviceCost['charge_amount'];
+            $baseAmount -= $serviceCost['interac_charge'];
             $baseAmount += $serviceCost['discount_amount'];
             $baseAmount += $serviceCost['commission_amount'];
         } else {
             $baseAmount += $serviceCost['charge_amount'];
+            $baseAmount += $serviceCost['interac_charge'];
             $baseAmount -= $serviceCost['discount_amount'];
             $baseAmount -= $serviceCost['commission_amount'];
         }
