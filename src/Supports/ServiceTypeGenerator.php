@@ -391,6 +391,13 @@ class ServiceTypeGenerator
         return $this;
     }
 
+    public function disabled(): static
+    {
+        $this->enabled = false;
+
+        return $this;
+    }
+
     public function hasService(): static
     {
         $this->hasService = true;
