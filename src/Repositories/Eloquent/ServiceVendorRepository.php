@@ -29,7 +29,7 @@ class ServiceVendorRepository extends EloquentRepository implements InterfacesSe
     {
         $query = $this->model->newQuery();
 
-        //Searching
+        // Searching
         if (! empty($filters['search'])) {
             if (is_numeric($filters['search'])) {
                 $query->where($this->model->getKeyName(), 'like', "%{$filters['search']}%");
@@ -38,7 +38,7 @@ class ServiceVendorRepository extends EloquentRepository implements InterfacesSe
             }
         }
 
-        //Display Trashed
+        // Display Trashed
         if (! empty($filters['trashed'])) {
             $query->onlyTrashed();
         }
@@ -63,10 +63,10 @@ class ServiceVendorRepository extends EloquentRepository implements InterfacesSe
             $query->whereIn($this->model->getKeyName(), (array) $filters['id_in']);
         }
 
-        //Handle Sorting
+        // Handle Sorting
         $query->orderBy($filters['sort'] ?? $this->model->getKeyName(), $filters['dir'] ?? 'asc');
 
-        //Execute Output
+        // Execute Output
         return $this->executeQuery($query, $filters);
 
     }

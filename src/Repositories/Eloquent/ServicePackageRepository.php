@@ -30,7 +30,7 @@ class ServicePackageRepository extends EloquentRepository implements InterfacesS
 
         $query->leftJoin('services', 'services.id', '=', 'service_packages.service_id');
 
-        //Searching
+        // Searching
         if (! empty($filters['search'])) {
             $query->where(function ($query) use ($filters) {
                 $query->where('service_packages.'.$this->model->getKeyName(), 'like', "%{$filters['search']}%")
@@ -89,17 +89,17 @@ class ServicePackageRepository extends EloquentRepository implements InterfacesS
             $query->take($filters['limit']);
         }
 
-        //Display Trashed
+        // Display Trashed
         if (isset($filters['trashed']) && ! empty($filters['trashed'])) {
             $query->onlyTrashed();
         }
 
         $query->select('service_packages.*');
 
-        //Handle Sorting
+        // Handle Sorting
         $query->orderBy($filters['sort'] ?? $this->model->getKeyName(), $filters['dir'] ?? 'asc');
 
-        //Execute Output
+        // Execute Output
         return $this->executeQuery($query, $filters);
 
     }

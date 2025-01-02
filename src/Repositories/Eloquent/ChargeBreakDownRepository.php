@@ -31,7 +31,7 @@ class ChargeBreakDownRepository extends EloquentRepository implements Interfaces
     {
         $query = $this->model->newQuery();
 
-        //Searching
+        // Searching
         if (! empty($filters['search'])) {
             $query->where(function ($query) use ($filters) {
                 return $query->where('higher_limit', 'like', "%{$filters['search']}%")
@@ -67,7 +67,7 @@ class ChargeBreakDownRepository extends EloquentRepository implements Interfaces
             $query->whereIn($this->model->getKeyName(), (array) $filters['id_in']);
         }
 
-        //Display Trashed
+        // Display Trashed
         if (isset($filters['trashed']) && ! empty($filters['trashed'])) {
             $query->onlyTrashed();
         }
@@ -76,10 +76,10 @@ class ChargeBreakDownRepository extends EloquentRepository implements Interfaces
             $query->selectRaw('min(`lower_limit`) as lower_limit, max(`higher_limit`) as higher_limit');
         }
 
-        //Handle Sorting
+        // Handle Sorting
         $query->orderBy($filters['sort'] ?? $this->model->getKeyName(), $filters['dir'] ?? 'asc');
 
-        //Execute Output
+        // Execute Output
         return $this->executeQuery($query, $filters);
 
     }

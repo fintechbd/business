@@ -226,7 +226,7 @@ class ServiceTypeController extends Controller
         try {
             $inputs = $request->validated();
 
-            //$serviceTypePaginate = Business::serviceType()->export($inputs);
+            // $serviceTypePaginate = Business::serviceType()->export($inputs);
             Business::serviceType()->export($inputs);
 
             return response()->exported(__('core::messages.resource.exported', ['model' => 'Service Type']));

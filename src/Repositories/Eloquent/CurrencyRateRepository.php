@@ -32,7 +32,7 @@ class CurrencyRateRepository extends EloquentRepository implements InterfacesCur
         $query->leftJoin('services', 'currency_rates.service_id', '=', 'services.id');
         $query->leftJoin('service_types', 'services.service_type_id', '=', 'service_types.id');
 
-        //Searching
+        // Searching
         if (! empty($filters['search'])) {
             $query->where(function (Builder $query) use ($filters) {
                 return $query->where('currency_rates.'.$this->model->getKeyName(), 'like', "%{$filters['search']}%")
@@ -67,16 +67,16 @@ class CurrencyRateRepository extends EloquentRepository implements InterfacesCur
             $query->where('service_types.service_type_parent_id', '=', $filters['service_type_id']);
         }
 
-        //Display Trashed
+        // Display Trashed
         if (isset($filters['trashed']) && $filters['trashed'] === true) {
             $query->onlyTrashed();
         }
 
         $query->select(['currency_rates.*']);
-        //Handle Sorting
+        // Handle Sorting
         $query->orderBy($filters['sort'] ?? $this->model->getKeyName(), $filters['dir'] ?? 'asc');
 
-        //Execute Output
+        // Execute Output
         return $this->executeQuery($query, $filters);
 
     }

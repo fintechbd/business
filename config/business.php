@@ -164,7 +164,7 @@ return [
     */
     'service_field_model' => ServiceField::class,
 
-    //** Model Config Point Do not Remove **//
+    // ** Model Config Point Do not Remove **//
 
     /*
     |--------------------------------------------------------------------------
@@ -237,7 +237,7 @@ return [
 
         \Fintech\Business\Interfaces\ServiceFieldRepository::class => ServiceFieldRepository::class,
 
-        //** Repository Binding Config Point Do not Remove **//
+        // ** Repository Binding Config Point Do not Remove **//
     ],
 
 ];

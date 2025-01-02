@@ -59,7 +59,7 @@ class ServiceTypeRepository extends EloquentRepository implements InterfacesServ
                 $query->whereIn('service_stats.destination_country_id', $filters['destination_country_id']);
             }
 
-            //@TODO show local and targeted destination country services
+            // @TODO show local and targeted destination country services
             //            if (isset($filters['destination_country_id']) && $filters['destination_country_id']) {
             //                $query->where(function ($query) use ($filters) {
             //                    $query->where('service_stats.destination_country_id', '=', $filters['destination_country_id']);
@@ -93,7 +93,7 @@ class ServiceTypeRepository extends EloquentRepository implements InterfacesServ
                 $query->where('service_types.service_type_slug', '=', $filters['service_type_slug']);
             }
 
-            //SERVICE STATE DATA
+            // SERVICE STATE DATA
             if (isset($filters['visible_android_app']) && $filters['visible_android_app']) {
                 $query->where('services.service_data->visible_android_app', '=', $filters['visible_android_app']);
             }
@@ -126,7 +126,7 @@ class ServiceTypeRepository extends EloquentRepository implements InterfacesServ
                 $query->where('services.service_data->operator_short_code', '=', $filters['operator_short_code']);
             }
 
-            //SERVICE STATE DATA
+            // SERVICE STATE DATA
             if (isset($filters['lower_limit']) && $filters['lower_limit']) {
                 $query->where('service_stats.service_stat_data->lower_limit', '=', $filters['lower_limit']);
             }
@@ -194,7 +194,7 @@ class ServiceTypeRepository extends EloquentRepository implements InterfacesServ
                 DB::raw('service_stats.id as service_stat_id')];
         }
 
-        //Searching
+        // Searching
         if (isset($filters['search']) && ! empty($filters['search'])) {
             if (is_numeric($filters['search'])) {
                 $query->where($this->model->getKeyName(), 'like', "%{$filters['search']}%");
@@ -244,12 +244,12 @@ class ServiceTypeRepository extends EloquentRepository implements InterfacesServ
             $query->where('service_types.enabled', '=', $filters['service_type_enabled']);
         }
 
-        //Display Trashed
+        // Display Trashed
         if (isset($filters['trashed']) && ! empty($filters['trashed'])) {
             $query->onlyTrashed();
         }
 
-        //Handle Sorting
+        // Handle Sorting
         $query->orderBy($filters['sort'] ?? $this->model->getKeyName(), $filters['dir'] ?? 'asc');
 
         if (! empty($filters['get'])) {
@@ -260,7 +260,7 @@ class ServiceTypeRepository extends EloquentRepository implements InterfacesServ
 
         $query->select($select);
 
-        //Execute Output
+        // Execute Output
         return $this->executeQuery($query, $filters);
 
     }

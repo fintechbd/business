@@ -27,7 +27,7 @@ class ServiceStatRepository extends EloquentRepository implements InterfacesServ
         $query = $this->model->newQuery();
         $modelTable = $this->model->getTable();
 
-        //Searching
+        // Searching
         if (! empty($filters['search'])) {
             $query->where($this->model->getKeyName(), 'like', "%{$filters['search']}%")
                 ->orWhere('service_slug', 'like', "%{$filters['search']}%")
@@ -61,15 +61,15 @@ class ServiceStatRepository extends EloquentRepository implements InterfacesServ
             $query->where($modelTable.'.service_slug', '=', $filters['service_slug']);
         }
 
-        //Display Trashed
+        // Display Trashed
         if (isset($filters['trashed']) && ! empty($filters['trashed'])) {
             $query->onlyTrashed();
         }
 
-        //Handle Sorting
+        // Handle Sorting
         $query->orderBy($filters['sort'] ?? $this->model->getKeyName(), $filters['dir'] ?? 'asc');
 
-        //Execute Output
+        // Execute Output
         return $this->executeQuery($query, $filters);
 
     }

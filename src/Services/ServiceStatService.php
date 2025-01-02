@@ -80,7 +80,7 @@ class ServiceStatService
                                 $inputs['destination_country_id'] = $destination_country;
                                 $serviceStat = Business::serviceStat()->create($inputs);
                                 $serviceStats[] = $serviceStat->getKey();
-                                //$serviceStats[] = $inputs;
+                                // $serviceStats[] = $inputs;
                             }
                         }
                     }
@@ -193,7 +193,7 @@ class ServiceStatService
 
         $exchangeRate = Business::currencyRate()->convert($currencyRateParams);
         if (! $exchangeRate) {
-            //throw (new ModelNotFoundException())->setModel(config('fintech.business.service_stat_model', ServiceStat::class), $inputs);
+            // throw (new ModelNotFoundException())->setModel(config('fintech.business.service_stat_model', ServiceStat::class), $inputs);
             throw new ModelNotFoundException("Currency Convert Rate doesn't exists");
         }
 
@@ -208,7 +208,7 @@ class ServiceStatService
         ])->first();
 
         if (! $serviceStat) {
-            //throw (new ModelNotFoundException())->setModel(config('fintech.business.service_stat_model', ServiceStat::class), $inputs);
+            // throw (new ModelNotFoundException())->setModel(config('fintech.business.service_stat_model', ServiceStat::class), $inputs);
             throw new ModelNotFoundException("Service Stat doesn't exists");
         }
 

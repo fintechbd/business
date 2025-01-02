@@ -71,6 +71,6 @@ class Business
     {
         return new ServiceTypeGenerator($attributes, $parent);
     }
-    //** Crud Service Method Point Do not Remove **//
+    // ** Crud Service Method Point Do not Remove **//
 
 }

@@ -24,7 +24,7 @@ class StoreServiceTypeRequest extends FormRequest
     public function rules(): array
     {
         /** @phpstan-ignore-next-line */
-        $service_type_id = (int) collect(request()->segments())->last(); //id of the resource
+        $service_type_id = (int) collect(request()->segments())->last(); // id of the resource
         $uniqueRule = 'unique:service_types,service_type_slug,'.$service_type_id.',id,deleted_at,NULL';
 
         return [

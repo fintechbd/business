@@ -28,7 +28,7 @@ class ServiceFieldRepository extends EloquentRepository implements InterfacesSer
     {
         $query = $this->model->newQuery();
 
-        //Searching
+        // Searching
         if (! empty($filters['search'])) {
             $query->leftJoin('services', 'services.id', '=', 'service_fields.service_id');
             $query->where(function ($query) use ($filters) {
@@ -57,17 +57,17 @@ class ServiceFieldRepository extends EloquentRepository implements InterfacesSer
             $query->where('service_id', $filters['service_id']);
         }
 
-        //Display Trashed
+        // Display Trashed
         if (isset($filters['trashed']) && $filters['trashed'] === true) {
             $query->onlyTrashed();
         }
 
         $query->select($this->model->getTable().'.*');
 
-        //Handle Sorting
+        // Handle Sorting
         $query->orderBy($filters['sort'] ?? $this->model->getKeyName(), $filters['dir'] ?? 'asc');
 
-        //Execute Output
+        // Execute Output
         return $this->executeQuery($query, $filters);
 
     }

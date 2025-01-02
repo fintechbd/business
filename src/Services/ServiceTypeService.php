@@ -107,7 +107,7 @@ class ServiceTypeService
                 }
 
                 $inputYes['service_type_id_array'] = $collectID[$serviceType->getKey()] ?? [];
-                //TODO may be need to work future
+                // TODO may be need to work future
                 $inputYes['service_type_parent_id'] = $serviceType->getKey();
                 $inputYes['service_type_parent_id_is_null'] = false;
                 $inputYes['service_type_id'] = false;

@@ -97,7 +97,7 @@ if (Config::get('fintech.business.enabled')) {
                 Route::apiResource('service-fields', ServiceFieldController::class);
                 //             Route::post('service-fields/{service_field}/restore', [ServiceFieldController::class, 'restore'])->name('service-fields.restore');
 
-                //DO NOT REMOVE THIS LINE//
+                // DO NOT REMOVE THIS LINE//
 
                 Route::prefix('charts')->name('charts.')->group(function () {
                     Route::get('service-rate-charges', ServiceRateCostController::class)
