@@ -43,6 +43,7 @@ class StoreServiceStatRequest extends FormRequest
             'service_stat_data.discount' => ['string', 'required', new PercentNumber],
             'service_stat_data.commission' => ['string', 'required', new PercentNumber],
             'service_stat_data.cost' => ['string', 'required', new PercentNumber],
+            'service_stat_data.interac_charge' => ['string', 'required', new PercentNumber],
             'service_stat_data.charge_refund' => ['string', 'required', 'in:yes,no'],
             'service_stat_data.discount_refund' => ['string', 'required', 'in:yes,no'],
             'service_stat_data.commission_refund' => ['string', 'required', 'in:yes,no'],
