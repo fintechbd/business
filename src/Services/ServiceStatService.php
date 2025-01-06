@@ -158,7 +158,7 @@ class ServiceStatService
             'charge', 'discount', 'commission', 'charge_refund',
             'discount_refund', 'commission_refund', 'charge_break_down_id',
             'service_stat_id', 'total_amount', 'charge_amount',
-            'commission_amount', 'discount_amount',
+            'commission_amount', 'discount_amount', 'interac_charge_amount'
         ]
         );
     }
