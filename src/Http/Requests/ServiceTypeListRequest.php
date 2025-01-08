@@ -32,9 +32,10 @@ class ServiceTypeListRequest extends FormRequest
             'service_type_parent_id' => ['integer', 'nullable'],
             'source_country_id' => ['integer', 'nullable', 'master_currency'],
             'destination_country_id' => ['integer', 'nullable', 'master_currency'],
-            'visible_android_app' => ['string', 'required_without_all:visible_ios_app,visible_website'],
-            'visible_ios_app' => ['string', 'required_without_all:visible_android_app,visible_website'],
-            'visible_website' => ['string', 'required_without_all:visible_ios_app,visible_android_app'],
+            'visible_android_app' => ['string', 'required_without_all:visible_ios_app,visible_website,visible_website_kommerce'],
+            'visible_ios_app' => ['string', 'required_without_all:visible_android_app,visible_website,visible_website_kommerce'],
+            'visible_website' => ['string', 'required_without_all:visible_ios_app,visible_android_app,visible_website_kommerce'],
+            'visible_website_kommerce' => ['string', 'required_without_all:visible_ios_app,visible_android_app,visible_website'],
         ];
     }
 

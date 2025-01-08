@@ -106,6 +106,10 @@ class ServiceTypeRepository extends EloquentRepository implements InterfacesServ
                 $query->where('services.service_data->visible_website', '=', $filters['visible_website']);
             }
 
+            if (isset($filters['visible_website_kommerce']) && $filters['visible_website_kommerce']) {
+                $query->where('services.service_data->visible_website_kommerce', '=', $filters['visible_website_kommerce']);
+            }
+
             if (isset($filters['account_name']) && $filters['account_name']) {
                 $query->where('services.service_data->account_name', '=', $filters['account_name']);
             }
