@@ -30,7 +30,7 @@ return [
     |--------------------------------------------------------------------------
     | this setting enable the api will be available or not
     */
-    'enabled' => env('PACKAGE_BUSINESS_ENABLED', true),
+    'enabled' => env('BUSINESS_ENABLED', true),
 
     /*
     |--------------------------------------------------------------------------
@@ -38,7 +38,7 @@ return [
     |--------------------------------------------------------------------------
     | this setting enable the api will be available or not
     */
-    'default_vendor_name' => env('PACKAGE_BUSINESS_DEFAULT_VENDOR', 'Fintech Bangladesh'),
+    'default_vendor_name' => env('BUSINESS_DEFAULT_VENDOR', 'Fintech Bangladesh'),
     'default_vendor' => 1,
 
     /*
