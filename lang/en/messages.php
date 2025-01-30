@@ -2,13 +2,13 @@
 
 return [
     'role' => [
-        'service_assigned' => 'Assigning services to :role group successful.',
+        'service_assigned' => 'Services assigned to :role successful.',
     ],
     'country' => [
-        'service_assigned' => 'Assigning services to :country country successful.',
+        'service_assigned' => 'Services assigned to :country successful.',
     ],
     'vendor' => [
-        'service_assigned' => 'Assigning services to :vendor vendor successful.',
+        'service_assigned' => 'Services assigned to :vendor successful.',
     ],
     'service_stat' => [
         'below_lower_limit' => 'Amount is less than :currency minimum limit! Use amount above then :min_amount.',
