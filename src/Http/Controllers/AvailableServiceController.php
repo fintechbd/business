@@ -45,8 +45,8 @@ class AvailableServiceController extends Controller
 
             return Cache::remember(
                 $this->cacheIdentifier($input),
-                (App::environment('production') ? HOUR : 0),
-                //                HOUR,
+//                (App::environment('production') ? HOUR : 0),
+                                HOUR,
                 function () use ($input, $request) {
                     $serviceTypes = Business::serviceType()->available($input);
 
