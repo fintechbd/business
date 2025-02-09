@@ -37,11 +37,11 @@ class BusinessServiceProvider extends ServiceProvider
 
         $this->publishes([
             __DIR__.'/../config/business.php' => config_path('fintech/business.php'),
-        ]);
+        ], 'fintech-business-config');
 
         $this->publishes([
             __DIR__.'/../database/seeders/currency_rates.json' => database_path('seeders/currency_rates.json'),
-        ], 'currency-rate-stub');
+        ], 'fintech-business-currency-stub');
 
         $this->loadMigrationsFrom(__DIR__.'/../database/migrations');
 
@@ -49,7 +49,7 @@ class BusinessServiceProvider extends ServiceProvider
 
         $this->publishes([
             __DIR__.'/../lang' => $this->app->langPath('vendor/business'),
-        ]);
+        ], 'fintech-business-lang');
 
         $this->loadViewsFrom(__DIR__.'/../resources/views', 'business');
 
@@ -57,7 +57,7 @@ class BusinessServiceProvider extends ServiceProvider
 
         $this->publishes([
             __DIR__.'/../resources/views' => resource_path('views/vendor/business'),
-        ]);
+        ], 'fintech-business-views');
 
         if ($this->app->runningInConsole()) {
             $this->commands([
