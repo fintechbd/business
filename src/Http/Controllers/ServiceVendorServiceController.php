@@ -31,11 +31,7 @@ class ServiceVendorServiceController extends Controller
 
             return new ServiceVendorServiceResource($serviceVendor);
 
-        } catch (ModelNotFoundException $exception) {
-
-            return response()->notfound($exception->getMessage());
-
-        } catch (Exception $exception) {
+        }  catch (Exception $exception) {
 
             return response()->failed($exception);
         }
@@ -66,11 +62,7 @@ class ServiceVendorServiceController extends Controller
 
             return response()->updated(__('business::messages.vendor.service_assigned', ['vendor' => strtolower($serviceVendor->service_vendor_name ?? 'N/A')]));
 
-        } catch (ModelNotFoundException $exception) {
-
-            return response()->notfound($exception->getMessage());
-
-        } catch (Exception $exception) {
+        }  catch (Exception $exception) {
 
             return response()->failed($exception);
         }

@@ -31,11 +31,7 @@ class CountryServiceController extends Controller
 
             return new CountryServiceResource($country);
 
-        } catch (ModelNotFoundException $exception) {
-
-            return response()->notfound($exception->getMessage());
-
-        } catch (Exception $exception) {
+        }  catch (Exception $exception) {
 
             return response()->failed($exception);
         }
@@ -66,11 +62,7 @@ class CountryServiceController extends Controller
 
             return response()->updated(__('business::messages.country.service_assigned', ['country' => strtolower($country->name ?? 'N/A')]));
 
-        } catch (ModelNotFoundException $exception) {
-
-            return response()->notfound($exception->getMessage());
-
-        } catch (Exception $exception) {
+        }  catch (Exception $exception) {
 
             return response()->failed($exception);
         }

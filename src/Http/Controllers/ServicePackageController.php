@@ -104,11 +104,7 @@ class ServicePackageController extends Controller
 
             return new ServicePackageResource($servicePackage);
 
-        } catch (ModelNotFoundException $exception) {
-
-            return response()->notfound($exception->getMessage());
-
-        } catch (Exception $exception) {
+        }  catch (Exception $exception) {
 
             return response()->failed($exception);
         }
@@ -142,11 +138,7 @@ class ServicePackageController extends Controller
 
             return response()->updated(__('core::messages.resource.updated', ['model' => 'Service Package']));
 
-        } catch (ModelNotFoundException $exception) {
-
-            return response()->notfound($exception->getMessage());
-
-        } catch (Exception $exception) {
+        }  catch (Exception $exception) {
 
             return response()->failed($exception);
         }
@@ -180,11 +172,7 @@ class ServicePackageController extends Controller
 
             return response()->deleted(__('core::messages.resource.deleted', ['model' => 'Service Package']));
 
-        } catch (ModelNotFoundException $exception) {
-
-            return response()->notfound($exception->getMessage());
-
-        } catch (Exception $exception) {
+        }  catch (Exception $exception) {
 
             return response()->failed($exception);
         }
@@ -216,11 +204,7 @@ class ServicePackageController extends Controller
 
             return response()->restored(__('core::messages.resource.restored', ['model' => 'Service Package']));
 
-        } catch (ModelNotFoundException $exception) {
-
-            return response()->notfound($exception->getMessage());
-
-        } catch (Exception $exception) {
+        }  catch (Exception $exception) {
 
             return response()->failed($exception);
         }

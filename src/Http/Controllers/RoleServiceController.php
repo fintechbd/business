@@ -31,11 +31,7 @@ class RoleServiceController extends Controller
 
             return new RoleServiceResource($role);
 
-        } catch (ModelNotFoundException $exception) {
-
-            return response()->notfound($exception->getMessage());
-
-        } catch (Exception $exception) {
+        }  catch (Exception $exception) {
 
             return response()->failed($exception);
         }
@@ -66,11 +62,7 @@ class RoleServiceController extends Controller
 
             return response()->updated(__('business::messages.role.service_assigned', ['role' => strtolower($role->name ?? 'N/A')]));
 
-        } catch (ModelNotFoundException $exception) {
-
-            return response()->notfound($exception->getMessage());
-
-        } catch (Exception $exception) {
+        }  catch (Exception $exception) {
 
             return response()->failed($exception);
         }
