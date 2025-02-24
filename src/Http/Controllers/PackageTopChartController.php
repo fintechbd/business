@@ -104,7 +104,7 @@ class PackageTopChartController extends Controller
 
             return new PackageTopChartResource($packageTopChart);
 
-        }  catch (Exception $exception) {
+        } catch (Exception $exception) {
 
             return response()->failed($exception);
         }
@@ -138,7 +138,7 @@ class PackageTopChartController extends Controller
 
             return response()->updated(__('core::messages.resource.updated', ['model' => 'Package Top Chart']));
 
-        }  catch (Exception $exception) {
+        } catch (Exception $exception) {
 
             return response()->failed($exception);
         }
@@ -172,7 +172,7 @@ class PackageTopChartController extends Controller
 
             return response()->deleted(__('core::messages.resource.deleted', ['model' => 'Package Top Chart']));
 
-        }  catch (Exception $exception) {
+        } catch (Exception $exception) {
 
             return response()->failed($exception);
         }
@@ -204,7 +204,7 @@ class PackageTopChartController extends Controller
 
             return response()->restored(__('core::messages.resource.restored', ['model' => 'Package Top Chart']));
 
-        }  catch (Exception $exception) {
+        } catch (Exception $exception) {
 
             return response()->failed($exception);
         }

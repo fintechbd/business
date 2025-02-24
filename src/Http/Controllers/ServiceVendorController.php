@@ -104,7 +104,7 @@ class ServiceVendorController extends Controller
 
             return new ServiceVendorResource($serviceVendor);
 
-        }  catch (Exception $exception) {
+        } catch (Exception $exception) {
 
             return response()->failed($exception);
         }
@@ -138,7 +138,7 @@ class ServiceVendorController extends Controller
 
             return response()->updated(__('core::messages.resource.updated', ['model' => 'Service Vendor']));
 
-        }  catch (Exception $exception) {
+        } catch (Exception $exception) {
 
             return response()->failed($exception);
         }
@@ -172,7 +172,7 @@ class ServiceVendorController extends Controller
 
             return response()->deleted(__('core::messages.resource.deleted', ['model' => 'Service Vendor']));
 
-        }  catch (Exception $exception) {
+        } catch (Exception $exception) {
 
             return response()->failed($exception);
         }
@@ -204,7 +204,7 @@ class ServiceVendorController extends Controller
 
             return response()->restored(__('core::messages.resource.restored', ['model' => 'Service Vendor']));
 
-        }  catch (Exception $exception) {
+        } catch (Exception $exception) {
 
             return response()->failed($exception);
         }

@@ -31,7 +31,7 @@ class CountryServiceController extends Controller
 
             return new CountryServiceResource($country);
 
-        }  catch (Exception $exception) {
+        } catch (Exception $exception) {
 
             return response()->failed($exception);
         }
@@ -62,7 +62,7 @@ class CountryServiceController extends Controller
 
             return response()->updated(__('business::messages.country.service_assigned', ['country' => strtolower($country->name ?? 'N/A')]));
 
-        }  catch (Exception $exception) {
+        } catch (Exception $exception) {
 
             return response()->failed($exception);
         }

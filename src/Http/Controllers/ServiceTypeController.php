@@ -102,7 +102,7 @@ class ServiceTypeController extends Controller
 
             return new ServiceTypeResource($serviceType);
 
-        }  catch (Exception $exception) {
+        } catch (Exception $exception) {
 
             return response()->failed($exception);
         }
@@ -133,7 +133,7 @@ class ServiceTypeController extends Controller
 
             return response()->updated(__('core::messages.resource.updated', ['model' => 'Service Type']));
 
-        }  catch (Exception $exception) {
+        } catch (Exception $exception) {
 
             return response()->failed($exception);
         }
@@ -162,7 +162,7 @@ class ServiceTypeController extends Controller
 
             return response()->deleted(__('core::messages.resource.deleted', ['model' => 'Service Type']));
 
-        }  catch (Exception $exception) {
+        } catch (Exception $exception) {
 
             return response()->failed($exception);
         }
@@ -192,7 +192,7 @@ class ServiceTypeController extends Controller
 
             return response()->restored(__('core::messages.resource.restored', ['model' => 'Service Type']));
 
-        }  catch (Exception $exception) {
+        } catch (Exception $exception) {
 
             return response()->failed($exception);
         }

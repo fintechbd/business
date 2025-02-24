@@ -110,7 +110,7 @@ class CurrencyRateController extends Controller
 
             return new CurrencyRateResource($currencyRate);
 
-        }  catch (Exception $exception) {
+        } catch (Exception $exception) {
 
             return response()->failed($exception);
         }
@@ -144,7 +144,7 @@ class CurrencyRateController extends Controller
 
             return response()->updated(__('core::messages.resource.updated', ['model' => 'Currency Rate']));
 
-        }  catch (Exception $exception) {
+        } catch (Exception $exception) {
 
             return response()->failed($exception);
         }
@@ -179,7 +179,7 @@ class CurrencyRateController extends Controller
 
             return response()->updated(__('core::messages.resource.updated', ['model' => 'Currency Rate']));
 
-        }  catch (Exception $exception) {
+        } catch (Exception $exception) {
 
             return response()->failed($exception);
         }
@@ -213,7 +213,7 @@ class CurrencyRateController extends Controller
 
             return response()->deleted(__('core::messages.resource.deleted', ['model' => 'Currency Rate']));
 
-        }  catch (Exception $exception) {
+        } catch (Exception $exception) {
 
             return response()->failed($exception);
         }
@@ -245,7 +245,7 @@ class CurrencyRateController extends Controller
 
             return response()->restored(__('core::messages.resource.restored', ['model' => 'Currency Rate']));
 
-        }  catch (Exception $exception) {
+        } catch (Exception $exception) {
 
             return response()->failed($exception);
         }

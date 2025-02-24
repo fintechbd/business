@@ -103,7 +103,7 @@ class ServiceController extends Controller
 
             return new ServiceResource($service);
 
-        }  catch (Exception $exception) {
+        } catch (Exception $exception) {
 
             return response()->failed($exception);
         }
@@ -134,7 +134,7 @@ class ServiceController extends Controller
 
             return response()->updated(__('core::messages.resource.updated', ['model' => 'Service']));
 
-        }  catch (Exception $exception) {
+        } catch (Exception $exception) {
 
             return response()->failed($exception);
         }
@@ -163,7 +163,7 @@ class ServiceController extends Controller
 
             return response()->deleted(__('core::messages.resource.deleted', ['model' => 'Service']));
 
-        }  catch (Exception $exception) {
+        } catch (Exception $exception) {
 
             return response()->failed($exception);
         }
@@ -193,7 +193,7 @@ class ServiceController extends Controller
 
             return response()->restored(__('core::messages.resource.restored', ['model' => 'Service']));
 
-        }  catch (Exception $exception) {
+        } catch (Exception $exception) {
 
             return response()->failed($exception);
         }
@@ -262,7 +262,7 @@ class ServiceController extends Controller
 
             return new ServiceCostResource($exchangeRate);
 
-        }  catch (Exception $exception) {
+        } catch (Exception $exception) {
 
             return response()->failed($exception);
         }
