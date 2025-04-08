@@ -54,15 +54,9 @@ class ServiceType extends BaseModel implements Auditable, HasMedia
             ->useDisk(config('filesystems.default', 'public'));
     }
 
-    public function rootParent()
-    {
+    public function rootParent() {}
 
-    }
-
-    private function iterateOverCacheServiceTypes(string|int $serviceTypeId): self
-    {
-
-    }
+    private function iterateOverCacheServiceTypes(string|int $serviceTypeId): self {}
 
     /*
     |--------------------------------------------------------------------------
@@ -106,7 +100,7 @@ class ServiceType extends BaseModel implements Auditable, HasMedia
     {
         $data = [];
         $parentList = $this->allParentAccounts ? $this->allParentAccounts->toArray() : null;
-        if (!empty($parentList)) {
+        if (! empty($parentList)) {
             $data = [$parentList['id'] => $parentList['service_type_name']];
             if (isset($parentList['all_parent_accounts'])) {
                 $data = array_merge($data, $this->all_accounts($parentList['all_parent_accounts']));
