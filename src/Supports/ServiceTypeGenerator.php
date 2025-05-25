@@ -252,7 +252,7 @@ class ServiceTypeGenerator
                     'enabled' => $this->enabled,
                 ];
 
-                if (!business()->serviceStat()->list([
+                if (! business()->serviceStat()->list([
                     'role_id' => $serviceStat['role_id'],
                     'service_id' => $serviceStat['service_id'],
                     'source_country_id' => $serviceStat['source_country_id'],
@@ -267,7 +267,7 @@ class ServiceTypeGenerator
 
     private function createOrUpdateTransactionForm(): void
     {
-        if (Core::packageExists('Transaction') && !transaction()->transactionForm()->findWhere(['code' => $this->instance->service_type_slug])) {
+        if (Core::packageExists('Transaction') && ! transaction()->transactionForm()->findWhere(['code' => $this->instance->service_type_slug])) {
             transaction()->transactionForm()->create([
                 'name' => $this->instance->service_type_name,
                 'code' => $this->instance->service_type_slug,

@@ -128,7 +128,7 @@ class ServiceFieldController extends Controller
 
             $inputs = $request->validated();
 
-            if (!business()->serviceField()->update($id, $inputs)) {
+            if (! business()->serviceField()->update($id, $inputs)) {
 
                 throw (new UpdateOperationException)->setModel(config('fintech.business.service_field_model'), $id);
             }
@@ -162,7 +162,7 @@ class ServiceFieldController extends Controller
                 throw (new ModelNotFoundException)->setModel(config('fintech.business.service_field_model'), $id);
             }
 
-            if (!business()->serviceField()->destroy($id)) {
+            if (! business()->serviceField()->destroy($id)) {
 
                 throw (new DeleteOperationException)->setModel(config('fintech.business.service_field_model'), $id);
             }
@@ -194,7 +194,7 @@ class ServiceFieldController extends Controller
                 throw (new ModelNotFoundException)->setModel(config('fintech.business.service_field_model'), $id);
             }
 
-            if (!business()->serviceField()->restore($id)) {
+            if (! business()->serviceField()->restore($id)) {
 
                 throw (new RestoreOperationException)->setModel(config('fintech.business.service_field_model'), $id);
             }

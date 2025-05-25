@@ -124,7 +124,7 @@ class ServiceSettingController extends Controller
 
             $inputs = $request->validated();
 
-            if (!business()->serviceSetting()->update($id, $inputs)) {
+            if (! business()->serviceSetting()->update($id, $inputs)) {
 
                 throw (new UpdateOperationException)->setModel(config('fintech.business.service_setting_model'), $id);
             }
@@ -153,7 +153,7 @@ class ServiceSettingController extends Controller
                 throw (new ModelNotFoundException)->setModel(config('fintech.business.service_setting_model'), $id);
             }
 
-            if (!business()->serviceSetting()->destroy($id)) {
+            if (! business()->serviceSetting()->destroy($id)) {
 
                 throw (new DeleteOperationException)->setModel(config('fintech.business.service_setting_model'), $id);
             }
@@ -183,7 +183,7 @@ class ServiceSettingController extends Controller
                 throw (new ModelNotFoundException)->setModel(config('fintech.business.service_setting_model'), $id);
             }
 
-            if (!business()->serviceSetting()->restore($id)) {
+            if (! business()->serviceSetting()->restore($id)) {
 
                 throw (new RestoreOperationException)->setModel(config('fintech.business.service_setting_model'), $id);
             }

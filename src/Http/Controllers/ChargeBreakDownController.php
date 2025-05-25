@@ -128,7 +128,7 @@ class ChargeBreakDownController extends Controller
 
             $inputs = $request->validated();
 
-            if (!business()->chargeBreakDown()->update($id, $inputs)) {
+            if (! business()->chargeBreakDown()->update($id, $inputs)) {
 
                 throw (new UpdateOperationException)->setModel(config('fintech.business.charge_break_down_model'), $id);
             }
@@ -162,7 +162,7 @@ class ChargeBreakDownController extends Controller
                 throw (new ModelNotFoundException)->setModel(config('fintech.business.charge_break_down_model'), $id);
             }
 
-            if (!business()->chargeBreakDown()->destroy($id)) {
+            if (! business()->chargeBreakDown()->destroy($id)) {
 
                 throw (new DeleteOperationException)->setModel(config('fintech.business.charge_break_down_model'), $id);
             }
@@ -194,7 +194,7 @@ class ChargeBreakDownController extends Controller
                 throw (new ModelNotFoundException)->setModel(config('fintech.business.charge_break_down_model'), $id);
             }
 
-            if (!business()->chargeBreakDown()->restore($id)) {
+            if (! business()->chargeBreakDown()->restore($id)) {
 
                 throw (new RestoreOperationException)->setModel(config('fintech.business.charge_break_down_model'), $id);
             }

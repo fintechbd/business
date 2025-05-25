@@ -54,7 +54,7 @@ class ServiceVendorServiceController extends Controller
 
             $inputs = $request->validated();
 
-            if (!business()->serviceVendor()->update($id, $inputs)) {
+            if (! business()->serviceVendor()->update($id, $inputs)) {
 
                 throw (new UpdateOperationException)->setModel(config('fintech.business.service_vendor_model'), $id);
             }

@@ -130,7 +130,7 @@ class PackageTopChartController extends Controller
 
             $inputs = $request->validated();
 
-            if (!business()->packageTopChart()->update($id, $inputs)) {
+            if (! business()->packageTopChart()->update($id, $inputs)) {
 
                 throw (new UpdateOperationException)->setModel(config('fintech.business.package_top_chart_model'), $id);
             }
@@ -164,7 +164,7 @@ class PackageTopChartController extends Controller
                 throw (new ModelNotFoundException)->setModel(config('fintech.business.package_top_chart_model'), $id);
             }
 
-            if (!business()->packageTopChart()->destroy($id)) {
+            if (! business()->packageTopChart()->destroy($id)) {
 
                 throw (new DeleteOperationException)->setModel(config('fintech.business.package_top_chart_model'), $id);
             }
@@ -196,7 +196,7 @@ class PackageTopChartController extends Controller
                 throw (new ModelNotFoundException)->setModel(config('fintech.business.package_top_chart_model'), $id);
             }
 
-            if (!business()->packageTopChart()->restore($id)) {
+            if (! business()->packageTopChart()->restore($id)) {
 
                 throw (new RestoreOperationException)->setModel(config('fintech.business.package_top_chart_model'), $id);
             }

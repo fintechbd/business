@@ -136,7 +136,7 @@ class CurrencyRateController extends Controller
 
             $inputs = $request->validated();
 
-            if (!business()->currencyRate()->update($id, $inputs)) {
+            if (! business()->currencyRate()->update($id, $inputs)) {
 
                 throw (new UpdateOperationException)->setModel(config('fintech.business.currency_rate_model'), $id);
             }
@@ -205,7 +205,7 @@ class CurrencyRateController extends Controller
                 throw (new ModelNotFoundException)->setModel(config('fintech.business.currency_rate_model'), $id);
             }
 
-            if (!business()->currencyRate()->destroy($id)) {
+            if (! business()->currencyRate()->destroy($id)) {
 
                 throw (new DeleteOperationException)->setModel(config('fintech.business.currency_rate_model'), $id);
             }
@@ -237,7 +237,7 @@ class CurrencyRateController extends Controller
                 throw (new ModelNotFoundException)->setModel(config('fintech.business.currency_rate_model'), $id);
             }
 
-            if (!business()->currencyRate()->restore($id)) {
+            if (! business()->currencyRate()->restore($id)) {
 
                 throw (new RestoreOperationException)->setModel(config('fintech.business.currency_rate_model'), $id);
             }

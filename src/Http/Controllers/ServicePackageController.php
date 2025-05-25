@@ -130,7 +130,7 @@ class ServicePackageController extends Controller
 
             $inputs = $request->validated();
 
-            if (!business()->servicePackage()->update($id, $inputs)) {
+            if (! business()->servicePackage()->update($id, $inputs)) {
 
                 throw (new UpdateOperationException)->setModel(config('fintech.business.service_package_model'), $id);
             }
@@ -164,7 +164,7 @@ class ServicePackageController extends Controller
                 throw (new ModelNotFoundException)->setModel(config('fintech.business.service_package_model'), $id);
             }
 
-            if (!business()->servicePackage()->destroy($id)) {
+            if (! business()->servicePackage()->destroy($id)) {
 
                 throw (new DeleteOperationException)->setModel(config('fintech.business.service_package_model'), $id);
             }
@@ -196,7 +196,7 @@ class ServicePackageController extends Controller
                 throw (new ModelNotFoundException)->setModel(config('fintech.business.service_package_model'), $id);
             }
 
-            if (!business()->servicePackage()->restore($id)) {
+            if (! business()->servicePackage()->restore($id)) {
 
                 throw (new RestoreOperationException)->setModel(config('fintech.business.service_package_model'), $id);
             }

@@ -130,7 +130,7 @@ class ServiceVendorController extends Controller
 
             $inputs = $request->validated();
 
-            if (!business()->serviceVendor()->update($id, $inputs)) {
+            if (! business()->serviceVendor()->update($id, $inputs)) {
 
                 throw (new UpdateOperationException)->setModel(config('fintech.business.service_vendor_model'), $id);
             }
@@ -164,7 +164,7 @@ class ServiceVendorController extends Controller
                 throw (new ModelNotFoundException)->setModel(config('fintech.business.service_vendor_model'), $id);
             }
 
-            if (!business()->serviceVendor()->destroy($id)) {
+            if (! business()->serviceVendor()->destroy($id)) {
 
                 throw (new DeleteOperationException)->setModel(config('fintech.business.service_vendor_model'), $id);
             }
@@ -196,7 +196,7 @@ class ServiceVendorController extends Controller
                 throw (new ModelNotFoundException)->setModel(config('fintech.business.service_vendor_model'), $id);
             }
 
-            if (!business()->serviceVendor()->restore($id)) {
+            if (! business()->serviceVendor()->restore($id)) {
 
                 throw (new RestoreOperationException)->setModel(config('fintech.business.service_vendor_model'), $id);
             }
