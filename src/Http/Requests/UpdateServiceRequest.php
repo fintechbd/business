@@ -2,7 +2,6 @@
 
 namespace Fintech\Business\Http\Requests;
 
-use Fintech\Business\Facades\Business;
 use Fintech\Core\Rules\ServiceTypeParent;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
@@ -43,7 +42,7 @@ class UpdateServiceRequest extends FormRequest
             'enabled' => ['boolean', 'nullable', 'min:1'],
         ];
 
-        Business::serviceSetting()->list([
+        business()->serviceSetting()->list([
             'paginate' => false,
             'service_setting_type' => 'service',
         ])->each(function ($serviceSetting) use (&$rules) {

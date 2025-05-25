@@ -2,7 +2,6 @@
 
 namespace Fintech\Business\Http\Resources;
 
-use Fintech\Business\Facades\Business;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\ResourceCollection;
 use Illuminate\Support\Str;
@@ -60,7 +59,7 @@ class ServiceTypeListCollection extends ResourceCollection
     private function prepareServiceTypeMetaData(): void
     {
         if (! cache()->has('fintech.serviceTypeList')) {
-            Business::serviceType()->list([
+            business()->serviceType()->list([
                 'get' => [
                     'service_types.id',
                     'service_types.service_type_name',
@@ -76,7 +75,7 @@ class ServiceTypeListCollection extends ResourceCollection
             $this->serviceTypeList = cache()->get('fintech.serviceTypeList', []);
         }
 
-        Business::serviceSetting()
+        business()->serviceSetting()
             ->list(['enabled' => true, 'paginate' => false, 'service_setting_type' => 'service'])
             ->each(function ($item) {
                 $this->defaultServiceSettings[$item->service_setting_field_name] = $item->service_setting_value ?? null;

@@ -2,7 +2,6 @@
 
 namespace Fintech\Business\Http\Resources;
 
-use Fintech\Business\Facades\Business;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Support\Collection;
@@ -23,13 +22,13 @@ class CountryServiceResource extends JsonResource
      */
     public function toArray($request)
     {
-        $this->serviceTypes = Business::serviceType()->list();
+        $this->serviceTypes = business()->serviceType()->list();
 
         $countryServices = $this->services?->pluck('id')->toArray() ?? [];
 
         $data = [];
 
-        Business::service()
+        business()->service()
             ->list(['paginate' => false])
             ->each(function ($service) use (&$data, $countryServices) {
                 $serviceTypesNames = [];

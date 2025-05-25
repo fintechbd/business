@@ -3,13 +3,11 @@
 namespace Fintech\Business\Http\Controllers;
 
 use Exception;
-use Fintech\Business\Facades\Business;
 use Fintech\Business\Http\Requests\ServiceTypeListRequest;
 use Fintech\Business\Http\Resources\ServiceTypeListCollection;
 use Fintech\Core\Supports\Utility;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Routing\Controller;
-use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Cache;
 
 class AvailableServiceController extends Controller
@@ -35,7 +33,7 @@ class AvailableServiceController extends Controller
             }
 
             if ($request->filled('service_type_parent_slug')) {
-                $serviceType = Business::serviceType()->findWhere(['service_type_slug' => $input['service_type_parent_slug'], 'get' => ['service_types.id']]);
+                $serviceType = business()->serviceType()->findWhere(['service_type_slug' => $input['service_type_parent_slug'], 'get' => ['service_types.id']]);
                 $input['service_type_parent_id'] = $serviceType->id;
             } elseif ($request->filled('service_type_parent_id')) {
                 $input['service_type_parent_id'] = $request->input('service_type_parent_id');
@@ -48,7 +46,7 @@ class AvailableServiceController extends Controller
                 //                (App::environment('production') ? HOUR : 0),
                 HOUR,
                 function () use ($input, $request) {
-                    $serviceTypes = Business::serviceType()->available($input);
+                    $serviceTypes = business()->serviceType()->available($input);
 
                     return (new ServiceTypeListCollection($serviceTypes))->toResponse($request);
                 });

@@ -3,7 +3,6 @@
 namespace Fintech\Business\Http\Controllers;
 
 use Exception;
-use Fintech\Business\Facades\Business;
 use Fintech\Business\Http\Requests\ImportServiceStatRequest;
 use Fintech\Business\Http\Requests\IndexServiceStatRequest;
 use Fintech\Business\Http\Requests\StoreServiceStatRequest;
@@ -47,7 +46,7 @@ class ServiceStatController extends Controller
         try {
             $inputs = $request->validated();
 
-            $serviceStatPaginate = Business::serviceStat()->list($inputs);
+            $serviceStatPaginate = business()->serviceStat()->list($inputs);
 
             return new ServiceStatCollection($serviceStatPaginate);
 
@@ -67,7 +66,7 @@ class ServiceStatController extends Controller
     {
         try {
             $inputs = $request->validated();
-            $serviceStat = Business::serviceStat()->customStore($inputs);
+            $serviceStat = business()->serviceStat()->customStore($inputs);
 
             if (! $serviceStat) {
                 throw (new StoreOperationException)->setModel(config('fintech.business.service_stat_model'));
@@ -94,7 +93,7 @@ class ServiceStatController extends Controller
     {
         try {
 
-            $serviceStat = Business::serviceStat()->find($id);
+            $serviceStat = business()->serviceStat()->find($id);
 
             if (! $serviceStat) {
                 throw (new ModelNotFoundException)->setModel(config('fintech.business.service_stat_model'), $id);
@@ -118,7 +117,7 @@ class ServiceStatController extends Controller
     {
         try {
 
-            $serviceStat = Business::serviceStat()->find($id);
+            $serviceStat = business()->serviceStat()->find($id);
 
             if (! $serviceStat) {
                 throw (new ModelNotFoundException)->setModel(config('fintech.business.service_stat_model'), $id);
@@ -126,7 +125,7 @@ class ServiceStatController extends Controller
 
             $inputs = $request->validated();
 
-            if (! Business::serviceStat()->update($id, $inputs)) {
+            if (!business()->serviceStat()->update($id, $inputs)) {
 
                 throw (new UpdateOperationException)->setModel(config('fintech.business.service_stat_model'), $id);
             }
@@ -149,13 +148,13 @@ class ServiceStatController extends Controller
     {
         try {
 
-            $serviceStat = Business::serviceStat()->find($id);
+            $serviceStat = business()->serviceStat()->find($id);
 
             if (! $serviceStat) {
                 throw (new ModelNotFoundException)->setModel(config('fintech.business.service_stat_model'), $id);
             }
 
-            if (! Business::serviceStat()->destroy($id)) {
+            if (!business()->serviceStat()->destroy($id)) {
 
                 throw (new DeleteOperationException)->setModel(config('fintech.business.service_stat_model'), $id);
             }
@@ -179,13 +178,13 @@ class ServiceStatController extends Controller
     {
         try {
 
-            $serviceStat = Business::serviceStat()->find($id, true);
+            $serviceStat = business()->serviceStat()->find($id, true);
 
             if (! $serviceStat) {
                 throw (new ModelNotFoundException)->setModel(config('fintech.business.service_stat_model'), $id);
             }
 
-            if (! Business::serviceStat()->restore($id)) {
+            if (!business()->serviceStat()->restore($id)) {
 
                 throw (new RestoreOperationException)->setModel(config('fintech.business.service_stat_model'), $id);
             }
@@ -210,7 +209,7 @@ class ServiceStatController extends Controller
         try {
             $inputs = $request->validated();
 
-            Business::serviceStat()->export($inputs);
+            business()->serviceStat()->export($inputs);
 
             return response()->exported(__('core::messages.resource.exported', ['model' => 'Service Stat']));
 
@@ -232,7 +231,7 @@ class ServiceStatController extends Controller
         try {
             $inputs = $request->validated();
 
-            $serviceStatPaginate = Business::serviceStat()->list($inputs);
+            $serviceStatPaginate = business()->serviceStat()->list($inputs);
 
             return new ServiceStatCollection($serviceStatPaginate);
 
@@ -249,7 +248,7 @@ class ServiceStatController extends Controller
             $inputs['sort'] = 'destination_country_id';
             $inputs['paginate'] = false;
 
-            $destination_countries = Business::serviceStat()->list($inputs)->toArray();
+            $destination_countries = business()->serviceStat()->list($inputs)->toArray();
 
             $list = array_unique(array_column($destination_countries, $inputs['sort']));
             $countries = MetaData::country()->list(['in_array_country_id' => array_values($list)]);
@@ -286,7 +285,7 @@ class ServiceStatController extends Controller
                 unset($filters['attribute']);
             }
 
-            $entries = Business::serviceStat()->list($filters)->map(function ($entry) use ($label, $attribute) {
+            $entries = business()->serviceStat()->list($filters)->map(function ($entry) use ($label, $attribute) {
                 return [
                     'attribute' => $entry->{$attribute} ?? 'id',
                     'label' => $entry->{$label} ?? 'name',

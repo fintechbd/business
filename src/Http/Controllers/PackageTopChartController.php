@@ -3,7 +3,6 @@
 namespace Fintech\Business\Http\Controllers;
 
 use Exception;
-use Fintech\Business\Facades\Business;
 use Fintech\Business\Http\Requests\ImportPackageTopChartRequest;
 use Fintech\Business\Http\Requests\IndexPackageTopChartRequest;
 use Fintech\Business\Http\Requests\StorePackageTopChartRequest;
@@ -44,7 +43,7 @@ class PackageTopChartController extends Controller
         try {
             $inputs = $request->validated();
 
-            $packageTopChartPaginate = Business::packageTopChart()->list($inputs);
+            $packageTopChartPaginate = business()->packageTopChart()->list($inputs);
 
             return new PackageTopChartCollection($packageTopChartPaginate);
 
@@ -67,7 +66,7 @@ class PackageTopChartController extends Controller
         try {
             $inputs = $request->validated();
 
-            $packageTopChart = Business::packageTopChart()->create($inputs);
+            $packageTopChart = business()->packageTopChart()->create($inputs);
 
             if (! $packageTopChart) {
                 throw (new StoreOperationException)->setModel(config('fintech.business.package_top_chart_model'));
@@ -96,7 +95,7 @@ class PackageTopChartController extends Controller
     {
         try {
 
-            $packageTopChart = Business::packageTopChart()->find($id);
+            $packageTopChart = business()->packageTopChart()->find($id);
 
             if (! $packageTopChart) {
                 throw (new ModelNotFoundException)->setModel(config('fintech.business.package_top_chart_model'), $id);
@@ -123,7 +122,7 @@ class PackageTopChartController extends Controller
     {
         try {
 
-            $packageTopChart = Business::packageTopChart()->find($id);
+            $packageTopChart = business()->packageTopChart()->find($id);
 
             if (! $packageTopChart) {
                 throw (new ModelNotFoundException)->setModel(config('fintech.business.package_top_chart_model'), $id);
@@ -131,7 +130,7 @@ class PackageTopChartController extends Controller
 
             $inputs = $request->validated();
 
-            if (! Business::packageTopChart()->update($id, $inputs)) {
+            if (!business()->packageTopChart()->update($id, $inputs)) {
 
                 throw (new UpdateOperationException)->setModel(config('fintech.business.package_top_chart_model'), $id);
             }
@@ -159,13 +158,13 @@ class PackageTopChartController extends Controller
     {
         try {
 
-            $packageTopChart = Business::packageTopChart()->find($id);
+            $packageTopChart = business()->packageTopChart()->find($id);
 
             if (! $packageTopChart) {
                 throw (new ModelNotFoundException)->setModel(config('fintech.business.package_top_chart_model'), $id);
             }
 
-            if (! Business::packageTopChart()->destroy($id)) {
+            if (!business()->packageTopChart()->destroy($id)) {
 
                 throw (new DeleteOperationException)->setModel(config('fintech.business.package_top_chart_model'), $id);
             }
@@ -191,13 +190,13 @@ class PackageTopChartController extends Controller
     {
         try {
 
-            $packageTopChart = Business::packageTopChart()->find($id, true);
+            $packageTopChart = business()->packageTopChart()->find($id, true);
 
             if (! $packageTopChart) {
                 throw (new ModelNotFoundException)->setModel(config('fintech.business.package_top_chart_model'), $id);
             }
 
-            if (! Business::packageTopChart()->restore($id)) {
+            if (!business()->packageTopChart()->restore($id)) {
 
                 throw (new RestoreOperationException)->setModel(config('fintech.business.package_top_chart_model'), $id);
             }
@@ -222,7 +221,7 @@ class PackageTopChartController extends Controller
         try {
             $inputs = $request->validated();
 
-            $packageTopChartPaginate = Business::packageTopChart()->export($inputs);
+            $packageTopChartPaginate = business()->packageTopChart()->export($inputs);
 
             return response()->exported(__('core::messages.resource.exported', ['model' => 'Package Top Chart']));
 
@@ -246,7 +245,7 @@ class PackageTopChartController extends Controller
         try {
             $inputs = $request->validated();
 
-            $packageTopChartPaginate = Business::packageTopChart()->list($inputs);
+            $packageTopChartPaginate = business()->packageTopChart()->list($inputs);
 
             return new PackageTopChartCollection($packageTopChartPaginate);
 
@@ -281,7 +280,7 @@ class PackageTopChartController extends Controller
                 unset($filters['attribute']);
             }
 
-            $entries = Business::packageTopChart()->list($filters)->map(function ($entry) use ($label, $attribute) {
+            $entries = business()->packageTopChart()->list($filters)->map(function ($entry) use ($label, $attribute) {
                 return [
                     'attribute' => $entry->{$attribute} ?? 'id',
                     'label' => $entry->{$label} ?? 'name',

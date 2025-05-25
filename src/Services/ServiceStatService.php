@@ -4,7 +4,6 @@ namespace Fintech\Business\Services;
 
 use Exception;
 use Fintech\Business\Exceptions\BusinessException;
-use Fintech\Business\Facades\Business;
 use Fintech\Business\Interfaces\ServiceStatRepository;
 use Fintech\Core\Abstracts\BaseModel;
 use Illuminate\Contracts\Pagination\Paginator;
@@ -78,7 +77,7 @@ class ServiceStatService
                         if (is_array($data['destination_country_id'])) {
                             foreach ($data['destination_country_id'] as $destination_country) {
                                 $inputs['destination_country_id'] = $destination_country;
-                                $serviceStat = Business::serviceStat()->create($inputs);
+                                $serviceStat = business()->serviceStat()->create($inputs);
                                 $serviceStats[] = $serviceStat->getKey();
                                 // $serviceStats[] = $inputs;
                             }
@@ -106,13 +105,13 @@ class ServiceStatService
         $serviceStateData['destination_country_id'] = $order->destination_country_id;
         $serviceStateData['amount'] = $order->amount;
         $serviceStateData['enable'] = true;
-        $serviceStates = Business::serviceStat()->findWhere($serviceStateData);
+        $serviceStates = business()->serviceStat()->findWhere($serviceStateData);
         if (! $serviceStates) {
             throw new Exception('Service State Data not found');
         }
         $serviceState = $serviceStates->toArray();
         $serviceStateData['service_stat_id'] = $serviceState['id'];
-        $charge_break_down = Business::chargeBreakDown()->findWhere($serviceStateData);
+        $charge_break_down = business()->chargeBreakDown()->findWhere($serviceStateData);
         $serviceState = $serviceState['service_stat_data'];
         if ($charge_break_down) {
             $serviceStateJsonData['charge'] = $charge_break_down->charge;
@@ -191,13 +190,13 @@ class ServiceStatService
             'reverse' => $inputs['reverse'],
         ];
 
-        $exchangeRate = Business::currencyRate()->convert($currencyRateParams);
+        $exchangeRate = business()->currencyRate()->convert($currencyRateParams);
         if (! $exchangeRate) {
             // throw (new ModelNotFoundException())->setModel(config('fintech.business.service_stat_model', ServiceStat::class), $inputs);
             throw new ModelNotFoundException("Currency Convert Rate doesn't exists");
         }
 
-        $service = Business::service()->find($inputs['service_id']);
+        $service = business()->service()->find($inputs['service_id']);
 
         $serviceStat = $this->list([
             'role_id' => $inputs['role_id'],
@@ -274,7 +273,7 @@ class ServiceStatService
             }
         }
 
-        $chargeBreakDown = Business::chargeBreakDown()->findWhere([
+        $chargeBreakDown = business()->chargeBreakDown()->findWhere([
             'enabled' => true,
             'service_id' => $inputs['service_id'],
             'service_stat_id' => $serviceStat->getKey(),

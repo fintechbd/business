@@ -2,7 +2,6 @@
 
 namespace Fintech\Business\Commands;
 
-use Fintech\Business\Facades\Business;
 use Fintech\Core\Traits\HasCoreSetting;
 use Illuminate\Console\Command;
 use Illuminate\Support\Str;
@@ -271,7 +270,7 @@ class InstallCommand extends Command
     {
         $this->task('Populating service settings', function () {
             foreach ($this->serviceSettings as $serviceSetting) {
-                Business::serviceSetting()->create($serviceSetting);
+                business()->serviceSetting()->create($serviceSetting);
             }
         });
     }
@@ -293,7 +292,7 @@ class InstallCommand extends Command
             $image_svg = __DIR__.'/../../resources/img/service_vendor_logo_svg/mt-technology-ltd-logo.svg';
             $vendor['logo_svg'] = 'data:image/svg+xml;base64,'.base64_encode(file_get_contents($image_svg));
 
-            Business::serviceVendor()->create($vendor);
+            business()->serviceVendor()->create($vendor);
         });
     }
 

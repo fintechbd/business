@@ -3,7 +3,6 @@
 namespace Fintech\Business\Http\Controllers;
 
 use Exception;
-use Fintech\Business\Facades\Business;
 use Fintech\Business\Http\Requests\ImportServiceFieldRequest;
 use Fintech\Business\Http\Requests\IndexServiceFieldRequest;
 use Fintech\Business\Http\Requests\StoreServiceFieldRequest;
@@ -42,7 +41,7 @@ class ServiceFieldController extends Controller
         try {
             $inputs = $request->validated();
 
-            $serviceFieldPaginate = Business::serviceField()->list($inputs);
+            $serviceFieldPaginate = business()->serviceField()->list($inputs);
 
             return new ServiceFieldCollection($serviceFieldPaginate);
 
@@ -65,7 +64,7 @@ class ServiceFieldController extends Controller
         try {
             $inputs = $request->validated();
 
-            $serviceField = Business::serviceField()->create($inputs);
+            $serviceField = business()->serviceField()->create($inputs);
 
             if (! $serviceField) {
                 throw (new StoreOperationException)->setModel(config('fintech.business.service_field_model'));
@@ -94,7 +93,7 @@ class ServiceFieldController extends Controller
     {
         try {
 
-            $serviceField = Business::serviceField()->find($id);
+            $serviceField = business()->serviceField()->find($id);
 
             if (! $serviceField) {
                 throw (new ModelNotFoundException)->setModel(config('fintech.business.service_field_model'), $id);
@@ -121,7 +120,7 @@ class ServiceFieldController extends Controller
     {
         try {
 
-            $serviceField = Business::serviceField()->find($id);
+            $serviceField = business()->serviceField()->find($id);
 
             if (! $serviceField) {
                 throw (new ModelNotFoundException)->setModel(config('fintech.business.service_field_model'), $id);
@@ -129,7 +128,7 @@ class ServiceFieldController extends Controller
 
             $inputs = $request->validated();
 
-            if (! Business::serviceField()->update($id, $inputs)) {
+            if (!business()->serviceField()->update($id, $inputs)) {
 
                 throw (new UpdateOperationException)->setModel(config('fintech.business.service_field_model'), $id);
             }
@@ -157,13 +156,13 @@ class ServiceFieldController extends Controller
     {
         try {
 
-            $serviceField = Business::serviceField()->find($id);
+            $serviceField = business()->serviceField()->find($id);
 
             if (! $serviceField) {
                 throw (new ModelNotFoundException)->setModel(config('fintech.business.service_field_model'), $id);
             }
 
-            if (! Business::serviceField()->destroy($id)) {
+            if (!business()->serviceField()->destroy($id)) {
 
                 throw (new DeleteOperationException)->setModel(config('fintech.business.service_field_model'), $id);
             }
@@ -189,13 +188,13 @@ class ServiceFieldController extends Controller
     {
         try {
 
-            $serviceField = Business::serviceField()->find($id, true);
+            $serviceField = business()->serviceField()->find($id, true);
 
             if (! $serviceField) {
                 throw (new ModelNotFoundException)->setModel(config('fintech.business.service_field_model'), $id);
             }
 
-            if (! Business::serviceField()->restore($id)) {
+            if (!business()->serviceField()->restore($id)) {
 
                 throw (new RestoreOperationException)->setModel(config('fintech.business.service_field_model'), $id);
             }
@@ -220,7 +219,7 @@ class ServiceFieldController extends Controller
         try {
             $inputs = $request->validated();
 
-            $serviceFieldPaginate = Business::serviceField()->export($inputs);
+            $serviceFieldPaginate = business()->serviceField()->export($inputs);
 
             return response()->exported(__('core::messages.resource.exported', ['model' => 'Service Field']));
 
@@ -244,7 +243,7 @@ class ServiceFieldController extends Controller
         try {
             $inputs = $request->validated();
 
-            $serviceFieldPaginate = Business::serviceField()->list($inputs);
+            $serviceFieldPaginate = business()->serviceField()->list($inputs);
 
             return new ServiceFieldCollection($serviceFieldPaginate);
 

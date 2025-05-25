@@ -3,7 +3,6 @@
 namespace Fintech\Business\Traits;
 
 use Fintech\Auth\Facades\Auth;
-use Fintech\Business\Facades\Business;
 
 trait ServiceSeeder
 {
@@ -13,7 +12,7 @@ trait ServiceSeeder
         $roles = Auth::role()->list(['id_not_in' => [1]])->pluck('id')->toArray();
         if (! empty($roles) && ! empty($source_countries) && ! empty($destination_countries)) {
             foreach ($this->service() as $service) {
-                $serviceModel = Business::service()->findWhere(['service_slug' => $service['service_slug']]);
+                $serviceModel = business()->service()->findWhere(['service_slug' => $service['service_slug']]);
                 $serviceStats[] = [
                     'role_id' => $roles,
                     'service_id' => $serviceModel->getKey(),

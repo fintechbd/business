@@ -2,7 +2,6 @@
 
 namespace Fintech\Business\Http\Requests;
 
-use Fintech\Business\Facades\Business;
 use Fintech\Core\Rules\PercentNumber;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
@@ -49,7 +48,7 @@ class StoreServiceStatRequest extends FormRequest
             'service_stat_data.commission_refund' => ['string', 'required', 'in:yes,no'],
         ];
 
-        Business::serviceSetting()->list([
+        business()->serviceSetting()->list([
             'service_setting_type' => 'service_stat',
             'enabled' => true,
             'paginate' => false])
@@ -84,7 +83,7 @@ class StoreServiceStatRequest extends FormRequest
 
     protected function prepareForValidation()
     {
-        $service = Business::service()->find($this->input('service_id'));
+        $service = business()->service()->find($this->input('service_id'));
 
         $this->merge(['service_slug' => $service->service_slug]);
     }

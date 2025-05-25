@@ -2,7 +2,6 @@
 
 namespace Fintech\Business\Http\Resources;
 
-use Fintech\Business\Facades\Business;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Support\Collection;
@@ -24,7 +23,7 @@ class RoleServiceResource extends JsonResource
 
         $data = [];
 
-        Business::service()
+        business()->service()
             ->list(['paginate' => false])
             ->each(function ($service) use (&$data, $roleServices) {
                 $data[] = [

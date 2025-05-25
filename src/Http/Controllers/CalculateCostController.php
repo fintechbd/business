@@ -3,7 +3,6 @@
 namespace Fintech\Business\Http\Controllers;
 
 use Exception;
-use Fintech\Business\Facades\Business;
 use Fintech\Business\Http\Requests\ServiceRateRequest;
 use Fintech\Business\Http\Resources\ServiceCostResource;
 use Illuminate\Http\JsonResponse;
@@ -23,7 +22,7 @@ class CalculateCostController extends Controller
 
             $inputs['role_id'] = array_shift($roles);
 
-            $exchangeRate = Business::serviceStat()->cost($inputs);
+            $exchangeRate = business()->serviceStat()->cost($inputs);
 
             return new ServiceCostResource($exchangeRate);
 

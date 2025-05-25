@@ -2,7 +2,6 @@
 
 namespace Fintech\Business\Services;
 
-use Fintech\Business\Facades\Business;
 use Fintech\Business\Interfaces\ServiceTypeRepository;
 use Fintech\Core\Abstracts\BaseModel;
 use Illuminate\Contracts\Pagination\Paginator;
@@ -89,8 +88,8 @@ class ServiceTypeService
                     foreach ($fullServiceTypes as $fullServiceType) {
                         $fullServiceType['service_stat_data'] = $fullServiceType['service_stat_data'] ?? [];
                         $fullServiceType['service_data'] = $fullServiceType['service_data'] ?? [];
-                        $fullServiceType->logo_svg = Business::service()->find($fullServiceType->service_id)?->getFirstMediaUrl('logo_svg') ?? null;
-                        $fullServiceType->logo_png = Business::service()->find($fullServiceType->service_id)?->getFirstMediaUrl('logo_png') ?? null;
+                        $fullServiceType->logo_svg = business()->service()->find($fullServiceType->service_id)?->getFirstMediaUrl('logo_svg') ?? null;
+                        $fullServiceType->logo_png = business()->service()->find($fullServiceType->service_id)?->getFirstMediaUrl('logo_png') ?? null;
                         if (isset($fullServiceType->media)) {
                             unset($fullServiceType->media);
                         }

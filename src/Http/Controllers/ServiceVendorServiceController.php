@@ -3,7 +3,6 @@
 namespace Fintech\Business\Http\Controllers;
 
 use Exception;
-use Fintech\Business\Facades\Business;
 use Fintech\Business\Http\Requests\ServiceVendorServiceRequest;
 use Fintech\Business\Http\Resources\ServiceVendorServiceResource;
 use Fintech\Core\Exceptions\UpdateOperationException;
@@ -23,7 +22,7 @@ class ServiceVendorServiceController extends Controller
     {
         try {
 
-            $serviceVendor = Business::serviceVendor()->find($id);
+            $serviceVendor = business()->serviceVendor()->find($id);
 
             if (! $serviceVendor) {
                 throw (new ModelNotFoundException)->setModel(config('fintech.business.service_vendor_model'), $id);
@@ -47,7 +46,7 @@ class ServiceVendorServiceController extends Controller
     {
         try {
 
-            $serviceVendor = Business::serviceVendor()->find($id);
+            $serviceVendor = business()->serviceVendor()->find($id);
 
             if (! $serviceVendor) {
                 throw (new ModelNotFoundException)->setModel(config('fintech.business.service_vendor_model'), $id);
@@ -55,7 +54,7 @@ class ServiceVendorServiceController extends Controller
 
             $inputs = $request->validated();
 
-            if (! Business::serviceVendor()->update($id, $inputs)) {
+            if (!business()->serviceVendor()->update($id, $inputs)) {
 
                 throw (new UpdateOperationException)->setModel(config('fintech.business.service_vendor_model'), $id);
             }

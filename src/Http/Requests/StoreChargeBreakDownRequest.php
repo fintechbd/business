@@ -2,7 +2,6 @@
 
 namespace Fintech\Business\Http\Requests;
 
-use Fintech\Business\Facades\Business;
 use Fintech\Core\Rules\ChargeHigherLimit;
 use Fintech\Core\Rules\ChargeLowerLimit;
 use Illuminate\Contracts\Validation\ValidationRule;
@@ -25,7 +24,7 @@ class StoreChargeBreakDownRequest extends FormRequest
      */
     public function rules(): array
     {
-        $serviceStat = Business::serviceStat()->find($this->input(['service_stat_id']));
+        $serviceStat = business()->serviceStat()->find($this->input(['service_stat_id']));
 
         $stat_lower_limit = floatval($serviceStat->service_stat_data['lower_limit']);
         $stat_higher_limit = floatval($serviceStat->service_stat_data['higher_limit']);

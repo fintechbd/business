@@ -3,7 +3,6 @@
 namespace Fintech\Business\Http\Controllers;
 
 use Exception;
-use Fintech\Business\Facades\Business;
 use Fintech\Business\Http\Requests\ImportServiceVendorRequest;
 use Fintech\Business\Http\Requests\IndexServiceVendorRequest;
 use Fintech\Business\Http\Requests\StoreServiceVendorRequest;
@@ -44,7 +43,7 @@ class ServiceVendorController extends Controller
         try {
             $inputs = $request->validated();
 
-            $serviceVendorPaginate = Business::serviceVendor()->list($inputs);
+            $serviceVendorPaginate = business()->serviceVendor()->list($inputs);
 
             return new ServiceVendorCollection($serviceVendorPaginate);
 
@@ -67,7 +66,7 @@ class ServiceVendorController extends Controller
         try {
             $inputs = $request->validated();
 
-            $serviceVendor = Business::serviceVendor()->create($inputs);
+            $serviceVendor = business()->serviceVendor()->create($inputs);
 
             if (! $serviceVendor) {
                 throw (new StoreOperationException)->setModel(config('fintech.business.service_vendor_model'));
@@ -96,7 +95,7 @@ class ServiceVendorController extends Controller
     {
         try {
 
-            $serviceVendor = Business::serviceVendor()->find($id);
+            $serviceVendor = business()->serviceVendor()->find($id);
 
             if (! $serviceVendor) {
                 throw (new ModelNotFoundException)->setModel(config('fintech.business.service_vendor_model'), $id);
@@ -123,7 +122,7 @@ class ServiceVendorController extends Controller
     {
         try {
 
-            $serviceVendor = Business::serviceVendor()->find($id);
+            $serviceVendor = business()->serviceVendor()->find($id);
 
             if (! $serviceVendor) {
                 throw (new ModelNotFoundException)->setModel(config('fintech.business.service_vendor_model'), $id);
@@ -131,7 +130,7 @@ class ServiceVendorController extends Controller
 
             $inputs = $request->validated();
 
-            if (! Business::serviceVendor()->update($id, $inputs)) {
+            if (!business()->serviceVendor()->update($id, $inputs)) {
 
                 throw (new UpdateOperationException)->setModel(config('fintech.business.service_vendor_model'), $id);
             }
@@ -159,13 +158,13 @@ class ServiceVendorController extends Controller
     {
         try {
 
-            $serviceVendor = Business::serviceVendor()->find($id);
+            $serviceVendor = business()->serviceVendor()->find($id);
 
             if (! $serviceVendor) {
                 throw (new ModelNotFoundException)->setModel(config('fintech.business.service_vendor_model'), $id);
             }
 
-            if (! Business::serviceVendor()->destroy($id)) {
+            if (!business()->serviceVendor()->destroy($id)) {
 
                 throw (new DeleteOperationException)->setModel(config('fintech.business.service_vendor_model'), $id);
             }
@@ -191,13 +190,13 @@ class ServiceVendorController extends Controller
     {
         try {
 
-            $serviceVendor = Business::serviceVendor()->find($id, true);
+            $serviceVendor = business()->serviceVendor()->find($id, true);
 
             if (! $serviceVendor) {
                 throw (new ModelNotFoundException)->setModel(config('fintech.business.service_vendor_model'), $id);
             }
 
-            if (! Business::serviceVendor()->restore($id)) {
+            if (!business()->serviceVendor()->restore($id)) {
 
                 throw (new RestoreOperationException)->setModel(config('fintech.business.service_vendor_model'), $id);
             }
@@ -222,7 +221,7 @@ class ServiceVendorController extends Controller
         try {
             $inputs = $request->validated();
 
-            $serviceVendorPaginate = Business::serviceVendor()->export($inputs);
+            $serviceVendorPaginate = business()->serviceVendor()->export($inputs);
 
             return response()->exported(__('core::messages.resource.exported', ['model' => 'Service Vendor']));
 
@@ -246,7 +245,7 @@ class ServiceVendorController extends Controller
         try {
             $inputs = $request->validated();
 
-            $serviceVendorPaginate = Business::serviceVendor()->list($inputs);
+            $serviceVendorPaginate = business()->serviceVendor()->list($inputs);
 
             return new ServiceVendorCollection($serviceVendorPaginate);
 
@@ -281,7 +280,7 @@ class ServiceVendorController extends Controller
                 unset($filters['attribute']);
             }
 
-            $entries = Business::serviceVendor()->list($filters)->map(function ($entry) use ($label, $attribute) {
+            $entries = business()->serviceVendor()->list($filters)->map(function ($entry) use ($label, $attribute) {
                 return [
                     'attribute' => $entry->{$attribute} ?? 'id',
                     'label' => $entry->{$label} ?? 'name',

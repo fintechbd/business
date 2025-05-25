@@ -2,7 +2,6 @@
 
 namespace Fintech\Business\Seeders;
 
-use Fintech\Business\Facades\Business;
 use Illuminate\Database\Seeder;
 
 class CurrencyRateSeeder extends Seeder
@@ -17,7 +16,7 @@ class CurrencyRateSeeder extends Seeder
         $this->loadCurrencyRates();
 
         foreach ($this->data($countries) as $entry) {
-            Business::currencyRate()->create($entry);
+            business()->currencyRate()->create($entry);
         }
     }
 
@@ -25,7 +24,7 @@ class CurrencyRateSeeder extends Seeder
     {
         $data = [];
 
-        $services = Business::service()->list();
+        $services = business()->service()->list();
 
         foreach ($services as $service) {
             foreach ($countries as $sourceCountry) {

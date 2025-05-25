@@ -2,10 +2,8 @@
 
 namespace Fintech\Business\Services;
 
-use Fintech\Business\Facades\Business;
 use Fintech\Business\Interfaces\CurrencyRateRepository;
 use Fintech\Business\Models\Service;
-use Fintech\Core\Supports\Currency;
 use Fintech\MetaData\Facades\MetaData;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use InvalidArgumentException;
@@ -88,7 +86,7 @@ JSON;
 
         $outputCountry = MetaData::country()->find($data['destination_country_id']);
 
-        $service = Business::service()->find($data['service_id']);
+        $service = business()->service()->find($data['service_id']);
 
         if (empty($service)) {
             throw (new ModelNotFoundException)->setModel(config('fintech.business.service_model', Service::class), $data['service_id']);

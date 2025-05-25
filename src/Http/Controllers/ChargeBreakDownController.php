@@ -3,7 +3,6 @@
 namespace Fintech\Business\Http\Controllers;
 
 use Exception;
-use Fintech\Business\Facades\Business;
 use Fintech\Business\Http\Requests\ImportChargeBreakDownRequest;
 use Fintech\Business\Http\Requests\IndexChargeBreakDownRequest;
 use Fintech\Business\Http\Requests\StoreChargeBreakDownRequest;
@@ -42,7 +41,7 @@ class ChargeBreakDownController extends Controller
         try {
             $inputs = $request->validated();
 
-            $chargeBreakDownPaginate = Business::chargeBreakDown()->list($inputs);
+            $chargeBreakDownPaginate = business()->chargeBreakDown()->list($inputs);
 
             return new ChargeBreakDownCollection($chargeBreakDownPaginate);
 
@@ -65,7 +64,7 @@ class ChargeBreakDownController extends Controller
         try {
             $inputs = $request->validated();
 
-            $chargeBreakDown = Business::chargeBreakDown()->create($inputs);
+            $chargeBreakDown = business()->chargeBreakDown()->create($inputs);
 
             if (! $chargeBreakDown) {
                 throw (new StoreOperationException)->setModel(config('fintech.business.charge_break_down_model'));
@@ -94,7 +93,7 @@ class ChargeBreakDownController extends Controller
     {
         try {
 
-            $chargeBreakDown = Business::chargeBreakDown()->find($id);
+            $chargeBreakDown = business()->chargeBreakDown()->find($id);
 
             if (! $chargeBreakDown) {
                 throw (new ModelNotFoundException)->setModel(config('fintech.business.charge_break_down_model'), $id);
@@ -121,7 +120,7 @@ class ChargeBreakDownController extends Controller
     {
         try {
 
-            $chargeBreakDown = Business::chargeBreakDown()->find($id);
+            $chargeBreakDown = business()->chargeBreakDown()->find($id);
 
             if (! $chargeBreakDown) {
                 throw (new ModelNotFoundException)->setModel(config('fintech.business.charge_break_down_model'), $id);
@@ -129,7 +128,7 @@ class ChargeBreakDownController extends Controller
 
             $inputs = $request->validated();
 
-            if (! Business::chargeBreakDown()->update($id, $inputs)) {
+            if (!business()->chargeBreakDown()->update($id, $inputs)) {
 
                 throw (new UpdateOperationException)->setModel(config('fintech.business.charge_break_down_model'), $id);
             }
@@ -157,13 +156,13 @@ class ChargeBreakDownController extends Controller
     {
         try {
 
-            $chargeBreakDown = Business::chargeBreakDown()->find($id);
+            $chargeBreakDown = business()->chargeBreakDown()->find($id);
 
             if (! $chargeBreakDown) {
                 throw (new ModelNotFoundException)->setModel(config('fintech.business.charge_break_down_model'), $id);
             }
 
-            if (! Business::chargeBreakDown()->destroy($id)) {
+            if (!business()->chargeBreakDown()->destroy($id)) {
 
                 throw (new DeleteOperationException)->setModel(config('fintech.business.charge_break_down_model'), $id);
             }
@@ -189,13 +188,13 @@ class ChargeBreakDownController extends Controller
     {
         try {
 
-            $chargeBreakDown = Business::chargeBreakDown()->find($id, true);
+            $chargeBreakDown = business()->chargeBreakDown()->find($id, true);
 
             if (! $chargeBreakDown) {
                 throw (new ModelNotFoundException)->setModel(config('fintech.business.charge_break_down_model'), $id);
             }
 
-            if (! Business::chargeBreakDown()->restore($id)) {
+            if (!business()->chargeBreakDown()->restore($id)) {
 
                 throw (new RestoreOperationException)->setModel(config('fintech.business.charge_break_down_model'), $id);
             }
@@ -220,7 +219,7 @@ class ChargeBreakDownController extends Controller
         try {
             $inputs = $request->validated();
 
-            $chargeBreakDownPaginate = Business::chargeBreakDown()->export($inputs);
+            $chargeBreakDownPaginate = business()->chargeBreakDown()->export($inputs);
 
             return response()->exported(__('core::messages.resource.exported', ['model' => 'Charge Break Down']));
 
@@ -244,7 +243,7 @@ class ChargeBreakDownController extends Controller
         try {
             $inputs = $request->validated();
 
-            $chargeBreakDownPaginate = Business::chargeBreakDown()->list($inputs);
+            $chargeBreakDownPaginate = business()->chargeBreakDown()->list($inputs);
 
             return new ChargeBreakDownCollection($chargeBreakDownPaginate);
 

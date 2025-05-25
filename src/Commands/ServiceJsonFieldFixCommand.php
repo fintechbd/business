@@ -2,7 +2,6 @@
 
 namespace Fintech\Business\Commands;
 
-use Fintech\Business\Facades\Business;
 use Fintech\Core\Traits\HasCoreSetting;
 use Illuminate\Console\Command;
 
@@ -21,7 +20,7 @@ class ServiceJsonFieldFixCommand extends Command
      */
     public function handle(): int
     {
-        $services = Business::service()->list();
+        $services = business()->service()->list();
 
         foreach ($services as $service) {
             $this->task("Fixing <fg=blue>{$service->service_name}</> service casting issue", function () use (&$service) {

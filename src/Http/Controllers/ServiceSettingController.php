@@ -3,7 +3,6 @@
 namespace Fintech\Business\Http\Controllers;
 
 use Exception;
-use Fintech\Business\Facades\Business;
 use Fintech\Business\Http\Requests\ImportServiceSettingRequest;
 use Fintech\Business\Http\Requests\IndexServiceSettingRequest;
 use Fintech\Business\Http\Requests\StoreServiceSettingRequest;
@@ -43,7 +42,7 @@ class ServiceSettingController extends Controller
         try {
             $inputs = $request->validated();
 
-            $serviceSettingPaginate = Business::serviceSetting()->list($inputs);
+            $serviceSettingPaginate = business()->serviceSetting()->list($inputs);
 
             return new ServiceSettingCollection($serviceSettingPaginate);
 
@@ -64,7 +63,7 @@ class ServiceSettingController extends Controller
         try {
             $inputs = $request->validated();
 
-            $serviceSetting = Business::serviceSetting()->create($inputs);
+            $serviceSetting = business()->serviceSetting()->create($inputs);
 
             if (! $serviceSetting) {
                 throw (new StoreOperationException)->setModel(config('fintech.business.service_setting_model'));
@@ -93,7 +92,7 @@ class ServiceSettingController extends Controller
     {
         try {
 
-            $serviceSetting = Business::serviceSetting()->find($id);
+            $serviceSetting = business()->serviceSetting()->find($id);
 
             if (! $serviceSetting) {
                 throw (new ModelNotFoundException)->setModel(config('fintech.business.service_setting_model'), $id);
@@ -117,7 +116,7 @@ class ServiceSettingController extends Controller
     {
         try {
 
-            $serviceSetting = Business::serviceSetting()->find($id);
+            $serviceSetting = business()->serviceSetting()->find($id);
 
             if (! $serviceSetting) {
                 throw (new ModelNotFoundException)->setModel(config('fintech.business.service_setting_model'), $id);
@@ -125,7 +124,7 @@ class ServiceSettingController extends Controller
 
             $inputs = $request->validated();
 
-            if (! Business::serviceSetting()->update($id, $inputs)) {
+            if (!business()->serviceSetting()->update($id, $inputs)) {
 
                 throw (new UpdateOperationException)->setModel(config('fintech.business.service_setting_model'), $id);
             }
@@ -148,13 +147,13 @@ class ServiceSettingController extends Controller
     {
         try {
 
-            $serviceSetting = Business::serviceSetting()->find($id);
+            $serviceSetting = business()->serviceSetting()->find($id);
 
             if (! $serviceSetting) {
                 throw (new ModelNotFoundException)->setModel(config('fintech.business.service_setting_model'), $id);
             }
 
-            if (! Business::serviceSetting()->destroy($id)) {
+            if (!business()->serviceSetting()->destroy($id)) {
 
                 throw (new DeleteOperationException)->setModel(config('fintech.business.service_setting_model'), $id);
             }
@@ -178,13 +177,13 @@ class ServiceSettingController extends Controller
     {
         try {
 
-            $serviceSetting = Business::serviceSetting()->find($id, true);
+            $serviceSetting = business()->serviceSetting()->find($id, true);
 
             if (! $serviceSetting) {
                 throw (new ModelNotFoundException)->setModel(config('fintech.business.service_setting_model'), $id);
             }
 
-            if (! Business::serviceSetting()->restore($id)) {
+            if (!business()->serviceSetting()->restore($id)) {
 
                 throw (new RestoreOperationException)->setModel(config('fintech.business.service_setting_model'), $id);
             }
@@ -209,8 +208,8 @@ class ServiceSettingController extends Controller
         try {
             $inputs = $request->validated();
 
-            // $serviceSettingPaginate = Business::serviceSetting()->export($inputs);
-            Business::serviceSetting()->export($inputs);
+            // $serviceSettingPaginate = business()->serviceSetting()->export($inputs);
+            business()->serviceSetting()->export($inputs);
 
             return response()->exported(__('core::messages.resource.exported', ['model' => 'Service Setting']));
 
@@ -232,7 +231,7 @@ class ServiceSettingController extends Controller
         try {
             $inputs = $request->validated();
 
-            $serviceSettingPaginate = Business::serviceSetting()->list($inputs);
+            $serviceSettingPaginate = business()->serviceSetting()->list($inputs);
 
             return new ServiceSettingCollection($serviceSettingPaginate);
 

@@ -4,11 +4,9 @@ namespace Fintech\Business\Supports;
 
 use Exception;
 use Fintech\Auth\Facades\Auth;
-use Fintech\Business\Facades\Business;
 use Fintech\Core\Abstracts\BaseModel;
 use Fintech\Core\Facades\Core;
 use Fintech\MetaData\Facades\MetaData;
-use Fintech\Transaction\Facades\Transaction;
 use Illuminate\Support\Str;
 
 class ServiceTypeGenerator
@@ -92,7 +90,7 @@ class ServiceTypeGenerator
         if ($parent instanceof BaseModel) {
             $this->parent = $parent;
         } elseif (is_string($parent) || is_int($parent)) {
-            if ($parent = Business::serviceType()->find($parent)) {
+            if ($parent = business()->serviceType()->find($parent)) {
                 $this->parent = $parent;
             }
         } else {
@@ -188,10 +186,10 @@ class ServiceTypeGenerator
         $attributes['service_type_step'] = $this->level;
         $attributes['enabled'] = $this->enabled;
 
-        if ($instance = Business::serviceType()->findWhere(['service_type_slug' => $attributes['service_type_slug']])) {
+        if ($instance = business()->serviceType()->findWhere(['service_type_slug' => $attributes['service_type_slug']])) {
             $this->instance = $instance;
         } else {
-            $this->instance = Business::serviceType()->create($attributes);
+            $this->instance = business()->serviceType()->create($attributes);
         }
     }
 
@@ -215,10 +213,10 @@ class ServiceTypeGenerator
             ...$this->serviceAttributes,
         ];
 
-        if ($instance = Business::service()->findWhere(['service_slug' => $attributes['service_slug']])) {
-            $this->serviceInstance = Business::service()->update($instance->getKey(), $attributes);
+        if ($instance = business()->service()->findWhere(['service_slug' => $attributes['service_slug']])) {
+            $this->serviceInstance = business()->service()->update($instance->getKey(), $attributes);
         } else {
-            $this->serviceInstance = Business::service()->create($attributes);
+            $this->serviceInstance = business()->service()->create($attributes);
         }
 
         $this->createOrUpdateServiceStat();
@@ -254,14 +252,14 @@ class ServiceTypeGenerator
                     'enabled' => $this->enabled,
                 ];
 
-                if (! Business::serviceStat()->list([
+                if (!business()->serviceStat()->list([
                     'role_id' => $serviceStat['role_id'],
                     'service_id' => $serviceStat['service_id'],
                     'source_country_id' => $serviceStat['source_country_id'],
                     'destination_country_id' => $serviceStat['destination_country_id'],
                     'service_vendor_id' => $serviceStat['service_vendor_id'],
                 ])->first()) {
-                    Business::serviceStat()->create($serviceStat);
+                    business()->serviceStat()->create($serviceStat);
                 }
             }
         }
@@ -269,8 +267,8 @@ class ServiceTypeGenerator
 
     private function createOrUpdateTransactionForm(): void
     {
-        if (Core::packageExists('Transaction') && ! Transaction::transactionForm()->findWhere(['code' => $this->instance->service_type_slug])) {
-            Transaction::transactionForm()->create([
+        if (Core::packageExists('Transaction') && !transaction()->transactionForm()->findWhere(['code' => $this->instance->service_type_slug])) {
+            transaction()->transactionForm()->create([
                 'name' => $this->instance->service_type_name,
                 'code' => $this->instance->service_type_slug,
                 'enabled' => $this->enabled,
@@ -281,7 +279,7 @@ class ServiceTypeGenerator
 
     private function injectDefaultServiceSettings(): array
     {
-        Business::serviceSetting()->list([
+        business()->serviceSetting()->list([
             'enabled' => true,
             'service_setting_field_name_not_in' => array_keys($this->serviceSettings),
             'service_setting_type' => 'service',

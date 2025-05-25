@@ -3,7 +3,6 @@
 namespace Fintech\Business\Http\Controllers;
 
 use Exception;
-use Fintech\Business\Facades\Business;
 use Fintech\Business\Http\Requests\ImportServiceTypeRequest;
 use Fintech\Business\Http\Requests\IndexServiceTypeRequest;
 use Fintech\Business\Http\Requests\StoreServiceTypeRequest;
@@ -44,7 +43,7 @@ class ServiceTypeController extends Controller
         try {
             $inputs = $request->validated();
 
-            $serviceTypePaginate = Business::serviceType()->list($inputs);
+            $serviceTypePaginate = business()->serviceType()->list($inputs);
 
             return new ServiceTypeCollection($serviceTypePaginate);
 
@@ -65,7 +64,7 @@ class ServiceTypeController extends Controller
         try {
             $inputs = $request->validated();
 
-            $serviceType = Business::serviceType()->create($inputs);
+            $serviceType = business()->serviceType()->create($inputs);
 
             if (! $serviceType) {
                 throw (new StoreOperationException)->setModel(config('fintech.business.service_type_model'));
@@ -94,7 +93,7 @@ class ServiceTypeController extends Controller
     {
         try {
 
-            $serviceType = Business::serviceType()->find($id);
+            $serviceType = business()->serviceType()->find($id);
 
             if (! $serviceType) {
                 throw (new ModelNotFoundException)->setModel(config('fintech.business.service_type_model'), $id);
@@ -118,7 +117,7 @@ class ServiceTypeController extends Controller
     {
         try {
 
-            $serviceType = Business::serviceType()->find($id);
+            $serviceType = business()->serviceType()->find($id);
 
             if (! $serviceType) {
                 throw (new ModelNotFoundException)->setModel(config('fintech.business.service_type_model'), $id);
@@ -126,7 +125,7 @@ class ServiceTypeController extends Controller
 
             $inputs = $request->validated();
 
-            if (! Business::serviceType()->update($id, $inputs)) {
+            if (!business()->serviceType()->update($id, $inputs)) {
 
                 throw (new UpdateOperationException)->setModel(config('fintech.business.service_type_model'), $id);
             }
@@ -149,13 +148,13 @@ class ServiceTypeController extends Controller
     {
         try {
 
-            $serviceType = Business::serviceType()->find($id);
+            $serviceType = business()->serviceType()->find($id);
 
             if (! $serviceType) {
                 throw (new ModelNotFoundException)->setModel(config('fintech.business.service_type_model'), $id);
             }
 
-            if (! Business::serviceType()->destroy($id)) {
+            if (!business()->serviceType()->destroy($id)) {
 
                 throw (new DeleteOperationException)->setModel(config('fintech.business.service_type_model'), $id);
             }
@@ -179,13 +178,13 @@ class ServiceTypeController extends Controller
     {
         try {
 
-            $serviceType = Business::serviceType()->find($id, true);
+            $serviceType = business()->serviceType()->find($id, true);
 
             if (! $serviceType) {
                 throw (new ModelNotFoundException)->setModel(config('fintech.business.service_type_model'), $id);
             }
 
-            if (! Business::serviceType()->restore($id)) {
+            if (!business()->serviceType()->restore($id)) {
 
                 throw (new RestoreOperationException)->setModel(config('fintech.business.service_type_model'), $id);
             }
@@ -210,8 +209,8 @@ class ServiceTypeController extends Controller
         try {
             $inputs = $request->validated();
 
-            // $serviceTypePaginate = Business::serviceType()->export($inputs);
-            Business::serviceType()->export($inputs);
+            // $serviceTypePaginate = business()->serviceType()->export($inputs);
+            business()->serviceType()->export($inputs);
 
             return response()->exported(__('core::messages.resource.exported', ['model' => 'Service Type']));
 
@@ -233,7 +232,7 @@ class ServiceTypeController extends Controller
         try {
             $inputs = $request->validated();
 
-            $serviceTypePaginate = Business::serviceType()->list($inputs);
+            $serviceTypePaginate = business()->serviceType()->list($inputs);
 
             return new ServiceTypeCollection($serviceTypePaginate);
 
@@ -272,7 +271,7 @@ class ServiceTypeController extends Controller
                 unset($filters['attribute']);
             }
 
-            $entries = Business::serviceType()->list($filters)->map(function ($entry) use ($label, $attribute) {
+            $entries = business()->serviceType()->list($filters)->map(function ($entry) use ($label, $attribute) {
                 return [
                     'attribute' => $entry->{$attribute} ?? 'id',
                     'label' => $entry->{$label} ?? 'service_type_name',

@@ -4,7 +4,6 @@ namespace Fintech\Business\Http\Controllers;
 
 use Exception;
 use Fintech\Auth\Facades\Auth;
-use Fintech\Business\Facades\Business;
 use Fintech\Business\Http\Requests\ImportServiceRequest;
 use Fintech\Business\Http\Requests\IndexServiceRequest;
 use Fintech\Business\Http\Requests\ServiceRateRequest;
@@ -47,7 +46,7 @@ class ServiceController extends Controller
         try {
             $inputs = $request->validated();
 
-            $servicePaginate = Business::service()->list($inputs);
+            $servicePaginate = business()->service()->list($inputs);
 
             return new ServiceCollection($servicePaginate);
 
@@ -68,7 +67,7 @@ class ServiceController extends Controller
         try {
             $inputs = $request->validated();
 
-            $service = Business::service()->create($inputs);
+            $service = business()->service()->create($inputs);
 
             if (! $service) {
                 throw (new StoreOperationException)->setModel(config('fintech.business.service_model'));
@@ -95,7 +94,7 @@ class ServiceController extends Controller
     {
         try {
 
-            $service = Business::service()->find($id);
+            $service = business()->service()->find($id);
 
             if (! $service) {
                 throw (new ModelNotFoundException)->setModel(config('fintech.business.service_model'), $id);
@@ -119,7 +118,7 @@ class ServiceController extends Controller
     {
         try {
 
-            $service = Business::service()->find($id);
+            $service = business()->service()->find($id);
 
             if (! $service) {
                 throw (new ModelNotFoundException)->setModel(config('fintech.business.service_model'), $id);
@@ -127,7 +126,7 @@ class ServiceController extends Controller
 
             $inputs = $request->validated();
 
-            if (! Business::service()->update($id, $inputs)) {
+            if (!business()->service()->update($id, $inputs)) {
 
                 throw (new UpdateOperationException)->setModel(config('fintech.business.service_model'), $id);
             }
@@ -150,13 +149,13 @@ class ServiceController extends Controller
     {
         try {
 
-            $service = Business::service()->find($id);
+            $service = business()->service()->find($id);
 
             if (! $service) {
                 throw (new ModelNotFoundException)->setModel(config('fintech.business.service_model'), $id);
             }
 
-            if (! Business::service()->destroy($id)) {
+            if (!business()->service()->destroy($id)) {
 
                 throw (new DeleteOperationException)->setModel(config('fintech.business.service_model'), $id);
             }
@@ -180,13 +179,13 @@ class ServiceController extends Controller
     {
         try {
 
-            $service = Business::service()->find($id, true);
+            $service = business()->service()->find($id, true);
 
             if (! $service) {
                 throw (new ModelNotFoundException)->setModel(config('fintech.business.service_model'), $id);
             }
 
-            if (! Business::service()->restore($id)) {
+            if (!business()->service()->restore($id)) {
 
                 throw (new RestoreOperationException)->setModel(config('fintech.business.service_model'), $id);
             }
@@ -211,8 +210,8 @@ class ServiceController extends Controller
         try {
             $inputs = $request->validated();
 
-            // $servicePaginate = Business::service()->export($inputs);
-            Business::service()->export($inputs);
+            // $servicePaginate = business()->service()->export($inputs);
+            business()->service()->export($inputs);
 
             return response()->exported(__('core::messages.resource.exported', ['model' => 'Service']));
 
@@ -234,7 +233,7 @@ class ServiceController extends Controller
         try {
             $inputs = $request->validated();
 
-            $servicePaginate = Business::service()->list($inputs);
+            $servicePaginate = business()->service()->list($inputs);
 
             return new ServiceCollection($servicePaginate);
 
@@ -258,7 +257,7 @@ class ServiceController extends Controller
                 $inputs['role_id'] = $user->roles->first()?->getKey() ?? null;
             }
 
-            $exchangeRate = Business::serviceStat()->cost($inputs);
+            $exchangeRate = business()->serviceStat()->cost($inputs);
 
             return new ServiceCostResource($exchangeRate);
 
@@ -293,7 +292,7 @@ class ServiceController extends Controller
                 unset($filters['attribute']);
             }
 
-            $entries = Business::service()->list($filters)->map(function ($entry) use ($label, $attribute) {
+            $entries = business()->service()->list($filters)->map(function ($entry) use ($label, $attribute) {
                 return [
                     'attribute' => $entry->{$attribute} ?? 'id',
                     'label' => $entry->{$label} ?? 'name',

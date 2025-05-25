@@ -2,7 +2,6 @@
 
 namespace Fintech\Business\Seeders;
 
-use Fintech\Business\Facades\Business;
 use Illuminate\Database\Seeder;
 
 class ServiceTypeSeeder extends Seeder
@@ -17,7 +16,7 @@ class ServiceTypeSeeder extends Seeder
         foreach (array_chunk($data, 200) as $block) {
             set_time_limit(2100);
             foreach ($block as $entry) {
-                Business::serviceType()->create($entry);
+                business()->serviceType()->create($entry);
             }
         }
     }
