@@ -36,6 +36,6 @@ class Business extends Facade
 {
     protected static function getFacadeAccessor()
     {
-        return \Fintech\Business\business()->class;
+        return \Fintech\Business\Business::class;
     }
 }
