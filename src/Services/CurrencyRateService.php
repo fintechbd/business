@@ -4,6 +4,7 @@ namespace Fintech\Business\Services;
 
 use Fintech\Business\Interfaces\CurrencyRateRepository;
 use Fintech\Business\Models\Service;
+use Fintech\Core\Traits\HasFindWhereSearch;
 use Fintech\MetaData\Facades\MetaData;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use InvalidArgumentException;
@@ -13,7 +14,7 @@ use InvalidArgumentException;
  */
 class CurrencyRateService
 {
-    use \Fintech\Core\Traits\HasFindWhereSearch;
+    use HasFindWhereSearch;
 
     /**
      * CurrencyRateService constructor.

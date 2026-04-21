@@ -3,6 +3,7 @@
 namespace Fintech\Business\Services;
 
 use Fintech\Business\Interfaces\ServicePackageRepository;
+use Fintech\Core\Traits\HasFindWhereSearch;
 use Illuminate\Contracts\Pagination\Paginator;
 use Illuminate\Support\Collection;
 
@@ -11,7 +12,7 @@ use Illuminate\Support\Collection;
  */
 class ServicePackageService
 {
-    use \Fintech\Core\Traits\HasFindWhereSearch;
+    use HasFindWhereSearch;
 
     /**
      * ServicePackageService constructor.

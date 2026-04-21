@@ -3,13 +3,14 @@
 namespace Fintech\Business\Services;
 
 use Fintech\Business\Interfaces\ChargeBreakDownRepository;
+use Fintech\Core\Traits\HasFindWhereSearch;
 
 /**
  * Class ChargeBreakDownService
  */
 class ChargeBreakDownService
 {
-    use \Fintech\Core\Traits\HasFindWhereSearch;
+    use HasFindWhereSearch;
 
     /**
      * ChargeBreakDownService constructor.

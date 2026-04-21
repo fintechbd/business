@@ -217,25 +217,25 @@ return [
     */
 
     'repositories' => [
-        \Fintech\Business\Interfaces\ServiceSettingRepository::class => ServiceSettingRepository::class,
+        Fintech\Business\Interfaces\ServiceSettingRepository::class => ServiceSettingRepository::class,
 
-        \Fintech\Business\Interfaces\ServiceTypeRepository::class => ServiceTypeRepository::class,
+        Fintech\Business\Interfaces\ServiceTypeRepository::class => ServiceTypeRepository::class,
 
-        \Fintech\Business\Interfaces\ServiceRepository::class => ServiceRepository::class,
+        Fintech\Business\Interfaces\ServiceRepository::class => ServiceRepository::class,
 
-        \Fintech\Business\Interfaces\ServiceStatRepository::class => ServiceStatRepository::class,
+        Fintech\Business\Interfaces\ServiceStatRepository::class => ServiceStatRepository::class,
 
-        \Fintech\Business\Interfaces\ServicePackageRepository::class => ServicePackageRepository::class,
+        Fintech\Business\Interfaces\ServicePackageRepository::class => ServicePackageRepository::class,
 
-        \Fintech\Business\Interfaces\ChargeBreakDownRepository::class => ChargeBreakDownRepository::class,
+        Fintech\Business\Interfaces\ChargeBreakDownRepository::class => ChargeBreakDownRepository::class,
 
-        \Fintech\Business\Interfaces\ServiceVendorRepository::class => ServiceVendorRepository::class,
+        Fintech\Business\Interfaces\ServiceVendorRepository::class => ServiceVendorRepository::class,
 
-        \Fintech\Business\Interfaces\PackageTopChartRepository::class => PackageTopChartRepository::class,
+        Fintech\Business\Interfaces\PackageTopChartRepository::class => PackageTopChartRepository::class,
 
-        \Fintech\Business\Interfaces\CurrencyRateRepository::class => CurrencyRateRepository::class,
+        Fintech\Business\Interfaces\CurrencyRateRepository::class => CurrencyRateRepository::class,
 
-        \Fintech\Business\Interfaces\ServiceFieldRepository::class => ServiceFieldRepository::class,
+        Fintech\Business\Interfaces\ServiceFieldRepository::class => ServiceFieldRepository::class,
 
         // ** Repository Binding Config Point Do not Remove **//
     ],

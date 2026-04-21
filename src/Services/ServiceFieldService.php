@@ -3,13 +3,14 @@
 namespace Fintech\Business\Services;
 
 use Fintech\Business\Interfaces\ServiceFieldRepository;
+use Fintech\Core\Traits\HasFindWhereSearch;
 
 /**
  * Class ServiceFieldService
  */
 class ServiceFieldService
 {
-    use \Fintech\Core\Traits\HasFindWhereSearch;
+    use HasFindWhereSearch;
 
     /**
      * ServiceFieldService constructor.

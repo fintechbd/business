@@ -4,6 +4,7 @@ namespace Fintech\Business\Services;
 
 use Fintech\Business\Interfaces\ServiceTypeRepository;
 use Fintech\Core\Abstracts\BaseModel;
+use Fintech\Core\Traits\HasFindWhereSearch;
 use Illuminate\Contracts\Pagination\Paginator;
 use Illuminate\Support\Collection;
 
@@ -12,7 +13,7 @@ use Illuminate\Support\Collection;
  */
 class ServiceTypeService
 {
-    use \Fintech\Core\Traits\HasFindWhereSearch;
+    use HasFindWhereSearch;
 
     /**
      * ServiceTypeService constructor.

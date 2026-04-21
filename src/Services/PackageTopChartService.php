@@ -3,13 +3,14 @@
 namespace Fintech\Business\Services;
 
 use Fintech\Business\Interfaces\PackageTopChartRepository;
+use Fintech\Core\Traits\HasFindWhereSearch;
 
 /**
  * Class PackageTopChartService
  */
 class PackageTopChartService
 {
-    use \Fintech\Core\Traits\HasFindWhereSearch;
+    use HasFindWhereSearch;
 
     /**
      * PackageTopChartService constructor.

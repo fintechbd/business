@@ -6,6 +6,7 @@ use Exception;
 use Fintech\Business\Exceptions\BusinessException;
 use Fintech\Business\Interfaces\ServiceStatRepository;
 use Fintech\Core\Abstracts\BaseModel;
+use Fintech\Core\Traits\HasFindWhereSearch;
 use Illuminate\Contracts\Pagination\Paginator;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Arr;
@@ -16,7 +17,7 @@ use Illuminate\Support\Collection;
  */
 class ServiceStatService
 {
-    use \Fintech\Core\Traits\HasFindWhereSearch;
+    use HasFindWhereSearch;
 
     /**
      * ServiceStatService constructor.
